@@ -48,20 +48,13 @@ EdyCard::EdyCard(void)
 
 TransactionList * EdyCard::ReadCard(void)
 {
-	TransactionList *list = new EdyTransaction;
-#if 0
-	if (list->ReadCsv(fp) < 0) {
-		delete list;
-		return NULL;
-	}
-	return list;
-#endif
+	return Card::ReadCard(new EdyTransactionList);
 }
 
 //
 // トランザクションリスト
 //
-Transaction *EdyTransaction::GenerateTransaction(int nrows, char **rows, int *err)
+Transaction *EdyTransactionList::GenerateTransaction(int nrows, char **rows, int *err)
 {
 #if 0
 	Transaction *trans = new Transaction;

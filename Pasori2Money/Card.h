@@ -51,6 +51,13 @@ class Card {
         inline void SetSFCPeepPath(AnsiString path) {
         	SFCPeepPath = path;
         }
+	inline TransactionList * Card::ReadCard(TransactionList *list) {
+		if (list->ReadData(SFCPeepPath) < 0) {
+			delete list;
+			return NULL;
+		} 
+		return list;
+	}
 
 	inline char *getIdent(void)	{ return Ident.c_str(); }
 	inline char *getCardName(void)	{ return CardName.c_str(); }

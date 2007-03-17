@@ -40,7 +40,7 @@ class EdyCard : public Card {
 	virtual TransactionList *ReadCard(void);
 };
 
-class EdyTransaction : public TransactionList
+class EdyTransactionList : public TransactionList
 {
     private:
 	virtual const char *Ident(void) { return ""; }

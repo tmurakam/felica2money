@@ -60,5 +60,3 @@ TransactionList * Cards::ReadCard(AnsiString SFCPeepPath, Card **matchcard)
 				"ƒGƒ‰[", MB_OK);
 	return NULL;
 }
-
-	
