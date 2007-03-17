@@ -40,7 +40,7 @@
 #include <Menus.hpp>
 #include <Dialogs.hpp>
 #include <Grids.hpp>
-#include "Account.h"
+#include "Card.h"
 
 //---------------------------------------------------------------------------
 class TMForm : public TForm
@@ -51,11 +51,9 @@ __published:	// IDE 管理のコンポーネント
 	TButton *ButtonQuit;
 	TButton *ButtonConfig;
 	void __fastcall ButtonConvertClick(TObject *Sender);
-	void __fastcall EditJNBAccountExit(TObject *Sender);
 	void __fastcall ButtonQuitClick(TObject *Sender);
 	void __fastcall FormShow(TObject *Sender);
 	void __fastcall ButtonHelpClick(TObject *Sender);
-	void __fastcall AcGridExit(TObject *Sender);
 private:
 	void SaveRegistry(void);
 	void LoadRegistry(void);

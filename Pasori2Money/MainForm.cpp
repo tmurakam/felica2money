@@ -37,11 +37,9 @@
 
 #include "MainForm.h"
 #include "Convert.h"
-#include "Account.h"
+#include "Card.h"
 
-//#include "JNB.h"
-//#include "SonyBank.h"
-//#include "Ebank.h"
+#include "Edy.h"
 
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
@@ -55,9 +53,7 @@ __fastcall TMForm::TMForm(TComponent* Owner)
 //---------------------------------------------------------------------------
 void __fastcall TMForm::FormShow(TObject *Sender)
 {
-	//accounts.AddAcount(new JNBAccount);
-	//accounts.AddAcount(new SBAccount);
-	//accounts.AddAcount(new EbankAccount);
+	cards.AddCard(new EdyCard);
 
 	LoadRegistry();
 }
@@ -71,15 +67,10 @@ void __fastcall TMForm::ButtonConvertClick(TObject *Sender)
 }
 
 //---------------------------------------------------------------------------
-void __fastcall TMForm::EditJNBAccountExit(TObject *Sender)
-{
-	SaveRegistry();
-}
-
-//---------------------------------------------------------------------------
 
 void __fastcall TMForm::ButtonQuitClick(TObject *Sender)
 {
+	SaveRegistry();
 	Application->Terminate();
 }
 //---------------------------------------------------------------------------
@@ -118,9 +109,4 @@ void __fastcall TMForm::ButtonHelpClick(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TMForm::AcGridExit(TObject *Sender)
-{
-	SaveRegistry();	
-}
-//---------------------------------------------------------------------------
 

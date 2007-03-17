@@ -42,7 +42,7 @@
 
 #include "MainForm.h"
 #include "Convert.h"
-#include "Account.h"
+#include "Card.h"
 #include "Transaction.h"
 
 static AnsiString dateStr(DateTime *dt)

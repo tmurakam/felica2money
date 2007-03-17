@@ -31,7 +31,7 @@
 #include <vcl.h>
 #pragma hdrstop
 
-#include "Account.h"
+#include "Card.h"
 
 Cards::Cards(void)
 {
