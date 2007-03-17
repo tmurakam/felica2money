@@ -1,0 +1,70 @@
+<html>
+<head>
+<title>FeliCa2Money</title>
+</head>
+<body>
+<h1>FeliCa2Money マニュアル</h1>
+
+<h2>はじめに</h2>
+
+このツールは、PaSoRi を使って Edy などの電子マネーの履歴を読み取り、
+Microsoft Money の電子明細(OFX形式ファイル)に変換するものです。
+
+<p>
+現バージョンでは、以下の電子マネーに対応しています。
+
+<ul>
+<li>Edy
+</ul>
+
+上記以外のものにはまだ対応していません。
+<p>
+
+<h2>必要環境</h2>
+
+<ul>
+<li>USB ポートを備えた Windows PC : たぶん Windows Vista, XP, 2000 あたりなら問題なく動作します
+<li>SONY 非接触 IC カードリーダー/ライター (PaSoRi)
+<li>PaSoRi 基本ソフトウェア
+<li>SFCPeep
+</ul>
+
+SFCPeep は <a href="http://www014.upp.so-net.ne.jp/SFCardFan/">http://www014.upp.so-net.ne.jp/SFCardFan/</a> からダウンロードしてインストールしておいてください。
+
+<h2>使用方法</h2>
+
+初回のみ、「設定」を押して SFCPeep.exe のファイルを指定する必要があります。
+デフォルトでは C:\Program Files\DENNO NET\SFCPeep\SFCPeep.exe にあります。
+
+<p>
+電子マネーを PaSoRi に置き、「取り込み」をクリックしてください。
+自動的に読み取り、電子明細の生成が行われ、Microsoft Money が立ち上がります。
+
+<h2>アンインストール</h2>
+
+アンインストーラはついていないので、そのままファイルを削除してください。
+<p>
+
+レジストリも削除する場合は、\HKEY_CURENT_USER\Software\Takuya Murakami\FeliCa2Money 以下を
+レジストリエディタで消してください。
+
+<h2>ライセンス</h2>
+
+Copyright (C) 2001-2007 Takuya Murakami, All RIghts Reserved.
+<p>
+
+ライセンスは GPL に準じます。付属の LICENSE.TXT を参照してください。
+<p>
+ソースコードは Subversion で取得できます。
+URL は http://svn.sourceforge.jp/svnroot/moneyimport/trunk/ です。
+<p>
+プロジェクトホームページは <a href="http://sourceforge.jp/projects/moneyimport/">http://sourceforge.jp/projects/moneyimport/</a> にあります。
+
+<h2>改版履歴</h2>
+
+<ul>
+<li>2007/03/17 : Version 0.1 初版
+</ul>
+
+</body>
+</html>
