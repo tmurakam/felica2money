@@ -102,7 +102,7 @@ void TMForm::SaveRegistry(void)
 //---------------------------------------------------------------------------
 void __fastcall TMForm::ButtonHelpClick(TObject *Sender)
 {
-	ShellExecute(NULL, "open", "pasori2money.html",
+	ShellExecute(NULL, "open", "FeliCa2Money.html",
         NULL, NULL, SW_SHOWDEFAULT);
 }
 //---------------------------------------------------------------------------
@@ -110,7 +110,8 @@ void __fastcall TMForm::ButtonHelpClick(TObject *Sender)
 
 void __fastcall TMForm::ButtonConfigClick(TObject *Sender)
 {
-	if (OpenDialog->Execute()) {
+	OpenDialog->FileName = SFCPeepPath;
+        if (OpenDialog->Execute()) {
         	SFCPeepPath = OpenDialog->FileName;
                 SaveRegistry();
         }	

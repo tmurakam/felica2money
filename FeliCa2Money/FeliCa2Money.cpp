@@ -27,8 +27,8 @@ WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
         try
         {
-                 Application->Initialize();
-                 Application->Title = "Pasori2Money";
+        	Application->Initialize();
+                Application->Title = "FeliCa2Money";
 		Application->CreateForm(__classid(TMForm), &MForm);
 		Application->Run();
         }
