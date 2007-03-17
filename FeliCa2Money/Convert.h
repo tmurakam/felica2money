@@ -1,5 +1,5 @@
 /*
- * Pasori2Money
+ * FeliCa2Money
  *
  * Copyright (C) 2001-2007 Takuya Murakami
  *
