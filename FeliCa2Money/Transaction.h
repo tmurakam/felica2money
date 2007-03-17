@@ -104,7 +104,9 @@ class TransactionList {
         AnsiString SFCPeepPath;
 
 	virtual const char *Ident(void) = 0;
-	virtual Transaction *GenerateTransaction(int nrows, char **rows, int *err) = 0;
+	virtual Transaction *GenerateTransaction(int nrows, AnsiString *rows, int *err) = 0;
+
+        char * TransactionList::getTabbedToken(char **pos);
 
     public:
 	inline TransactionList(void) { head = tail = 0; prev_key = serial = 0; }
@@ -112,6 +114,8 @@ class TransactionList {
 	int ParseLines(TStringList *lines, bool reverse = false);
 
 	int GenerateTransactionId(int key);
+
+ 	inline bool hasAnyTransaction(void) { return head ? true : false; }
 
 	inline Transaction *Tail(void) { return tail; }
 	inline Transaction *Head(void) { pos = head; return head; }

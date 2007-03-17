@@ -31,6 +31,7 @@
 #include "SfcPeep.h"
 
 #include "Edy.h"
+#include "Suica.h"
 
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
@@ -45,6 +46,8 @@ __fastcall TMForm::TMForm(TComponent* Owner)
 void __fastcall TMForm::FormShow(TObject *Sender)
 {
 	cards.AddCard(new EdyCard);
+        cards.AddCard(new SuicaCard);
+        
         SfcPeep = new SFCPeep;
 
 	LoadRegistry();
@@ -56,8 +59,8 @@ void __fastcall TMForm::ButtonConvertClick(TObject *Sender)
 	GetTempPath(sizeof(tmppath), tmppath);
 
         AnsiString t = tmppath;
-	AnsiString ofxfile = t + "Pasori2Money.ofx";
-        AnsiString tmpfile = t + "Pasori2Money.csv";
+	AnsiString ofxfile = t + "FeliCa2Money.ofx";
+        AnsiString tmpfile = t + "FeliCa2Money.csv";
 
         SfcPeep->SetSfcPeepPath(SFCPeepPath);
 	SfcPeep->SetTempFile(tmpfile);
@@ -78,7 +81,7 @@ void TMForm::LoadRegistry(void)
 	TRegistry *reg = new TRegistry();
 
 	reg->RootKey = HKEY_CURRENT_USER;
-	reg->OpenKey("\\Software\\Takuya Murakami\\Pasori2Money", true);
+	reg->OpenKey("\\Software\\Takuya Murakami\\FeliCa2Money", true);
 
 	SFCPeepPath = reg->ReadString("SFCPeepPath");
 	if (SFCPeepPath.IsEmpty()) {
@@ -94,7 +97,7 @@ void TMForm::SaveRegistry(void)
 	TRegistry *reg = new TRegistry();
 
 	reg->RootKey = HKEY_CURRENT_USER;
-	reg->OpenKey("\\Software\\Takuya Murakami\\Pasori2Money", true);
+	reg->OpenKey("\\Software\\Takuya Murakami\\FeliCa2Money", true);
 
 	reg->WriteString("SFCPeepPath", SFCPeepPath);
 }

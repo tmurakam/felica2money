@@ -15,7 +15,7 @@ public:
 	void SetSfcPeepPath(AnsiString path) { SFCPeepPath = path; }
 	void SetTempFile(AnsiString path)	{ TempFile = path; }
 
-	void Execute(AnsiString arg);
+	int Execute(AnsiString arg);
         TStringList * Lines(void) { return lines; }
 };
 

@@ -39,7 +39,7 @@ EdyCard::EdyCard(void)
 TransactionList * EdyCard::ReadCard(void)
 {
 	// Edy
-        SfcPeep->Execute("-e");
+        if (SfcPeep->Execute("-e") < 0) return NULL;
 
         // 一行目を確認
         TStringList *lines = SfcPeep->Lines();
@@ -68,7 +68,7 @@ TransactionList * EdyCard::ReadCard(void)
 //
 // トランザクションリスト
 //
-Transaction *EdyTransactionList::GenerateTransaction(int nrows, char **rows, int *err)
+Transaction *EdyTransactionList::GenerateTransaction(int nrows, AnsiString *rows, int *err)
 {
 	Transaction *trans = new Transaction;
 
@@ -84,20 +84,20 @@ Transaction *EdyTransactionList::GenerateTransaction(int nrows, char **rows, int
 	trans->date.minutes = date.SubString(19,2).ToInt();
 	trans->date.seconds = date.SubString(23,2).ToInt();
 
-	trans->id = atol(rows[4]);
+	trans->id = rows[4].ToInt();
 
 	AnsiString desc = rows[0];
         desc = desc.SubString(6, desc.Length() - 5);
 
         if (desc == "支払") {
         	trans->SetTransactionType(desc.c_str(), T_OUTGO);
-                trans->value = - atol(rows[2]);
+                trans->value = - rows[2].ToInt();
 	} else {
 		trans->SetTransactionType(desc.c_str(), T_INCOME);
-		trans->value = atol(rows[2]);
+		trans->value = rows[2].ToInt();
 	}
 	trans->desc = utf8(desc.c_str());
-	trans->balance = atol(rows[3]);
+	trans->balance = rows[3].ToInt();
 
 	return trans;
 }

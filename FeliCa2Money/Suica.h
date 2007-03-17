@@ -1,5 +1,5 @@
 /*
- * Pasori2Money
+ * FeliCa2Money
  *
  * Copyright (C) 2001-2007 Takuya Murakami
  *
@@ -18,23 +18,26 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef _EDY_H
-#define _EDY_H
+#ifndef _SUICA_H
+#define _SUICA_H
 
 #include "Transaction.h"
 
-class EdyCard : public Card {
+class SuicaCard : public Card {
     public:
-	EdyCard(void);
+	SuicaCard(void);
 	virtual TransactionList *ReadCard(void);
 };
 
-class EdyTransactionList : public TransactionList
+class SuicaTransactionList : public TransactionList
 {
     private:
 	virtual const char *Ident(void) { return ""; }
+	long prevBalance;
+        static const UndefBalance = -99999999;
 
     public:
+    	SuicaTransactionList(void) { prevBalance = UndefBalance; }
 	virtual Transaction *GenerateTransaction(int nrows, AnsiString *rows, int *err);
 };
 

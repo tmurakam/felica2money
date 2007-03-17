@@ -148,6 +148,10 @@ void Convert(AnsiString ofxfile, Cards *cards)
 	t = cards->ReadCard(&card);
 
         if (!t) return;
+        if (!t->hasAnyTransaction()) {
+        	Application->MessageBox("履歴が一件もありません", "エラー", MB_OK);
+		return;               
+        }
 
         // OFX ファイルを書き出す
 	FILE *fp = fopen(ofxfile.c_str(), "wb");

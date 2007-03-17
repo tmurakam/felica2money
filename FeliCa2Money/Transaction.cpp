@@ -84,13 +84,33 @@ TransactionList::~TransactionList()
 	}
 }
 
+// タブで区切られた token を取得する
+char * TransactionList::getTabbedToken(char **pos)
+{
+        char *ret = *pos;
+
+	if (*pos == NULL) {
+        	return NULL;	// no more token
+        }
+
+	char *nextpos = strchr(*pos, '\t');
+	if (nextpos) {
+                *nextpos = '\0';
+                *pos = nextpos + 1;
+        } else {
+        	*pos = NULL;	// no more token
+        }
+        return ret;
+
+}
+
 //
 // タブ区切りデータを処理する
 //
 int TransactionList::ParseLines(TStringList *lines, bool reverse)
 {
 	char buf[3000];
-	char *rows[30];
+	AnsiString rows[30];
 	int i;
         int start, incr, end, count, err;
 
@@ -108,11 +128,12 @@ int TransactionList::ParseLines(TStringList *lines, bool reverse)
                 strncpy(buf, lines->Strings[i].c_str(), sizeof(buf));
 
 		// タブ区切りを分解
-		int n = 0;
-		char *p = strtok(buf, "\t");
-		while (p && n < 30) {
-			rows[n++] = p;
-			p = strtok(NULL, "\t");
+                char *p;
+                char *pp = buf;
+
+                int n;
+                for (n= 0; (p = getTabbedToken(&pp)) != NULL; n++) {
+                	rows[n] = p;
 		}
 
 		Transaction *t = GenerateTransaction(n, rows, &err);
