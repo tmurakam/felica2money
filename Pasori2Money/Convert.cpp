@@ -57,7 +57,7 @@ static AnsiString dateStr(DateTime *dt)
 }
 
 static void
-WriteOfx(FILE *fp, TransactionList *list, Account *ac)
+WriteOfx(FILE *fp, TransactionList *list, Card *card)
 {
 	unsigned long idoffset;
 	Transaction *t, *last;
@@ -89,7 +89,7 @@ WriteOfx(FILE *fp, TransactionList *list, Account *ac)
 
 	fprintf(fp, "  <LANGUAGE>JPN\n");
 	fprintf(fp, "  <FI>\n");
-	fprintf(fp, "    <ORG>%s\n", ac->getIdent());
+	fprintf(fp, "    <ORG>%s\n", card->getIdent());
 	fprintf(fp, "  </FI>\n");
 	fprintf(fp, "</SONRS>\n");
 	fprintf(fp, "</SIGNONMSGSRSV1>\n");
@@ -109,9 +109,9 @@ WriteOfx(FILE *fp, TransactionList *list, Account *ac)
 	fprintf(fp, "  <CURDEF>JPY\n");
 
 	fprintf(fp, "  <BANKACCTFROM>\n");
-	fprintf(fp, "    <BANKID>%s\n", 	ac->getBankId());
-	fprintf(fp, "    <BRANCHID>%s\n", 	ac->getBranchId());
-	fprintf(fp, "    <ACCTID>%s\n", 		ac->getAccountId());
+	fprintf(fp, "    <BANKID>%s\n", 	card->getIdent());
+	fprintf(fp, "    <BRANCHID>%s\n", 	"000");
+	fprintf(fp, "    <ACCTID>%s\n", 	card->getCardId());
 	fprintf(fp, "    <ACCTTYPE>SAVINGS\n");
 	fprintf(fp, "  </BANKACCTFROM>\n");
 
@@ -150,30 +150,23 @@ WriteOfx(FILE *fp, TransactionList *list, Account *ac)
 	fprintf(fp, "</OFX>\n");
 }
 
-void Convert(AnsiString csvfile, AnsiString ofxfile, Accounts *acs)
+void Convert(AnsiString sfcpeeppath, AnsiString ofxfile, Cards *cards)
 {
 	TransactionList *t;
 
-	FILE *fp = fopen(csvfile.c_str(), "r");
-	if (!fp) {
-		Application->MessageBox("CSVファイルを開けません", "エラー", MB_OK);
-		return;
-	}
-
 	// CSV ファイルを読む
-	Account *ac;
-	t = acs->ReadFile(fp, &ac);
-	fclose(fp);
+	Card *card;
+	t = cards->ReadCard(sfcpeeppath, &card);
 
         if (!t) return;
 
         // OFX ファイルを書き出す
-	fp = fopen(ofxfile.c_str(), "wb");
+	FILE *fp = fopen(ofxfile.c_str(), "wb");
 	if (!fp) {
         	Application->MessageBox("OFXファイルを開けません", "エラー", MB_OK);
 		return;
        	}
-        WriteOfx(fp, t, ac);
+        WriteOfx(fp, t, card);
 	fclose(fp);
 
         // Money 起動	

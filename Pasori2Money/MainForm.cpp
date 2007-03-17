@@ -60,27 +60,16 @@ void __fastcall TMForm::FormShow(TObject *Sender)
 	//accounts.AddAcount(new EbankAccount);
 
 	LoadRegistry();
-
-	if (ParamCount() == 1) {
-		Convert(ParamStr(1));
-		Application->Terminate();
-	}
 }
 //---------------------------------------------------------------------------
 void __fastcall TMForm::ButtonConvertClick(TObject *Sender)
 {
-	if (OpenDialog->Execute()) {
-		Convert(OpenDialog->FileName);
-	}
-}
-//---------------------------------------------------------------------------
-void TMForm::Convert(AnsiString csvfile)
-{
 	AnsiString ofxfile = ExtractFilePath(Application->ExeName) +
 		"ImportMoney.ofx";
 
-	::Convert(csvfile, ofxfile, &accounts);
+	::Convert(SFCPeepPath, ofxfile, &cards);
 }
+
 //---------------------------------------------------------------------------
 void __fastcall TMForm::EditJNBAccountExit(TObject *Sender)
 {

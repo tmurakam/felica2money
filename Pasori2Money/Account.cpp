@@ -33,30 +33,30 @@
 
 #include "Account.h"
 
-Accounts::Accounts(void)
+Cards::Cards(void)
 {
-	num_acct = 0;
+	num_cards = 0;
 }
 
-void Accounts::AddAcount(Account *ac)
+void Cards::AddCard(Card *card)
 {
-	acct[num_acct] = ac;
-	num_acct++;
+	cards[num_cards] = card;
+	num_cards++;
 }       
 
-TransactionList * Accounts::ReadFile(FILE *fp, Account **matchacct)
+TransactionList * Cards::ReadCard(AnsiString SFCPeepPath, Card **matchcard)
 {
 	TransactionList *t;
 
-	for (int i=0; i<num_acct; i++) {
-		fseek(fp, 0, SEEK_SET);
-		t = acct[i]->ReadFile(fp);
+	for (int i=0; i<num_cards; i++) {
+        	cards[i]->SetSFCPeepPath(SFCPeepPath);
+		t = cards[i]->ReadCard();
 		if (t) {
-			*matchacct = acct[i];
+			*matchcard = cards[i];
 			return t;
 		}
 	}
-	Application->MessageBox("不明なCSVファイルタイプです",
+	Application->MessageBox("カードを読むことができませんでした",
 				"エラー", MB_OK);
 	return NULL;
 }

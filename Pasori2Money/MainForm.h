@@ -59,10 +59,9 @@ __published:	// IDE 管理のコンポーネント
 private:
 	void SaveRegistry(void);
 	void LoadRegistry(void);
-	void Convert(AnsiString csvfile);	// ユーザー宣言
 public:		// ユーザー宣言
 	__fastcall TMForm(TComponent* Owner);
-	Accounts accounts;
+	Cards cards;
  	AnsiString SFCPeepPath;
 };
 //---------------------------------------------------------------------------

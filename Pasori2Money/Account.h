@@ -29,46 +29,45 @@
  * $Id$
  */
 
-#ifndef	_ACCOUNT_H
-#define	_ACCOUNT_H
+#ifndef	_CARD_H
+#define	_CARD_H
 
 #include <stdio.h>
 #include "Convert.h"
 #include "Transaction.h"
 
-class Account {
+class Card {
     protected:
 	AnsiString	Ident;
-	AnsiString	BankName;
-	AnsiString	BankId;
-	AnsiString	BranchId;
-	AnsiString	AccountId;
+	AnsiString	CardName;
+	AnsiString	CardId;
+        AnsiString	SFCPeepPath;
 
     public:
-	virtual TransactionList *ReadFile(FILE *fp) = 0;
-	inline void SetAccount(AnsiString &b, AnsiString &a) {
-		BranchId = b;
-		AccountId = a;
+	virtual TransactionList *ReadCard(void) = 0;
+	inline void SetCardInfo(AnsiString &id) {
+        	CardId = id;
 	}
-	inline AnsiString getIdent(void) { return Ident; }
-	
-	inline char *getBankName(void)	{ return BankName.c_str(); }
-	inline char *getBankId(void)    { return BankId.c_str(); }
-	inline char *getBranchId(void)  { return BranchId.c_str(); }
-	inline char *getAccountId(void) { return AccountId.c_str(); }
+        inline void SetSFCPeepPath(AnsiString path) {
+        	SFCPeepPath = path;
+        }
+
+	inline char *getIdent(void)	{ return Ident.c_str(); }
+	inline char *getCardName(void)	{ return CardName.c_str(); }
+	inline char *getCardId(void)    { return CardId.c_str(); }
 };
 
-class Accounts {
+class Cards {
     protected:
-	Account	*acct[10];
-	int num_acct;
+	Card	*cards[10];
+	int num_cards;
 
     public:
-	Accounts(void);
-	void AddAcount(Account *ac);
-	inline int NumAccount(void) { return num_acct; }
-	inline Account *GetAccount(int n) { return acct[n]; }
-	TransactionList * ReadFile(FILE *fp, Account **match);
+	Cards(void);
+	void AddCard(Card *card);
+	inline int NumCards(void) { return num_cards; }
+	inline Card *GetCard(int n) { return cards[n]; }
+	TransactionList * ReadCard(AnsiString SFCPeepPath, Card **match);
 };
 
-#endif	// _ACCOUNT_H
+#endif	// _CARD_H

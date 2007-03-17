@@ -87,9 +87,9 @@ extern AnsiString utf8(char *sjis);
 
 #endif
 
-class Accounts;
-extern void Convert(AnsiString csvfile, AnsiString ofxfile,
-	Accounts *acs);
+class Cards;
+extern void Convert(AnsiString SFCPeepPath, AnsiString ofxfile,
+	Cards *cards);
 
 #endif	// _CONVERT_H
 
