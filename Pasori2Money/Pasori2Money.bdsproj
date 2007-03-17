@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
-  <PersonalityInfo>
-    <Option>
-      <Option Name="Personality">CPlusPlusBuilder.Personality</Option>
-      <Option Name="ProjectType">CppVCLApplication</Option>
-      <Option Name="Version">1.0</Option>
-      <Option Name="GUID">{C8400691-8446-4EF6-BAE8-D698F78550B9}</Option>
-    </Option>
-  </PersonalityInfo>
-  <CPlusPlusBuilder.Personality>
-    <BCBPROJECT>
+	<PersonalityInfo>
+		<Option>
+			<Option Name="Personality">CPlusPlusBuilder.Personality</Option>
+			<Option Name="ProjectType">CppVCLApplication</Option>
+			<Option Name="Version">1.0</Option>
+			<Option Name="GUID">{C8400691-8446-4EF6-BAE8-D698F78550B9}</Option>
+		</Option>
+	</PersonalityInfo>
+	<CPlusPlusBuilder.Personality>
+		<BCBPROJECT>
       <project version="10.0">
         <property category="build.config" name="active" value="0"/>
         <property category="build.config" name="count" value="1"/>
@@ -25,7 +25,8 @@
         <property category="build.config.1" name="settings.win32b" value="default"/>
         <property category="build.config.1" name="type" value="Toolset"/>
         <property category="build.config.1" name="win32.win32b.builddir" value="Release_Build"/>
-        <property category="build.node" name="name" value="MoneyImport.exe"/>
+        <property category="build.node" name="libraries" value="vcl.lib rtl.lib"/>
+        <property category="build.node" name="name" value="Pasori2Money.exe"/>
         <property category="build.node" name="packages" value="rtl;vcl;vclx;bcbsmp;dbrtl;vcldb;bdertl;ibsmp;vcldbx;teeui;teedb;tee;ibxpress;bcbie;vclie;inetdb;inet;bcboffice2k"/>
         <property category="build.node" name="sparelibs" value="rtl.lib vcl.lib"/>
         <property category="build.node" name="use_packages" value="0"/>
@@ -153,8 +154,8 @@
         </optionset>
       </project>
       <FILELIST>
-        <FILE FILENAME="MoneyImport.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="MoneyImport" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="MoneyImport.res" CONTAINERID="ResTool" LOCALCOMMAND="" UNITNAME="MoneyImport" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="Pasori2Money.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="Pasori2Money" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="Pasori2Money.res" CONTAINERID="ResTool" LOCALCOMMAND="" UNITNAME="Pasori2Money" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="MainForm.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="MainForm" FORMNAME="MForm" DESIGNCLASS="" ADDITIONAL="MainForm.h"/>
         <FILE FILENAME="Convert.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="Convert" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="JNB.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="JNB" FORMNAME="" DESIGNCLASS=""/>
@@ -181,13 +182,13 @@
         </VersionInfo>
         <VersionInfoKeys>
           <VersionInfoKeys Name="CompanyName">Takuya Murakami</VersionInfoKeys>
-          <VersionInfoKeys Name="FileDescription">MoneyImport</VersionInfoKeys>
+          <VersionInfoKeys Name="FileDescription">Pasori2Money</VersionInfoKeys>
           <VersionInfoKeys Name="FileVersion">1.0.0.0</VersionInfoKeys>
           <VersionInfoKeys Name="InternalName"></VersionInfoKeys>
           <VersionInfoKeys Name="LegalCopyright">Copyright (C) 2001, Takuya Murakami</VersionInfoKeys>
           <VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys>
-          <VersionInfoKeys Name="OriginalFilename">MoneyImport.exe</VersionInfoKeys>
-          <VersionInfoKeys Name="ProductName">MoneyImport</VersionInfoKeys>
+          <VersionInfoKeys Name="OriginalFilename">Pasori2Money.exe</VersionInfoKeys>
+          <VersionInfoKeys Name="ProductName">Pasori2Money</VersionInfoKeys>
           <VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys>
           <VersionInfoKeys Name="Comments"></VersionInfoKeys>
         </VersionInfoKeys>
@@ -239,8 +240,8 @@
         </Linker>
       </IDEOPTIONS>
     </BCBPROJECT>
-    <Source>
-      <Source Name="MainSource">MoneyImport.cpp</Source>
-    </Source>
+		<Source>
+			<Source Name="MainSource">Pasori2Money.cpp</Source>
+		</Source>  <buildevents/>
   </CPlusPlusBuilder.Personality>
 </BorlandProject>
