@@ -40,6 +40,9 @@ __published:	// IDE 管理のコンポーネント
 	TButton *ButtonQuit;
 	TButton *ButtonConfig;
 	TButton *ButtonHelp;
+	TLabel *Label1;
+	TLabel *Label2;
+	TLabel *Label3;
 	void __fastcall ButtonConvertClick(TObject *Sender);
 	void __fastcall ButtonQuitClick(TObject *Sender);
 	void __fastcall FormShow(TObject *Sender);
