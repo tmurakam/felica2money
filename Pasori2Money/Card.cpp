@@ -44,12 +44,11 @@ void Cards::AddCard(Card *card)
 	num_cards++;
 }       
 
-TransactionList * Cards::ReadCard(AnsiString SFCPeepPath, Card **matchcard)
+TransactionList * Cards::ReadCard(Card **matchcard)
 {
 	TransactionList *t;
 
 	for (int i=0; i<num_cards; i++) {
-        	cards[i]->SetSFCPeepPath(SFCPeepPath);
 		t = cards[i]->ReadCard();
 		if (t) {
 			*matchcard = cards[i];

@@ -41,22 +41,11 @@ class Card {
 	AnsiString	Ident;
 	AnsiString	CardName;
 	AnsiString	CardId;
-        AnsiString	SFCPeepPath;
 
     public:
 	virtual TransactionList *ReadCard(void) = 0;
-	inline void SetCardInfo(AnsiString &id) {
+	inline void SetCardId(AnsiString &id) {
         	CardId = id;
-	}
-        inline void SetSFCPeepPath(AnsiString path) {
-        	SFCPeepPath = path;
-        }
-	inline TransactionList * Card::ReadCard(TransactionList *list) {
-		if (list->ReadData(SFCPeepPath) < 0) {
-			delete list;
-			return NULL;
-		} 
-		return list;
 	}
 
 	inline char *getIdent(void)	{ return Ident.c_str(); }
@@ -74,7 +63,7 @@ class Cards {
 	void AddCard(Card *card);
 	inline int NumCards(void) { return num_cards; }
 	inline Card *GetCard(int n) { return cards[n]; }
-	TransactionList * ReadCard(AnsiString SFCPeepPath, Card **match);
+	TransactionList * ReadCard(Card **match);
 };
 
 #endif	// _CARD_H

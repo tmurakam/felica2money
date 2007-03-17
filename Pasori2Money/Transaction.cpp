@@ -82,32 +82,6 @@ const char *Transaction::GetTrnTypeStr(void)
 	return trnname[type];
 }
 
-// CSV のカンマ区切りを分割する
-static int SplitLine(char *line, char **rows)
-{
-	int quoted = 0;
-	int n = 0;
-	char *p;
-
-	rows[0] = line;
-	for (p = line; *p; p++) {
-		if (*p == '"') {
-			quoted = !quoted;
-			*p = '\0';
-
-			if (quoted) {
-				rows[n] = p + 1;
-			}
-		}
-		else if (*p == ',' && !quoted) {
-			*p = '\0';
-			n++;
-			rows[n] = p + 1;
-		}
-	}
-	return n+1;
-}
-
 TransactionList::~TransactionList()
 {
 	Transaction *next;
@@ -121,32 +95,29 @@ TransactionList::~TransactionList()
 }
 
 //
-// CSV ファイルを読み込む
+// タブ区切りデータを処理する
 //
-int TransactionList::ReadCsv(FILE *fp)
+int TransactionList::ParseLines(TStringList *lines)
 {
-	char buf[300];
+	char buf[3000];
 	char *rows[30];
+	int i;
+        int count, err;
 
-	Transaction *t;
-	int err;
+	count = lines->Count;
 
-	// IDENT を調べる
-	if (fgets(buf, sizeof(buf), fp) == NULL) {
-		return -1;	// fatal error;
-	}
-	if (strncmp(buf, Ident(), strlen(Ident())) != 0) {
-		return -1;	// IDENT 不一致
-	}
+	for (i = 0; i <= count; i++) {
+                strncpy(buf, lines->Strings[i].c_str(), sizeof(buf));
 
-	while (fgets(buf, sizeof(buf), fp) != NULL) {
+		// タブ区切りを分解
+		int n = 0;
+		char *p = strtok(buf, "\t");
+		while (p && n < 30) {
+			rows[n++] = p;
+			p = strtok(NULL, "\t");
+		}
 
-		// 改行を削除する
-		buf[ strlen(buf) - 1] = '\0';
-
-		int n = SplitLine(buf, rows);
-
-		t = GenerateTransaction(n, rows, &err);
+		Transaction *t = GenerateTransaction(n, rows, &err);
 		if (!t) {
 			if (err) return -1;	// fatal error
 			continue;

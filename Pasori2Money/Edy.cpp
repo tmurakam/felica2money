@@ -34,6 +34,7 @@
 #include <stdio.h>
 #include "Card.h"
 #include "Transaction.h"
+#include "SfcPeep.h"
 #include "Edy.h"
 
 //
@@ -48,7 +49,31 @@ EdyCard::EdyCard(void)
 
 TransactionList * EdyCard::ReadCard(void)
 {
-	return Card::ReadCard(new EdyTransactionList);
+	// Edy
+        SfcPeep->Execute("-e");
+
+        // ˆês–Ú‚ğŠm”F
+        TStringList *lines = SfcPeep->Lines();
+ 	if (lines->Count < 1) {
+        	// no data
+                return NULL;
+        }
+        AnsiString head = lines->Strings[0];
+        lines->Delete(0);
+
+        if (head.SubString(1,4) != "EDY:") {
+        	return NULL;
+       	}
+        CardId = head.SubString(5, head.Length() - 4);
+
+	// transaction list ‚ğ¶¬
+	TransactionList *list = new EdyTransactionList;
+
+	if (list->ParseLines(lines) < 0) {
+		delete list;
+		return NULL;
+	}
+	return list;
 }
 
 //

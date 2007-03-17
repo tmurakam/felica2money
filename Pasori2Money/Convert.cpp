@@ -150,13 +150,13 @@ WriteOfx(FILE *fp, TransactionList *list, Card *card)
 	fprintf(fp, "</OFX>\n");
 }
 
-void Convert(AnsiString sfcpeeppath, AnsiString ofxfile, Cards *cards)
+void Convert(AnsiString ofxfile, Cards *cards)
 {
 	TransactionList *t;
 
 	// CSV ƒtƒ@ƒCƒ‹‚ð“Ç‚Þ
 	Card *card;
-	t = cards->ReadCard(sfcpeeppath, &card);
+	t = cards->ReadCard(&card);
 
         if (!t) return;
 

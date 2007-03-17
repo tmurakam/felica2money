@@ -38,6 +38,7 @@
 #include "MainForm.h"
 #include "Convert.h"
 #include "Card.h"
+#include "SfcPeep.h"
 
 #include "Edy.h"
 
@@ -54,6 +55,7 @@ __fastcall TMForm::TMForm(TComponent* Owner)
 void __fastcall TMForm::FormShow(TObject *Sender)
 {
 	cards.AddCard(new EdyCard);
+        SfcPeep = new SFCPeep;
 
 	LoadRegistry();
 }
@@ -62,8 +64,13 @@ void __fastcall TMForm::ButtonConvertClick(TObject *Sender)
 {
 	AnsiString ofxfile = ExtractFilePath(Application->ExeName) +
 		"ImportMoney.ofx";
+        AnsiString tmpfile = ExtractFilePath(Application->ExeName) +
+        	"temp.csv";
 
-	::Convert(SFCPeepPath, ofxfile, &cards);
+        SfcPeep->SetSfcPeepPath(SFCPeepPath);
+	SfcPeep->SetTempFile(tmpfile);
+        
+	::Convert(ofxfile, &cards);
 }
 
 //---------------------------------------------------------------------------

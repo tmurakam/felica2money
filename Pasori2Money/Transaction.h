@@ -107,10 +107,12 @@ class Transaction {
 // トランザクション管理クラス
 //   pure virtual なクラス。各銀行毎に派生させて使用する。
 //
+class Card;
 class TransactionList {
     private:
 	Transaction	*head, *tail, *pos;
 	int prev_key, serial;
+        AnsiString SFCPeepPath;
 
 	virtual const char *Ident(void) = 0;
 	virtual Transaction *GenerateTransaction(int nrows, char **rows, int *err) = 0;
@@ -118,7 +120,7 @@ class TransactionList {
     public:
 	inline TransactionList(void) { head = tail = 0; prev_key = serial = 0; }
 	~TransactionList();
-	int ReadCsv(FILE *fp);
+	int ParseLines(TStringList *lines);
 
 	int GenerateTransactionId(int key);
 
