@@ -62,10 +62,12 @@ void __fastcall TMForm::FormShow(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TMForm::ButtonConvertClick(TObject *Sender)
 {
-	AnsiString ofxfile = ExtractFilePath(Application->ExeName) +
-		"Pasori2Money.ofx";
-        AnsiString tmpfile = ExtractFilePath(Application->ExeName) +
-        	"Pasori2Money.csv";
+	char tmppath[1024];
+	GetTempPath(sizeof(tmppath), tmppath);
+
+        AnsiString t = tmppath;
+	AnsiString ofxfile = t + "Pasori2Money.ofx";
+        AnsiString tmpfile = t + "Pasori2Money.csv";
 
         SfcPeep->SetSfcPeepPath(SFCPeepPath);
 	SfcPeep->SetTempFile(tmpfile);
