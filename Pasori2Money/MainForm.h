@@ -54,6 +54,7 @@ __published:	// IDE 管理のコンポーネント
 	void __fastcall ButtonQuitClick(TObject *Sender);
 	void __fastcall FormShow(TObject *Sender);
 	void __fastcall ButtonHelpClick(TObject *Sender);
+	void __fastcall ButtonConfigClick(TObject *Sender);
 private:
 	void SaveRegistry(void);
 	void LoadRegistry(void);

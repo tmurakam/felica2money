@@ -63,9 +63,9 @@ void __fastcall TMForm::FormShow(TObject *Sender)
 void __fastcall TMForm::ButtonConvertClick(TObject *Sender)
 {
 	AnsiString ofxfile = ExtractFilePath(Application->ExeName) +
-		"ImportMoney.ofx";
+		"Pasori2Money.ofx";
         AnsiString tmpfile = ExtractFilePath(Application->ExeName) +
-        	"temp.csv";
+        	"Pasori2Money.csv";
 
         SfcPeep->SetSfcPeepPath(SFCPeepPath);
 	SfcPeep->SetTempFile(tmpfile);
@@ -77,7 +77,6 @@ void __fastcall TMForm::ButtonConvertClick(TObject *Sender)
 
 void __fastcall TMForm::ButtonQuitClick(TObject *Sender)
 {
-	SaveRegistry();
 	Application->Terminate();
 }
 //---------------------------------------------------------------------------
@@ -111,9 +110,18 @@ void TMForm::SaveRegistry(void)
 //---------------------------------------------------------------------------
 void __fastcall TMForm::ButtonHelpClick(TObject *Sender)
 {
-	ShellExecute(NULL, "open", "MoneyImport.chm",
+	ShellExecute(NULL, "open", "pasori2money.html",
         NULL, NULL, SW_SHOWDEFAULT);
 }
 //---------------------------------------------------------------------------
 
+
+void __fastcall TMForm::ButtonConfigClick(TObject *Sender)
+{
+	if (OpenDialog->Execute()) {
+        	SFCPeepPath = OpenDialog->FileName;
+                SaveRegistry();
+        }	
+}
+//---------------------------------------------------------------------------
 

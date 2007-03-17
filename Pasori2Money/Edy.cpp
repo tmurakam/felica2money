@@ -69,7 +69,7 @@ TransactionList * EdyCard::ReadCard(void)
 	// transaction list ‚ğ¶¬
 	TransactionList *list = new EdyTransactionList;
 
-	if (list->ParseLines(lines) < 0) {
+	if (list->ParseLines(lines, true) < 0) {
 		delete list;
 		return NULL;
 	}
@@ -81,30 +81,34 @@ TransactionList * EdyCard::ReadCard(void)
 //
 Transaction *EdyTransactionList::GenerateTransaction(int nrows, char **rows, int *err)
 {
-#if 0
 	Transaction *trans = new Transaction;
 
-	/* "‘€ì“ú(”N)","‘€ì“ú(Œ)","‘€ì“ú(“ú)","æˆø‡”Ô†",
-	   "“E—v",  "‚¨x•¥‹àŠz","‚¨—a‚è‹àŠz","c‚" */
-	trans->date.year  = atoi(rows[0]);
-	trans->date.month = atoi(rows[1]);
-	trans->date.date  = atoi(rows[2]);
+       	// 0:ˆ—,1:“ú•t,2:¡‰ñæˆøŠz,3:ƒ`ƒƒ[ƒWc‚, 4:æˆø˜A”Ô
+        // ET00:Á¬°¼Ş	2007”N03Œ14“ú2308•ª16•b	24000	49428	59
 
-	trans->date.hour = 0;
-	trans->date.minutes = 0;
-	trans->date.seconds = 0;
+	AnsiString date = rows[1];
+        trans->date.year  = date.SubString(1, 4).ToInt();
+  	trans->date.month = date.SubString(7, 2).ToInt();
+  	trans->date.date  = date.SubString(11, 2).ToInt();
 
-	trans->id = atol(rows[3]);
-	if (strcmp(rows[5], "") != 0) {
-		trans->SetTransactionType(rows[4], T_OUTGO);
-		trans->value = - atol(rows[5]);
+	trans->date.hour    = date.SubString(15,2).ToInt();
+	trans->date.minutes = date.SubString(19,2).ToInt();
+	trans->date.seconds = date.SubString(23,2).ToInt();
+
+	trans->id = atol(rows[4]);
+
+	AnsiString desc = rows[0];
+        desc = desc.SubString(6, desc.Length() - 5);
+
+        if (desc == "x•¥") {
+        	trans->SetTransactionType(desc.c_str(), T_OUTGO);
+                trans->value = - atol(rows[2]);
 	} else {
-		trans->SetTransactionType(rows[4], T_INCOME);
-		trans->value = atol(rows[6]);
+		trans->SetTransactionType(desc.c_str(), T_INCOME);
+		trans->value = atol(rows[2]);
 	}
-	trans->desc = utf8(rows[4]);
-	trans->balance = atol(rows[7]);
+	trans->desc = utf8(desc.c_str());
+	trans->balance = atol(rows[3]);
 
 	return trans;
-#endif
 }

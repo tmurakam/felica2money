@@ -120,17 +120,17 @@ class TransactionList {
     public:
 	inline TransactionList(void) { head = tail = 0; prev_key = serial = 0; }
 	~TransactionList();
-	int ParseLines(TStringList *lines);
+	int ParseLines(TStringList *lines, bool reverse = false);
 
 	int GenerateTransactionId(int key);
 
 	inline Transaction *Tail(void) { return tail; }
 	inline Transaction *Head(void) { pos = head; return head; }
 	inline Transaction *Next(void) {
-                if (pos == NULL) return NULL;
-		Transaction *r = pos;
-		pos = pos->next;
-		return r;
+                if (pos != NULL) {
+                	pos = pos->next;
+                }
+		return pos;
 	}
 };
 

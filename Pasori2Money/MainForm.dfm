@@ -46,9 +46,10 @@ object MForm: TMForm
     Height = 25
     Caption = #35373#23450
     TabOrder = 2
+    OnClick = ButtonConfigClick
   end
   object OpenDialog: TOpenDialog
-    Filter = 'CSV Files (*.csv)|*.csv|All Files (*.*)|*.*'
+    Filter = 'SFCPeep |SFCPeep.exe'
     Left = 336
     Top = 16
   end

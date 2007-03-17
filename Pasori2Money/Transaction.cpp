@@ -40,6 +40,7 @@
 struct trntable trntable_income[] = {
 	{"利息", T_INT},
 	{"振込 ", T_DIRECTDEP},
+        {"ﾁｬｰｼﾞ", T_DIRECTDEP},
 	{NULL, T_DEP}
 };
 
@@ -97,16 +98,24 @@ TransactionList::~TransactionList()
 //
 // タブ区切りデータを処理する
 //
-int TransactionList::ParseLines(TStringList *lines)
+int TransactionList::ParseLines(TStringList *lines, bool reverse)
 {
 	char buf[3000];
 	char *rows[30];
 	int i;
-        int count, err;
+        int start, incr, end, count, err;
 
 	count = lines->Count;
-
-	for (i = 0; i <= count; i++) {
+	if (reverse) {
+                start = count - 1;
+ 		end = -1;
+                incr = -1;
+        } else {
+        	start = 0;
+        	end = count;
+        	incr = 1;
+        }
+	for (i = start; i != end; i += incr) {
                 strncpy(buf, lines->Strings[i].c_str(), sizeof(buf));
 
 		// タブ区切りを分解
@@ -155,8 +164,8 @@ int TransactionList::GenerateTransactionId(int key)
 // SJIS->UTF8
 AnsiString utf8(char *sjis)
 {
-	wchar_t wbuf[150];
-	char buf[300];
+	wchar_t wbuf[1500];
+	char buf[3000];
         AnsiString utf8;
 
         MultiByteToWideChar(CP_OEMCP, 0, sjis, -1,
