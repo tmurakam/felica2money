@@ -76,8 +76,8 @@ extern AnsiString utf8(char *sjis);
 
 #endif
 
-class Cards;
-extern void Convert(AnsiString ofxfile, Cards *cards);
+class Card;
+extern void Convert(AnsiString ofxfile, Card *card);
 
 #endif	// _CONVERT_H
 

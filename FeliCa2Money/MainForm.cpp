@@ -45,15 +45,12 @@ __fastcall TMForm::TMForm(TComponent* Owner)
 //---------------------------------------------------------------------------
 void __fastcall TMForm::FormShow(TObject *Sender)
 {
-	cards.AddCard(new EdyCard);
-        cards.AddCard(new SuicaCard);
-        
         SfcPeep = new SFCPeep;
 
 	LoadRegistry();
 }
 //---------------------------------------------------------------------------
-void __fastcall TMForm::ButtonConvertClick(TObject *Sender)
+void TMForm::doConvert(Card *card)
 {
 	char tmppath[1024];
 	GetTempPath(sizeof(tmppath), tmppath);
@@ -65,11 +62,20 @@ void __fastcall TMForm::ButtonConvertClick(TObject *Sender)
         SfcPeep->SetSfcPeepPath(SFCPeepPath);
 	SfcPeep->SetTempFile(tmpfile);
         
-	::Convert(ofxfile, &cards);
+	::Convert(ofxfile, card);
+}
+//---------------------------------------------------------------------------
+void __fastcall TMForm::ButtonConvertEdyClick(TObject *Sender)
+{
+	doConvert(new EdyCard);
 }
 
 //---------------------------------------------------------------------------
-
+void __fastcall TMForm::ButtonConvertSuicaClick(TObject *Sender)
+{
+	doConvert(new SuicaCard);
+}
+//---------------------------------------------------------------------------
 void __fastcall TMForm::ButtonQuitClick(TObject *Sender)
 {
 	Application->Terminate();
@@ -120,4 +126,8 @@ void __fastcall TMForm::ButtonConfigClick(TObject *Sender)
         }	
 }
 //---------------------------------------------------------------------------
+
+
+
+
 

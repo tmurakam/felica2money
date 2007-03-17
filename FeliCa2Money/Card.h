@@ -42,17 +42,4 @@ class Card {
 	inline char *getCardId(void)    { return CardId.c_str(); }
 };
 
-class Cards {
-    protected:
-	Card	*cards[10];
-	int num_cards;
-
-    public:
-	Cards(void);
-	void AddCard(Card *card);
-	inline int NumCards(void) { return num_cards; }
-	inline Card *GetCard(int n) { return cards[n]; }
-	TransactionList * ReadCard(Card **match);
-};
-
 #endif	// _CARD_H

@@ -30,30 +30,34 @@
 #include <Dialogs.hpp>
 #include <Grids.hpp>
 #include "Card.h"
+#include <Buttons.hpp>
 
 //---------------------------------------------------------------------------
 class TMForm : public TForm
 {
 __published:	// IDE 管理のコンポーネント
 	TOpenDialog *OpenDialog;
-	TButton *ButtonConvert;
 	TButton *ButtonQuit;
 	TButton *ButtonConfig;
 	TButton *ButtonHelp;
 	TLabel *Label1;
 	TLabel *Label2;
 	TLabel *Label3;
-	void __fastcall ButtonConvertClick(TObject *Sender);
+	TLabel *Label4;
+	TBitBtn *BtnConvertEdy;
+	TBitBtn *ButtonConvertSuica;
 	void __fastcall ButtonQuitClick(TObject *Sender);
 	void __fastcall FormShow(TObject *Sender);
 	void __fastcall ButtonHelpClick(TObject *Sender);
 	void __fastcall ButtonConfigClick(TObject *Sender);
+	void __fastcall ButtonConvertEdyClick(TObject *Sender);
+	void __fastcall ButtonConvertSuicaClick(TObject *Sender);
 private:
+	void doConvert(Card *card);
 	void SaveRegistry(void);
 	void LoadRegistry(void);
 public:		// ユーザー宣言
 	__fastcall TMForm(TComponent* Owner);
-	Cards cards;
  	AnsiString SFCPeepPath;
 };
 //---------------------------------------------------------------------------

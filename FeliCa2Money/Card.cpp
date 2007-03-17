@@ -23,29 +23,3 @@
 
 #include "Card.h"
 
-Cards::Cards(void)
-{
-	num_cards = 0;
-}
-
-void Cards::AddCard(Card *card)
-{
-	cards[num_cards] = card;
-	num_cards++;
-}       
-
-TransactionList * Cards::ReadCard(Card **matchcard)
-{
-	TransactionList *t;
-
-	for (int i=0; i<num_cards; i++) {
-		t = cards[i]->ReadCard();
-		if (t) {
-			*matchcard = cards[i];
-			return t;
-		}
-	}
-	Application->MessageBox("カードを読むことができませんでした",
-				"エラー", MB_OK);
-	return NULL;
-}

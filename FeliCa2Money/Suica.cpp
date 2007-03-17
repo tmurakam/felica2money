@@ -109,7 +109,14 @@ Transaction *SuicaTransactionList::GenerateTransaction(int nrows, AnsiString *ro
 		prevBalance = balance;
 	}
 
-	Transaction *trans = new Transaction;
+        // èàóù
+	AnsiString desc = rows[1];
+        if (desc == "----") {
+                return NULL;	// ãÛÉGÉìÉgÉä
+        }
+
+
+        Transaction *trans = new Transaction;
 
 	trans->value = value;
 	trans->balance = balance;
@@ -130,7 +137,6 @@ Transaction *SuicaTransactionList::GenerateTransaction(int nrows, AnsiString *ro
 	trans->id = StrToInt(hex.c_str());
 
 	// ê‡ñæ
-	AnsiString desc = rows[1];
 	if (!rows[5].IsEmpty()) {
 		desc += " ";
 		desc += rows[5];

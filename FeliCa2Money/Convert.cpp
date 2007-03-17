@@ -139,15 +139,17 @@ WriteOfx(FILE *fp, TransactionList *list, Card *card)
 	fprintf(fp, "</OFX>\n");
 }
 
-void Convert(AnsiString ofxfile, Cards *cards)
+void Convert(AnsiString ofxfile, Card *card)
 {
 	TransactionList *t;
 
 	// CSV ファイルを読む
-	Card *card;
-	t = cards->ReadCard(&card);
+	t = card->ReadCard();
 
-        if (!t) return;
+        if (!t) {
+               	Application->MessageBox("カードを読むことができませんでした", "エラー", MB_OK);
+        	return;
+        }
         if (!t->hasAnyTransaction()) {
         	Application->MessageBox("履歴が一件もありません", "エラー", MB_OK);
 		return;               

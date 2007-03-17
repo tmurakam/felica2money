@@ -16,9 +16,12 @@ Microsoft Money の電子明細(OFX形式ファイル)に変換するものです。
 <ul>
 <li>Edy
 <li>Suica
+<li>ICOCA
+<li>PiTaPa
+<li>PASMO
 </ul>
 
-上記以外のものにはまだ対応していません。
+<i>ただし、テストしたのは Edy / Suica だけです</i>
 <p>
 
 <h2>必要環境</h2>
@@ -48,6 +51,13 @@ SFCPeep は <a href="http://www014.upp.so-net.ne.jp/SFCardFan/">http://www014.upp
 
 レジストリも削除する場合は、\HKEY_CURENT_USER\Software\Takuya Murakami\FeliCa2Money 以下を
 レジストリエディタで消してください。
+
+<h2>制限事項</h2>
+
+<ul>
+<li>Edy には使用履歴は最新６件までしか保存されていませんので、Money に取り込めるのも最新６件だけです。
+<li>Suica には使用履歴が最新２０件まで保存されていますが、FeliCa2Money で変換できるのは最新１９件のみです。これは、SUica の各履歴には残高しか記録されておらず、取引額を前回残高との差分で計算するしかないためです。
+</ul>
 
 <h2>ライセンス</h2>
 
