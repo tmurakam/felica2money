@@ -19,10 +19,10 @@ object MForm: TMForm
   TextHeight = 12
   object Label1: TLabel
     Left = 111
-    Top = 29
-    Width = 228
-    Height = 24
-    Caption = 'Pasori'#12434#20351#12387#12390' Edy '#12398#21033#29992#23653#27508#12434' Microsoft Money '#12395#21462#12426#36796#12415#12414#12377#12290
+    Top = 32
+    Width = 217
+    Height = 36
+    Caption = 'PaSoRi'#12434#20351#12387#12390' Edy '#12398#21033#29992#23653#27508#12434' Microsoft Money '#12395#21462#12426#36796#12415#12414#12377#12290
     WordWrap = True
   end
   object Label2: TLabel
@@ -41,10 +41,10 @@ object MForm: TMForm
   end
   object Label4: TLabel
     Left = 111
-    Top = 92
-    Width = 241
+    Top = 87
+    Width = 217
     Height = 36
-    Caption = 'Pasori'#12434#20351#12387#12390' Suica/ICOCA'#12394#12393#20132#36890#31995#38651#23376#12510#12493#12540#12398#21033#29992#23653#27508#12434' Microsoft Money '#12395#21462#12426#36796#12415#12414#12377#12290
+    Caption = 'PaSoRi'#12434#20351#12387#12390' Suica/ICOCA'#12394#12393#20132#36890#31995#38651#23376#12510#12493#12540#12398#21033#29992#23653#27508#12434' Microsoft Money '#12395#21462#12426#36796#12415#12414#12377#12290
     WordWrap = True
   end
   object ButtonQuit: TButton
