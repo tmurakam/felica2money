@@ -89,6 +89,11 @@ Transaction *EdyTransactionList::GenerateTransaction(int nrows, AnsiString *rows
 	AnsiString desc = rows[0];
         desc = desc.SubString(6, desc.Length() - 5);
 
+	if (desc == "----") {
+		delete trans;
+		return NULL;	// empty
+	}
+
         if (desc == "Žx•¥") {
         	trans->SetTransactionType(desc.c_str(), T_OUTGO);
                 trans->value = - rows[2].ToInt();
