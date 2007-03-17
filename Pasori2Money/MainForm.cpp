@@ -39,9 +39,9 @@
 #include "Convert.h"
 #include "Account.h"
 
-#include "JNB.h"
-#include "SonyBank.h"
-#include "Ebank.h"
+//#include "JNB.h"
+//#include "SonyBank.h"
+//#include "Ebank.h"
 
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
@@ -55,9 +55,9 @@ __fastcall TMForm::TMForm(TComponent* Owner)
 //---------------------------------------------------------------------------
 void __fastcall TMForm::FormShow(TObject *Sender)
 {
-	accounts.AddAcount(new JNBAccount);
-	accounts.AddAcount(new SBAccount);
-	accounts.AddAcount(new EbankAccount);
+	//accounts.AddAcount(new JNBAccount);
+	//accounts.AddAcount(new SBAccount);
+	//accounts.AddAcount(new EbankAccount);
 
 	LoadRegistry();
 
@@ -79,28 +79,6 @@ void TMForm::Convert(AnsiString csvfile)
 	AnsiString ofxfile = ExtractFilePath(Application->ExeName) +
 		"ImportMoney.ofx";
 
-#if 0
-	JNBAccount jnb;
-	jnb.SetAccount(EditJNBBranch->Text, EditJNBAccount->Text);
-
-	SBAccount sb;
-	sb.SetAccount(EditSBBranch->Text, EditSBAccount->Text);
-
-	Accounts acs;
-	acs.AddAcount(&jnb);
-	acs.AddAcount(&sb);
-#endif
-
-	int n = accounts.NumAccount();
-	for (int i = 0; i < n; i++) {
-		Account *ac = accounts.GetAccount(i);
-		ac->SetAccount(
-			AcGrid->Cells[2][i+1],	// branch
-			AcGrid->Cells[3][i+1]	// account
-		);
-	}
-
-
 	::Convert(csvfile, ofxfile, &accounts);
 }
 //---------------------------------------------------------------------------
@@ -118,71 +96,29 @@ void __fastcall TMForm::ButtonQuitClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void TMForm::LoadRegistry(void)
 {
-	// レジストリから口座番号のよみとり
+	// レジストリから設定の読み込み
 	TRegistry *reg = new TRegistry();
 
 	reg->RootKey = HKEY_CURRENT_USER;
-	reg->OpenKey("\\Software\\Takuya Murakami\\ImportMoney", true);
+	reg->OpenKey("\\Software\\Takuya Murakami\\Pasori2Money", true);
 
-#if 0
-	EditJNBBranch->Text  = reg->ReadString("JNBBranchId");
-	EditJNBAccount->Text = reg->ReadString("JNBAccountId");
-
-	EditSBBranch->Text  = reg->ReadString("SBBranchId");
-	EditSBAccount->Text = reg->ReadString("SBAccountId");
-#endif
-
-	AcGrid->Cells[0][0] = "銀行名";
-	AcGrid->Cells[1][0] = "銀行ID";
-	AcGrid->Cells[2][0] = "支店番号";
-	AcGrid->Cells[3][0] = "口座番号";
-
-	int n = accounts.NumAccount();
-	for (int i = 0; i < n; i++) {
-		Account *ac = accounts.GetAccount(i);
-		AcGrid->Cells[0][i+1] = ac->getBankName();
-		AcGrid->Cells[1][i+1] = ac->getBankId();
-
-		AnsiString bid, aid;
-		bid = aid = ac->getIdent();
-		bid += "BranchId";
-		aid += "AccountId";
-
-		AcGrid->Cells[2][i+1] = reg->ReadString(bid);
-		AcGrid->Cells[3][i+1] = reg->ReadString(aid);
-	}
+	SFCPeepPath = reg->ReadString("SFCPeepPath");
+	if (SFCPeepPath.IsEmpty()) {
+        	SFCPeepPath = "c:\\Program Files\\DENNO NET\\SFCPeep\\SFCPeep.exe";
+        }
 }
 //---------------------------------------------------------------------------
 void TMForm::SaveRegistry(void)
 {
 	TRegIniFile *ini;
 
-	// レジストリに口座番号を保存
+	// レジストリに設定を保存
 	TRegistry *reg = new TRegistry();
 
 	reg->RootKey = HKEY_CURRENT_USER;
-	reg->OpenKey("\\Software\\Takuya Murakami\\ImportMoney", true);
+	reg->OpenKey("\\Software\\Takuya Murakami\\Pasori2Money", true);
 
-#if 0
-	reg->WriteString("JNBBranchId", EditJNBBranch->Text);
-	reg->WriteString("JNBAccountId", EditJNBAccount->Text);
-
-	reg->WriteString("SBBranchId",  EditSBBranch->Text);
-	reg->WriteString("SBAccountId", EditSBAccount->Text);
-#endif
-
-	int n = accounts.NumAccount();
-	for (int i = 0; i < n; i++) {
-		Account *ac = accounts.GetAccount(i);
-
-		AnsiString bid, aid;
-		bid = aid = ac->getIdent();
-		bid += "BranchId";
-		aid += "AccountId";
-
-		reg->WriteString(bid, AcGrid->Cells[2][i+1]);
-		reg->WriteString(aid, AcGrid->Cells[3][i+1]);
-	}
+	reg->WriteString("SFCPeepPath", SFCPeepPath);
 }
 
 //---------------------------------------------------------------------------

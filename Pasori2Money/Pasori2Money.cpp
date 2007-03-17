@@ -39,8 +39,8 @@ WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
         try
         {
                  Application->Initialize();
-                 Application->Title = "MoneyImport";
-		Application->HelpFile = "D:\\USR\\SRC\\MoneyImport\\Help\\MoneyImport.chm";
+                 Application->Title = "Pasori2Money";
+		//Application->HelpFile = "D:\\USR\\SRC\\MoneyImport\\Help\\MoneyImport.chm";
 		Application->CreateForm(__classid(TMForm), &MForm);
 		Application->Run();
         }

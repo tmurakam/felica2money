@@ -49,9 +49,7 @@ __published:	// IDE 管理のコンポーネント
 	TOpenDialog *OpenDialog;
 	TButton *ButtonConvert;
 	TButton *ButtonQuit;
-	TButton *ButtonHelp;
-	TStringGrid *AcGrid;
-	TLabel *Label1;
+	TButton *ButtonConfig;
 	void __fastcall ButtonConvertClick(TObject *Sender);
 	void __fastcall EditJNBAccountExit(TObject *Sender);
 	void __fastcall ButtonQuitClick(TObject *Sender);
@@ -65,6 +63,7 @@ private:
 public:		// ユーザー宣言
 	__fastcall TMForm(TComponent* Owner);
 	Accounts accounts;
+ 	AnsiString SFCPeepPath;
 };
 //---------------------------------------------------------------------------
 extern PACKAGE TMForm *MForm;

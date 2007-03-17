@@ -36,6 +36,10 @@
         <property category="build.platform" name="win32.default" value="win32b"/>
         <property category="build.platform" name="win32.enabled" value="1"/>
         <property category="build.platform" name="win32.win32b.enabled" value="1"/>
+        <property category="win32.*.win32b.dcc32" name="param.filenames.merge" value="1"/>
+        <property category="win32.*.win32b.tasm32" name="param.listfile.merge" value="1"/>
+        <property category="win32.*.win32b.tasm32" name="param.objfile.merge" value="1"/>
+        <property category="win32.*.win32b.tasm32" name="param.xreffile.merge" value="1"/>
         <property category="win32.Debug_Build.win32b.bcc32" name="option.D.arg.1" value="_DEBUG"/>
         <property category="win32.Debug_Build.win32b.bcc32" name="option.D.arg.merge" value="1"/>
         <property category="win32.Debug_Build.win32b.bcc32" name="option.D.enabled" value="1"/>
@@ -158,11 +162,8 @@
         <FILE FILENAME="Pasori2Money.res" CONTAINERID="ResTool" LOCALCOMMAND="" UNITNAME="Pasori2Money" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="MainForm.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="MainForm" FORMNAME="MForm" DESIGNCLASS="" ADDITIONAL="MainForm.h"/>
         <FILE FILENAME="Convert.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="Convert" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="JNB.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="JNB" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="SonyBank.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="SonyBank" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="Account.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="Account" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="Transaction.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="Transaction" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="Ebank.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="Ebank" FORMNAME="" DESIGNCLASS=""/>
       </FILELIST>
       <IDEOPTIONS>
         <VersionInfo>
@@ -233,6 +234,9 @@
           <Language Name="ProjectLang">$00000000</Language>
           <Language Name="RootDir"></Language>
         </Language>
+        <Excluded_Packages>
+          <Excluded_Packages Name="c:\program files\borland\bds\4.0\Bin\dclemacsedit100.bpl">Borland Editor Emacs Enhancements</Excluded_Packages>
+        </Excluded_Packages>
         <Linker>
           <Linker Name="LibPrefix"></Linker>
           <Linker Name="LibSuffix"></Linker>
@@ -242,6 +246,7 @@
     </BCBPROJECT>
 		<Source>
 			<Source Name="MainSource">Pasori2Money.cpp</Source>
-		</Source>  <buildevents/>
-  </CPlusPlusBuilder.Personality>
+		</Source>
+		<buildevents/>
+	</CPlusPlusBuilder.Personality>
 </BorlandProject>
