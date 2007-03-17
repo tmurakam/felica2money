@@ -29,7 +29,8 @@
 struct trntable trntable_income[] = {
 	{"利息", T_INT},
 	{"振込 ", T_DIRECTDEP},
-        {"ﾁｬｰｼﾞ", T_DIRECTDEP},
+        {"ﾁｬｰｼﾞ", T_DIRECTDEP},	// Edy チャージ
+  	{"入金", T_DIRECTDEP},	// Suica チャージ
 	{NULL, T_DEP}
 };
 
