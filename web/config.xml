@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<site
+  base_url="http://moneyimport.sourceforge.jp/"
+  store_into="sitemap.xml"
+  verbose="1"
+  >
+
+  <directory path="." url="http://moneyimport.sourceforge.jp/" />
+
+  <!-- Exclude URLs that end with a '~'   (IE: emacs backup files)      -->
+  <filter  action="drop"  type="wildcard"  pattern="*~"           />
+
+  <!-- Exclude URLs within UNIX-style hidden files or directories       -->
+  <filter  action="drop"  type="regexp"    pattern="/\.[^/]*"     />
+
+  <!-- Exclude other files -->
+  <filter  action="drop"  type="wildcard"    pattern=".svn" />
+  <filter  action="drop"  type="wildcard"    pattern="*CVS*" />
+  <filter  action="drop"  type="wildcard"    pattern="*cgi*" />
+  <filter  action="drop"  type="wildcard"    pattern="*.bak" />
+  <filter  action="drop"  type="wildcard"    pattern="*.o" />
+  <filter  action="drop"  type="wildcard"    pattern="*.old" />
+  <filter  action="drop"  type="wildcard"    pattern="*.sh" />
+  <filter  action="drop"  type="wildcard"    pattern="*pukiwiki*" />
+  <filter  action="drop"  type="wildcard"    pattern="*Templates*" />
+
+</site>
