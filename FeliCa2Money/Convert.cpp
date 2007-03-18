@@ -121,6 +121,9 @@ WriteOfx(FILE *fp, TransactionList *list, Card *card)
 			t->date.year, t->date.month, t->date.date,
 			t->id);
 		fprintf(fp, "      <NAME>%s\n", t->desc);
+                if (!t->memo.IsEmpty()) {
+			fprintf(fp, "      <MEMO>%s\n", t->memo);
+                }
 		fprintf(fp, "    </STMTTRN>\n");
 	} while ((t = list->Next()) != NULL);
 

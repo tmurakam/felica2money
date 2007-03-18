@@ -20,8 +20,8 @@ object MForm: TMForm
   object Label1: TLabel
     Left = 111
     Top = 32
-    Width = 217
-    Height = 36
+    Width = 181
+    Height = 24
     Caption = 'PaSoRi'#12434#20351#12387#12390' Edy '#12398#21033#29992#23653#27508#12434' Microsoft Money '#12395#21462#12426#36796#12415#12414#12377#12290
     WordWrap = True
   end
@@ -35,9 +35,9 @@ object MForm: TMForm
   object Label3: TLabel
     Left = 111
     Top = 230
-    Width = 205
+    Width = 206
     Height = 12
-    Caption = 'Pasori2Money '#12398#12510#12491#12517#12450#12523#12434#38283#12365#12414#12377#12290
+    Caption = 'FeliCa2Money '#12398#12510#12491#12517#12450#12523#12434#38283#12365#12414#12377#12290
   end
   object Label4: TLabel
     Left = 111

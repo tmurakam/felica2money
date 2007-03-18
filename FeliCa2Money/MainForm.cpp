@@ -111,7 +111,10 @@ void TMForm::SaveRegistry(void)
 //---------------------------------------------------------------------------
 void __fastcall TMForm::ButtonHelpClick(TObject *Sender)
 {
-	ShellExecute(NULL, "open", "FeliCa2Money.html",
+        AnsiString doc = ExtractFilePath(Application->ExeName) +
+        	"Felica2Money.html";
+
+	ShellExecute(NULL, "open", doc.c_str(),
         NULL, NULL, SW_SHOWDEFAULT);
 }
 //---------------------------------------------------------------------------

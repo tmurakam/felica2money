@@ -137,9 +137,17 @@ Transaction *SuicaTransactionList::GenerateTransaction(int nrows, AnsiString *ro
 	trans->id = StrToInt(hex.c_str());
 
 	// à–¾
+	AnsiString memo;
 	if (!rows[5].IsEmpty()) {
+        	// ‰^’À‚Ìê‡A“ü‰ïŽÐ‚ð“K—p‚É’Ç‰Á
 		desc += " ";
 		desc += rows[5];
+
+		// ”õl‚É“üo‰ïŽÐ/‰w–¼‚ð‹LÚ
+        	memo = rows[5] + "(" + rows[6] + ")";
+		if (!rows[9].IsEmpty()) {
+                	memo += " - " + rows[9] + "(" + rows[10] + ")";
+                }
 	} else {
 		// ‚¨‚à‚É•¨”Ì‚Ìê‡A9, 10 ‚É“X–¼‚ª“ü‚é
 		if (!rows[9].IsEmpty() && rows[9] != "–¢“o˜^") {
@@ -157,7 +165,11 @@ Transaction *SuicaTransactionList::GenerateTransaction(int nrows, AnsiString *ro
 	} else {
 		trans->SetTransactionType(desc.c_str(), T_INCOME);
 	}
+
 	trans->desc = utf8(desc.c_str());
+	if (!memo.IsEmpty()) {
+		trans->memo = utf8(memo.c_str());
+        }
 
 	return trans;
 }

@@ -189,7 +189,7 @@
           <VersionInfo Name="IncludeVerInfo">True</VersionInfo>
           <VersionInfo Name="AutoIncBuild">False</VersionInfo>
           <VersionInfo Name="MajorVer">0</VersionInfo>
-          <VersionInfo Name="MinorVer">1</VersionInfo>
+          <VersionInfo Name="MinorVer">2</VersionInfo>
           <VersionInfo Name="Release">0</VersionInfo>
           <VersionInfo Name="Build">0</VersionInfo>
           <VersionInfo Name="Debug">False</VersionInfo>
@@ -203,14 +203,14 @@
         <VersionInfoKeys>
           <VersionInfoKeys Name="CompanyName">Takuya Murakami</VersionInfoKeys>
           <VersionInfoKeys Name="FileDescription">FeliCa2Money</VersionInfoKeys>
-          <VersionInfoKeys Name="FileVersion">0.1.0.0</VersionInfoKeys>
+          <VersionInfoKeys Name="FileVersion">0.2.0.0</VersionInfoKeys>
           <VersionInfoKeys Name="InternalName"></VersionInfoKeys>
           <VersionInfoKeys Name="LegalCopyright">Copyright (C) 2001-2007, Takuya Murakami</VersionInfoKeys>
           <VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys>
           <VersionInfoKeys Name="OriginalFilename">FeliCa2Money.exe</VersionInfoKeys>
           <VersionInfoKeys Name="ProductName">FeliCa2Money</VersionInfoKeys>
-          <VersionInfoKeys Name="ProductVersion">0.1.0.0</VersionInfoKeys>
-          <VersionInfoKeys Name="Comments"></VersionInfoKeys>
+          <VersionInfoKeys Name="ProductVersion">0.2.0.0</VersionInfoKeys>
+          <VersionInfoKeys Name="Comments">Import FeliCa transaction data to Microsoft Money</VersionInfoKeys>
         </VersionInfoKeys>
         <HistoryLists_hlIncludePath>
           <HistoryLists_hlIncludePath Name="Count">1</HistoryLists_hlIncludePath>

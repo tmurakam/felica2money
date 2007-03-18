@@ -82,6 +82,7 @@ class Transaction {
 	DateTime	date;		// “ú•t
 	unsigned long	id; 		// ID
 	AnsiString	desc;         	// à–¾
+        AnsiString	memo;		// ƒƒ‚
 	trntype		type;		// í•Ê
 	long		value;		// ‹àŠz
 	long		balance;	// c‚
