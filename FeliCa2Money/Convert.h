@@ -21,7 +21,9 @@
 #ifndef	_CONVERT_H
 #define	_CONVERT_H
 
-class Card;
+#include "Transaction.h"
+#include "Card.h"
+
 class Converter {
 public:
 	void Convert(Card *c, AnsiString ofxfile);
@@ -30,7 +32,7 @@ private:
 	Card *card;
 
 	void WriteOfx(FILE *fp, TransactionList *list);
-	AnsiString dateStr(DateTime *dt);
+	AnsiString dateStr(const DateTime &dt);
 };
 #endif	// _CONVERT_H
 
