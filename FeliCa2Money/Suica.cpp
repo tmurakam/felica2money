@@ -166,9 +166,9 @@ Transaction *SuicaTransactionList::GenerateTransaction(int nrows, AnsiString *ro
 		trans->SetTransactionType(desc.c_str(), T_INCOME);
 	}
 
-	trans->desc = utf8(desc.c_str());
+	trans->desc = sjis2utf8(desc);
 	if (!memo.IsEmpty()) {
-		trans->memo = utf8(memo.c_str());
+		trans->memo = sjis2utf8(memo);
         }
 
 	return trans;

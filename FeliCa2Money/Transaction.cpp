@@ -173,13 +173,13 @@ int TransactionList::GenerateTransactionId(int key)
 //
 
 // SJIS->UTF8
-AnsiString utf8(char *sjis)
+AnsiString sjis2utf8(const AnsiString & sjis)
 {
 	wchar_t wbuf[1500];
 	char buf[3000];
         AnsiString utf8;
 
-        MultiByteToWideChar(CP_OEMCP, 0, sjis, -1,
+        MultiByteToWideChar(932/*CP_932, Shift-JIS*/, 0, sjis.c_str(), -1,
         	wbuf, sizeof(buf) / 2);
         WideCharToMultiByte(CP_UTF8, 0, wbuf, -1,
         	buf, sizeof(buf), NULL, NULL);

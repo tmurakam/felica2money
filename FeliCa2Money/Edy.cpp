@@ -101,7 +101,7 @@ Transaction *EdyTransactionList::GenerateTransaction(int nrows, AnsiString *rows
 		trans->SetTransactionType(desc.c_str(), T_INCOME);
 		trans->value = rows[2].ToInt();
 	}
-	trans->desc = utf8(desc.c_str());
+	trans->desc = sjis2utf8(desc);
 	trans->balance = rows[3].ToInt();
 
 	return trans;

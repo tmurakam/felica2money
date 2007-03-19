@@ -129,7 +129,7 @@ class TransactionList {
 };
 
 // ユーティリティ関数
-AnsiString utf8(char *sjis);
+AnsiString sjis2utf8(const AnsiString & sjis);
 
 #endif
 
