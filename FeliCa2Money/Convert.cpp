@@ -34,19 +34,39 @@
 #include "Card.h"
 #include "Transaction.h"
 
-static AnsiString dateStr(DateTime *dt)
+void Converter::Convert(Card *c, AnsiString ofxfile)
 {
-	AnsiString str;
+	TransactionList *t;
 
-	/*              Y   M   D   H   M   S */
-	str.sprintf("%4d%02d%02d%02d%02d%02d[+9:JST]",
-		dt->year, dt->month, dt->date,
-		dt->hour, dt->minutes, dt->seconds);
-	return str;
+	card = c;
+
+	// CSV ファイルを読む
+	t = card->ReadCard();
+
+        if (!t) {
+               	Application->MessageBox("カードを読むことができませんでした", "エラー", MB_OK);
+        	return;
+        }
+        if (!t->hasAnyTransaction()) {
+        	Application->MessageBox("履歴が一件もありません", "エラー", MB_OK);
+		return;               
+        }
+
+        // OFX ファイルを書き出す
+	FILE *fp = fopen(ofxfile.c_str(), "wb");
+	if (!fp) {
+        	Application->MessageBox("OFXファイルを開けません", "エラー", MB_OK);
+		return;
+       	}
+        WriteOfx(fp, t);
+	fclose(fp);
+
+        // Money 起動	
+        ShellExecute(NULL, "open", ofxfile.c_str(),
+        	NULL, NULL, SW_SHOW);
 }
 
-static void
-WriteOfx(FILE *fp, TransactionList *list, Card *card)
+void Converter::WriteOfx(FILE *fp, TransactionList *list)
 {
 	unsigned long idoffset;
 	Transaction *t, *last;
@@ -142,33 +162,15 @@ WriteOfx(FILE *fp, TransactionList *list, Card *card)
 	fprintf(fp, "</OFX>\n");
 }
 
-void Convert(AnsiString ofxfile, Card *card)
+AnsiString Converter::dateStr(DateTime *dt)
 {
-	TransactionList *t;
+	AnsiString str;
 
-	// CSV ファイルを読む
-	t = card->ReadCard();
-
-        if (!t) {
-               	Application->MessageBox("カードを読むことができませんでした", "エラー", MB_OK);
-        	return;
-        }
-        if (!t->hasAnyTransaction()) {
-        	Application->MessageBox("履歴が一件もありません", "エラー", MB_OK);
-		return;               
-        }
-
-        // OFX ファイルを書き出す
-	FILE *fp = fopen(ofxfile.c_str(), "wb");
-	if (!fp) {
-        	Application->MessageBox("OFXファイルを開けません", "エラー", MB_OK);
-		return;
-       	}
-        WriteOfx(fp, t, card);
-	fclose(fp);
-
-        // Money 起動	
-        ShellExecute(NULL, "open", ofxfile.c_str(),
-        	NULL, NULL, SW_SHOW);
+	/*              Y   M   D   H   M   S */
+	str.sprintf("%4d%02d%02d%02d%02d%02d[+9:JST]",
+		dt->year, dt->month, dt->date,
+		dt->hour, dt->minutes, dt->seconds);
+	return str;
 }
+
 

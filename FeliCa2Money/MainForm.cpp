@@ -61,8 +61,9 @@ void TMForm::doConvert(Card *card)
 
         SfcPeep->SetSfcPeepPath(SFCPeepPath);
 	SfcPeep->SetTempFile(tmpfile);
-        
-	::Convert(ofxfile, card);
+
+        Converter c;
+	c.Convert(card, ofxfile);
 }
 //---------------------------------------------------------------------------
 void __fastcall TMForm::ButtonConvertEdyClick(TObject *Sender)

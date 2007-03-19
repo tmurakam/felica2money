@@ -21,63 +21,16 @@
 #ifndef	_CONVERT_H
 #define	_CONVERT_H
 
-#if 0
-//
-// 取引種類
-//
-typedef enum {
-	// 入金
-	T_INT=0,	// 利息
-	T_DIV,		// 配当
-	T_DIRECTDEP,	// 振込入金、取立入金、自動引落戻し入金
-	T_DEP,		// その他入金
-
-	// 出金
-	T_PAYMENT,	// 自動引き落とし
-	T_CASH,		// 現金引き出し
-	T_ATM,		// カードによる引き出し
-	T_CHECK,	// 小切手関連取引	
-	T_DEBIT,	// その他出金
-} trntype;
-
-#define	T_INCOME	0
-#define	T_OUTGO		1
-
-
-
-// 日付データ
-typedef struct {
-	int year;
-	int month;
-	int date;
-	int hour;
-	int minutes;
-	int seconds;
-} DateTime;
-
-//
-// トランザクションデータ
-//
-typedef struct _transaction {
-	struct _transaction *next;
-
-	DateTime	date;	// 日付
-	unsigned long	id; 	// ID
-	AnsiString	desc;          // 説明
-	trntype		type;		// 種別
-	long		value;		// 金額
-        long		balance;	// 残高
-} Transaction;
-
-// utility funcs
-extern void SplitLine(char *line, char **rows);
-extern trntype GetTrnType(const char *desc, int type);
-extern AnsiString utf8(char *sjis);
-
-#endif
-
 class Card;
-extern void Convert(AnsiString ofxfile, Card *card);
+class Converter {
+public:
+	void Convert(Card *c, AnsiString ofxfile);
 
+private:
+	Card *card;
+
+	void WriteOfx(FILE *fp, TransactionList *list);
+	AnsiString dateStr(DateTime *dt);
+};
 #endif	// _CONVERT_H
 
