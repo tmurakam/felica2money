@@ -94,7 +94,7 @@ void Converter::WriteOfx(FILE *fp, TransactionList *list)
 	fprintf(fp, "    <CODE>0\n");
 	fprintf(fp, "    <SEVERITY>INFO\n");
 	fprintf(fp, "  </STATUS>\n");
-	fprintf(fp, "  <DTSERVER>%s\n", dateStr(&last->date).c_str());
+	fprintf(fp, "  <DTSERVER>%s\n", dateStr(last->date).c_str());
 
 	fprintf(fp, "  <LANGUAGE>JPN\n");
 	fprintf(fp, "  <FI>\n");
@@ -126,14 +126,14 @@ void Converter::WriteOfx(FILE *fp, TransactionList *list)
 
 	/* 明細情報開始(バンクトランザクションリスト) */
 	fprintf(fp, "  <BANKTRANLIST>\n");
-	fprintf(fp, "    <DTSTART>%s\n", dateStr(&t->date).c_str());
-	fprintf(fp, "    <DTEND>%s\n", dateStr(&last->date).c_str());
+	fprintf(fp, "    <DTSTART>%s\n", dateStr(t->date).c_str());
+	fprintf(fp, "    <DTEND>%s\n", dateStr(last->date).c_str());
 
 	/* トランザクション */
 	do {
 		fprintf(fp, "    <STMTTRN>\n");
 		fprintf(fp, "      <TRNTYPE>%s\n", t->GetTrnTypeStr());
-		fprintf(fp, "      <DTPOSTED>%s\n", dateStr(&t->date).c_str());
+		fprintf(fp, "      <DTPOSTED>%s\n", dateStr(t->date).c_str());
 		fprintf(fp, "      <TRNAMT>%d\n", t->value);
 
 		/* トランザクションの ID は日付と取引番号で生成 */
@@ -152,7 +152,7 @@ void Converter::WriteOfx(FILE *fp, TransactionList *list)
 	/* 残高 */
 	fprintf(fp, "  <LEDGERBAL>\n");
 	fprintf(fp, "    <BALAMT>%d\n", last->balance);
-	fprintf(fp, "    <DTASOF>%s\n", dateStr(&last->date).c_str());
+	fprintf(fp, "    <DTASOF>%s\n", dateStr(last->date).c_str());
 	fprintf(fp, "  </LEDGERBAL>\n");
 
 	/* OFX 終了 */
@@ -162,14 +162,14 @@ void Converter::WriteOfx(FILE *fp, TransactionList *list)
 	fprintf(fp, "</OFX>\n");
 }
 
-AnsiString Converter::dateStr(DateTime *dt)
+AnsiString Converter::dateStr(const DateTime & dt)
 {
 	AnsiString str;
 
 	/*              Y   M   D   H   M   S */
 	str.sprintf("%4d%02d%02d%02d%02d%02d[+9:JST]",
-		dt->year, dt->month, dt->date,
-		dt->hour, dt->minutes, dt->seconds);
+		dt.year, dt.month, dt.date,
+		dt.hour, dt.minutes, dt.seconds);
 	return str;
 }
 
