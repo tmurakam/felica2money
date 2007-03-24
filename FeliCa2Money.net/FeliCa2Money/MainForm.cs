@@ -13,6 +13,8 @@ namespace FeliCa2Money
         public MainForm()
         {
             InitializeComponent();
+
+            Properties.Settings.Default.Upgrade();
         }
 
         private void buttonQuit_Click(object sender, EventArgs e)
@@ -27,7 +29,7 @@ namespace FeliCa2Money
 
         private void buttonSuica_Click(object sender, EventArgs e)
         {
-            //
+            doConvert(new Suica());
         }
 
         private void doConvert(Card c)
@@ -51,6 +53,30 @@ namespace FeliCa2Money
 
             // Money 起動
             ofx.Execute();
+        }
+
+        // 設定ダイアログ
+        private void buttonOption_Click(object sender, EventArgs e)
+        {
+            openFileDialog.FileName = Properties.Settings.Default.SFCPeepPath;
+           
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                Properties.Settings.Default.SFCPeepPath = openFileDialog.FileName;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        private void buttonManual_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                System.Diagnostics.Process.Start("Felica2Money.html");
+            }
+            catch
+            {
+                // do nothing
+            }
         }
     }
 }
