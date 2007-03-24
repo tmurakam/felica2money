@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Collections;
 
 namespace FeliCa2Money
 {
@@ -18,32 +19,6 @@ namespace FeliCa2Money
         Debit       // ÇªÇÃëºèoã‡
     }
 
-    class GuessTransTypeTable
-    {
-        private string key;
-        private TransType type;
-
-        public TransType Type
-        {
-            get { return type; }
-        }
-
-        public GuessTransTypeTable(string k, TransType t)
-        {
-            key = k;
-            type = t;
-        }
-
-        public bool Match(string d)
-        {
-            if (d.Contains(key))
-            {
-                return true;
-            }
-            return false;
-        }
-    }
-
     class Transaction
     {
         public int id; // ID
@@ -54,34 +29,56 @@ namespace FeliCa2Money
         public int value;      // ã‡äz
         public int balance;    // écçÇ
 
-        private static GuessTransTypeTable[] TransIncome = new GuessTransTypeTable[]
-        {
-            new GuessTransTypeTable("óòëß", TransType.Int),
-            new GuessTransTypeTable("êUçû", TransType.DirectDep),
-            new GuessTransTypeTable("¡¨∞ºﬁ", TransType.DirectDep),  // Edy É`ÉÉÅ[ÉW
-            new GuessTransTypeTable("ì¸ã‡", TransType.DirectDep)    // Suica É`ÉÉÅ[ÉW
-        };
+        private static Hashtable TransIncome;
+        private static Hashtable TransOutgo;
+        private static Hashtable TransStrings;
 
-        private static GuessTransTypeTable[] TransOutgo = new GuessTransTypeTable[]
+        public Transaction()
         {
-            new GuessTransTypeTable("Ç`ÇsÇl", TransType.ATM),
-            new GuessTransTypeTable("ATM", TransType.ATM)
-        };
+            if (TransStrings != null) return;
+
+            // initialize
+            TransStrings = new Hashtable();
+            TransStrings[TransType.Int] = "INT";
+            TransStrings[TransType.Div] = "DIV";
+            TransStrings[TransType.DirectDep] = "DIRECTDEP";
+            TransStrings[TransType.Dep] = "DEP";
+            TransStrings[TransType.Payment] = "PAYMENT";
+            TransStrings[TransType.Cash] = "CASH";
+            TransStrings[TransType.ATM] = "ATM";
+            TransStrings[TransType.Check] = "CHECK";
+            TransStrings[TransType.Debit] = "DEBIT";
+
+            TransIncome = new Hashtable();
+            TransIncome["óòëß"] = TransType.Int;
+            TransIncome["êUçû"] = TransType.DirectDep;
+            TransIncome["¡¨∞ºﬁ"]= TransType.DirectDep;  // Edy É`ÉÉÅ[ÉW
+            TransIncome["ì¸ã‡"] = TransType.DirectDep;    // Suica É`ÉÉÅ[ÉW
+
+            TransOutgo = new Hashtable();
+            TransOutgo["Ç`ÇsÇl"] = TransType.ATM;
+            TransOutgo["ATM"]    = TransType.ATM;
+        }
+
+        public string GetTransString()
+        {
+            return (string)TransStrings[type];
+        }
 
         public void GuessTransType(bool isIncome)
         {
-            GuessTransTypeTable[] tab = TransOutgo;
+            Hashtable h = TransOutgo;
 
             if (isIncome)
             {
-                tab = TransIncome;
+                h = TransIncome;
             }
 
-            foreach (GuessTransTypeTable e in tab)
+            foreach (string key in h.Keys)
             {
-                if (e.Match(desc))
+                if (desc.Contains(key))
                 {
-                    type = e.Type;
+                    type = (TransType)h[key];
                     return;
                 }
             }
