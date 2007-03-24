@@ -67,6 +67,13 @@ namespace FeliCa2Money.Properties {
             }
         }
         
+        internal static System.Drawing.Icon Felica2Money {
+            get {
+                object obj = ResourceManager.GetObject("Felica2Money", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap Suica {
             get {
                 object obj = ResourceManager.GetObject("Suica", resourceCulture);

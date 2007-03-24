@@ -22,5 +22,17 @@ namespace FeliCa2Money.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Program Files\\DENNO NET\\SFCPeep\\SFCPeep.exe")]
+        public string SFCPeepPath {
+            get {
+                return ((string)(this["SFCPeepPath"]));
+            }
+            set {
+                this["SFCPeepPath"] = value;
+            }
+        }
     }
 }

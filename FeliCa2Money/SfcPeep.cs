@@ -7,12 +7,13 @@ namespace FeliCa2Money
 {
     class SfcPeep
     {
-        private string SfcPeepPath = "C:\\Program Files\\DENNO NET\\SFCPeep\\SFCPeep.exe";
         private List<string> lines;
 
         public List<string> Execute(string arg)
         {
             lines = new List<string>();
+
+            string SfcPeepPath = FeliCa2Money.Properties.Settings.Default.SFCPeepPath;
 
             Process p = new Process();
             p.StartInfo.FileName = SfcPeepPath;

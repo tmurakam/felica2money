@@ -20,7 +20,6 @@ namespace FeliCa2Money
 
             if (lines[0].Substring(0, 4) != "EDY:")
 	        {
-                MessageBox.Show("EdyÉJÅ[ÉhÇ∂Ç·Ç»Ç≥Ç∞");
                 return null;
             }
 
