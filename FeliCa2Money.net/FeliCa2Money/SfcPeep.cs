@@ -27,7 +27,6 @@ namespace FeliCa2Money
             p.BeginOutputReadLine();
             p.WaitForExit();
 
-            //System.Windows.Forms.MessageBox.Show(outData);
             return lines;
         }
 
@@ -38,6 +37,5 @@ namespace FeliCa2Money
                 lines.Add(ev.Data);
             }
         }
-
     }
 }
