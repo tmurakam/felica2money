@@ -34,7 +34,23 @@ namespace FeliCa2Money
         {
             List<Transaction> list = c.ReadCard();
 
-            MessageBox.Show("Number of transaction = " + list.Count);
+            if (list == null)
+            {
+                MessageBox.Show("カードを読むことができませんでした", "エラー");
+                return;
+            }
+            if (list.Count == 0)
+            {
+                MessageBox.Show("履歴が一件もありません", "エラー");
+                return;
+            }
+
+            // OFX ファイル生成
+            OfxFile ofx = new OfxFile();
+            ofx.WriteFile(c, list);
+
+            // Money 起動
+            ofx.Execute();
         }
     }
 }

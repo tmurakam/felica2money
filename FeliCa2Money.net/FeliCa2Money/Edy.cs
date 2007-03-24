@@ -23,6 +23,9 @@ namespace FeliCa2Money
                 MessageBox.Show("EdyÉJÅ[ÉhÇ∂Ç·Ç»Ç≥Ç∞");
                 return null;
             }
+
+            CardId = lines[0].Substring(4);
+
             lines.RemoveAt(0);
             lines.Reverse();
 
@@ -61,6 +64,7 @@ namespace FeliCa2Money
             if (t.desc == "----") {
                 return false;   // empty
             }
+            t.memo = t.desc;
 
             if (t.desc == "éxï•") {
                 t.GuessTransType(false);
