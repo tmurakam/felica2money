@@ -1,4 +1,5 @@
-﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{c8400691-8446-4ef6-bae8-d698f78550b9}</ProjectGuid>
     <ProjectType>CppVCLApplication</ProjectType>
@@ -19,38 +20,38 @@
     <CfgParent>Base</CfgParent>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Base)'!=''">
-    <DCC_Optimize>false</DCC_Optimize>
     <OutputExt>exe</OutputExt>
+    <DCC_Optimize>false</DCC_Optimize>
     <DCC_CBuilderOutput>JPHNE</DCC_CBuilderOutput>
     <ILINK_FullDebugInfo>true</ILINK_FullDebugInfo>
     <BCC_InlineFunctionExpansion>false</BCC_InlineFunctionExpansion>
-    <BCC_UseRegisterVariables>None</BCC_UseRegisterVariables>
     <ILINK_AppType>Windows</ILINK_AppType>
-    <BCC_GenerateWindowsApp>true</BCC_GenerateWindowsApp>
+    <BCC_UseRegisterVariables>None</BCC_UseRegisterVariables>
     <BCC_DebugLineNumbers>true</BCC_DebugLineNumbers>
-    <BCC_ZeroLengthEmptyMemberFuncs>true</BCC_ZeroLengthEmptyMemberFuncs>
+    <BCC_GenerateWindowsApp>true</BCC_GenerateWindowsApp>
     <DCC_MakeModifiedUnits>true</DCC_MakeModifiedUnits>
+    <BCC_ZeroLengthEmptyMemberFuncs>true</BCC_ZeroLengthEmptyMemberFuncs>
     <FinalOutputDir>.</FinalOutputDir>
-    <TASM_AdditionalSwitches> /w2</TASM_AdditionalSwitches>
     <PackageImports>rtl.bpi;vcl.bpi;vclx.bpi;bcbsmp.bpi;dbrtl.bpi;vcldb.bpi;bdertl.bpi;ibsmp.bpi;vcldbx.bpi;teeui.bpi;teedb.bpi;tee.bpi;ibxpress.bpi;bcbie.bpi;vclie.bpi;inetdb.bpi;inet.bpi;bcboffice2k.bpi</PackageImports>
+    <TASM_AdditionalSwitches> /w2</TASM_AdditionalSwitches>
     <DCC_UnitSearchPath>.\;$(BDS)\lib;$(BDS)\lib\obj</DCC_UnitSearchPath>
-    <BCC_GenerateMultithreaded>true</BCC_GenerateMultithreaded>
-    <BCC_StackFrames>true</BCC_StackFrames>
     <BRCC_UserSuppliedOptions> -I$(BDS)\include;$(BDS)\include\vcl;$(BDS)\include\dinkumware</BRCC_UserSuppliedOptions>
+    <BCC_StackFrames>true</BCC_StackFrames>
+    <BCC_GenerateMultithreaded>true</BCC_GenerateMultithreaded>
     <BCC_PCHCache>true</BCC_PCHCache>
     <BCC_IntegerSizedEnums>false</BCC_IntegerSizedEnums>
-    <BCC_IncludePath>$(BDS)\include;$(BDS)\include\vcl;$(BDS)\include\dinkumware</BCC_IncludePath>
-    <TASM_IncludePath>$(BDS)\include;$(BDS)\include\vcl;$(BDS)\include\dinkumware</TASM_IncludePath>
-    <AllPackageLibs>rtl.lib;vcl.lib</AllPackageLibs>
-    <BRCC_IncludePath>$(BDS)\include;$(BDS)\include\vcl;$(BDS)\include\dinkumware</BRCC_IncludePath>
     <DCC_IncludePath>.\;$(BDS)\lib;$(BDS)\lib\obj</DCC_IncludePath>
-    <BCC_DisableOptimizations>true</BCC_DisableOptimizations>
-    <BCC_ZeroLengthEmptyBaseClass>true</BCC_ZeroLengthEmptyBaseClass>
+    <BRCC_IncludePath>$(BDS)\include;$(BDS)\include\vcl;$(BDS)\include\dinkumware</BRCC_IncludePath>
+    <AllPackageLibs>rtl.lib;vcl.lib</AllPackageLibs>
+    <TASM_IncludePath>$(BDS)\include;$(BDS)\include\vcl;$(BDS)\include\dinkumware</TASM_IncludePath>
+    <BCC_IncludePath>$(BDS)\include;$(BDS)\include\vcl;$(BDS)\include\dinkumware</BCC_IncludePath>
     <ILINK_LibraryPath>$(BDS)\lib\obj;$(BDS)\lib</ILINK_LibraryPath>
-    <BCC_Defines>NO_STRICT</BCC_Defines>
-    <BRCC_Defines>_DEBUG</BRCC_Defines>
-    <TASM_Defines>_DEBUG</TASM_Defines>
+    <BCC_ZeroLengthEmptyBaseClass>true</BCC_ZeroLengthEmptyBaseClass>
+    <BCC_DisableOptimizations>true</BCC_DisableOptimizations>
     <Multithreaded>true</Multithreaded>
+    <TASM_Defines>_DEBUG</TASM_Defines>
+    <BRCC_Defines>_DEBUG</BRCC_Defines>
+    <BCC_Defines>NO_STRICT</BCC_Defines>
     <TASM_Debugging>Full</TASM_Debugging>
     <BCC_SourceDebuggingOn>true</BCC_SourceDebuggingOn>
     <DCC_SymbolReferenceInfo>2</DCC_SymbolReferenceInfo>
@@ -65,8 +66,8 @@
     <BCC_Defines>_DEBUG;$(BCC_Defines)</BCC_Defines>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Cfg_2)'!=''">
-    <BCC_OptimizeForSpeed>true</BCC_OptimizeForSpeed>
     <DCC_Optimize>true</DCC_Optimize>
+    <BCC_OptimizeForSpeed>true</BCC_OptimizeForSpeed>
     <BCC_InlineFunctionExpansion>true</BCC_InlineFunctionExpansion>
     <BCC_UseRegisterVariables>Always</BCC_UseRegisterVariables>
     <DCC_DebugInformation>false</DCC_DebugInformation>
@@ -80,86 +81,21 @@
     <Borland.Personality>CPlusPlusBuilder.Personality</Borland.Personality>
     <Borland.ProjectType>CppVCLApplication</Borland.ProjectType>
     <BorlandProject>
-<BorlandProject xmlns=""> <CPlusPlusBuilder.Personality>   <VersionInfo>
-      <VersionInfo Name="IncludeVerInfo">True</VersionInfo>
-      <VersionInfo Name="AutoIncBuild">False</VersionInfo>
-      <VersionInfo Name="MajorVer">0</VersionInfo>
-      <VersionInfo Name="MinorVer">2</VersionInfo>
-      <VersionInfo Name="Release">0</VersionInfo>
-      <VersionInfo Name="Build">0</VersionInfo>
-      <VersionInfo Name="Debug">False</VersionInfo>
-      <VersionInfo Name="PreRelease">True</VersionInfo>
-      <VersionInfo Name="Special">False</VersionInfo>
-      <VersionInfo Name="Private">False</VersionInfo>
-      <VersionInfo Name="DLL">False</VersionInfo>
-      <VersionInfo Name="Locale">1041</VersionInfo>
-      <VersionInfo Name="CodePage">932</VersionInfo>
-    </VersionInfo>
-    <VersionInfoKeys>
-      <VersionInfoKeys Name="CompanyName">Takuya Murakami</VersionInfoKeys>
-      <VersionInfoKeys Name="FileDescription">FeliCa2Money</VersionInfoKeys>
-      <VersionInfoKeys Name="FileVersion">0.2.0.0</VersionInfoKeys>
-      <VersionInfoKeys Name="InternalName"></VersionInfoKeys>
-      <VersionInfoKeys Name="LegalCopyright">Copyright (C) 2001-2007, Takuya Murakami</VersionInfoKeys>
-      <VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys>
-      <VersionInfoKeys Name="OriginalFilename">FeliCa2Money.exe</VersionInfoKeys>
-      <VersionInfoKeys Name="ProductName">FeliCa2Money</VersionInfoKeys>
-      <VersionInfoKeys Name="ProductVersion">0.2.0.0</VersionInfoKeys>
-      <VersionInfoKeys Name="Comments">Import FeliCa transaction data to Microsoft Money</VersionInfoKeys>
-    </VersionInfoKeys>
-    <HistoryLists_hlIncludePath>
-      <HistoryLists_hlIncludePath Name="Count">1</HistoryLists_hlIncludePath>
-      <HistoryLists_hlIncludePath Name="Item0">$(BCB)\include;$(BCB)\include\vcl</HistoryLists_hlIncludePath>
-    </HistoryLists_hlIncludePath>
-    <HistoryLists_hlLibraryPath>
-      <HistoryLists_hlLibraryPath Name="Count">1</HistoryLists_hlLibraryPath>
-      <HistoryLists_hlLibraryPath Name="Item0">$(BCB)\lib\obj;$(BCB)\lib</HistoryLists_hlLibraryPath>
-    </HistoryLists_hlLibraryPath>
-    <HistoryLists_hlDebugSourcePath>
-      <HistoryLists_hlDebugSourcePath Name="Count">1</HistoryLists_hlDebugSourcePath>
-      <HistoryLists_hlDebugSourcePath Name="Item0">$(BCB)\source\vcl</HistoryLists_hlDebugSourcePath>
-    </HistoryLists_hlDebugSourcePath>
-    <HistoryLists_hlConditionals>
-      <HistoryLists_hlConditionals Name="Count">1</HistoryLists_hlConditionals>
-      <HistoryLists_hlConditionals Name="Item0">_DEBUG</HistoryLists_hlConditionals>
-    </HistoryLists_hlConditionals>
-    <Debugging>
-      <Debugging Name="DebugSourceDirs">$(BCB)\source\vcl</Debugging>
-    </Debugging>
-    <Parameters>
-      <Parameters Name="RunParams"></Parameters>
-      <Parameters Name="Launcher"></Parameters>
-      <Parameters Name="UseLauncher">False</Parameters>
-      <Parameters Name="DebugCWD"></Parameters>
-      <Parameters Name="HostApplication"></Parameters>
-      <Parameters Name="RemoteHost"></Parameters>
-      <Parameters Name="RemotePath"></Parameters>
-      <Parameters Name="RemoteParams"></Parameters>
-      <Parameters Name="RemoteLauncher"></Parameters>
-      <Parameters Name="UseRemoteLauncher">False</Parameters>
-      <Parameters Name="RemoteCWD"></Parameters>
-      <Parameters Name="RemoteDebug">False</Parameters>
-      <Parameters Name="Debug Symbols Search Path"></Parameters>
-      <Parameters Name="LoadAllSymbols">True</Parameters>
-      <Parameters Name="LoadUnspecifiedSymbols">False</Parameters>
-    </Parameters>
-    
-    <Linker>
-      <Linker Name="LibPrefix"></Linker>
-      <Linker Name="LibSuffix"></Linker>
-      <Linker Name="LibVersion"></Linker>
-    </Linker>
-    <Source>
-      <Source Name="MainSource">FeliCa2Money.cpp</Source>
-    </Source>
-    <ProjectProperties>
-      <ProjectProperties Name="AutoShowDeps">False</ProjectProperties>
-      <ProjectProperties Name="ManagePaths">True</ProjectProperties>
-      <ProjectProperties Name="VerifyPackages">True</ProjectProperties>
-    </ProjectProperties>
-  </CPlusPlusBuilder.Personality> </BorlandProject></BorlandProject>
+<BorlandProject><CPlusPlusBuilder.Personality><VersionInfo><VersionInfo Name="IncludeVerInfo">True</VersionInfo><VersionInfo Name="AutoIncBuild">False</VersionInfo><VersionInfo Name="MajorVer">1</VersionInfo><VersionInfo Name="MinorVer">0</VersionInfo><VersionInfo Name="Release">0</VersionInfo><VersionInfo Name="Build">0</VersionInfo><VersionInfo Name="Debug">False</VersionInfo><VersionInfo Name="PreRelease">False</VersionInfo><VersionInfo Name="Special">False</VersionInfo><VersionInfo Name="Private">False</VersionInfo><VersionInfo Name="DLL">False</VersionInfo><VersionInfo Name="Locale">1041</VersionInfo><VersionInfo Name="CodePage">932</VersionInfo></VersionInfo><VersionInfoKeys><VersionInfoKeys Name="CompanyName">Takuya Murakami</VersionInfoKeys><VersionInfoKeys Name="FileDescription">FeliCa2Money</VersionInfoKeys><VersionInfoKeys Name="FileVersion">1.0.0.0</VersionInfoKeys><VersionInfoKeys Name="InternalName"></VersionInfoKeys><VersionInfoKeys Name="LegalCopyright">Copyright (C) 2001-2007, Takuya Murakami</VersionInfoKeys><VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys><VersionInfoKeys Name="OriginalFilename">FeliCa2Money.exe</VersionInfoKeys><VersionInfoKeys Name="ProductName">FeliCa2Money</VersionInfoKeys><VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys><VersionInfoKeys Name="Comments">Import FeliCa transaction data to Microsoft Money</VersionInfoKeys></VersionInfoKeys><HistoryLists_hlIncludePath><HistoryLists_hlIncludePath Name="Count">1</HistoryLists_hlIncludePath><HistoryLists_hlIncludePath Name="Item0">$(BCB)\include;$(BCB)\include\vcl</HistoryLists_hlIncludePath></HistoryLists_hlIncludePath><HistoryLists_hlLibraryPath><HistoryLists_hlLibraryPath Name="Count">1</HistoryLists_hlLibraryPath><HistoryLists_hlLibraryPath Name="Item0">$(BCB)\lib\obj;$(BCB)\lib</HistoryLists_hlLibraryPath></HistoryLists_hlLibraryPath><HistoryLists_hlDebugSourcePath><HistoryLists_hlDebugSourcePath Name="Count">1</HistoryLists_hlDebugSourcePath><HistoryLists_hlDebugSourcePath Name="Item0">$(BCB)\source\vcl</HistoryLists_hlDebugSourcePath></HistoryLists_hlDebugSourcePath><HistoryLists_hlConditionals><HistoryLists_hlConditionals Name="Count">1</HistoryLists_hlConditionals><HistoryLists_hlConditionals Name="Item0">_DEBUG</HistoryLists_hlConditionals></HistoryLists_hlConditionals><Debugging><Debugging Name="DebugSourceDirs">$(BCB)\source\vcl</Debugging></Debugging><Parameters><Parameters Name="RunParams"></Parameters><Parameters Name="Launcher"></Parameters><Parameters Name="UseLauncher">False</Parameters><Parameters Name="DebugCWD"></Parameters><Parameters Name="HostApplication"></Parameters><Parameters Name="RemoteHost"></Parameters><Parameters Name="RemotePath"></Parameters><Parameters Name="RemoteParams"></Parameters><Parameters Name="RemoteLauncher"></Parameters><Parameters Name="UseRemoteLauncher">False</Parameters><Parameters Name="RemoteCWD"></Parameters><Parameters Name="RemoteDebug">False</Parameters><Parameters Name="Debug Symbols Search Path"></Parameters><Parameters Name="LoadAllSymbols">True</Parameters><Parameters Name="LoadUnspecifiedSymbols">False</Parameters></Parameters><Linker><Linker Name="LibPrefix"></Linker><Linker Name="LibSuffix"></Linker><Linker Name="LibVersion"></Linker></Linker><Source><Source Name="MainSource">FeliCa2Money.cpp</Source></Source><ProjectProperties><ProjectProperties Name="AutoShowDeps">False</ProjectProperties><ProjectProperties Name="ManagePaths">True</ProjectProperties><ProjectProperties Name="VerifyPackages">True</ProjectProperties></ProjectProperties>  <HistoryLists_hlFinalOutputDir>
+      <HistoryLists_hlFinalOutputDir Name="Count">1</HistoryLists_hlFinalOutputDir>
+      <HistoryLists_hlFinalOutputDir Name="Item0">.</HistoryLists_hlFinalOutputDir>
+    </HistoryLists_hlFinalOutputDir>
+    <HistoryLists_hlILINK_LibraryPath>
+      <HistoryLists_hlILINK_LibraryPath Name="Count">1</HistoryLists_hlILINK_LibraryPath>
+      <HistoryLists_hlILINK_LibraryPath Name="Item0">$(BDS)\lib\release;$(BDS)\lib\obj;$(BDS)\lib</HistoryLists_hlILINK_LibraryPath>
+    </HistoryLists_hlILINK_LibraryPath>
+    <HistoryLists_hlIntermediateOutputDir>
+      <HistoryLists_hlIntermediateOutputDir Name="Count">1</HistoryLists_hlIntermediateOutputDir>
+      <HistoryLists_hlIntermediateOutputDir Name="Item0">Release_Build</HistoryLists_hlIntermediateOutputDir>
+    </HistoryLists_hlIntermediateOutputDir>
+  </CPlusPlusBuilder.Personality></BorlandProject></BorlandProject>
   </ProjectExtensions>
-  <ItemGroup />
+  <Import Project="$(MSBuildBinPath)\Borland.Cpp.Targets" />
   <ItemGroup>
     <CppCompile Include="Convert.cpp">
       <BuildOrder>3</BuildOrder>
@@ -196,5 +132,4 @@
       <Key>Cfg_2</Key>
     </BuildConfiguration>
   </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Borland.Cpp.Targets" />
 </Project>

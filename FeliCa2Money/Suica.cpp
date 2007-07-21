@@ -40,35 +40,35 @@ TransactionList * SuicaCard::ReadCard(void)
 {
 	//
 	// IDm読み込み
-        //
-        if (SfcPeep->Execute("-i") < 0) return NULL;
+	//
+	if (SfcPeep->Execute("-i") < 0) return NULL;
 
-        // 一行目を確認
-        TStringList *lines = SfcPeep->Lines();
- 	if (lines->Count < 1) {
-        	// no data
+	// 一行目を確認
+	TStringList *lines = SfcPeep->Lines();
+	if (lines->Count < 1) {
+		// no data
                 return NULL;
         }
         AnsiString head = lines->Strings[0];
         lines->Delete(0);
 
         if (head.SubString(1,4) != "IDm:") {
-        	return NULL;
-       	}
-        CardId = head.SubString(5, head.Length() - 4);
+		return NULL;
+	}
+	CardId = head.SubString(5, head.Length() - 4);
 
-        //
-        // 履歴データ読み込み
+	//
+	// 履歴データ読み込み
         //
         if (SfcPeep->Execute("-h") < 0) return NULL;
 
         // 一行目チェック
- 	lines = SfcPeep->Lines();
+	lines = SfcPeep->Lines();
         if (lines->Count < 1) {
-        	// no data
-	        return NULL;
-        }
- 	head = lines->Strings[0];
+		// no data
+		return NULL;
+	}
+	head = lines->Strings[0];
         if (head.SubString(1,5) != "HT00:") {
                 return NULL;
         }
@@ -157,6 +157,15 @@ Transaction *SuicaTransactionList::GenerateTransaction(int nrows, AnsiString *ro
 		if (!rows[10].IsEmpty() && rows[10] != "未登録") {
 			desc += " ";
 			desc += rows[10];
+		}
+
+		// 特殊処理
+		if (desc == "物販") {
+			// 未登録店舗だと適用がすべて"物販"のみになってしまう。
+			// すると、Money が勝手に過去の履歴から店舗名を補完してしまい、
+			// 都合が悪い。ので、ここでは通し番号を付けておく
+			desc += " ";
+			desc += rows[12];
 		}
 	}
 
