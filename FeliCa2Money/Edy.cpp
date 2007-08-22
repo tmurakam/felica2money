@@ -97,6 +97,11 @@ Transaction *EdyTransactionList::GenerateTransaction(int nrows, AnsiString *rows
         if (desc == "支払") {
         	trans->SetTransactionType(desc.c_str(), T_OUTGO);
                 trans->value = - rows[2].ToInt();
+
+		// 適用が "支払" だけだと、Money が過去の履歴から店舗名を
+		// 勝手に補完してしまう。これを避けるため、連番を追加しておく。
+		desc += " ";
+		desc += trans->id;
 	} else {
 		trans->SetTransactionType(desc.c_str(), T_INCOME);
 		trans->value = rows[2].ToInt();
