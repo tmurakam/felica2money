@@ -30,6 +30,7 @@
 // Edy
 //
 
+/// コンストラクタ
 EdyCard::EdyCard(void)
 {
 	Ident = "Edy";
@@ -66,6 +67,7 @@ TransactionList * EdyCard::ReadCard(void)
 }
 
 //
+//  
 // トランザクションリスト
 //
 Transaction *EdyTransactionList::GenerateTransaction(int nrows, AnsiString *rows, int *err)

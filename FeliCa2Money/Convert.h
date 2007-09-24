@@ -21,9 +21,19 @@
 #ifndef	_CONVERT_H
 #define	_CONVERT_H
 
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+
+using namespace std;
+typedef basic_ofstream<char>	ofstream;
+
 #include "Transaction.h"
 #include "Card.h"
 
+/**
+   @brief コンバータ
+*/
 class Converter {
 public:
 	void Convert(Card *c, AnsiString ofxfile);
@@ -31,8 +41,10 @@ public:
 private:
 	Card *card;
 
-	void WriteOfx(FILE *fp, TransactionList *list);
+	void WriteOfx(ofstream &ofs, TransactionList *list);
+
 	AnsiString dateStr(const DateTime &dt);
+	AnsiString transIdStr(const Transaction *t);	
 };
 #endif	// _CONVERT_H
 

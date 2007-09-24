@@ -25,20 +25,35 @@
 #include "Convert.h"
 #include "Transaction.h"
 
+/**
+   @brief カード情報クラス
+*/
 class Card {
-    protected:
-	AnsiString	Ident;
-	AnsiString	CardName;
-	AnsiString	CardId;
+    protected:	
+	AnsiString	Ident;		///< カード名 (Ident)
+	AnsiString	CardName;	///< カード名
+	AnsiString	CardId;		///< カード固有ID (IDm)
 
     public:
+	/**
+	   @brief カードを読み込む
+	   
+	   カードを読み込み、カードIDを取得し、トランザクションリストを構成する。
+	*/
 	virtual TransactionList *ReadCard(void) = 0;
+
+	/// カードIDを設定する
 	inline void SetCardId(AnsiString &id) {
         	CardId = id;
 	}
 
+	/// Ident を返す
 	inline char *getIdent(void)	{ return Ident.c_str(); }
+
+	/// カード名を返す
 	inline char *getCardName(void)	{ return CardName.c_str(); }
+
+	/// カード固有IDを返す
 	inline char *getCardId(void)    { return CardId.c_str(); }
 };
 

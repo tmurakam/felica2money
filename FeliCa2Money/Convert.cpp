@@ -29,11 +29,23 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <iostream>
+#include <iomanip>
+
+using namespace std;
+
 #include "MainForm.h"
 #include "Convert.h"
 #include "Card.h"
 #include "Transaction.h"
 
+/**
+   @brief コンバート実行
+   @param[in] card 読み込み元 Card
+   @param[out] ofxfile 書き出しを行う OFX ファイル名
+
+   カード情報を読み込み、OFX ファイルに書き出す
+*/
 void Converter::Convert(Card *c, AnsiString ofxfile)
 {
 	TransactionList *t;
@@ -53,113 +65,124 @@ void Converter::Convert(Card *c, AnsiString ofxfile)
         }
 
         // OFX ファイルを書き出す
-	FILE *fp = fopen(ofxfile.c_str(), "wb");
-	if (!fp) {
+	ofstream ofs(ofxfile.c_str());
+	if (!ofs) {
         	Application->MessageBox("OFXファイルを開けません", "エラー", MB_OK);
 		return;
        	}
-        WriteOfx(fp, t);
-	fclose(fp);
+	WriteOfx(ofs, t);
+	ofs.close();
 
         // Money 起動	
         ShellExecute(NULL, "open", ofxfile.c_str(),
         	NULL, NULL, SW_SHOW);
 }
 
-void Converter::WriteOfx(FILE *fp, TransactionList *list)
+/**
+   @brief OFX ファイル書き出し
+   @param[in] fp 出力ファイルポインタ
+   @param[in] list トランザクションリスト
+*/
+void Converter::WriteOfx(ofstream& ofs, TransactionList *list)
 {
 	unsigned long idoffset;
-	Transaction *t, *last;
+        vector<Transaction*>::iterator begin, last;
 
-	last = list->Tail();
-	t = list->Head();
+        begin = list->begin();
+	last = list->end();
+	last--;
+
+        AnsiString beginDate = dateStr((*begin)->date);
+        AnsiString endDate = dateStr((*last)->date);
 
 	/* OFX ヘッダ */
-	fprintf(fp, "OFXHEADER:100\n");
-	fprintf(fp, "DATA:OFXSGML\n");
-	fprintf(fp, "VERSION:102\n");
-	fprintf(fp, "SECURITY:NONE\n");
-	fprintf(fp, "ENCODING:UTF-8\n");
-	fprintf(fp, "CHARSET:CSUNICODE\n");
-	fprintf(fp, "COMPRESSION:NONE\n");
-	fprintf(fp, "OLDFILEUID:NONE\n");
-	fprintf(fp, "NEWFILEUID:NONE\n");
-	fprintf(fp, "\n");
+	ofs << "OFXHEADER:100" << endl;
+	ofs << "DATA:OFXSGML" << endl;
+	ofs << "VERSION:102" << endl;
+	ofs << "SECURITY:NONE" << endl;
+	ofs << "ENCODING:UTF-8" << endl;
+	ofs << "CHARSET:CSUNICODE" << endl;
+	ofs << "COMPRESSION:NONE" << endl;
+	ofs << "OLDFILEUID:NONE" << endl;
+	ofs << "NEWFILEUID:NONE" << endl;
+	ofs << endl;
 
 	/* 金融機関情報(サインオンレスポンス) */
-	fprintf(fp, "<OFX>\n");
-	fprintf(fp, "<SIGNONMSGSRSV1>\n");
-	fprintf(fp, "<SONRS>\n");
-	fprintf(fp, "  <STATUS>\n");
-	fprintf(fp, "    <CODE>0\n");
-	fprintf(fp, "    <SEVERITY>INFO\n");
-	fprintf(fp, "  </STATUS>\n");
-	fprintf(fp, "  <DTSERVER>%s\n", dateStr(last->date).c_str());
+	ofs << "<OFX>" << endl;
+	ofs << "<SIGNONMSGSRSV1>" << endl;
+	ofs << "<SONRS>" << endl;
+	ofs << "  <STATUS>" << endl;
+	ofs << "    <CODE>0" << endl;
+	ofs << "    <SEVERITY>INFO" << endl;
+	ofs << "  </STATUS>" << endl;
+	ofs << "  <DTSERVER>" << beginDate.c_str() << endl;
 
-	fprintf(fp, "  <LANGUAGE>JPN\n");
-	fprintf(fp, "  <FI>\n");
-	fprintf(fp, "    <ORG>%s\n", card->getIdent());
-	fprintf(fp, "  </FI>\n");
-	fprintf(fp, "</SONRS>\n");
-	fprintf(fp, "</SIGNONMSGSRSV1>\n");
+	ofs << "  <LANGUAGE>JPN" << endl;
+	ofs << "  <FI>" << endl;
+	ofs << "    <ORG>" <<  card->getIdent() << endl;
+	ofs << "  </FI>" << endl;
+	ofs << "</SONRS>" << endl;
+	ofs << "</SIGNONMSGSRSV1>" << endl;
 
 	/* 口座情報(バンクメッセージレスポンス) */
-	fprintf(fp, "<BANKMSGSRSV1>\n");
+	ofs << "<BANKMSGSRSV1>" << endl;
 
 	/* 預金口座型明細情報作成 */
-	fprintf(fp, "<STMTTRNRS>\n");
-	fprintf(fp, "<TRNUID>0\n");
-	fprintf(fp, "<STATUS>\n");
-	fprintf(fp, "  <CODE>0\n");
-	fprintf(fp, "  <SEVERITY>INFO\n");
-	fprintf(fp, "</STATUS>\n");
+	ofs << "<STMTTRNRS>" << endl;
+	ofs << "<TRNUID>0" << endl;
+	ofs << "<STATUS>" << endl;
+	ofs << "  <CODE>0" << endl;
+	ofs << "  <SEVERITY>INFO" << endl;
+	ofs << "</STATUS>" << endl;
 
-	fprintf(fp, "<STMTRS>\n");
-	fprintf(fp, "  <CURDEF>JPY\n");
+	ofs << "<STMTRS>" << endl;
+	ofs << "  <CURDEF>JPY" << endl;
 
-	fprintf(fp, "  <BANKACCTFROM>\n");
-	fprintf(fp, "    <BANKID>%s\n", 	card->getIdent());
-	fprintf(fp, "    <BRANCHID>%s\n", 	"000");
-	fprintf(fp, "    <ACCTID>%s\n", 	card->getCardId());
-	fprintf(fp, "    <ACCTTYPE>SAVINGS\n");
-	fprintf(fp, "  </BANKACCTFROM>\n");
+	ofs << "  <BANKACCTFROM>" << endl;
+	ofs << "    <BANKID>" << card->getIdent() << endl;
+	ofs << "    <BRANCHID>" << "000" << endl;
+	ofs << "    <ACCTID>" << card->getCardId() << endl;
+	ofs << "    <ACCTTYPE>SAVINGS" << endl;
+	ofs << "  </BANKACCTFROM>" << endl;
 
 	/* 明細情報開始(バンクトランザクションリスト) */
-	fprintf(fp, "  <BANKTRANLIST>\n");
-	fprintf(fp, "    <DTSTART>%s\n", dateStr(t->date).c_str());
-	fprintf(fp, "    <DTEND>%s\n", dateStr(last->date).c_str());
+	ofs << "  <BANKTRANLIST>" << endl;
+	ofs << "    <DTSTART>" << beginDate.c_str() << endl;
+	ofs << "    <DTEND>" << endDate.c_str() << endl;
 
 	/* トランザクション */
-	do {
-		fprintf(fp, "    <STMTTRN>\n");
-		fprintf(fp, "      <TRNTYPE>%s\n", t->GetTrnTypeStr());
-		fprintf(fp, "      <DTPOSTED>%s\n", dateStr(t->date).c_str());
-		fprintf(fp, "      <TRNAMT>%d\n", t->value);
+	vector<Transaction*>::iterator it;
 
-		/* トランザクションの ID は日付と取引番号で生成 */
-		fprintf(fp, "      <FITID>%04d%02d%02d%07d\n",
-			t->date.year, t->date.month, t->date.date,
-			t->id);
-		fprintf(fp, "      <NAME>%s\n", t->desc);
+        for (it = list->begin(); it != list->end(); it++) {
+        	Transaction *t = *it;
+
+		ofs << "    <STMTTRN>" << endl;
+		ofs << "      <TRNTYPE>" <<  t->GetTrnTypeStr() << endl;
+		ofs << "      <DTPOSTED>" << dateStr(t->date).c_str() << endl;
+		ofs << "      <TRNAMT>" <<  t->value << endl;
+
+		ofs << "      <FITID>" << transIdStr(t).c_str() << endl;
+
+		ofs << "      <NAME>" << t->desc.c_str() << endl;
                 if (!t->memo.IsEmpty()) {
-			fprintf(fp, "      <MEMO>%s\n", t->memo);
+			ofs << "      <MEMO>" << t->memo.c_str() << endl;
                 }
-		fprintf(fp, "    </STMTTRN>\n");
-	} while ((t = list->Next()) != NULL);
+		ofs << "    </STMTTRN>" << endl;
+	};
 
-	fprintf(fp, "  </BANKTRANLIST>\n");
+	ofs << "  </BANKTRANLIST>" << endl;
 
 	/* 残高 */
-	fprintf(fp, "  <LEDGERBAL>\n");
-	fprintf(fp, "    <BALAMT>%d\n", last->balance);
-	fprintf(fp, "    <DTASOF>%s\n", dateStr(last->date).c_str());
-	fprintf(fp, "  </LEDGERBAL>\n");
+	ofs << "  <LEDGERBAL>" << endl;
+	ofs << "    <BALAMT>" << (*last)->balance << endl;
+	ofs << "    <DTASOF>" << endDate.c_str() << endl;
+	ofs << "  </LEDGERBAL>" << endl;
 
 	/* OFX 終了 */
-	fprintf(fp, "  </STMTRS>\n");
-	fprintf(fp, "</STMTTRNRS>\n");
-	fprintf(fp, "</BANKMSGSRSV1>\n");
-	fprintf(fp, "</OFX>\n");
+	ofs << "  </STMTRS>" << endl;
+	ofs << "</STMTTRNRS>" << endl;
+	ofs << "</BANKMSGSRSV1>" << endl;
+	ofs << "</OFX>" << endl;
 }
 
 AnsiString Converter::dateStr(const DateTime & dt)
@@ -170,6 +193,22 @@ AnsiString Converter::dateStr(const DateTime & dt)
 	str.sprintf("%4d%02d%02d%02d%02d%02d[+9:JST]",
 		dt.year, dt.month, dt.date,
 		dt.hour, dt.minutes, dt.seconds);
+	return str;
+}
+
+/**
+   @brief トランザクションIDを取得
+   @param[in] t トランザクション
+   @out トランザクションID
+
+   日付とトランザクションID から文字列を生成する
+*/
+AnsiString Converter::transIdStr(const Transaction *t)
+{
+	AnsiString str;
+
+	str.sprintf("%04d%02d%02d%07d",
+		    t->date.year, t->date.month, t->date.date, t->id);
 	return str;
 }
 

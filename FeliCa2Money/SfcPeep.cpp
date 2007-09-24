@@ -28,20 +28,26 @@
 class SFCPeep *SfcPeep = NULL;
 
 //---------------------------------------------------------------------------
-// constructor
+/// constructor
 SFCPeep::SFCPeep(void)
 {
 	lines = new TStringList;
 }
 //---------------------------------------------------------------------------
-// destructor
+/// destructor
 SFCPeep::~SFCPeep()
 {
 	delete lines;
 }
 
 //---------------------------------------------------------------------------
-// execute
+/**
+   @brief SFCPeep を実行
+   @param[in] arg SFCPeepに渡すオプション
+   @return エラーコード (0:成功, -1:失敗)
+
+   読み込まれたデータは lines に格納される。
+*/
 int SFCPeep::Execute(AnsiString arg)
 {
 	AnsiString cmdline;

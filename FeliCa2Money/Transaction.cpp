@@ -39,6 +39,13 @@ struct trntable trntable_outgo[] = {
 	{NULL, T_DEBIT}
 };
 
+/**
+   @brief トランザクションタイプを自動的に設定する
+   @param[in] desc 取引文字列
+   @param[in] type 取引タイプ(T_INCOME / T_OUTGO)
+
+   トランザクションタイプは type に格納される
+*/
 void Transaction::SetTransactionType(const char *desc, int type)
 {
 	struct trntable *tab;
@@ -68,24 +75,30 @@ void Transaction::SetTransactionType(const char *desc, int type)
 	return;
 }
 
+/**
+   @brief トランザクションタイプ文字列を取得する
+   @return トランザクションタイプ文字列
+*/
 const char *Transaction::GetTrnTypeStr(void)
 {
 	return trnname[type];
 }
 
+/// デストラクタ
 TransactionList::~TransactionList()
 {
-	Transaction *next;
+	vector<Transaction*>::iterator it;
 
-	while (head) {
-		next = head->next;
-		delete head;
-
-		head = next;
+	for (it = list.begin(); it != list.end(); it++) {
+		delete *it;
 	}
 }
 
-// タブで区切られた token を取得する
+/**
+   @brief タブで区切られた token を取得する
+   @param[in,out] pos 読み込み位置
+   @return token
+*/
 char * TransactionList::getTabbedToken(char **pos)
 {
         char *ret = *pos;
@@ -105,9 +118,14 @@ char * TransactionList::getTabbedToken(char **pos)
 
 }
 
-//
-// タブ区切りデータを処理する
-//
+/**
+   @brief タブで区切られた各行を解析する
+   @param[in] lines 処理する行(複数行)
+   @param[in] reverse 逆順に処理するかどうかのフラグ
+   @return 0 で成功、-1 でエラー
+
+   解析結果は list に格納される
+*/
 int TransactionList::ParseLines(TStringList *lines, bool reverse)
 {
 	char buf[3000];
@@ -143,20 +161,19 @@ int TransactionList::ParseLines(TStringList *lines, bool reverse)
 			continue;
 		}
 
-		if (!tail) {
-			head = tail = t;
-		} else {
-			tail->next = t;
-			tail = t;
-		}
-		t->next = NULL;
+		list.push_back(t);
 	}
 	return 0;
 }
 
-//
-// トランザクション ID 作成
-//
+/**
+   @brief トランザクションIDの生成
+   @param[in] キー
+   @return シリアル番号
+
+   キーが前回と異なっていれば常に 0 を返す
+   同じ場合はシリアル番号をインクリメントして返す
+*/
 int TransactionList::GenerateTransactionId(int key)
 {
 	if (key != prev_key) {
@@ -172,7 +189,9 @@ int TransactionList::GenerateTransactionId(int key)
 // ユーティリティ関数
 //
 
-// SJIS->UTF8
+/**
+   @brief SJIS->UTF8変換
+*/
 AnsiString sjis2utf8(const AnsiString & sjis)
 {
 	wchar_t wbuf[1500];
