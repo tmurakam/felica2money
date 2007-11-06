@@ -32,6 +32,7 @@
 
 #include "Edy.h"
 #include "Suica.h"
+#include "Nanaco.h"
 
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
@@ -50,6 +51,13 @@ void __fastcall TMForm::FormShow(TObject *Sender)
 	LoadRegistry();
 }
 //---------------------------------------------------------------------------
+/**
+   @brief コンバート実行
+   @param[in] card Card クラス
+
+   Convert::Convert を呼び出し、カード読み込み、OFX ファイル生成、
+   Money 起動を実行する
+*/
 void TMForm::doConvert(Card *card)
 {
 	char tmppath[1024];
@@ -64,24 +72,40 @@ void TMForm::doConvert(Card *card)
 
         Converter c;
 	c.Convert(card, ofxfile);
+
+	delete card;
 }
 //---------------------------------------------------------------------------
+/// Edy ボタンクリック
 void __fastcall TMForm::ButtonConvertEdyClick(TObject *Sender)
 {
 	doConvert(new EdyCard);
 }
 
 //---------------------------------------------------------------------------
+/// Suica ボタンクリック
 void __fastcall TMForm::ButtonConvertSuicaClick(TObject *Sender)
 {
 	doConvert(new SuicaCard);
 }
 //---------------------------------------------------------------------------
+
+void __fastcall TMForm::BtnConvertNanacoClick(TObject *Sender)
+{
+	doConvert(new NanacoCard);
+}
+//---------------------------------------------------------------------------
+/// 終了ボタンクリック
 void __fastcall TMForm::ButtonQuitClick(TObject *Sender)
 {
 	Application->Terminate();
 }
 //---------------------------------------------------------------------------
+/**
+   @brief レジストリ情報読み込み
+
+   設定情報 (SFCPeepのパス名)を読み込む
+*/
 void TMForm::LoadRegistry(void)
 {
 	// レジストリから設定の読み込み
@@ -96,6 +120,11 @@ void TMForm::LoadRegistry(void)
         }
 }
 //---------------------------------------------------------------------------
+/**
+   @brief レジストリ情報保存
+
+   設定情報 (SFCPeepのパス名)をレジストリに保存する
+*/
 void TMForm::SaveRegistry(void)
 {
 	TRegIniFile *ini;
@@ -110,6 +139,7 @@ void TMForm::SaveRegistry(void)
 }
 
 //---------------------------------------------------------------------------
+/// ヘルプ表示
 void __fastcall TMForm::ButtonHelpClick(TObject *Sender)
 {
         AnsiString doc = ExtractFilePath(Application->ExeName) +
@@ -119,8 +149,7 @@ void __fastcall TMForm::ButtonHelpClick(TObject *Sender)
         NULL, NULL, SW_SHOWDEFAULT);
 }
 //---------------------------------------------------------------------------
-
-
+/// 設定ボタンクリック
 void __fastcall TMForm::ButtonConfigClick(TObject *Sender)
 {
 	OpenDialog->FileName = SFCPeepPath;
@@ -130,6 +159,7 @@ void __fastcall TMForm::ButtonConfigClick(TObject *Sender)
         }	
 }
 //---------------------------------------------------------------------------
+
 
 
 

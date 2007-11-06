@@ -103,13 +103,13 @@ class Card;
    派生クラスでは、Ident() と GenerateTransaction() をオーバライドすること。
 */
 class TransactionList {
-    private:
+
+protected:
 	/// トランザクションリスト
 	vector<Transaction*> list;
+private:
 	int prev_key, serial;
         AnsiString SFCPeepPath;
-
-	virtual const char *Ident(void) = 0;
 
 	/**
 	   @brief トランザクションの生成
@@ -125,7 +125,7 @@ class TransactionList {
 
         char * TransactionList::getTabbedToken(char **pos);
 
-    public:
+public:
 
 	inline TransactionList(void) { prev_key = serial = 0; }
 	~TransactionList();

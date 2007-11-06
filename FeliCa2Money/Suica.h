@@ -32,7 +32,6 @@ class SuicaCard : public Card {
 class SuicaTransactionList : public TransactionList
 {
     private:
-	virtual const char *Ident(void) { return ""; }
 	long prevBalance;
         static const UndefBalance = -99999999;
 

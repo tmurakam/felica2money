@@ -18,22 +18,22 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef _EDY_H
-#define _EDY_H
+#ifndef _NANACO_H
+#define _NANACO_H
 
 #include "Transaction.h"
 
-class EdyCard : public Card {
-    public:
-	EdyCard(void);
-	virtual TransactionList *ReadCard(void);
+class NanacoCard : public Card {
+public:
+    NanacoCard(void);
+    virtual TransactionList *ReadCard(void);
 };
 
-class EdyTransactionList : public TransactionList
+class NanacoTransactionList : public TransactionList
 {
-    public:
-	virtual Transaction *GenerateTransaction(int nrows, AnsiString *rows, int *err);
+public:
+    int readCard(AnsiString& cardId);
+    virtual Transaction *GenerateTransaction(int nrows, AnsiString *rows, int *err);
 };
 
 #endif
-
