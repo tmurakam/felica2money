@@ -3,7 +3,7 @@ object MForm: TMForm
   Top = 123
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
-  Caption = 'FeliCa2Money ver 1.1'
+  Caption = 'FeliCa2Money ver 1.2'
   ClientHeight = 389
   ClientWidth = 390
   Color = clBtnFace
