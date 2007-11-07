@@ -22,39 +22,91 @@
 #define	_CARD_H
 
 #include <stdio.h>
-#include "Convert.h"
 #include "Transaction.h"
 
 /**
    @brief カード情報クラス
 */
-class Card {
-    protected:	
-	AnsiString	Ident;		///< カード名 (Ident)
-	AnsiString	CardName;	///< カード名
-	AnsiString	CardId;		///< カード固有ID (IDm)
+class CardBase {
+protected:	
+    AnsiString	Ident;		///< カード名 (Ident)
+    AnsiString	CardName;	///< カード名
+    AnsiString	CardId;		///< カード固有ID (IDm)
 
-    public:
-	/**
-	   @brief カードを読み込む
+public:
+    /// カードIDを設定する
+    inline void SetCardId(AnsiString &id) {
+	CardId = id;
+    }
+
+    /// Ident を返す
+    inline char *getIdent(void)	{ return Ident.c_str(); }
+
+    /// カード名を返す
+    inline char *getCardName(void)	{ return CardName.c_str(); }
+
+    /// カード固有IDを返す
+    inline char *getCardId(void)    { return CardId.c_str(); }
+};
+
+/**
+   @brief カード情報クラス(トランザクション管理つき)
+*/
+class Card : public CardBase
+{
+protected:
+    vector<Transaction*> list;	///< トランザクションリスト
+
+private:
+    int prev_key, serial;		///< トランザクションID生成用
+
+public:
+    Card();
+    virtual ~Card();
+
+    /**
+       @brief カードを読み込む
 	   
-	   カードを読み込み、カードIDを取得し、トランザクションリストを構成する。
-	*/
-	virtual TransactionList *ReadCard(void) = 0;
+       カードを読み込み、カードIDを取得し、トランザクションリストを構成する。
+    */
+    virtual int ReadCard(void) = 0;
 
-	/// カードIDを設定する
-	inline void SetCardId(AnsiString &id) {
-        	CardId = id;
-	}
+    inline bool hasAnyTransaction(void) { return list.size() > 0 ? true : false; }
 
-	/// Ident を返す
-	inline char *getIdent(void)	{ return Ident.c_str(); }
+    inline vector<Transaction *>::iterator begin() {
+	return list.begin();
+    }
+    inline vector<Transaction *>::iterator end() {
+	return list.end();
+    }
 
-	/// カード名を返す
-	inline char *getCardName(void)	{ return CardName.c_str(); }
+    /** トランザクション ID 生成 */
+    int GenerateTransactionId(int key);
+};
 
-	/// カード固有IDを返す
-	inline char *getCardId(void)    { return CardId.c_str(); }
+/**
+   @brief カード情報クラス (ラインパーサ付き)
+*/
+class CardWithLineParser : public Card
+{
+public:
+    int ParseLines(TStringList *lines, bool reverse = false);
+
+private:    
+    /**
+       @brief トランザクションの生成
+       @param nrows[in] 入力カラム数
+       @param rows[in] 入力カラムの各文字列
+       @param err[out] エラーコード
+       @return トランザクション
+
+       SFCPeep の各出力行に対し、各行のカラムを分解したものが引数に渡される。
+       本関数は、これを解析し、トランザクションを生成して返す。
+    */
+    virtual Transaction *GenerateTransaction(int nrows, AnsiString *rows, int *err) = 0;
+
+    /** タブで区切られたトークンを切り出す */
+    char * getTabbedToken(char **pos);
 };
 
 #endif	// _CARD_H

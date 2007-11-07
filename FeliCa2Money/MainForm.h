@@ -37,32 +37,32 @@
 class TMForm : public TForm
 {
 __published:	// IDE 管理のコンポーネント
-	TOpenDialog *OpenDialog;
-	TButton *ButtonQuit;
-	TButton *ButtonConfig;
-	TButton *ButtonHelp;
-	TLabel *Label1;
-	TLabel *Label2;
-	TLabel *Label3;
-	TLabel *Label4;
-	TBitBtn *BtnConvertEdy;
-	TBitBtn *ButtonConvertSuica;
-	TBitBtn *BtnConvertNanaco;
-	TLabel *Label5;
-	void __fastcall ButtonQuitClick(TObject *Sender);
-	void __fastcall FormShow(TObject *Sender);
-	void __fastcall ButtonHelpClick(TObject *Sender);
-	void __fastcall ButtonConfigClick(TObject *Sender);
-	void __fastcall ButtonConvertEdyClick(TObject *Sender);
-	void __fastcall ButtonConvertSuicaClick(TObject *Sender);
-	void __fastcall BtnConvertNanacoClick(TObject *Sender);
+    TOpenDialog *OpenDialog;
+    TButton *ButtonQuit;
+    TButton *ButtonConfig;
+    TButton *ButtonHelp;
+    TLabel *Label1;
+    TLabel *Label2;
+    TLabel *Label3;
+    TLabel *Label4;
+    TBitBtn *BtnConvertEdy;
+    TBitBtn *ButtonConvertSuica;
+    TBitBtn *BtnConvertNanaco;
+    TLabel *Label5;
+    void __fastcall ButtonQuitClick(TObject *Sender);
+    void __fastcall FormShow(TObject *Sender);
+    void __fastcall ButtonHelpClick(TObject *Sender);
+    void __fastcall ButtonConfigClick(TObject *Sender);
+    void __fastcall ButtonConvertEdyClick(TObject *Sender);
+    void __fastcall ButtonConvertSuicaClick(TObject *Sender);
+    void __fastcall BtnConvertNanacoClick(TObject *Sender);
 private:
-	void doConvert(Card *card);
-	void SaveRegistry(void);
-	void LoadRegistry(void);
+    void doConvert(Card *card);
+    void SaveRegistry(void);
+    void LoadRegistry(void);
 public:		// ユーザー宣言
-	__fastcall TMForm(TComponent* Owner);
- 	AnsiString SFCPeepPath;
+    __fastcall TMForm(TComponent* Owner);
+    AnsiString SFCPeepPath;
 };
 //---------------------------------------------------------------------------
 extern PACKAGE TMForm *MForm;

@@ -28,24 +28,24 @@
 */
 class SFCPeep {
 private:
-	AnsiString	SFCPeepPath;	///< SFCPeep のフルパス名
-	AnsiString	TempFile;	///< テンポラリファイル名
-        TStringList	*lines;		///< SFCPeep の各出力行
+    AnsiString	SFCPeepPath;	///< SFCPeep のフルパス名
+    AnsiString	TempFile;	///< テンポラリファイル名
+    TStringList	*lines;		///< SFCPeep の各出力行
 
 public:
-	SFCPeep(void);
-	~SFCPeep();
+    SFCPeep(void);
+    ~SFCPeep();
 
-	/// SFCPeep のパスを設定
-	void SetSfcPeepPath(AnsiString path) { SFCPeepPath = path; }
+    /// SFCPeep のパスを設定
+    void SetSfcPeepPath(AnsiString path) { SFCPeepPath = path; }
 
-	/// テンポラリファイルパス名を設定
-	void SetTempFile(AnsiString path)	{ TempFile = path; }
+    /// テンポラリファイルパス名を設定
+    void SetTempFile(AnsiString path)	{ TempFile = path; }
 
-	int Execute(AnsiString arg);
+    int Execute(AnsiString arg);
 
-	/// lines を返す
-        TStringList * Lines(void) { return lines; }
+    /// lines を返す
+    TStringList * Lines(void) { return lines; }
 };
 
 extern class SFCPeep *SfcPeep;

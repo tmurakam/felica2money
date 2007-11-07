@@ -40,15 +40,15 @@
 TMForm *MForm;
 //---------------------------------------------------------------------------
 __fastcall TMForm::TMForm(TComponent* Owner)
-	: TForm(Owner)
+    : TForm(Owner)
 {
 }
 //---------------------------------------------------------------------------
 void __fastcall TMForm::FormShow(TObject *Sender)
 {
-        SfcPeep = new SFCPeep;
+    SfcPeep = new SFCPeep;
 
-	LoadRegistry();
+    LoadRegistry();
 }
 //---------------------------------------------------------------------------
 /**
@@ -60,45 +60,45 @@ void __fastcall TMForm::FormShow(TObject *Sender)
 */
 void TMForm::doConvert(Card *card)
 {
-	char tmppath[1024];
-	GetTempPath(sizeof(tmppath), tmppath);
+    char tmppath[1024];
+    GetTempPath(sizeof(tmppath), tmppath);
 
-        AnsiString t = tmppath;
-	AnsiString ofxfile = t + "FeliCa2Money.ofx";
-        AnsiString tmpfile = t + "FeliCa2Money.csv";
+    AnsiString t = tmppath;
+    AnsiString ofxfile = t + "FeliCa2Money.ofx";
+    AnsiString tmpfile = t + "FeliCa2Money.csv";
 
-        SfcPeep->SetSfcPeepPath(SFCPeepPath);
-	SfcPeep->SetTempFile(tmpfile);
+    SfcPeep->SetSfcPeepPath(SFCPeepPath);
+    SfcPeep->SetTempFile(tmpfile);
 
-        Converter c;
-	c.Convert(card, ofxfile);
+    Converter c;
+    c.Convert(card, ofxfile);
 
-	delete card;
+    delete card;
 }
 //---------------------------------------------------------------------------
 /// Edy ボタンクリック
 void __fastcall TMForm::ButtonConvertEdyClick(TObject *Sender)
 {
-	doConvert(new EdyCard);
+    doConvert(new EdyCard);
 }
 
 //---------------------------------------------------------------------------
 /// Suica ボタンクリック
 void __fastcall TMForm::ButtonConvertSuicaClick(TObject *Sender)
 {
-	doConvert(new SuicaCard);
+    doConvert(new SuicaCard);
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TMForm::BtnConvertNanacoClick(TObject *Sender)
 {
-	doConvert(new NanacoCard);
+    doConvert(new NanacoCard);
 }
 //---------------------------------------------------------------------------
 /// 終了ボタンクリック
 void __fastcall TMForm::ButtonQuitClick(TObject *Sender)
 {
-	Application->Terminate();
+    Application->Terminate();
 }
 //---------------------------------------------------------------------------
 /**
@@ -108,16 +108,16 @@ void __fastcall TMForm::ButtonQuitClick(TObject *Sender)
 */
 void TMForm::LoadRegistry(void)
 {
-	// レジストリから設定の読み込み
-	TRegistry *reg = new TRegistry();
+    // レジストリから設定の読み込み
+    TRegistry *reg = new TRegistry();
 
-	reg->RootKey = HKEY_CURRENT_USER;
-	reg->OpenKey("\\Software\\Takuya Murakami\\FeliCa2Money", true);
+    reg->RootKey = HKEY_CURRENT_USER;
+    reg->OpenKey("\\Software\\Takuya Murakami\\FeliCa2Money", true);
 
-	SFCPeepPath = reg->ReadString("SFCPeepPath");
-	if (SFCPeepPath.IsEmpty()) {
-        	SFCPeepPath = "c:\\Program Files\\DENNO NET\\SFCPeep\\SFCPeep.exe";
-        }
+    SFCPeepPath = reg->ReadString("SFCPeepPath");
+    if (SFCPeepPath.IsEmpty()) {
+	SFCPeepPath = "c:\\Program Files\\DENNO NET\\SFCPeep\\SFCPeep.exe";
+    }
 }
 //---------------------------------------------------------------------------
 /**
@@ -127,41 +127,35 @@ void TMForm::LoadRegistry(void)
 */
 void TMForm::SaveRegistry(void)
 {
-	TRegIniFile *ini;
+    TRegIniFile *ini;
 
-	// レジストリに設定を保存
-	TRegistry *reg = new TRegistry();
+    // レジストリに設定を保存
+    TRegistry *reg = new TRegistry();
 
-	reg->RootKey = HKEY_CURRENT_USER;
-	reg->OpenKey("\\Software\\Takuya Murakami\\FeliCa2Money", true);
+    reg->RootKey = HKEY_CURRENT_USER;
+    reg->OpenKey("\\Software\\Takuya Murakami\\FeliCa2Money", true);
 
-	reg->WriteString("SFCPeepPath", SFCPeepPath);
+    reg->WriteString("SFCPeepPath", SFCPeepPath);
 }
 
 //---------------------------------------------------------------------------
 /// ヘルプ表示
 void __fastcall TMForm::ButtonHelpClick(TObject *Sender)
 {
-        AnsiString doc = ExtractFilePath(Application->ExeName) +
-        	"Felica2Money.html";
+    AnsiString doc = ExtractFilePath(Application->ExeName) +
+	"Felica2Money.html";
 
-	ShellExecute(NULL, "open", doc.c_str(),
-        NULL, NULL, SW_SHOWDEFAULT);
+    ShellExecute(NULL, "open", doc.c_str(),
+		 NULL, NULL, SW_SHOWDEFAULT);
 }
 //---------------------------------------------------------------------------
 /// 設定ボタンクリック
 void __fastcall TMForm::ButtonConfigClick(TObject *Sender)
 {
-	OpenDialog->FileName = SFCPeepPath;
-        if (OpenDialog->Execute()) {
-        	SFCPeepPath = OpenDialog->FileName;
-                SaveRegistry();
-        }	
+    OpenDialog->FileName = SFCPeepPath;
+    if (OpenDialog->Execute()) {
+	SFCPeepPath = OpenDialog->FileName;
+	SaveRegistry();
+    }	
 }
 //---------------------------------------------------------------------------
-
-
-
-
-
-

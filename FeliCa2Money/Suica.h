@@ -23,22 +23,16 @@
 
 #include "Transaction.h"
 
-class SuicaCard : public Card {
-    public:
-	SuicaCard(void);
-	virtual TransactionList *ReadCard(void);
-};
+class SuicaCard : public CardWithLineParser {
+public:
+    SuicaCard(void);
+    virtual int ReadCard(void);
 
-class SuicaTransactionList : public TransactionList
-{
-    private:
-	long prevBalance;
-        static const UndefBalance = -99999999;
+private:
+    long prevBalance;
+    static const UndefBalance = -99999999;
 
-    public:
-    	SuicaTransactionList(void) { prevBalance = UndefBalance; }
-	virtual Transaction *GenerateTransaction(int nrows, AnsiString *rows, int *err);
+    virtual Transaction *GenerateTransaction(int nrows, AnsiString *rows, int *err);
 };
 
 #endif
-

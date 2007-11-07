@@ -26,14 +26,7 @@
 class NanacoCard : public Card {
 public:
     NanacoCard(void);
-    virtual TransactionList *ReadCard(void);
-};
-
-class NanacoTransactionList : public TransactionList
-{
-public:
-    int readCard(AnsiString& cardId);
-    virtual Transaction *GenerateTransaction(int nrows, AnsiString *rows, int *err);
+    virtual int ReadCard(void);
 };
 
 #endif

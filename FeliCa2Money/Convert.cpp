@@ -48,18 +48,16 @@ using namespace std;
 */
 void Converter::Convert(Card *c, AnsiString ofxfile)
 {
-	TransactionList *t;
-
 	card = c;
 
 	// CSV ファイルを読む
-	t = card->ReadCard();
+	int ret = card->ReadCard();
 
-        if (!t) {
+        if (ret) {
                	Application->MessageBox("カードを読むことができませんでした", "エラー", MB_OK);
         	return;
         }
-        if (!t->hasAnyTransaction()) {
+        if (!card->hasAnyTransaction()) {
         	Application->MessageBox("履歴が一件もありません", "エラー", MB_OK);
 		return;               
         }
@@ -70,7 +68,7 @@ void Converter::Convert(Card *c, AnsiString ofxfile)
         	Application->MessageBox("OFXファイルを開けません", "エラー", MB_OK);
 		return;
        	}
-	WriteOfx(ofs, t);
+	WriteOfx(ofs);
 	ofs.close();
 
         // Money 起動	
@@ -80,16 +78,15 @@ void Converter::Convert(Card *c, AnsiString ofxfile)
 
 /**
    @brief OFX ファイル書き出し
-   @param[in] fp 出力ファイルポインタ
-   @param[in] list トランザクションリスト
+   @param[in] ofs 出力ストリーム
 */
-void Converter::WriteOfx(ofstream& ofs, TransactionList *list)
+void Converter::WriteOfx(ofstream& ofs)
 {
 	unsigned long idoffset;
         vector<Transaction*>::iterator begin, last;
 
-        begin = list->begin();
-	last = list->end();
+        begin = card->begin();
+	last = card->end();
 	last--;
 
         AnsiString beginDate = dateStr((*begin)->date);
@@ -153,7 +150,7 @@ void Converter::WriteOfx(ofstream& ofs, TransactionList *list)
 	/* トランザクション */
 	vector<Transaction*>::iterator it;
 
-        for (it = list->begin(); it != list->end(); it++) {
+        for (it = card->begin(); it != card->end(); it++) {
         	Transaction *t = *it;
 
 		ofs << "    <STMTTRN>" << endl;

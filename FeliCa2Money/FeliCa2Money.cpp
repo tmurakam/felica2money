@@ -25,17 +25,17 @@ USEFORM("MainForm.cpp", MForm);
 //---------------------------------------------------------------------------
 WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
-        try
-        {
-        	Application->Initialize();
-                Application->Title = "FeliCa2Money";
-		Application->CreateForm(__classid(TMForm), &MForm);
-		Application->Run();
-        }
-        catch (Exception &exception)
-        {
-                 Application->ShowException(&exception);
-        }
-        return 0;
+    try
+    {
+	Application->Initialize();
+	Application->Title = "FeliCa2Money";
+	Application->CreateForm(__classid(TMForm), &MForm);
+	Application->Run();
+    }
+    catch (Exception &exception)
+    {
+	Application->ShowException(&exception);
+    }
+    return 0;
 }
 //---------------------------------------------------------------------------

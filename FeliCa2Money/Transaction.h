@@ -94,55 +94,6 @@ class Transaction {
 	const char *GetTrnTypeStr(void);
 };
 
-class Card;
-
-/**
-   @brief トランザクション管理クラス
-
-   各カード毎に派生させて使用する。
-   派生クラスでは、Ident() と GenerateTransaction() をオーバライドすること。
-*/
-class TransactionList {
-
-protected:
-	/// トランザクションリスト
-	vector<Transaction*> list;
-private:
-	int prev_key, serial;
-        AnsiString SFCPeepPath;
-
-	/**
-	   @brief トランザクションの生成
-	   @param nrows[in] 入力カラム数
-	   @param rows[in] 入力カラムの各文字列
-	   @param err[out] エラーコード
-	   @return トランザクション
-
-	   SFCPeep の各出力行に対し、各行のカラムを分解したものが引数に渡される。
-	   本関数は、これを解析し、トランザクションを生成して返す。
-	*/
-	virtual Transaction *GenerateTransaction(int nrows, AnsiString *rows, int *err) = 0;
-
-        char * TransactionList::getTabbedToken(char **pos);
-
-public:
-
-	inline TransactionList(void) { prev_key = serial = 0; }
-	~TransactionList();
-	int ParseLines(TStringList *lines, bool reverse = false);
-
-	int GenerateTransactionId(int key);
-
-	inline bool hasAnyTransaction(void) { return list.size() > 0 ? true : false; }
-
-	inline vector<Transaction *>::iterator begin() {
-        	return list.begin();
-        }
-        inline vector<Transaction *>::iterator end() {
-        	return list.end();
-        }
-};
-
 // ユーティリティ関数
 AnsiString sjis2utf8(const AnsiString & sjis);
 

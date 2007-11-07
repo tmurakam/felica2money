@@ -37,22 +37,11 @@ static int read2b(uint8 *p);
 /// コンストラクタ
 NanacoCard::NanacoCard(void)
 {
-	Ident = "Nanaco";
-	CardName = "Nanaco";
+    Ident = "Nanaco";
+    CardName = "Nanaco";
 }
 
-TransactionList * NanacoCard::ReadCard(void)
-{
-    NanacoTransactionList *list = new NanacoTransactionList;
-    if (list->readCard(CardId) < 0) {
-	delete list;
-	return NULL;
-    }
-
-    return list;
-}
-
-int NanacoTransactionList::readCard(AnsiString& cardId)
+int NanacoCard::ReadCard(void)
 {
     pasori *p = pasori_open(NULL);
     if (!p) {
@@ -68,10 +57,11 @@ int NanacoTransactionList::readCard(AnsiString& cardId)
 
     // get card id
     int i;
+    CardId = "";
     for (i = 0; i < 16; i++) {
     	char buf[8];
         sprintf(buf, "%02x", f->IDm[i]);
-        cardId += buf;
+        CardId += buf;
     }
 
     for (i = 0; ; i++) {
@@ -119,12 +109,8 @@ int NanacoTransactionList::readCard(AnsiString& cardId)
     }
 
     pasori_close(p);
-}
 
-// dummy
-Transaction *NanacoTransactionList::GenerateTransaction(int nrows, AnsiString *rows, int *err)
-{
-    return NULL;
+    return 0;
 }
 
 static int read4b(uint8 *p)

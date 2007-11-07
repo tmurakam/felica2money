@@ -41,7 +41,7 @@ public:
 private:
 	Card *card;
 
-	void WriteOfx(ofstream &ofs, TransactionList *list);
+	void WriteOfx(ofstream &ofs);
 
 	AnsiString dateStr(const DateTime &dt);
 	AnsiString transIdStr(const Transaction *t);	

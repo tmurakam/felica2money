@@ -23,17 +23,11 @@
 
 #include "Transaction.h"
 
-class EdyCard : public Card {
-    public:
-	EdyCard(void);
-	virtual TransactionList *ReadCard(void);
-};
-
-class EdyTransactionList : public TransactionList
-{
-    public:
-	virtual Transaction *GenerateTransaction(int nrows, AnsiString *rows, int *err);
+class EdyCard : public CardWithLineParser {
+public:
+    EdyCard(void);
+    virtual int ReadCard(void);
+    virtual Transaction *GenerateTransaction(int nrows, AnsiString *rows, int *err);
 };
 
 #endif
-

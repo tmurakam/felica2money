@@ -33,83 +33,79 @@
 /// コンストラクタ
 EdyCard::EdyCard(void)
 {
-	Ident = "Edy";
-	CardName = "Edy";
+    Ident = "Edy";
+    CardName = "Edy";
 }
 
-TransactionList * EdyCard::ReadCard(void)
+int EdyCard::ReadCard(void)
 {
-	// Edy
-        if (SfcPeep->Execute("-e") < 0) return NULL;
+    // Edy
+    if (SfcPeep->Execute("-e") < 0) return -1;
 
-        // 一行目を確認
-        TStringList *lines = SfcPeep->Lines();
- 	if (lines->Count < 1) {
-        	// no data
-                return NULL;
-        }
-        AnsiString head = lines->Strings[0];
-        lines->Delete(0);
+    // 一行目を確認
+    TStringList *lines = SfcPeep->Lines();
+    if (lines->Count < 1) {
+	// no data
+	return -1;
+    }
+    AnsiString head = lines->Strings[0];
+    lines->Delete(0);
 
-        if (head.SubString(1,4) != "EDY:") {
-        	return NULL;
-       	}
-        CardId = head.SubString(5, head.Length() - 4);
+    if (head.SubString(1,4) != "EDY:") {
+	return -1;
+    }
+    CardId = head.SubString(5, head.Length() - 4);
 
-	// transaction list を生成
-	TransactionList *list = new EdyTransactionList;
-
-	if (list->ParseLines(lines, true) < 0) {
-		delete list;
-		return NULL;
-	}
-	return list;
+    // リスト解析
+    if (ParseLines(lines, true) < 0) {
+	return -1;
+    }
+    return 0;
 }
 
-//
 //  
-// トランザクションリスト
+// トランザクション解析
 //
-Transaction *EdyTransactionList::GenerateTransaction(int nrows, AnsiString *rows, int *err)
+Transaction *EdyCard::GenerateTransaction(int nrows, AnsiString *rows, int *err)
 {
-	Transaction *trans = new Transaction;
+    Transaction *trans = new Transaction;
 
-       	// 0:処理,1:日付時刻,2:今回取引額,3:チャージ残高, 4:取引連番
-        // ET00:ﾁｬｰｼﾞ	2007年03月14日23時08分16秒	24000	49428	59
+    // 0:処理,1:日付時刻,2:今回取引額,3:チャージ残高, 4:取引連番
+    // ET00:ﾁｬｰｼﾞ	2007年03月14日23時08分16秒	24000	49428	59
 
-	AnsiString date = rows[1];
-        trans->date.year  = date.SubString(1, 4).ToInt();
-  	trans->date.month = date.SubString(7, 2).ToInt();
-  	trans->date.date  = date.SubString(11, 2).ToInt();
+    AnsiString date = rows[1];
+    trans->date.year  = date.SubString(1, 4).ToInt();
+    trans->date.month = date.SubString(7, 2).ToInt();
+    trans->date.date  = date.SubString(11, 2).ToInt();
 
-	trans->date.hour    = date.SubString(15,2).ToInt();
-	trans->date.minutes = date.SubString(19,2).ToInt();
-	trans->date.seconds = date.SubString(23,2).ToInt();
+    trans->date.hour    = date.SubString(15,2).ToInt();
+    trans->date.minutes = date.SubString(19,2).ToInt();
+    trans->date.seconds = date.SubString(23,2).ToInt();
 
-	trans->id = rows[4].ToInt();
+    trans->id = rows[4].ToInt();
 
-	AnsiString desc = rows[0];
-        desc = desc.SubString(6, desc.Length() - 5);
+    AnsiString desc = rows[0];
+    desc = desc.SubString(6, desc.Length() - 5);
 
-	if (desc == "----") {
-		delete trans;
-		return NULL;	// empty
-	}
+    if (desc == "----") {
+	delete trans;
+	return NULL;	// empty
+    }
 
-        if (desc == "支払") {
-        	trans->SetTransactionType(desc.c_str(), T_OUTGO);
-                trans->value = - rows[2].ToInt();
+    if (desc == "支払") {
+	trans->SetTransactionType(desc.c_str(), T_OUTGO);
+	trans->value = - rows[2].ToInt();
 
-		// 適用が "支払" だけだと、Money が過去の履歴から店舗名を
-		// 勝手に補完してしまう。これを避けるため、連番を追加しておく。
-		desc += " ";
-		desc += trans->id;
-	} else {
-		trans->SetTransactionType(desc.c_str(), T_INCOME);
-		trans->value = rows[2].ToInt();
-	}
-	trans->desc = sjis2utf8(desc);
-	trans->balance = rows[3].ToInt();
+	// 適用が "支払" だけだと、Money が過去の履歴から店舗名を
+	// 勝手に補完してしまう。これを避けるため、連番を追加しておく。
+	desc += " ";
+	desc += trans->id;
+    } else {
+	trans->SetTransactionType(desc.c_str(), T_INCOME);
+	trans->value = rows[2].ToInt();
+    }
+    trans->desc = sjis2utf8(desc);
+    trans->balance = rows[3].ToInt();
 
-	return trans;
+    return trans;
 }
