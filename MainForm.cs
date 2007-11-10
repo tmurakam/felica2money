@@ -32,9 +32,24 @@ namespace FeliCa2Money
             doConvert(new Suica());
         }
 
-        private void doConvert(Card c)
+	private void buttonNanaco_Click(object sender, EventArgs e)
+	{
+	    doConvert(new Nanaco());
+	}
+
+	private void doConvert(Card c)
         {
-            List<Transaction> list = c.ReadCard();
+            List<Transaction> list;
+
+	    try
+	    {
+		list = c.ReadCard();
+	    }
+	    catch (Exception ex)
+	    {
+		MessageBox.Show(ex.Message, "ÉGÉâÅ[");
+		return;
+	    }
 
             if (list == null)
             {
@@ -78,5 +93,6 @@ namespace FeliCa2Money
                 // do nothing
             }
         }
+
     }
 }
