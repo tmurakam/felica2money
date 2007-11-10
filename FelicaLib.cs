@@ -5,6 +5,17 @@ using System.Runtime.InteropServices;
 
 namespace FelicaLib
 {
+    // システムコード
+    enum SystemCode : int
+    {
+	Any = 0xffff,	    // ANY
+	Common = 0xfe00,    // 共通領域
+	Cyberne = 0x0003,   // サイバネ領域
+
+	Edy = 0xfe00,	    // Edy (=共通領域)
+	Suica = 0x0003,	    // Suica (=サイバネ領域)
+    }
+
     public class Felica : IDisposable
     {
 	[DllImport("felicalib.dll")]
