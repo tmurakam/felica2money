@@ -61,27 +61,30 @@ namespace FeliCa2Money
             // 11:残高,12:履歴連番
 
             // 処理
-	        t.desc = items[1];
+	    t.desc = items[1];
             if (t.desc == "----") {
                 return false;	// 空エントリ
             }
 
             // 残高
-	        t.balance = int.Parse(items[11]);
+	    t.balance = int.Parse(items[11]);
 
-        	// 取引額計算
-	        // Suica の各取引には、残高しか記録されていない (ouch!)
-	        // なので、前回残高との差分で取引額を計算する
-	        // よって、最初の１取引は処理不能なので読み飛ばす
-	        if (prevBalance == UndefBalance) {
-		        prevBalance = t.balance;
-                return false;
-        	} else {
-		        t.value = t.balance - prevBalance;
-		        prevBalance = t.balance;
-	        }
+	    // 取引額計算
+	    // Suica の各取引には、残高しか記録されていない (ouch!)
+	    // なので、前回残高との差分で取引額を計算する
+	    // よって、最初の１取引は処理不能なので読み飛ばす
+	    if (prevBalance == UndefBalance)
+	    {
+		prevBalance = t.balance;
+		return false;
+	    }
+	    else
+	    {
+		t.value = t.balance - prevBalance;
+		prevBalance = t.balance;
+	    }
 
-	        // 日付
+	    // 日付
             string d = items[2];
             int yy = int.Parse(d.Substring(0, 2)) + 2000;
             int mm = int.Parse(d.Substring(3, 2));
@@ -90,30 +93,45 @@ namespace FeliCa2Money
             t.date = new DateTime(yy, mm, dd, 0, 0, 0);
 
             // ID
-	        t.id = Convert.ToInt32(items[12], 16);
+	    t.id = Convert.ToInt32(items[12], 16);
 
             // 説明/メモ
-	        if (items[5] != "") {
-        	    // 運賃の場合、入会社を適用に表示
-                appendDesc(t, items[5]);
+	    if (items[5] != "")
+	    {
+		// 運賃の場合、入会社を適用に表示
+		appendDesc(t, items[5]);
 
-		        // 備考に入出会社/駅名を記載
-        	    t.memo = items[5] + "(" + items[6] + ")";
-		        if (items[9] != "") {
-                	t.memo += " - " + items[9] + "(" + items[10] + ")";
+		// 備考に入出会社/駅名を記載
+		t.memo = items[5] + "(" + items[6] + ")";
+		if (items[9] != "")
+		{
+		    t.memo += " - " + items[9] + "(" + items[10] + ")";
                 }
-	        } else {
-		        // おもに物販の場合、9, 10 に店名が入る
-                appendDesc(t, items[9]);
+	    }
+	    else
+	    {
+		// おもに物販の場合、9, 10 に店名が入る
+		appendDesc(t, items[9]);
                 appendDesc(t, items[10]);
+
+		// 特殊処理
+		if (t.desc == "物販")
+		{
+		    // 未登録店舗だと適用がすべて「物販」になってしまう。
+		    // すると Money が勝手に過去の履歴から店舗名を補完してしまい
+		    // 都合がわるい。ここでは通し番号を振っておく。
+		    t.desc += " " + items[12];
+		}
             }
 
             // トランザクションタイプ
             if (t.value < 0) {
-                t.GuessTransType(false);
-            } else {
+		t.GuessTransType(false);
+	    }
+	    else
+	    {
                 t.GuessTransType(true);
-            }
+	    }
 
             return true;
         }

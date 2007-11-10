@@ -12,7 +12,7 @@ namespace FeliCa2Money
 	    ident = "Nanaco";
 	    cardName = "Nanaco";
 
-	    systemCode = 0xfe00;
+	    systemCode = (int)SystemCode.Common;
 	    serviceCode = 0x564f;
 	    needReverse = true;
 	}
