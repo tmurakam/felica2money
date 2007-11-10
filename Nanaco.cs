@@ -1,53 +1,46 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using FelicaLib;
 
 namespace FeliCa2Money
 {
-    class Nanaco : Card
+    class Nanaco : CardWithFelicaLib
     {
 	public Nanaco()
 	{
 	    ident = "Nanaco";
 	    cardName = "Nanaco";
+
+	    systemCode = 0xfe00;
+	    serviceCode = 0x564f;
+	    needReverse = true;
 	}
 
-	public override List<Transaction> ReadCard()
+	public override void analyzeCardId(Felica f)
 	{
-	    List<Transaction> list = new List<Transaction>();
-
-	    FelicaLib.FelicaLib f = new FelicaLib.FelicaLib();
-	    f.Polling(0xfe00);
-
-	    for (int i = 0; ; i++)
+	    byte[] data = f.ReadWithoutEncryption(0x558b, 0);
+	    if (data == null)
 	    {
-		Transaction t = readTransaction(f, i);
-		if (t == null) break;
-
-		list.Add(t);
+		throw new Exception("nanaco番号を読み取れません");
 	    }
-
-	    list.Reverse();
-
-	    return list;
+	    
+	    cardId = "";
+	    for (int i = 0; i < 8; i++) {
+		cardId += data[i].ToString("X2");
+	    }
 	}
 
-	private Transaction readTransaction(FelicaLib.FelicaLib f, int n)
+	public override void analyzeTransaction(Transaction t, byte[] data)
 	{
-	    byte[] data = f.ReadWithoutEncryption(0x564f, n);
-	    if (data == null) {
-		return null;
-	    }
-
-	    Transaction t = new Transaction();
-
 	    // 日付
             int value = (data[9] << 24) + (data[10] << 16) + (data[11] << 8) + data[12];
-            int year = (value >> 21) + 2000;
+	    int year = (value >> 21) + 2000;
             int month = (value >> 17) & 0xf;
             int date = (value >> 12) & 0x1f;
             int hour = (value >> 6) & 0x3f;
             int min = value & 0x3f;
+	    t.date = new DateTime(year, month, date, hour, min, 0);
 
 	    // 金額
             value = (data[1] << 24) + (data[2] << 16) + (data[3] << 8) + data[4];
@@ -58,15 +51,16 @@ namespace FeliCa2Money
                 case 0x47:
                 default:
                     t.type = TransType.Debit;   // 支払い
-		    t.desc = "Nanaco支払";
+		    t.desc = "nanaco支払";
 		    t.value = - value;
                     break;
                 case 0x6f:
 		    t.type = TransType.DirectDep;    // チャージ
-		    t.desc = "Nanacoチャージ";
+		    t.desc = "nanacoチャージ";
 		    t.value = value;
                     break;
 	    }
+	    t.memo = "";
 
 	    // 残高
             value = (data[5] << 24) + (data[6] << 16) + (data[7] << 8) + data[8];
@@ -75,8 +69,6 @@ namespace FeliCa2Money
 	    // 連番
             value = (data[13] << 8) + data[14];
 	    t.id = value;
-
-	    return t;
         }
     }
 }

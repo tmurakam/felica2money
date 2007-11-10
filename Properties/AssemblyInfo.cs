@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // アセンブリに関する一般情報は以下の属性セットをとおして制御されます。 
 // アセンブリに関連付けられている情報を変更するには、
 // これらの属性値を変更してください。
-[assembly: AssemblyTitle("WindowsApplication1")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("FeliCa2Money")]
+[assembly: AssemblyDescription("FeliCa から電子明細を読み取り Money にインポート")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("WindowsApplication1")]
-[assembly: AssemblyCopyright("Copyright (C)  2007")]
+[assembly: AssemblyCompany("Takuya Murakami")]
+[assembly: AssemblyProduct("FeliCa2Money")]
+[assembly: AssemblyCopyright("Copyright (C)  2007, Takuya Murakami")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
