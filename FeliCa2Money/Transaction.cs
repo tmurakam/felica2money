@@ -33,10 +33,8 @@ namespace FeliCa2Money
         private static Hashtable TransOutgo;
         private static Hashtable TransStrings;
 
-        public Transaction()
+        static Transaction()
         {
-            if (TransStrings != null) return;
-
             // initialize
             TransStrings = new Hashtable();
             TransStrings[TransType.Int] = "INT";
