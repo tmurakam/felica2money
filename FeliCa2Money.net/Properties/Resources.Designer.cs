@@ -74,6 +74,13 @@ namespace FeliCa2Money.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap Nanaco {
+            get {
+                object obj = ResourceManager.GetObject("Nanaco", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap Suica {
             get {
                 object obj = ResourceManager.GetObject("Suica", resourceCulture);

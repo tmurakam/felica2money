@@ -70,12 +70,14 @@
   <ItemGroup>
     <Compile Include="Card.cs" />
     <Compile Include="Edy.cs" />
+    <Compile Include="FelicaLib.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Nanaco.cs" />
     <Compile Include="OfxFile.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -120,6 +122,9 @@
       <ProductName>.NET Framework 2.0</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Nanaco.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
