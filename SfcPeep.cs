@@ -21,6 +21,7 @@ namespace FeliCa2Money
             p.StartInfo.WorkingDirectory = System.IO.Path.GetDirectoryName(SfcPeepPath);
             p.StartInfo.UseShellExecute = false;
             p.StartInfo.RedirectStandardOutput = true;
+            p.StartInfo.CreateNoWindow = true;
             p.OutputDataReceived += new DataReceivedEventHandler(EventHandler_OutputDataReceived);
             p.Start();
 
