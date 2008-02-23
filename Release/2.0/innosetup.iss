@@ -16,7 +16,7 @@ Compression=lzma
 SolidCompression=yes
 
 [Languages]
-Name: "japanese"; MessagesFile: "compiler:Languages\Japanese-5-5.1.11.isl"
+Name: "japanese"; MessagesFile: "compiler:Languages\Japanese.isl"
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
@@ -24,6 +24,7 @@ Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescrip
 
 [Files]
 Source: "D:\dev\moneyimport\FeliCa2Money.net\Release\2.0\FeliCa2Money.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\dev\moneyimport\FeliCa2Money.net\Release\2.0\felicalib.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\dev\moneyimport\FeliCa2Money.net\Release\2.0\FeliCa2Money.html"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\dev\moneyimport\FeliCa2Money.net\Release\2.0\LICENSE.TXT"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files

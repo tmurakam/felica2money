@@ -136,7 +136,8 @@ namespace FeliCa2Money
         {
             try
             {
-                System.Diagnostics.Process.Start("Felica2Money.html");
+                String helpFile = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Felica2Money.html";
+                System.Diagnostics.Process.Start(helpFile);
             }
             catch
             {
