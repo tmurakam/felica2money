@@ -5,5 +5,14 @@
     <Setting Name="SFCPeepPath" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\Program Files\DENNO NET\SFCPeep\SFCPeep.exe</Value>
     </Setting>
+    <Setting Name="IgnoreZeroTransaction" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="ManualOfxPath" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="AutoKickOfxFile" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
