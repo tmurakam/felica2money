@@ -111,5 +111,10 @@ namespace FeliCa2Money
                 type = TransType.Debit;
             }
         }
+
+        public static bool isZeroTransaction(Transaction t)
+        {
+            return t.value == 0;
+        }
     }
 }

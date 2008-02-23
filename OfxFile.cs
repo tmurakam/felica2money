@@ -31,7 +31,11 @@ namespace FeliCa2Money
 
         public OfxFile()
         {
-            ofxFilePath = System.IO.Path.GetTempPath() + "FeliCa2Money.ofx";
+        }
+
+        public void SetOfxFilePath(String path)
+        {
+            ofxFilePath = path;
         }
 
         private string dateStr(DateTime d)

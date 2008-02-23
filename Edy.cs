@@ -88,16 +88,16 @@ namespace FeliCa2Money
             if (t.desc == "支払") {
                 t.GuessTransType(false);
                 t.value = - int.Parse(items[2]);
-		
-		// 適用が "支払" だけだと、Money が過去の履歴から店舗名を勝手に
-		// 補間してしまうので、連番を追加しておく。
-		t.desc += " ";
-		t.desc += t.id.ToString();
+        		
+		        // 適用が "支払" だけだと、Money が過去の履歴から店舗名を勝手に
+		        // 補間してしまうので、連番を追加しておく。
+		        t.desc += " ";
+		        t.desc += t.id.ToString();
             }
             else
             {
                 t.GuessTransType(true);
-		t.value = int.Parse(items[2]);
+		        t.value = int.Parse(items[2]);
             }
             t.balance = int.Parse(items[3]);
 
