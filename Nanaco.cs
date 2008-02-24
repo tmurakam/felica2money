@@ -42,7 +42,7 @@ namespace FeliCa2Money
 	        byte[] data = f.ReadWithoutEncryption(0x558b, 0);
 	        if (data == null)
 	        {
-		    throw new Exception("nanaco”Ô†‚ğ“Ç‚İæ‚ê‚Ü‚¹‚ñ");
+		    throw new Exception("nanacoç•ªå·ã‚’èª­ã¿å–ã‚Œã¾ã›ã‚“");
 	        }
     	    
 	        cardId = "";
@@ -53,7 +53,7 @@ namespace FeliCa2Money
 
 	    public override void analyzeTransaction(Transaction t, byte[] data)
 	    {
-	        // “ú•t
+	        // æ—¥ä»˜
             int value = (data[9] << 24) + (data[10] << 16) + (data[11] << 8) + data[12];
 	        int year = (value >> 21) + 2000;
             int month = (value >> 17) & 0xf;
@@ -62,31 +62,31 @@ namespace FeliCa2Money
             int min = value & 0x3f;
 	        t.date = new DateTime(year, month, date, hour, min, 0);
 
-	        // ‹àŠz
+	        // é‡‘é¡
             value = (data[1] << 24) + (data[2] << 16) + (data[3] << 8) + data[4];
 
-	        // í•Ê
+	        // ç¨®åˆ¥
             switch (data[0])
             {
                 case 0x47:
                 default:
-                    t.type = TransType.Debit;   // x•¥‚¢
-		            t.desc = "nanacox•¥";
+                    t.type = TransType.Debit;   // æ”¯æ‰•ã„
+		            t.desc = "nanacoæ”¯æ‰•";
 		            t.value = - value;
                     break;
                 case 0x6f:
-		            t.type = TransType.DirectDep;    // ƒ`ƒƒ[ƒW
-		            t.desc = "nanacoƒ`ƒƒ[ƒW";
+		            t.type = TransType.DirectDep;    // ãƒãƒ£ãƒ¼ã‚¸
+		            t.desc = "nanacoãƒãƒ£ãƒ¼ã‚¸";
 		            t.value = value;
                     break;
 	        }
 	        t.memo = "";
 
-	        // c‚
+	        // æ®‹é«˜
             value = (data[5] << 24) + (data[6] << 16) + (data[7] << 8) + data[8];
 	        t.balance = value;
 
-	        // ˜A”Ô
+	        // é€£ç•ª
             value = (data[13] << 8) + data[14];
 	        t.id = value;
         }

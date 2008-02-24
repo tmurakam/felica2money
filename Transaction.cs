@@ -27,27 +27,27 @@ namespace FeliCa2Money
 {
     enum TransType
     {
-        Int,    // —˜‘§
-        Div,    // ”z“–
-        DirectDep,  // U‚è‚İ“ü‹àAæ‚è—§‚Ä“ü‹àA©“®ˆø‚«—‚Æ‚µ–ß‚µ“ü‹à
-        Dep,    // ‚»‚Ì‘¼“ü‹à
+        Int,    // åˆ©æ¯
+        Div,    // é…å½“
+        DirectDep,  // æŒ¯ã‚Šè¾¼ã¿å…¥é‡‘ã€å–ã‚Šç«‹ã¦å…¥é‡‘ã€è‡ªå‹•å¼•ãè½ã¨ã—æˆ»ã—å…¥é‡‘
+        Dep,    // ãã®ä»–å…¥é‡‘
 
         Payment,
         Cash,
         ATM,
         Check,
-        Debit       // ‚»‚Ì‘¼o‹à
+        Debit       // ãã®ä»–å‡ºé‡‘
     }
 
     class Transaction
     {
         public int id; // ID
         public DateTime date;
-        public TransType type;        // ƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“ƒ^ƒCƒv
+        public TransType type;        // ãƒˆãƒ©ãƒ³ã‚¶ã‚¯ã‚·ãƒ§ãƒ³ã‚¿ã‚¤ãƒ—
         public string desc;
         public string memo;
-        public int value;      // ‹àŠz
-        public int balance;    // c‚
+        public int value;      // é‡‘é¡
+        public int balance;    // æ®‹é«˜
 
         private static Hashtable TransIncome;
         private static Hashtable TransOutgo;
@@ -68,13 +68,13 @@ namespace FeliCa2Money
             TransStrings[TransType.Debit] = "DEBIT";
 
             TransIncome = new Hashtable();
-            TransIncome["—˜‘§"] = TransType.Int;
-            TransIncome["U"] = TransType.DirectDep;
-            TransIncome["Á¬°¼Ş"]= TransType.DirectDep;  // Edy ƒ`ƒƒ[ƒW
-            TransIncome["“ü‹à"] = TransType.DirectDep;    // Suica ƒ`ƒƒ[ƒW
+            TransIncome["åˆ©æ¯"] = TransType.Int;
+            TransIncome["æŒ¯è¾¼"] = TransType.DirectDep;
+            TransIncome["ï¾ï½¬ï½°ï½¼ï¾"]= TransType.DirectDep;  // Edy ãƒãƒ£ãƒ¼ã‚¸
+            TransIncome["å…¥é‡‘"] = TransType.DirectDep;    // Suica ãƒãƒ£ãƒ¼ã‚¸
 
             TransOutgo = new Hashtable();
-            TransOutgo["‚`‚s‚l"] = TransType.ATM;
+            TransOutgo["ï¼¡ï¼´ï¼­"] = TransType.ATM;
             TransOutgo["ATM"]    = TransType.ATM;
         }
 
