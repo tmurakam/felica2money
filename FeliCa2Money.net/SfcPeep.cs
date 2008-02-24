@@ -29,6 +29,7 @@ namespace FeliCa2Money
     {
         private List<string> lines;
 
+        // SFCPeep を実行し、実行結果の文字列リストを返す
         public List<string> Execute(string arg)
         {
             lines = new List<string>();

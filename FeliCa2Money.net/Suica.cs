@@ -40,7 +40,7 @@ namespace FeliCa2Money
         {
             SfcPeep s = new SfcPeep();
 
-            // IDm “Ç‚İ‚İ
+            // IDm èª­ã¿è¾¼ã¿
             List<string> lines = s.Execute("-i");
             if (!lines[0].StartsWith("IDm:"))
 	        {
@@ -49,14 +49,14 @@ namespace FeliCa2Money
 
             CardId = lines[0].Substring(4);
 
-            // —š—ğƒf[ƒ^“Ç‚İ‚İ
+            // å±¥æ­´ãƒ‡ãƒ¼ã‚¿èª­ã¿è¾¼ã¿
             lines = s.Execute("-h");
             if (lines.Count < 1 || !lines[0].StartsWith("HT00:"))
             {
                 return null;
             }
 
-            // ‡˜”½“]
+            // é †åºåè»¢
             lines.Reverse();
 
             // Parse lines
@@ -75,24 +75,24 @@ namespace FeliCa2Money
 
         private bool SetTransaction(Transaction t, string[] items)
         {
-            // 0:’[––íƒR[ƒh,1:ˆ—,2:“ú•t,
-            // 3:“üü‹æƒR[ƒh,4:“ü‰w‡ƒR[ƒh,5:“ü‰ïĞ,6:“ü‰w–¼,
-            // 7:oü‹æƒR[ƒh,8:o‰w‡ƒR[ƒh,9:o‰ïĞ,10:o‰w–¼,
-            // 11:c‚,12:—š—ğ˜A”Ô
+            // 0:ç«¯æœ«ç¨®ã‚³ãƒ¼ãƒ‰,1:å‡¦ç†,2:æ—¥ä»˜æ™‚åˆ»,
+            // 3:å…¥ç·šåŒºã‚³ãƒ¼ãƒ‰,4:å…¥é§…é †ã‚³ãƒ¼ãƒ‰,5:å…¥ä¼šç¤¾,6:å…¥é§…å,
+            // 7:å‡ºç·šåŒºã‚³ãƒ¼ãƒ‰,8:å‡ºé§…é †ã‚³ãƒ¼ãƒ‰,9:å‡ºä¼šç¤¾,10:å‡ºé§…å,
+            // 11:æ®‹é«˜,12:å±¥æ­´é€£ç•ª
 
-            // ˆ—
+            // å‡¦ç†
 	    t.desc = items[1];
             if (t.desc == "----") {
-                return false;	// ‹óƒGƒ“ƒgƒŠ
+                return false;	// ç©ºã‚¨ãƒ³ãƒˆãƒª
             }
 
-            // c‚
+            // æ®‹é«˜
 	    t.balance = int.Parse(items[11]);
 
-	    // æˆøŠzŒvZ
-	    // Suica ‚ÌŠeæˆø‚É‚ÍAc‚‚µ‚©‹L˜^‚³‚ê‚Ä‚¢‚È‚¢ (ouch!)
-	    // ‚È‚Ì‚ÅA‘O‰ñc‚‚Æ‚Ì·•ª‚ÅæˆøŠz‚ğŒvZ‚·‚é
-	    // ‚æ‚Á‚ÄAÅ‰‚Ì‚Pæˆø‚Íˆ—•s”\‚È‚Ì‚Å“Ç‚İ”ò‚Î‚·
+	    // å–å¼•é¡è¨ˆç®—
+	    // Suica ã®å„å–å¼•ã«ã¯ã€æ®‹é«˜ã—ã‹è¨˜éŒ²ã•ã‚Œã¦ã„ãªã„ (ouch!)
+	    // ãªã®ã§ã€å‰å›æ®‹é«˜ã¨ã®å·®åˆ†ã§å–å¼•é¡ã‚’è¨ˆç®—ã™ã‚‹
+	    // ã‚ˆã£ã¦ã€æœ€åˆã®ï¼‘å–å¼•ã¯å‡¦ç†ä¸èƒ½ãªã®ã§èª­ã¿é£›ã°ã™
 	    if (prevBalance == UndefBalance)
 	    {
 		prevBalance = t.balance;
@@ -104,7 +104,7 @@ namespace FeliCa2Money
 		prevBalance = t.balance;
 	    }
 
-	    // “ú•t
+	    // æ—¥ä»˜
             string d = items[2];
             int yy = int.Parse(d.Substring(0, 2)) + 2000;
             int mm = int.Parse(d.Substring(3, 2));
@@ -115,13 +115,13 @@ namespace FeliCa2Money
             // ID
 	    t.id = Convert.ToInt32(items[12], 16);
 
-            // à–¾/ƒƒ‚
+            // èª¬æ˜/ãƒ¡ãƒ¢
 	    if (items[5] != "")
 	    {
-		// ‰^’À‚Ìê‡A“ü‰ïĞ‚ğ“K—p‚É•\¦
+		// é‹è³ƒã®å ´åˆã€å…¥ä¼šç¤¾ã‚’é©ç”¨ã«è¡¨ç¤º
 		appendDesc(t, items[5]);
 
-		// ”õl‚É“üo‰ïĞ/‰w–¼‚ğ‹LÚ
+		// å‚™è€ƒã«å…¥å‡ºä¼šç¤¾/é§…åã‚’è¨˜è¼‰
 		t.memo = items[5] + "(" + items[6] + ")";
 		if (items[9] != "")
 		{
@@ -130,21 +130,21 @@ namespace FeliCa2Money
 	    }
 	    else
 	    {
-		// ‚¨‚à‚É•¨”Ì‚Ìê‡A9, 10 ‚É“X–¼‚ª“ü‚é
+		// ãŠã‚‚ã«ç‰©è²©ã®å ´åˆã€9, 10 ã«åº—åãŒå…¥ã‚‹
 		appendDesc(t, items[9]);
                 appendDesc(t, items[10]);
 
-		// “Áêˆ—
-		if (t.desc == "•¨”Ì")
+		// ç‰¹æ®Šå‡¦ç†
+		if (t.desc == "ç‰©è²©")
 		{
-		    // –¢“o˜^“X•Ü‚¾‚Æ“K—p‚ª‚·‚×‚Äu•¨”Ìv‚É‚È‚Á‚Ä‚µ‚Ü‚¤B
-		    // ‚·‚é‚Æ Money ‚ªŸè‚É‰ß‹‚Ì—š—ğ‚©‚ç“X•Ü–¼‚ğ•âŠ®‚µ‚Ä‚µ‚Ü‚¢
-		    // “s‡‚ª‚í‚é‚¢B‚±‚±‚Å‚Í’Ê‚µ”Ô†‚ğU‚Á‚Ä‚¨‚­B
+		    // æœªç™»éŒ²åº—èˆ—ã ã¨é©ç”¨ãŒã™ã¹ã¦ã€Œç‰©è²©ã€ã«ãªã£ã¦ã—ã¾ã†ã€‚
+		    // ã™ã‚‹ã¨ Money ãŒå‹æ‰‹ã«éå»ã®å±¥æ­´ã‹ã‚‰åº—èˆ—åã‚’è£œå®Œã—ã¦ã—ã¾ã„
+		    // éƒ½åˆãŒã‚ã‚‹ã„ã€‚ã“ã“ã§ã¯é€šã—ç•ªå·ã‚’æŒ¯ã£ã¦ãŠãã€‚
 		    t.desc += " " + items[12];
 		}
             }
 
-            // ƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“ƒ^ƒCƒv
+            // ãƒˆãƒ©ãƒ³ã‚¶ã‚¯ã‚·ãƒ§ãƒ³ã‚¿ã‚¤ãƒ—
             if (t.value < 0) {
 		t.GuessTransType(false);
 	    }
@@ -158,14 +158,14 @@ namespace FeliCa2Money
 
         private void appendDesc(Transaction t, string d)
         {
-            if (d == "" || d == "–¢“o˜^")
+            if (d == "" || d == "æœªç™»éŒ²")
             {
                 return;
             }
 
-            if (t.desc == "x•¥")
+            if (t.desc == "æ”¯æ‰•")
             {
-                t.desc = d;       // "x•¥"‚Ííœ‚µ‚Äã‘‚«
+                t.desc = d;       // "æ”¯æ‰•"ã¯å‰Šé™¤ã—ã¦ä¸Šæ›¸ã
             }
             else
             {

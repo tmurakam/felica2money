@@ -57,14 +57,14 @@ namespace FeliCa2Money
 
     abstract class CardWithFelicaLib : Card
     {
-	    protected int systemCode;   // ƒVƒXƒeƒ€ƒR[ƒh
-	    protected int serviceCode;  // ƒT[ƒrƒXƒR[ƒh
-	    protected bool needReverse; // ƒŒƒR[ƒh‡˜‚ğ‹t“]‚·‚é‚©‚Ç‚¤‚©
+	    protected int systemCode;   // ã‚·ã‚¹ãƒ†ãƒ ã‚³ãƒ¼ãƒ‰
+	    protected int serviceCode;  // ã‚µãƒ¼ãƒ“ã‚¹ã‚³ãƒ¼ãƒ‰
+	    protected bool needReverse; // ãƒ¬ã‚³ãƒ¼ãƒ‰é †åºã‚’é€†è»¢ã™ã‚‹ã‹ã©ã†ã‹
 
-	    // ƒJ[ƒh ID æ“¾
+	    // ã‚«ãƒ¼ãƒ‰ ID å–å¾—
 	    public abstract void analyzeCardId(Felica f);
 
-	    // Transaction ‰ğÍ
+	    // Transaction è§£æ
 	    public abstract void analyzeTransaction(Transaction t, byte[] data);
 
 	    public override List<Transaction> ReadCard()

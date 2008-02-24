@@ -48,7 +48,7 @@ namespace FeliCa2Money
 
         private string transId(Transaction t)
         {
-            /* ƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“‚Ì ID ‚Í“ú•t‚Ææˆø”Ô†‚Å¶¬ */
+            /* ãƒˆãƒ©ãƒ³ã‚¶ã‚¯ã‚·ãƒ§ãƒ³ã® ID ã¯æ—¥ä»˜ã¨å–å¼•ç•ªå·ã§ç”Ÿæˆ */
             string longId = String.Format("{0:0000}{1:00}{2:00}", t.date.Year, t.date.Month, t.date.Day);
             longId += String.Format("{0:0000000}", t.id);
             return longId;
@@ -73,7 +73,7 @@ namespace FeliCa2Money
             w.WriteLine("NEWFILEUID:NONE");
             w.WriteLine("");
 
-            /* ‹à—Z‹@ŠÖî•ñ(ƒTƒCƒ“ƒIƒ“ƒŒƒXƒ|ƒ“ƒX) */
+            /* é‡‘èæ©Ÿé–¢æƒ…å ±(ã‚µã‚¤ãƒ³ã‚ªãƒ³ãƒ¬ã‚¹ãƒãƒ³ã‚¹) */
             w.WriteLine("<OFX>");
             w.WriteLine("<SIGNONMSGSRSV1>");
             w.WriteLine("<SONRS>");
@@ -90,10 +90,10 @@ namespace FeliCa2Money
             w.WriteLine("</SONRS>");
             w.WriteLine("</SIGNONMSGSRSV1>");
 
-            /* ŒûÀî•ñ(ƒoƒ“ƒNƒƒbƒZ[ƒWƒŒƒXƒ|ƒ“ƒX) */
+            /* å£åº§æƒ…å ±(ãƒãƒ³ã‚¯ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ¬ã‚¹ãƒãƒ³ã‚¹) */
             w.WriteLine("<BANKMSGSRSV1>");
 
-            /* —a‹àŒûÀŒ^–¾×î•ñì¬ */
+            /* é é‡‘å£åº§å‹æ˜ç´°æƒ…å ±ä½œæˆ */
             w.WriteLine("<STMTTRNRS>");
             w.WriteLine("<TRNUID>0");
             w.WriteLine("<STATUS>");
@@ -111,12 +111,12 @@ namespace FeliCa2Money
             w.WriteLine("    <ACCTTYPE>SAVINGS");
             w.WriteLine("  </BANKACCTFROM>");
 
-            /* –¾×î•ñŠJn(ƒoƒ“ƒNƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“ƒŠƒXƒg) */
+            /* æ˜ç´°æƒ…å ±é–‹å§‹(ãƒãƒ³ã‚¯ãƒˆãƒ©ãƒ³ã‚¶ã‚¯ã‚·ãƒ§ãƒ³ãƒªã‚¹ãƒˆ) */
             w.WriteLine("  <BANKTRANLIST>");
             w.WriteLine("    <DTSTART>{0}", dateStr(first.date));
             w.WriteLine("    <DTEND>{0}", dateStr(last.date));
 
-            /* ƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“ */
+            /* ãƒˆãƒ©ãƒ³ã‚¶ã‚¯ã‚·ãƒ§ãƒ³ */
             foreach (Transaction t in transactions)
             {
                 w.WriteLine("    <STMTTRN>");
@@ -124,7 +124,7 @@ namespace FeliCa2Money
                 w.WriteLine("      <DTPOSTED>{0}", dateStr(t.date));
                 w.WriteLine("      <TRNAMT>{0}", t.value);
 
-                /* ƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“‚Ì ID ‚Í“ú•t‚Ææˆø”Ô†‚Å¶¬ */
+                /* ãƒˆãƒ©ãƒ³ã‚¶ã‚¯ã‚·ãƒ§ãƒ³ã® ID ã¯æ—¥ä»˜ã¨å–å¼•ç•ªå·ã§ç”Ÿæˆ */
                 w.WriteLine("      <FITID>{0}", transId(t));
                 w.WriteLine("      <NAME>{0}", t.desc);
                 if (t.memo != null)
@@ -136,13 +136,13 @@ namespace FeliCa2Money
 
             w.WriteLine("  </BANKTRANLIST>");
 
-            /* c‚ */
+            /* æ®‹é«˜ */
             w.WriteLine("  <LEDGERBAL>");
             w.WriteLine("    <BALAMT>{0}", last.balance);
             w.WriteLine("    <DTASOF>{0}", dateStr(last.date));
             w.WriteLine("  </LEDGERBAL>");
 
-            /* OFX I—¹ */
+            /* OFX çµ‚äº† */
             w.WriteLine("  </STMTRS>");
             w.WriteLine("</STMTTRNRS>");
             w.WriteLine("</BANKMSGSRSV1>");

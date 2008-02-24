@@ -67,17 +67,17 @@ namespace FeliCa2Money
 	        }
 	        catch (Exception ex)
 	        {
-	    	    MessageBox.Show(ex.Message, "ƒGƒ‰[");
+	    	    MessageBox.Show(ex.Message, "ã‚¨ãƒ©ãƒ¼");
 		        return;
 	        }
 
             if (list == null)
             {
-                MessageBox.Show("ƒJ[ƒh‚ğ“Ç‚Ş‚±‚Æ‚ª‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½", "ƒGƒ‰[");
+                MessageBox.Show("ã‚«ãƒ¼ãƒ‰ã‚’èª­ã‚€ã“ã¨ãŒã§ãã¾ã›ã‚“ã§ã—ãŸ", "ã‚¨ãƒ©ãƒ¼");
                 return;
             }
 
-            // 0‰~‚Ìæˆø‚ğíœ‚·‚é
+            // 0å††ã®å–å¼•ã‚’å‰Šé™¤ã™ã‚‹
             if (Properties.Settings.Default.IgnoreZeroTransaction)
             {
                 list.RemoveAll(Transaction.isZeroTransaction);
@@ -85,11 +85,11 @@ namespace FeliCa2Money
 
             if (list.Count == 0)
             {
-                MessageBox.Show("—š—ğ‚ªˆêŒ‚à‚ ‚è‚Ü‚¹‚ñ", "ƒGƒ‰[");
+                MessageBox.Show("å±¥æ­´ãŒä¸€ä»¶ã‚‚ã‚ã‚Šã¾ã›ã‚“", "ã‚¨ãƒ©ãƒ¼");
                 return;
             }
 
-            // OFX ƒtƒ@ƒCƒ‹ƒpƒXw’è
+            // OFX ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹æŒ‡å®š
             String ofxFilePath;
             if (Properties.Settings.Default.ManualOfxPath)
             {
@@ -109,19 +109,19 @@ namespace FeliCa2Money
                 ofxFilePath = System.IO.Path.GetTempPath() + "FeliCa2Money.ofx";
             }
 
-            // OFX ƒtƒ@ƒCƒ‹¶¬
+            // OFX ãƒ•ã‚¡ã‚¤ãƒ«ç”Ÿæˆ
             OfxFile ofx = new OfxFile(); 
             ofx.SetOfxFilePath(ofxFilePath);
             ofx.WriteFile(c, list);
 
-            // Money ‹N“®
+            // Money èµ·å‹•
             if (Properties.Settings.Default.AutoKickOfxFile)
             {
                 ofx.Execute();
             }
         }
 
-        // İ’èƒ_ƒCƒAƒƒO
+        // è¨­å®šãƒ€ã‚¤ã‚¢ãƒ­ã‚°
         private void buttonOption_Click(object sender, EventArgs e)
         {
             OptionDialog dlg = new OptionDialog();
