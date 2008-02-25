@@ -1,4 +1,4 @@
-﻿namespace FeliCa2Money
+namespace FeliCa2Money
 {
     partial class MainForm
     {
@@ -226,10 +226,10 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button buttonManual;
         private System.Windows.Forms.Label label6;
-	private System.Windows.Forms.Button buttonNanaco;
-	private System.Windows.Forms.Label label7;
-	private System.Windows.Forms.Label label8;
-    private System.Windows.Forms.SaveFileDialog saveFileDialog;
+        private System.Windows.Forms.Button buttonNanaco;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog;
     }
 }
 

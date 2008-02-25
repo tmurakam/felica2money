@@ -39,7 +39,7 @@ namespace FeliCa2Money
             List<string> lines = s.Execute("-e");
 
             if (lines[0].Substring(0, 4) != "EDY:")
-	        {
+            {
                 return null;
             }
 
@@ -64,8 +64,8 @@ namespace FeliCa2Money
 
         private bool SetTransaction(Transaction t, string[] items)
         {
-      	    // 0:処理,1:日付時刻,2:今回取引額,3:チャージ残高, 4:取引連番
-            // ET00:ﾁｬｰｼﾞ	2007年03月14日23時08分16秒	24000	49428	59
+            // 0:処理,1:日付時刻,2:今回取引額,3:チャージ残高, 4:取引連番
+            // ET00:ﾁｬｰｼﾞ 2007年03月14日23時08分16秒 24000 49428 59
 
             t.id = int.Parse(items[4]);
 
@@ -88,16 +88,16 @@ namespace FeliCa2Money
             if (t.desc == "支払") {
                 t.GuessTransType(false);
                 t.value = - int.Parse(items[2]);
-        		
-		        // 適用が "支払" だけだと、Money が過去の履歴から店舗名を勝手に
-		        // 補間してしまうので、連番を追加しておく。
-		        t.desc += " ";
-		        t.desc += t.id.ToString();
+
+                // 適用が "支払" だけだと、Money が過去の履歴から店舗名を勝手に
+                // 補間してしまうので、連番を追加しておく。
+                t.desc += " ";
+                t.desc += t.id.ToString();
             }
             else
             {
                 t.GuessTransType(true);
-		        t.value = int.Parse(items[2]);
+                t.value = int.Parse(items[2]);
             }
             t.balance = int.Parse(items[3]);
 
