@@ -57,19 +57,19 @@ namespace FeliCa2Money
             doConvert(new Nanaco());
         }
 
-	    private void doConvert(Card c)
+        private void doConvert(Card c)
         {
             List<Transaction> list;
 
-	        try
-	        {
-		        list = c.ReadCard();
-	        }
-	        catch (Exception ex)
-	        {
-	    	    MessageBox.Show(ex.Message, "エラー");
-		        return;
-	        }
+            try
+            {
+                list = c.ReadCard();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "エラー");
+                return;
+            }
 
             if (list == null)
             {
@@ -105,7 +105,6 @@ namespace FeliCa2Money
             }
             else
             {
-
                 ofxFilePath = System.IO.Path.GetTempPath() + "FeliCa2Money.ofx";
             }
 
