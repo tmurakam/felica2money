@@ -1,17 +1,108 @@
 <html>
 <head>
 <title>FeliCa2Money</title>
+<meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+<style type="text/css">
+<!--
+a
+{
+	text-decoration:none;
+}
+a:link
+{
+	/*color: rgb(51,153,255);*/
+	text-decoration:none;
+}
+a:hover
+{
+	color:red;
+	text-decoration:underline;
+}
+a:visited
+{
+	color: rgb(51,102,204); 
+}
+
+a:active 
+{
+	color: rgb(255,153,0);
+}
+
+table
+{
+	table-border-color-light: rgb(255,204,102);
+	table-border-color-dark: rgb(204,153,102); 
+}
+
+body, th, td {
+	font-size: 100%;
+}
+
+pre {
+        font-size: 80%;
+}
+
+body
+{
+	/*font-family: Verdana, Arial, Helvetica;*/
+	/*background-color: rgb(255,255,204);*/
+	/*background-color: rgb(255,255,210);*/
+	/*color: rgb(102,102,51);*/
+	color: black;
+}
+
+h1
+{
+	font-size: 230%;
+	color: #A000A0;
+	background-color: #ececec;
+	border-left: 10px solid #000080;
+	border-top: 2px solid #000080;
+	padding-left: 10; padding-top: 3; padding-bottom: 3;
+}
+h2
+{
+	font-size: 160%;
+	color: #408080;
+	background-color: #ececec;
+	border-left: 6px solid #000080;
+	border-top: 2px solid #000080;
+	padding-left: 10; padding-top: 3; padding-bottom: 3;
+}
+h3
+{
+	font-size: 110%;
+	color: #008000;
+	background-color: #ececec;
+	border-left: 5px solid #006000;
+	/*border-top: 1px solid #006000;*/
+	padding-left: 10; padding-top: 2; padding-bottom: 2;
+}
+h4
+{
+	color: rgb(153,153,0);
+}
+h5
+{
+	color: rgb(255,153,0);
+}
+h6
+{
+	color: rgb(51,102,204);
+}
+-->
+</style>
 </head>
 <body>
-<h1>FeliCa2Money ver 2.0�}�j���A��</h1>
+<h1>FeliCa2Money ver 2.1マニュアル</h1>
 
-<h2>�͂��߂�</h2>
+<h2>はじめに</h2>
 
-���̃c�[���́APaSoRi ���g���� Edy �Ȃǂ̓d�q�}�l�[�̗�����ǂݎ��A
-Microsoft Money �̓d�q����(OFX�`���t�@�C��)�ɕϊ�������̂ł��B
+このツールは、PaSoRi を使って Edy などの電子マネーの履歴を読み取り、
+Microsoft Money の電子明細(OFX形式ファイル)に変換するものです。
 
 <p>
-���o�[�W�����ł́A�ȉ��̓d�q�}�l�[�ɑΉ����Ă��܂��B
+現バージョンでは、以下の電子マネーに対応しています。
 
 <ul>
 <li>Edy
@@ -22,91 +113,102 @@ Microsoft Money �̓d�q����(OFX�`���t�@�C��)�ɕϊ�������̂ł��B
 <li>nanaco
 </ul>
 
-<i>�������A�e�X�g�����̂� Edy / Suica / nanaco�����ł�</i>
+<i>ただし、テストしたのは Edy / Suica / nanacoだけです</i>
 <p>
 
-<h2>�K�v��</h2>
+<h2>必要環境</h2>
 
 <ul>
-<li>USB �|�[�g������� Windows PC : ���Ԃ� Windows Vista, XP, 2000 ������Ȃ���Ȃ����삵�܂�
-<li><b>.NET Framework 2.0 �ȍ~</b>
-<li>SONY ��ڐG IC �J�[�h���[�_�[/���C�^�[ (PaSoRi)
-<li>PaSoRi ��{�\�t�g�E�F�A
+<li>USB ポートを備えた Windows PC : たぶん Windows Vista, XP, 2000 あたりなら問題なく動作します
+<li><b>.NET Framework 2.0 以降</b>
+<li>SONY 非接触 IC カードリーダー/ライター (PaSoRi)
+<li>PaSoRi 基本ソフトウェア
 <li>SFCPeep
 </ul>
 
-<b>����: Version 2.0 ����A.NET Framework ���K�v�ɂȂ�܂����B</b> Windows Update �Ȃǂ�
-���p���ăC���X�g�[�����Ă����Ă��������B
+<b>注意: Version 2.0 から、.NET Framework が必要になりました。</b> Windows Update などを
+利用してインストールしておいてください。
 <p>
 
-SFCPeep �� <a href="http://www014.upp.so-net.ne.jp/SFCardFan/">http://www014.upp.so-net.ne.jp/SFCardFan/</a> ����_�E�����[�h���ăC���X�g�[�����Ă����Ă��������B
+SFCPeep は <a href="http://www014.upp.so-net.ne.jp/SFCardFan/">http://www014.upp.so-net.ne.jp/SFCardFan/</a> からダウンロードしてインストールしておいてください。
 
-<h2>�g�p���@</h2>
+<h2>使用方法</h2>
 
-����̂݁A�u�ݒ�v�������� SFCPeep.exe �̃t�@�C�����w�肷��K�v������܂��B
-�f�t�H���g�ł� C:\Program Files\DENNO NET\SFCPeep\SFCPeep.exe �ɂ���܂��B
+初回のみ、「設定」を押して SFCPeep.exe のファイルを指定する必要があります。
+デフォルトでは C:\Program Files\DENNO NET\SFCPeep\SFCPeep.exe にあります。
 
 <p>
-�d�q�}�l�[�� PaSoRi �ɒu���A�u��荞�݁v���N���b�N���Ă��������B
-�����I�ɓǂݎ��A�d�q���ׂ̐������s���AMicrosoft Money �������オ��܂��B
+電子マネーを PaSoRi に置き、「取り込み」をクリックしてください。
+自動的に読み取り、電子明細の生成が行われ、Microsoft Money が立ち上がります。
 
-<h2>�A���C���X�g�[��</h2>
+<h2>アンインストール</h2>
 
-�R���g���[���p�l���́u�v���O�����̒ǉ��ƍ폜�v����폜���Ă��������B
+コントロールパネルの「プログラムの追加と削除」から削除してください。
 <p>
 
-<h2>��������</h2>
+<h2>制限事項</h2>
 
 <ul>
-<li>Edy �ɂ͎g�p�����͍ŐV�U���܂ł����ۑ�����Ă��܂���̂ŁAMoney �Ɏ�荞�߂�̂��ŐV�U�������ł��B
-<li>Suica �ɂ͎g�p�������ŐV�Q�O���܂ŕۑ�����Ă��܂����AFeliCa2Money �ŕϊ��ł���͍̂ŐV�P�X���݂̂ł��B����́ASuica �̊e�����ɂ͎c�������L�^����Ă��炸�A����z��O��c���Ƃ̍����Ōv�Z���邵���Ȃ����߂ł��B
+<li>Edy には使用履歴は最新６件までしか保存されていませんので、Money に取り込めるのも最新６件だけです。
+<li>Suica には使用履歴が最新２０件まで保存されていますが、FeliCa2Money で変換できるのは最新１９件のみです。これは、Suica の各履歴には残高しか記録されておらず、取引額を前回残高との差分で計算するしかないためです。
 </ul>
 
-<h2>���C�Z���X</h2>
+<h2>ライセンス</h2>
 
 Copyright (C) 2001-2007 Takuya Murakami, All Rights Reserved.
 <p>
 
-���C�Z���X�� GPL �ɏ����܂��B�t���� LICENSE.TXT ���Q�Ƃ��Ă��������B
+ライセンスは GPL に準じます。付属の LICENSE.TXT を参照してください。
 <p>
-�\�[�X�R�[�h�� Subversion �Ŏ擾�ł��܂��B
-URL �� http://svn.sourceforge.jp/svnroot/moneyimport/trunk/ �ł��B
+ソースコードは Subversion で取得できます。
+URL は http://svn.sourceforge.jp/svnroot/moneyimport/trunk/ です。
 <p>
-�v���W�F�N�g�z�[���y�[�W�� <a href="http://sourceforge.jp/projects/moneyimport/">http://sourceforge.jp/projects/moneyimport/</a> �ɂ���܂��B
+プロジェクトホームページは <a href="http://sourceforge.jp/projects/moneyimport/">http://sourceforge.jp/projects/moneyimport/</a> にあります。
 
-<h2>���ŗ���</h2>
+<h2>改版履歴</h2>
+
+<pre>
+2008-03-01 : ver 2.1
+
+	* Suica 未登録店舗において、連番ではなく出線区/出駅順を出力するようにした。
+	  (Money 自動補完を有効にするため)
+	
+2008-02-03 : ver 2.0
+	
+	* .NET Framework 対応 (C# 書き直し)
+
+	* 金額が 0 の取引をスキップするオプション追加 (PiTaPa ポストペイなどの対応)
+
+	* OFX ファイル保存先指定オプション追加
+
+	* OFX ファイル自動起動オプション追加
+
+2007-11-06 : ver 1.2
+
+	* nanaco に対応。
+
+2007-08-22 : ver 1.1
+
+	* 支払先に利用店舗名が入っていない場合(Edy の "支払" およびSuica の "物販")、
+	Money が誤って支払先を補完してしまうのを防止するため、連番を追記するようにした。
+
+2007-03-18 : ver β2:  (PASMO開始当日 :-)
+
+	* セットアップを追加
+
+	* OFX ファイルに MEMO (備考)フィールドを追加するようにした
+
+2007-03-17 : ver β1
+	
+	* 初版 (PASMO開始前日 :-)
+
+</pre>
+
+<h2>作者連絡先</h2>
 
 <ul>
-  <li>2007/03/17 : ver ��1:  ���� (PASMO�J�n�O�� :-)
-  <li>2007/03/18 : ver ��2:  (PASMO�J�n���� :-)
-    <ul>
-      <li>�Z�b�g�A�b�v��ǉ�
-      <li>OFX �t�@�C���� MEMO (���l)�t�B�[���h��ǉ�����悤�ɂ���
-    </ul>
-  </li>
-  <li>2007/08/22 : ver 1.1
-    <ul>
-      <li>�x����ɗ��p�X�ܖ��������Ă��Ȃ��ꍇ(Edy �� "�x��" �����Suica �� "����")�A
-	Money ������Ďx�����⊮���Ă��܂��̂�h�~���邽�߁A�A�Ԃ�ǋL����悤�ɂ����B
-    </ul>
-  <li>2007/11/6 : ver 1.2
-    <ul>
-      <li>nanaco �ɑΉ��B
-    </ul>
-  <li>2008/2/23 : ver 2.0
-    <ul>
-      <li>.NET Framework �Ή� (C# ��������)
-      <li>���z�� 0 �̎�����X�L�b�v����I�v�V�����ǉ� (PiTaPa �|�X�g�y�C�Ȃǂ̑Ή�)
-      <li>OFX �t�@�C���ۑ���w��I�v�V�����ǉ�
-      <li>OFX �t�@�C�������N���I�v�V�����ǉ�
-    </ul>
-</ul>
-
-<h2>��ҘA����</h2>
-
-<ul>
-<li>����@��� : tmurakam@mtd.biglobe.ne.jp
-<li>�v���W�F�N�gWeb�T�C�g: <a href="http://moneyimport.sourceforge.jp">http://moneyimport.sourceforge.jp</a>
+<li>村上　卓弥 : tmurakam@mtd.biglobe.ne.jp
+<li>プロジェクトWebサイト: <a href="http://moneyimport.sourceforge.jp">http://moneyimport.sourceforge.jp</a>
 </ul>
 
 </body>
