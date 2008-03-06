@@ -21,87 +21,77 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Windows.Forms;
+using FelicaLib;
 
 namespace FeliCa2Money
 {
-    class Edy : Card
+    class Edy : CardWithFelicaLib
     {
         public Edy()
         {
-            ident = "Edy";
-            cardName = "Edy";
+            ident       = "Edy";
+            cardName    = "Edy";
+
+            systemCode  = (int)SystemCode.Edy;
+            serviceCode = 0x170f;
+            needReverse = true;
         }
 
-        public override List<Transaction> ReadCard()
+        public override void analyzeCardId(Felica f)
         {
-            SfcPeep s = new SfcPeep();
-            List<string> lines = s.Execute("-e");
-
-            if (lines[0].Substring(0, 4) != "EDY:")
+            byte[] data = f.ReadWithoutEncryption(0x110b, 0);
+            if (data == null)
             {
-                return null;
+                throw new Exception("Edy番号を読み取れません");
             }
-
-            CardId = lines[0].Substring(4);
-
-            lines.RemoveAt(0);
-            lines.Reverse();
-
-            // Parse lines
-            List<Transaction> transactions = new List<Transaction>();
-            foreach (string line in lines)
-            {
-                Transaction t = new Transaction();
-
-                string[] items = ParseLine(line);
-                if (SetTransaction(t, items)) {
-                    transactions.Add(t);
-                }
+            
+            cardId = "";
+            for (int i = 2; i < 10; i++) {
+                cardId += data[i].ToString("X2");
             }
-            return transactions;
         }
 
-        private bool SetTransaction(Transaction t, string[] items)
+        public override void analyzeTransaction(Transaction t, byte[] data)
         {
-            // 0:処理,1:日付時刻,2:今回取引額,3:チャージ残高, 4:取引連番
-            // ET00:ﾁｬｰｼﾞ 2007年03月14日23時08分16秒 24000 49428 59
+            // 日付
+            int value = (data[4] << 24) + (data[5] << 16) + (data[6] << 8) + data[7];
 
-            t.id = int.Parse(items[4]);
+            t.date = new DateTime(2000, 1, 1);
 
-            string d = items[1];
-            int yy = int.Parse(d.Substring(0, 4));
-            int mm = int.Parse(d.Substring(5, 2));
-            int dd = int.Parse(d.Substring(8, 2));
-            int h = int.Parse(d.Substring(11, 2));
-            int m = int.Parse(d.Substring(14, 2));
-            int s = int.Parse(d.Substring(17, 2));
+            t.date += TimeSpan.FromDays(value >> 17);
+            t.date += TimeSpan.FromSeconds(value & 0x1fff);
 
-            t.date = new DateTime(yy, mm, dd, h, m, s);
+            // 金額
+            t.value = (data[8] << 24) + (data[9] << 16) + (data[10] << 8) + data[11];
 
-            t.desc = items[0].Substring(5);
-            if (t.desc == "----") {
-                return false;   // empty
-            }
-            t.memo = t.desc;
+            // 残高
+            t.balance = (data[12] << 24) + (data[13] << 16) + (data[14] << 8) + data[15];
 
-            if (t.desc == "支払") {
-                t.GuessTransType(false);
-                t.value = - int.Parse(items[2]);
+            // 連番
+            t.id = (data[1] << 16) + (data[2] << 8) + data[3];
 
-                // 適用が "支払" だけだと、Money が過去の履歴から店舗名を勝手に
-                // 補間してしまうので、連番を追加しておく。
-                t.desc += " ";
-                t.desc += t.id.ToString();
-            }
-            else
+            // 種別
+            switch (data[0])
             {
-                t.GuessTransType(true);
-                t.value = int.Parse(items[2]);
-            }
-            t.balance = int.Parse(items[3]);
+                case 0x20:
+                default:
+                    t.type = TransType.Debit;   // 支払い
+                    t.desc = "Edy支払";
+                    t.value = - t.value;
 
-            return true;
+                    // 適用が"Edy支払" だけだと、Money が過去の履歴から店舗名を勝手に
+                    // 補完してしまうので、連番を追加しておく。
+                    t.desc += " ";
+                    t.desc += t.id.ToString();
+                    break;
+
+                case 0x02:
+                    t.type = TransType.DirectDep;    // チャージ
+                    t.desc = "Edyチャージ";
+                    break;
+            }
+            t.memo = "";
+
         }
     }
 }
