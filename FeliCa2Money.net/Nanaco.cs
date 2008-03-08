@@ -79,6 +79,11 @@ namespace FeliCa2Money
                     t.desc = "nanacoチャージ";
                     t.value = value;
                     break;
+                case 0x83:
+                    t.type = TransType.DirectDep;
+                    t.desc = "nanacoポイント交換";
+                    t.value = value;
+                    break;
             }
             t.memo = "";
 
