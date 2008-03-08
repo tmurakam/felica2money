@@ -76,18 +76,23 @@ namespace FeliCa2Money
                 case 0x20:
                 default:
                     t.type = TransType.Debit;   // 支払い
-                    t.desc = "Edy支払";
+                    t.desc = "支払";
                     t.value = - t.value;
 
-                    // 適用が"Edy支払" だけだと、Money が過去の履歴から店舗名を勝手に
+                    // 適用が"支払" だけだと、Money が過去の履歴から店舗名を勝手に
                     // 補完してしまうので、連番を追加しておく。
                     t.desc += " ";
                     t.desc += t.id.ToString();
                     break;
 
                 case 0x02:
-                    t.type = TransType.DirectDep;    // チャージ
+                    t.type = TransType.DirectDep;
                     t.desc = "Edyチャージ";
+                    break;
+
+                case 0x04:
+                    t.type = TransType.DirectDep;       
+                    t.desc = "Edyギフト";
                     break;
             }
             t.memo = "";
