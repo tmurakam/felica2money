@@ -2,9 +2,6 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="FeliCa2Money.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="SFCPeepPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\Program Files\DENNO NET\SFCPeep\SFCPeep.exe</Value>
-    </Setting>
     <Setting Name="IgnoreZeroTransaction" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
