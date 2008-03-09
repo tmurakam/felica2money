@@ -116,7 +116,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Settings.cs" />
-    <Compile Include="SfcPeep.cs" />
     <Compile Include="StationCode.cs" />
     <Compile Include="Suica.cs" />
     <Compile Include="Transaction.cs" />

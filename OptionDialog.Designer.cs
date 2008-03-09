@@ -31,74 +31,51 @@
             this.checkIgnoreZeroTransaction = new System.Windows.Forms.CheckBox();
             this.checkManualOfxPath = new System.Windows.Forms.CheckBox();
             this.checkAutoKickOfxFile = new System.Windows.Forms.CheckBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textSfcPeepPath = new System.Windows.Forms.TextBox();
-            this.buttonSfcPath = new System.Windows.Forms.Button();
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.radioSuica = new System.Windows.Forms.RadioButton();
+            this.radioIcoca = new System.Windows.Forms.RadioButton();
+            this.radioIruca = new System.Windows.Forms.RadioButton();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // checkIgnoreZeroTransaction
             // 
             this.checkIgnoreZeroTransaction.AutoSize = true;
-            this.checkIgnoreZeroTransaction.Location = new System.Drawing.Point(24, 23);
+            this.checkIgnoreZeroTransaction.Location = new System.Drawing.Point(24, 94);
             this.checkIgnoreZeroTransaction.Name = "checkIgnoreZeroTransaction";
             this.checkIgnoreZeroTransaction.Size = new System.Drawing.Size(158, 16);
-            this.checkIgnoreZeroTransaction.TabIndex = 0;
+            this.checkIgnoreZeroTransaction.TabIndex = 1;
             this.checkIgnoreZeroTransaction.Text = "金額が 0 の取引を無視する";
             this.checkIgnoreZeroTransaction.UseVisualStyleBackColor = true;
             // 
             // checkManualOfxPath
             // 
             this.checkManualOfxPath.AutoSize = true;
-            this.checkManualOfxPath.Location = new System.Drawing.Point(24, 56);
+            this.checkManualOfxPath.Location = new System.Drawing.Point(24, 116);
             this.checkManualOfxPath.Name = "checkManualOfxPath";
             this.checkManualOfxPath.Size = new System.Drawing.Size(178, 16);
-            this.checkManualOfxPath.TabIndex = 1;
+            this.checkManualOfxPath.TabIndex = 2;
             this.checkManualOfxPath.Text = "OFXファイル名を手動で指定する";
             this.checkManualOfxPath.UseVisualStyleBackColor = true;
             // 
             // checkAutoKickOfxFile
             // 
             this.checkAutoKickOfxFile.AutoSize = true;
-            this.checkAutoKickOfxFile.Location = new System.Drawing.Point(24, 89);
+            this.checkAutoKickOfxFile.Location = new System.Drawing.Point(24, 138);
             this.checkAutoKickOfxFile.Name = "checkAutoKickOfxFile";
             this.checkAutoKickOfxFile.Size = new System.Drawing.Size(222, 16);
-            this.checkAutoKickOfxFile.TabIndex = 2;
+            this.checkAutoKickOfxFile.TabIndex = 3;
             this.checkAutoKickOfxFile.Text = "保存後にOFXファイルを自動的に起動する";
             this.checkAutoKickOfxFile.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(22, 136);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(106, 12);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "SFCPeep.exeの場所";
-            // 
-            // textSfcPeepPath
-            // 
-            this.textSfcPeepPath.Location = new System.Drawing.Point(134, 133);
-            this.textSfcPeepPath.Name = "textSfcPeepPath";
-            this.textSfcPeepPath.Size = new System.Drawing.Size(235, 19);
-            this.textSfcPeepPath.TabIndex = 4;
-            // 
-            // buttonSfcPath
-            // 
-            this.buttonSfcPath.Location = new System.Drawing.Point(390, 131);
-            this.buttonSfcPath.Name = "buttonSfcPath";
-            this.buttonSfcPath.Size = new System.Drawing.Size(44, 23);
-            this.buttonSfcPath.TabIndex = 5;
-            this.buttonSfcPath.Text = "参照";
-            this.buttonSfcPath.UseVisualStyleBackColor = true;
-            this.buttonSfcPath.Click += new System.EventHandler(this.buttonSfcPath_Click);
             // 
             // buttonOK
             // 
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(268, 177);
+            this.buttonOK.Location = new System.Drawing.Point(267, 161);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 6;
@@ -108,7 +85,7 @@
             // buttonCancel
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(359, 177);
+            this.buttonCancel.Location = new System.Drawing.Point(357, 161);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 7;
@@ -121,16 +98,68 @@
             this.openFileDialog.Filter = "SFCPeep|SFCPeep.exe";
             this.openFileDialog.RestoreDirectory = true;
             // 
+            // radioSuica
+            // 
+            this.radioSuica.AutoSize = true;
+            this.radioSuica.Checked = true;
+            this.radioSuica.Location = new System.Drawing.Point(16, 18);
+            this.radioSuica.Name = "radioSuica";
+            this.radioSuica.Size = new System.Drawing.Size(96, 16);
+            this.radioSuica.TabIndex = 1;
+            this.radioSuica.TabStop = true;
+            this.radioSuica.Text = "Suica/PASMO";
+            this.radioSuica.UseVisualStyleBackColor = true;
+            // 
+            // radioIcoca
+            // 
+            this.radioIcoca.AutoSize = true;
+            this.radioIcoca.Location = new System.Drawing.Point(134, 18);
+            this.radioIcoca.Name = "radioIcoca";
+            this.radioIcoca.Size = new System.Drawing.Size(58, 16);
+            this.radioIcoca.TabIndex = 1;
+            this.radioIcoca.Text = "ICOCA";
+            this.radioIcoca.UseVisualStyleBackColor = true;
+            // 
+            // radioIruca
+            // 
+            this.radioIruca.AutoSize = true;
+            this.radioIruca.Location = new System.Drawing.Point(231, 18);
+            this.radioIruca.Name = "radioIruca";
+            this.radioIruca.Size = new System.Drawing.Size(50, 16);
+            this.radioIruca.TabIndex = 2;
+            this.radioIruca.Text = "IruCa";
+            this.radioIruca.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.radioSuica);
+            this.groupBox1.Controls.Add(this.radioIruca);
+            this.groupBox1.Controls.Add(this.radioIcoca);
+            this.groupBox1.Location = new System.Drawing.Point(10, 12);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(410, 62);
+            this.groupBox1.TabIndex = 0;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "物販店舗検索優先エリア";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(30, 43);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(283, 12);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "※物販店舗名検索を優先的に行うエリアを指定してください";
+            // 
             // OptionDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(462, 217);
+            this.ClientSize = new System.Drawing.Size(450, 198);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOK);
-            this.Controls.Add(this.buttonSfcPath);
-            this.Controls.Add(this.textSfcPeepPath);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.checkAutoKickOfxFile);
             this.Controls.Add(this.checkManualOfxPath);
             this.Controls.Add(this.checkIgnoreZeroTransaction);
@@ -138,6 +167,8 @@
             this.Name = "OptionDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "オプション";
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -148,11 +179,13 @@
         private System.Windows.Forms.CheckBox checkIgnoreZeroTransaction;
         private System.Windows.Forms.CheckBox checkManualOfxPath;
         private System.Windows.Forms.CheckBox checkAutoKickOfxFile;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textSfcPeepPath;
-        private System.Windows.Forms.Button buttonSfcPath;
         private System.Windows.Forms.Button buttonOK;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
+        private System.Windows.Forms.RadioButton radioSuica;
+        private System.Windows.Forms.RadioButton radioIcoca;
+        private System.Windows.Forms.RadioButton radioIruca;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label2;
     }
 }

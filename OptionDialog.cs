@@ -19,22 +19,43 @@ namespace FeliCa2Money
 
         public void LoadProperties()
         {
-            checkIgnoreZeroTransaction.Checked = Properties.Settings.Default.IgnoreZeroTransaction;
-            checkManualOfxPath.Checked = Properties.Settings.Default.ManualOfxPath;
-            checkAutoKickOfxFile.Checked = Properties.Settings.Default.AutoKickOfxFile;
-            textSfcPeepPath.Text = Properties.Settings.Default.SFCPeepPath;
+            Properties.Settings s = Properties.Settings.Default;
+
+            checkIgnoreZeroTransaction.Checked = s.IgnoreZeroTransaction;
+            checkManualOfxPath.Checked = s.ManualOfxPath;
+            checkAutoKickOfxFile.Checked = s.AutoKickOfxFile;
+
+            //textSfcPeepPath.Text = s.SFCPeepPath;
+
+            int p = s.ShopAreaPriority;
+            switch (p)
+            {
+                default:
+                case 1: radioSuica.Checked = true; break;
+                case 2: radioIcoca.Checked = true; break;
+                case 4: radioIruca.Checked = true; break;
+            }
         }
 
         public void SaveProperties()
         {
-            Properties.Settings.Default.IgnoreZeroTransaction = checkIgnoreZeroTransaction.Checked;
-            Properties.Settings.Default.ManualOfxPath = checkManualOfxPath.Checked;
-            Properties.Settings.Default.AutoKickOfxFile = checkAutoKickOfxFile.Checked;
-            Properties.Settings.Default.SFCPeepPath = textSfcPeepPath.Text;
+            Properties.Settings s = Properties.Settings.Default;
 
-            Properties.Settings.Default.Save();
+            s.IgnoreZeroTransaction = checkIgnoreZeroTransaction.Checked;
+            s.ManualOfxPath = checkManualOfxPath.Checked;
+            s.AutoKickOfxFile = checkAutoKickOfxFile.Checked;
+            //s.SFCPeepPath = textSfcPeepPath.Text;
+
+            int p = 1;
+            if (radioSuica.Checked) p = 1;
+            else if (radioIcoca.Checked) p = 2;
+            else if (radioIruca.Checked) p = 4;
+            s.ShopAreaPriority = p;
+
+            s.Save();
         }
 
+        /*
         private void buttonSfcPath_Click(object sender, EventArgs e)
         {
             openFileDialog.FileName = textSfcPeepPath.Text;
@@ -45,5 +66,6 @@ namespace FeliCa2Money
                 textSfcPeepPath.Text = openFileDialog.FileName;
             }
         }
+        */
     }
 }
