@@ -20,26 +20,30 @@ Microsoft Money の電子明細(OFX形式ファイル)に変換するものです。
  - .NET Framework 2.0 以降
  - SONY 非接触 IC カードリーダー/ライター (PaSoRi)
  - PaSoRi 基本ソフトウェア
- - SFCPeep
  - Microsoft Money
 
 Version 2.0 から、.NET Framework 2.0 以降が必要になりました。Windows Update
 を使用してインストールしておいてください。
 
-SFCPeep は http://www014.upp.so-net.ne.jp/SFCardFan/ からダウンロードしてイ
+また、Version 2.1 から SFCPeep 不要になりました。
 ンストールしておいてください。
 
 ・インストール
 
-Felica2Money-2.0-setup.exe を実行してインストールしてください。
+Felica2Money-2.2-setup.exe を実行してインストールしてください。
 
 ・使用方法
 
-初回のみ、「設定」を押して SFCPeep.exe のファイルを指定する必要があります。
-デフォルトでは C:\Program Files\DENNO NET\SFCPeep\SFCPeep.exe にあります。
+最初に「設定」を押して設定を行っておいて下さい。
+物販店舗検索優先エリアは自分が使用しているエリアに応じて設定を行って下さい。
+これを設定しないと、誤った店舗名が出力される可能性が高くなります。
 
-電子マネーを PaSoRi に置き、「取り込み」をクリックしてください。
-自動的に読み取り、電子明細の生成が行われ、Microsoft Money が立ち上がります。
+
+電子マネーを PaSoRi に置き、Edy/Suica/Nanao のいずれかのボタンをクリック
+してください。カードが読み取られ、電子明細(OFXファイル)が生成されます。
+
+「保存後に OFX ファイルを自動的に起動する」オプションをオンにしておくと、
+自動的に Microsoft Money が立ち上がり、明細が取り込まれます。
 
 ・その他
 
