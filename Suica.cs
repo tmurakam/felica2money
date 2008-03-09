@@ -29,6 +29,11 @@ namespace FeliCa2Money
 {
     class Suica : CardWithFelicaLib
     {
+        // 物販エリアコード
+        public const int AreaSuica = 1;
+        public const int AreaIcoca = 2;
+        public const int AreaIruca = 4;
+
         private StationCode stCode;
 
         public Suica()
@@ -189,7 +194,7 @@ namespace FeliCa2Money
                         // 店舗名が不明の場合、適用には出線区/出駅順コードをそのまま付与する。
                         // こうしないと Money が過去の履歴から誤って店舗名を補完してしまい
                         // 都合がわるいため
-                        t.desc += " 店舗コード:" + out_line.ToString("X2") + out_sta.ToString("X2");
+                        t.desc += " 店舗コード:" + out_line.ToString("X02") + out_sta.ToString("X02");
                     }
                     break;
 

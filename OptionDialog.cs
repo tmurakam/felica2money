@@ -20,6 +20,7 @@ namespace FeliCa2Money
         public void LoadProperties()
         {
             Properties.Settings s = Properties.Settings.Default;
+            s.Upgrade();
 
             checkIgnoreZeroTransaction.Checked = s.IgnoreZeroTransaction;
             checkManualOfxPath.Checked = s.ManualOfxPath;
@@ -31,9 +32,9 @@ namespace FeliCa2Money
             switch (p)
             {
                 default:
-                case 1: radioSuica.Checked = true; break;
-                case 2: radioIcoca.Checked = true; break;
-                case 4: radioIruca.Checked = true; break;
+                case Suica.AreaSuica: radioSuica.Checked = true; break;
+                case Suica.AreaIcoca: radioIcoca.Checked = true; break;
+                case Suica.AreaIruca: radioIruca.Checked = true; break;
             }
         }
 
@@ -46,10 +47,10 @@ namespace FeliCa2Money
             s.AutoKickOfxFile = checkAutoKickOfxFile.Checked;
             //s.SFCPeepPath = textSfcPeepPath.Text;
 
-            int p = 1;
-            if (radioSuica.Checked) p = 1;
-            else if (radioIcoca.Checked) p = 2;
-            else if (radioIruca.Checked) p = 4;
+            int p = Suica.AreaSuica;
+            if (radioSuica.Checked) p = Suica.AreaSuica;
+            else if (radioIcoca.Checked) p = Suica.AreaIcoca;
+            else if (radioIruca.Checked) p = Suica.AreaIruca;
             s.ShopAreaPriority = p;
 
             s.Save();
