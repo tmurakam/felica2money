@@ -94,12 +94,13 @@ h6
 </style>
 </head>
 <body>
-<h1>FeliCa2Money ver 2.1マニュアル</h1>
+<h1>FeliCa2Money ver 2.2マニュアル</h1>
 
 <h2>はじめに</h2>
 
-このツールは、PaSoRi を使って Edy などの電子マネーの履歴を読み取り、
+FeliCa2Moneyは、PaSoRi を使って Edy などの電子マネーの履歴を読み取り、
 Microsoft Money の電子明細(OFX形式ファイル)に変換するものです。
+FeliCa2Money を使えば、ワンタッチで家計簿の記帳を行えます。
 
 <p>
 現バージョンでは、以下の電子マネーに対応しています。
@@ -111,9 +112,10 @@ Microsoft Money の電子明細(OFX形式ファイル)に変換するもので�
 <li>PiTaPa
 <li>PASMO
 <li>nanaco
+<li>TOICA
 </ul>
 
-<i>ただし、テストしたのは Edy / Suica / nanacoだけです</i>
+<i>ただし、作者がテストしているのは Edy / Suica / nanacoだけです</i>
 <p>
 
 <h2>必要環境</h2>
@@ -123,28 +125,44 @@ Microsoft Money の電子明細(OFX形式ファイル)に変換するもので�
 <li><b>.NET Framework 2.0 以降</b>
 <li>SONY 非接触 IC カードリーダー/ライター (PaSoRi)
 <li>PaSoRi 基本ソフトウェア
-<li>SFCPeep
 </ul>
 
 <b>注意: Version 2.0 から、.NET Framework が必要になりました。</b> Windows Update などを
 利用してインストールしておいてください。
 <p>
 
-SFCPeep は <a href="http://www014.upp.so-net.ne.jp/SFCardFan/">http://www014.upp.so-net.ne.jp/SFCardFan/</a> からダウンロードしてインストールしておいてください。
+また、ver 2.2 からは SFCPeep は不要となりました。
 
 <h2>使用方法</h2>
 
-初回のみ、「設定」を押して SFCPeep.exe のファイルを指定する必要があります。
-デフォルトでは C:\Program Files\DENNO NET\SFCPeep\SFCPeep.exe にあります。
+最初に「設定」を押して設定を行っておいて下さい。
+物販店舗検索優先エリアは自分が使用しているエリアに応じて設定を行って下さい。これを設定
+しないと、誤った店舗名が出力される可能性が高くなります。
+<p>
+
+電子マネーを PaSoRi に置き、Edy/Suica/Nanao のいずれかのボタンをクリックしてください。
+カードが読み取られ、電子明細(OFXファイル)が生成されます。
+<p>
+「保存後に OFX ファイルを自動的に起動する」オプションをオンにしておくと、
+自動的に Microsoft Money が立ち上がり、明細が取り込まれます。
+
+<h3>駅名データベースについて</h3>
+
+Suica などでは駅名/店舗名が自動的に入力されます。
+駅名/店舗名のデータベースは、<a href="http://www014.upp.so-net.ne.jp/SFCardFan/">IC SFCard Fan</a> で
+配布されているデータベース(2008/2/25版)を使用しています。
 
 <p>
-電子マネーを PaSoRi に置き、「取り込み」をクリックしてください。
-自動的に読み取り、電子明細の生成が行われ、Microsoft Money が立ち上がります。
+データベースを最新のものに入れ替えるには、
+<a href="http://www014.upp.so-net.ne.jp/SFCardFan/">IC SFCard Fan</a>の
+「差し替え用駅名情報データベース」をダウンロードし、圧縮ファイルを展開してできる
+StationCode.mdb を FeliCa2Money のインストールディレクトリにコピーしてください。
 
 <h2>アンインストール</h2>
 
 コントロールパネルの「プログラムの追加と削除」から削除してください。
 <p>
+
 
 <h2>制限事項</h2>
 
@@ -165,9 +183,18 @@ URL は http://svn.sourceforge.jp/svnroot/moneyimport/trunk/ です。
 <p>
 プロジェクトホームページは <a href="http://sourceforge.jp/projects/moneyimport/">http://sourceforge.jp/projects/moneyimport/</a> にあります。
 
+<h2>謝辞</h2>
+
+駅名/店舗名データベースを提供下さっているでんのすけさん(IC SFCard Fan)に感謝します。
+
 <h2>改版履歴</h2>
 
 <pre>
+2008-03-09 : ver 2.2
+
+	* SFCPeep を使用せず、felicalib のみで解析を行うようにした。
+	* 物販店舗検索優先エリア指定オプションを追加
+ 
 2008-03-01 : ver 2.1
 
 	* Suica 未登録店舗において、連番ではなく出線区/出駅順を出力するようにした。
@@ -176,11 +203,8 @@ URL は http://svn.sourceforge.jp/svnroot/moneyimport/trunk/ です。
 2008-02-03 : ver 2.0
 	
 	* .NET Framework 対応 (C# 書き直し)
-
 	* 金額が 0 の取引をスキップするオプション追加 (PiTaPa ポストペイなどの対応)
-
 	* OFX ファイル保存先指定オプション追加
-
 	* OFX ファイル自動起動オプション追加
 
 2007-11-06 : ver 1.2
@@ -195,7 +219,6 @@ URL は http://svn.sourceforge.jp/svnroot/moneyimport/trunk/ です。
 2007-03-18 : ver β2:  (PASMO開始当日 :-)
 
 	* セットアップを追加
-
 	* OFX ファイルに MEMO (備考)フィールドを追加するようにした
 
 2007-03-17 : ver β1
