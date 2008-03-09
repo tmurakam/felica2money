@@ -1,7 +1,9 @@
 2008-03-09 : Takuya Murakami
+	* ver 2.2
 	* SFCPeep を使用せず、felicalib のみを使うように変更
 	* Suica 解析処理を felicalib で行うようにした
 	* StationCode.mdb 検索処理を追加
+	* 物販店舗検索優先エリアオプションを追加
 	
 2008-03-08 : Takuya Murakami
 	* nanaco ポイント交換に対応(したつもり)
