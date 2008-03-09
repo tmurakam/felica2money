@@ -117,6 +117,7 @@
     </Compile>
     <Compile Include="Settings.cs" />
     <Compile Include="SfcPeep.cs" />
+    <Compile Include="StationCode.cs" />
     <Compile Include="Suica.cs" />
     <Compile Include="Transaction.cs" />
   </ItemGroup>
@@ -127,6 +128,9 @@
     <None Include="Resources\Suica.bmp" />
     <None Include="Resources\Edy.bmp" />
     <Content Include="Resources\Nanaco.bmp" />
+    <Content Include="StationCode.mdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">

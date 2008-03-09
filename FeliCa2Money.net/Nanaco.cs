@@ -51,7 +51,7 @@ namespace FeliCa2Money
             }
         }
 
-        public override void analyzeTransaction(Transaction t, byte[] data)
+        public override bool analyzeTransaction(Transaction t, byte[] data)
         {
             // 日付
             int value = (data[9] << 24) + (data[10] << 16) + (data[11] << 8) + data[12];
@@ -94,6 +94,8 @@ namespace FeliCa2Money
             // 連番
             value = (data[13] << 8) + data[14];
             t.id = value;
+
+            return true;
         }
     }
 }

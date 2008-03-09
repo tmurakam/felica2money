@@ -53,8 +53,23 @@ namespace FeliCa2Money
             if (dr.Read())
             {
                 result = new string[2];
-                result[0] = dr.GetString(0);
-                result[1] = dr.GetString(1);
+                if (dr.IsDBNull(0))
+                {
+                    result[0] = "";
+                }
+                else
+                {
+                    result[0] = dr.GetString(0);
+                }
+
+                if (dr.IsDBNull(1))
+                {
+                    result[1] = "";
+                }
+                else
+                {
+                    result[1] = dr.GetString(1);
+                }
             }
             dr.Close();
             return result;

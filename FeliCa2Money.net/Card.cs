@@ -55,7 +55,7 @@ namespace FeliCa2Money
         }
     }
 
-    abstract class CardWithFelicaLib : Card
+    abstract class CardWithFelicaLib : Card, IDisposable
     {
         protected int systemCode;   // システムコード
         protected int serviceCode;  // サービスコード
@@ -65,7 +65,7 @@ namespace FeliCa2Money
         public abstract void analyzeCardId(Felica f);
 
         // Transaction 解析
-        public abstract void analyzeTransaction(Transaction t, byte[] data);
+        public abstract bool analyzeTransaction(Transaction t, byte[] data);
 
         public override List<Transaction> ReadCard()
         {
@@ -82,17 +82,28 @@ namespace FeliCa2Money
                     if (data == null) break;
 
                     Transaction t = new Transaction();
-                    analyzeTransaction(t, data);
-
-                    list.Add(t);
+                    if (analyzeTransaction(t, data))
+                    {
+                        list.Add(t);
+                    }
                 }
             }
             if (needReverse)
             {
                 list.Reverse();
             }
+            PostProcess(list);
 
             return list;
+        }
+
+        protected virtual void PostProcess(List<Transaction> list)
+        {
+            // do nothing
+        }
+
+        public virtual void Dispose()
+        {
         }
     }
 }
