@@ -80,5 +80,17 @@ namespace FeliCa2Money.Properties {
                 return ((string)(this["StationCodeConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int ShopAreaPriority {
+            get {
+                return ((int)(this["ShopAreaPriority"]));
+            }
+            set {
+                this["ShopAreaPriority"] = value;
+            }
+        }
     }
 }

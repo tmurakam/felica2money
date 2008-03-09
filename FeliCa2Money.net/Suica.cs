@@ -18,6 +18,8 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+//  Suica/PASMO/ICOCA/PiTaPa/Toica など交通系カード処理
+
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -35,7 +37,7 @@ namespace FeliCa2Money
             cardName    = "Suica";
 
             systemCode  = (int)SystemCode.Suica;
-            serviceCode = 0x090f;       // history
+            serviceCode = 0x090f;       // 履歴エリアのサービスコード
             needReverse = true;
 
             stCode = new StationCode();
@@ -47,6 +49,8 @@ namespace FeliCa2Money
             stCode.Dispose();
         }
 
+        // カード ID を取得
+        // Suica では IDm を用いる
         public override void analyzeCardId(Felica f)
         {
             byte[] data = f.IDm();
@@ -61,6 +65,10 @@ namespace FeliCa2Money
             }
         }
 
+        // 後処理
+        //  Suica の場合、履歴には残高しか記録されていない。
+        //  ここでは、残高の差額から各トランザクションの金額を計算する
+        //  (このため、最も古いエントリは金額を計算できない)
         protected override void PostProcess(List<Transaction> list)
         {
             int prevBalance = 0;
@@ -70,9 +78,10 @@ namespace FeliCa2Money
                 t.value = t.balance - prevBalance;
                 prevBalance = t.balance;
             }
-            list.RemoveAt(0);
+            list.RemoveAt(0);   // 最古のエントリは捨てる
         }
 
+        // トランザクション解析
         public override bool analyzeTransaction(Transaction t, byte[] data)
         {
             int ctype = data[0];    // 端末種
@@ -105,24 +114,37 @@ namespace FeliCa2Money
             int in_sta = -1;
             int out_line, out_sta;
             string[] in_name = null, out_name = null;
+            int area;
 
             switch (ctype)
             {
                 case CT_SHOP:
                 case CT_VEND:
+                    // 物販/自販機
+                    area = Properties.Settings.Default.ShopAreaPriority;
+
                     //time = (data[6] << 8) | data[7];
                     out_line = data[8];
                     out_sta = data[9];
-                    out_name = stCode.getShopName(-1, ctype, out_line, out_sta);
+
+                    // 優先エリアで検索
+                    out_name = stCode.getShopName(area, ctype, out_line, out_sta);
+                    if (out_name == null)
+                    {
+                        // 全エリアで検索
+                        out_name = stCode.getShopName(-1, ctype, out_line, out_sta);
+                    }
                     break;
 
                 case CT_CAR:
+                    // 車載端末(バス)
                     out_line = (data[6] << 8) | data[7];
                     out_sta = (data[8] << 8) | data[9];
                     out_name = stCode.getBusName(out_line, out_sta);
                     break;
 
                 default:
+                    // それ以外(運賃、チャージなど)
                     in_line = data[6];
                     in_sta = data[7];
                     out_line = data[8];
@@ -132,17 +154,25 @@ namespace FeliCa2Money
                         break;
                     }
 
-                    int area = 0;
+                    // エリアを求める
                     if (region >= 1) {
-                        area = 2;
-                    } else if (in_line >= 0x80) {
-                        area = 1;
+                        area = 2; // 関西公営・私鉄
                     }
+                    else if (in_line >= 0x80)
+                    {
+                        area = 1; // 関東公営・私鉄
+                    }
+                    else
+                    {
+                        area = 0; // JR
+                    }
+
                     in_name = stCode.getStationName(area, in_line, in_sta);
                     out_name = stCode.getStationName(area, out_line, out_sta);
                     break;
             }
 
+            // 備考の先頭には端末種を入れる
             t.memo = consoleType(ctype);
 
             switch (ctype) 
@@ -151,30 +181,35 @@ namespace FeliCa2Money
                 case CT_VEND:
                     if (out_name != null)
                     {
+                        // 適用に店舗名を入れる
                         t.desc += " " + out_name[0] + " " + out_name[1];
                     }
                     else
                     {
-                        // 店舗名が不明の場合、出線区/出駅順コードをそのまま付与する。
+                        // 店舗名が不明の場合、適用には出線区/出駅順コードをそのまま付与する。
                         // こうしないと Money が過去の履歴から誤って店舗名を補完してしまい
                         // 都合がわるいため
-                        t.desc += " " + out_line.ToString("X2") + out_sta.ToString("X2");
+                        t.desc += " 店舗コード:" + out_line.ToString("X2") + out_sta.ToString("X2");
                     }
                     break;
 
                 case CT_CAR:
                     if (out_name != null)
                     {
-                        t.desc += out_name[0] + " " + out_name[1];
+                        // 適用にバス会社名、備考に停留所名を入れる
+                        t.desc += " " + out_name[0];
+                        t.memo += " " + out_name[1];
                     }
                     break;
 
                 default:
                     if (in_line == 0 && in_sta == 0 & out_line == 0 && out_sta == 0)
                     {
+                        // チャージなどの場合は、何も追加しない
                         break;
                     }
 
+                    // 適用に入会社または出会社を追加
                     if (in_name != null)
                     {
                         t.desc += " " + in_name[0];
@@ -203,10 +238,11 @@ namespace FeliCa2Money
             return true;
         }
 
-        private const int CT_SHOP = 0xc7;
-        private const int CT_VEND = 0xc8;
-        private const int CT_CAR = 0x05;
+        private const int CT_SHOP = 0xc7;  // 物販端末
+        private const int CT_VEND = 0xc8;  // 自販機
+        private const int CT_CAR = 0x05;   // 車載端末(バス)
 
+        // 端末種文字列を返す
         private string consoleType(int ctype)
         {
             switch (ctype) {
@@ -227,6 +263,7 @@ namespace FeliCa2Money
             return "不明";
         }
 
+        // 処理種別文字列を返す
         private string procType(int proc)
         {
             switch (proc) {
@@ -239,7 +276,8 @@ namespace FeliCa2Money
             case 0x0f: return "バス";
             case 0x14: return "オートチャージ";
             case 0x46: return "物販";
-            case 0x49: return "入金";
+            case 0x49: return "サンクスチャージ";
+            case 0x4a: return "物販取消";
             case 0xc6: return "物販(現金併用)";
             }
             return "不明";
