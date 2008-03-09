@@ -148,9 +148,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(30, 43);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(283, 12);
+            this.label2.Size = new System.Drawing.Size(265, 12);
             this.label2.TabIndex = 11;
-            this.label2.Text = "※物販店舗名検索を優先的に行うエリアを指定してください";
+            this.label2.Text = "※店舗コード重複時に優先するエリアを指定してください";
             // 
             // OptionDialog
             // 
