@@ -21,157 +21,228 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Windows.Forms;
+using FelicaLib;
 
 namespace FeliCa2Money
 {
-    class Suica : Card
+    class Suica : CardWithFelicaLib
     {
-        private int prevBalance = UndefBalance;
-        private const int UndefBalance = -9999999;
+        private StationCode stCode;
 
         public Suica()
         {
-            ident = "Suica";
-            cardName = "Suica";
+            ident       = "Suica";
+            cardName    = "Suica";
+
+            systemCode  = (int)SystemCode.Suica;
+            serviceCode = 0x090f;       // history
+            needReverse = true;
+
+            stCode = new StationCode();
         }
 
-        public override List<Transaction> ReadCard()
+        public override void Dispose()
         {
-            SfcPeep s = new SfcPeep();
-
-            // IDm 読み込み
-            List<string> lines = s.Execute("-i");
-            if (!lines[0].StartsWith("IDm:"))
-            {
-                return null;
-            }
-
-            CardId = lines[0].Substring(4);
-
-            // 履歴データ読み込み
-            lines = s.Execute("-h");
-            if (lines.Count < 1 || !lines[0].StartsWith("HT00:"))
-            {
-                return null;
-            }
-
-            // 順序反転
-            lines.Reverse();
-
-            // Parse lines
-            List<Transaction> transactions = new List<Transaction>();
-            foreach (string line in lines)
-            {
-                Transaction t = new Transaction();
-
-                string[] items = ParseLine(line);
-                if (SetTransaction(t, items)) {
-                    transactions.Add(t);
-                }
-            }
-            return transactions;
+            base.Dispose();
+            stCode.Dispose();
         }
 
-        private bool SetTransaction(Transaction t, string[] items)
+        public override void analyzeCardId(Felica f)
         {
-            // 0:端末種コード,1:処理,2:日付時刻,
-            // 3:入線区コード,4:入駅順コード,5:入会社,6:入駅名,
-            // 7:出線区コード,8:出駅順コード,9:出会社,10:出駅名,
-            // 11:残高,12:履歴連番
-
-            // 処理
-            t.desc = items[1];
-            if (t.desc == "----") {
-                return false;   // 空エントリ
-            }
-
-            // 残高
-            t.balance = int.Parse(items[11]);
-
-            // 取引額計算
-            // Suica の各取引には、残高しか記録されていない (ouch!)
-            // なので、前回残高との差分で取引額を計算する
-            // よって、最初の１取引は処理不能なので読み飛ばす
-            if (prevBalance == UndefBalance)
+            byte[] data = f.IDm();
+            if (data == null)
             {
-                prevBalance = t.balance;
-                return false;
+                throw new Exception("IDm を読み取れません");
             }
-            else
+            
+            cardId = "";
+            for (int i = 0; i < 8; i++) {
+                cardId += data[i].ToString("X2");
+            }
+        }
+
+        protected override void PostProcess(List<Transaction> list)
+        {
+            int prevBalance = 0;
+
+            foreach (Transaction t in list)
             {
                 t.value = t.balance - prevBalance;
                 prevBalance = t.balance;
             }
+            list.RemoveAt(0);
+        }
+
+        public override bool analyzeTransaction(Transaction t, byte[] data)
+        {
+            int ctype = data[0];    // 端末種
+            int proc = data[1];     // 処理
+            int date = (data[4] << 8) | data[5]; // 日付
+            int balance = (data[11] << 8) | data[10];   // 残高(little endian)
+            int seq = (data[12] << 16) | (data[13] << 8) | data[14]; // 連番
+            int region = data[15];      // リージョン
+
+            // 処理
+            t.desc = procType(proc);
+
+            // 残高
+            t.balance = balance;
+
+            // 金額は PostProcess で計算する
+            t.value = 0;
 
             // 日付
-            string d = items[2];
-            int yy = int.Parse(d.Substring(0, 2)) + 2000;
-            int mm = int.Parse(d.Substring(3, 2));
-            int dd = int.Parse(d.Substring(6, 2));
-
+            int yy = (date >> 9) + 2000;
+            int mm = (date >> 5) & 0xf;
+            int dd = date & 0x1f;
             t.date = new DateTime(yy, mm, dd, 0, 0, 0);
 
             // ID
-            t.id = Convert.ToInt32(items[12], 16);
+            t.id = seq;
 
-           // 説明/メモ
-            if (items[5] != "")
+            // 駅名/店舗名などを調べる
+            int in_line = -1;
+            int in_sta = -1;
+            int out_line, out_sta;
+            string[] in_name = null, out_name = null;
+
+            switch (ctype)
             {
-                // 運賃の場合、入会社を適用に表示
-                appendDesc(t, items[5]);
+                case CT_SHOP:
+                case CT_VEND:
+                    //time = (data[6] << 8) | data[7];
+                    out_line = data[8];
+                    out_sta = data[9];
+                    out_name = stCode.getShopName(-1, ctype, out_line, out_sta);
+                    break;
 
-                // 備考に入出会社/駅名を記載
-                t.memo = items[5] + "(" + items[6] + ")";
-                if (items[9] != "")
-                {
-                    t.memo += " - " + items[9] + "(" + items[10] + ")";
-                }
+                case CT_CAR:
+                    out_line = (data[6] << 8) | data[7];
+                    out_sta = (data[8] << 8) | data[9];
+                    out_name = stCode.getBusName(out_line, out_sta);
+                    break;
+
+                default:
+                    in_line = data[6];
+                    in_sta = data[7];
+                    out_line = data[8];
+                    out_sta = data[9];
+                    if (in_line == 0 && in_sta == 0 && out_line == 0 && out_sta == 0)
+                    {
+                        break;
+                    }
+
+                    int area = 0;
+                    if (region >= 1) {
+                        area = 2;
+                    } else if (in_line >= 0x80) {
+                        area = 1;
+                    }
+                    in_name = stCode.getStationName(area, in_line, in_sta);
+                    out_name = stCode.getStationName(area, out_line, out_sta);
+                    break;
             }
-            else
+
+            t.memo = consoleType(ctype);
+
+            switch (ctype) 
             {
-                // おもに物販の場合、9, 10 に店名が入る
-                appendDesc(t, items[9]);
-                appendDesc(t, items[10]);
+                case CT_SHOP:
+                case CT_VEND:
+                    if (out_name != null)
+                    {
+                        t.desc += " " + out_name[0] + " " + out_name[1];
+                    }
+                    else
+                    {
+                        // 店舗名が不明の場合、出線区/出駅順コードをそのまま付与する。
+                        // こうしないと Money が過去の履歴から誤って店舗名を補完してしまい
+                        // 都合がわるいため
+                        t.desc += " " + out_line.ToString("X2") + out_sta.ToString("X2");
+                    }
+                    break;
 
-                // 特殊処理
-                if (t.desc == "物販")
-                {
-                    // 未登録店舗だと適用がすべて「物販」になってしまう。
-                    // すると Money が勝手に過去の履歴から店舗名を補完してしまい
-                    // 都合がわるい。このため、出線区/出駅順コードをそのまま付与する。
-                    // このようにすれば、Money で以後店舗名補完が効くようになるはず。
-                    t.desc += " " + items[7] + items[8];
-                }
-            }
+                case CT_CAR:
+                    if (out_name != null)
+                    {
+                        t.desc += out_name[0] + " " + out_name[1];
+                    }
+                    break;
 
-            // トランザクションタイプ
-            if (t.value < 0) {
-                t.GuessTransType(false);
-            }
-            else
-            {
-                t.GuessTransType(true);
+                default:
+                    if (in_line == 0 && in_sta == 0 & out_line == 0 && out_sta == 0)
+                    {
+                        break;
+                    }
+
+                    if (in_name != null)
+                    {
+                        t.desc += " " + in_name[0];
+                    }
+                    else if (out_name != null)
+                    {
+                        t.desc += " " + out_name[0];
+                    }
+
+                    // 備考に入出会社/駅名を記載
+                    if (in_name != null) {
+                        t.memo += " " + in_name[0] + "(" + in_name[1] + ")";
+                    } else {
+                        t.memo += " 未登録";
+                    }
+                    t.memo += " - ";
+
+                    if (out_name != null) {
+                        t.memo += out_name[0] + "(" + out_name[1] + ")";
+                    } else {
+                        t.memo += "未登録";
+                    }
+                    break;
             }
 
             return true;
         }
 
-        private void appendDesc(Transaction t, string d)
-        {
-            if (d == "" || d == "未登録")
-            {
-                return;
-            }
+        private const int CT_SHOP = 0xc7;
+        private const int CT_VEND = 0xc8;
+        private const int CT_CAR = 0x05;
 
-            if (t.desc == "支払")
-            {
-                t.desc = d;       // "支払"は削除して上書き
+        private string consoleType(int ctype)
+        {
+            switch (ctype) {
+            case CT_SHOP: return "物販端末";
+            case CT_VEND: return "自販機";
+            case CT_CAR: return "車載端末";
+            case 0x03: return "清算機";
+            case 0x08: return "券売機";
+            case 0x12: return "券売機";
+            case 0x16: return "改札機";
+            case 0x17: return "簡易改札機";
+            case 0x18: return "窓口端末";
+            case 0x1a: return "改札端末";
+            case 0x1b: return "携帯電話";
+            case 0x1c: return "乗継清算機";
+            case 0x1d: return "連絡改札機";
             }
-            else
-            {
-                t.desc += " " + d;
+            return "不明";
+        }
+
+        private string procType(int proc)
+        {
+            switch (proc) {
+            case 0x01: return "運賃";
+            case 0x02: return "チャージ";
+            case 0x03: return "券購";
+            case 0x04: return "清算";
+            case 0x07: return "新規";
+            case 0x0d: return "バス";
+            case 0x0f: return "バス";
+            case 0x14: return "オートチャージ";
+            case 0x46: return "物販";
+            case 0x49: return "入金";
+            case 0xc6: return "物販(現金併用)";
             }
+            return "不明";
         }
     }
 }

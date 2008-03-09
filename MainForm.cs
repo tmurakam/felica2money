@@ -44,17 +44,26 @@ namespace FeliCa2Money
 
         private void buttonEdy_Click(object sender, EventArgs e)
         {
-            doConvert(new Edy());
+            using (Edy edy = new Edy())
+            {
+                doConvert(edy);
+            }
         }
 
         private void buttonSuica_Click(object sender, EventArgs e)
         {
-            doConvert(new Suica());
+            using (Suica suica = new Suica())
+            {
+                doConvert(suica);
+            }
         }
 
         private void buttonNanaco_Click(object sender, EventArgs e)
         {
-            doConvert(new Nanaco());
+            using(Nanaco nanaco = new Nanaco())
+            {
+                doConvert(nanaco);
+            }
         }
 
         private void doConvert(Card c)
