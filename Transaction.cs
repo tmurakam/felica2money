@@ -41,13 +41,15 @@ namespace FeliCa2Money
 
     class Transaction
     {
-        public int id; // ID
+        public int id = 0; // ID
         public DateTime date;
         public TransType type;        // トランザクションタイプ
-        public string desc;
-        public string memo;
-        public int value;      // 金額
-        public int balance;    // 残高
+        public string desc = "";
+        public string memo = "";
+        public int value = 0;      // 金額
+        public int balance = 0;    // 残高
+
+        private bool valid = true;
 
         private static Hashtable TransIncome;
         private static Hashtable TransOutgo;
@@ -110,6 +112,16 @@ namespace FeliCa2Money
             {
                 type = TransType.Debit;
             }
+        }
+
+        public void Invalidate()
+        {
+            valid = false;
+        }
+
+        public static bool isInvalid(Transaction t)
+        {
+            return !t.valid;
         }
 
         public static bool isZeroTransaction(Transaction t)

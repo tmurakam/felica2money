@@ -109,7 +109,15 @@ namespace FeliCa2Money
             int yy = (date >> 9) + 2000;
             int mm = (date >> 5) & 0xf;
             int dd = date & 0x1f;
-            t.date = new DateTime(yy, mm, dd, 0, 0, 0);
+            try
+            {
+                t.date = new DateTime(yy, mm, dd, 0, 0, 0);
+            }
+            catch
+            {
+                // 日付異常(おそらく空エントリ)
+                return false;
+            }
 
             // ID
             t.id = seq;

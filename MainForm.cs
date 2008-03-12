@@ -86,6 +86,9 @@ namespace FeliCa2Money
                 return;
             }
 
+            // 無効な取引を削除する
+            list.RemoveAll(Transaction.isInvalid);
+
             // 0円の取引を削除する
             if (Properties.Settings.Default.IgnoreZeroTransaction)
             {

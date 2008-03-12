@@ -56,6 +56,11 @@ namespace FeliCa2Money
             // 日付
             int value = (data[4] << 24) + (data[5] << 16) + (data[6] << 8) + data[7];
 
+            if (value == 0 && data[0] == 0)
+            {
+                return false; // おそらく空エントリ
+            }
+
             t.date = new DateTime(2000, 1, 1);
 
             t.date += TimeSpan.FromDays(value >> 17);
