@@ -1,3 +1,8 @@
+2008-03-12 : Takuya Murakami
+	* ver 2.3
+	* Suica などにおいてエントリ数が２０未満のときにエラーが発生する
+	  バグを修正。
+
 2008-03-09 : Takuya Murakami
 	* ver 2.2
 	* SFCPeep を使用せず、felicalib のみを使うように変更
