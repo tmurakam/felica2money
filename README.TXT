@@ -1,4 +1,4 @@
-■ FeliCa2Money
+■ FeliCa2Money version 2.3
 
 ・はじめに
 
@@ -30,7 +30,7 @@ Version 2.0 から、.NET Framework 2.0 以降が必要になりました。Windows Update
 
 ・インストール
 
-Felica2Money-2.2-setup.exe を実行してインストールしてください。
+Felica2Money-2.3-setup.exe を実行してインストールしてください。
 
 ・使用方法
 
