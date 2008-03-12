@@ -82,10 +82,25 @@ namespace FeliCa2Money
                     if (data == null) break;
 
                     Transaction t = new Transaction();
-                    if (analyzeTransaction(t, data))
+                    
+                    // データが全0かどうかチェック
+                    int x = 0;
+                    foreach (int xx in data)
                     {
-                        list.Add(t);
+                        x |= xx;
                     }
+                    if (x == 0) 
+                    {
+                        // データが全0なら無視(空エントリ)
+                        t.Invalidate();
+                    }
+
+                    // トランザクション解析
+                    else if (!analyzeTransaction(t, data))
+                    {
+                        t.Invalidate();
+                    }
+                    list.Add(t);
                 }
             }
             if (needReverse)
