@@ -78,6 +78,13 @@ namespace FeliCa2Money
         // 駅名を検索する
         public string[] getStationName(int area, int line, int station)
         {
+            if (line == 0 && station == 0)
+            {
+                string[] res = new string[2];
+                res[0] = "";
+                res[1] = "";
+                return res;
+            }
             string sql = string.Format("SELECT CompanyName,StationName FROM StationCode WHERE"
                 + " AreaCode={0} AND LineCode={1} AND StationCode={2}", area, line, station);
             return doQuery(sql);

@@ -34,7 +34,13 @@ namespace FeliCa2Money
         {
             InitializeComponent();
 
-            Properties.Settings.Default.Upgrade();
+            Properties.Settings s = Properties.Settings.Default;
+            if (s.IsFirstRun)
+            {
+                s.Upgrade();
+                s.IsFirstRun = false;
+                s.Save();
+            }
         }
 
         private void buttonQuit_Click(object sender, EventArgs e)

@@ -20,7 +20,6 @@ namespace FeliCa2Money
         public void LoadProperties()
         {
             Properties.Settings s = Properties.Settings.Default;
-            s.Upgrade();
 
             checkIgnoreZeroTransaction.Checked = s.IgnoreZeroTransaction;
             checkManualOfxPath.Checked = s.ManualOfxPath;

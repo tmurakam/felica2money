@@ -24,6 +24,7 @@ Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescrip
 
 [Files]
 Source: "D:\dev\moneyimport\FeliCa2Money.net\Release\2.3\FeliCa2Money.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\dev\moneyimport\FeliCa2Money.net\Release\2.3\FeliCa2Money.exe.config"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\dev\moneyimport\FeliCa2Money.net\Release\2.3\felicalib.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\dev\moneyimport\FeliCa2Money.net\Release\2.3\StationCode.mdb"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\dev\moneyimport\FeliCa2Money.net\Release\2.3\FeliCa2Money.html"; DestDir: "{app}"; Flags: ignoreversion
