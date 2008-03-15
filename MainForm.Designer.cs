@@ -189,11 +189,11 @@ namespace FeliCa2Money
             // 
             // buttonCSV
             // 
+            this.buttonCSV.Image = global::FeliCa2Money.Properties.Resources.CSV;
             this.buttonCSV.Location = new System.Drawing.Point(12, 204);
             this.buttonCSV.Name = "buttonCSV";
             this.buttonCSV.Size = new System.Drawing.Size(58, 58);
             this.buttonCSV.TabIndex = 14;
-            this.buttonCSV.Text = "CSV";
             this.buttonCSV.UseVisualStyleBackColor = true;
             this.buttonCSV.Click += new System.EventHandler(this.buttonCSV_Click);
             // 
