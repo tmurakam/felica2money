@@ -28,7 +28,7 @@ using System.Xml;
 
 namespace FeliCa2Money
 {
-    class CsvRules
+    public class CsvRules
     {
         private List<CsvRule> ruleList;
 
@@ -52,11 +52,14 @@ namespace FeliCa2Money
 
                     switch (e.Name)
                     {
-                        case "BankId":
-                            rule.Ident = value;
-                            break;
                         case "Name":
                             rule.Name = value;
+                            break;
+                        case "Org":
+                            rule.Org = value;
+                            break;
+                        case "BankId":
+                            rule.BankId = int.Parse(value);
                             break;
                         case "FirstLine":
                             rule.FirstLine = value;
@@ -77,6 +80,37 @@ namespace FeliCa2Money
             }
         }
 
+        // 名前一覧を返す
+        public string[] names()
+        {
+            int size = 0;
+            foreach (CsvRule rule in ruleList)
+            {
+                size++;
+            }
+
+            string[] names = new string[size];
+            int i = 0;
+            foreach (CsvRule rule in ruleList)
+            {
+                names[i] = rule.Name;
+                i++;
+            }
+            return names;
+        }
+
+        // 指定したインデックスのルールを返す
+        public CsvRule GetRuleByIndex(int idx)
+        {
+            return ruleList[idx];
+        }
+
+        // 指定したルールのインデックスを返す
+        public int IndexOf(CsvRule rule)
+        {
+            return ruleList.IndexOf(rule);
+        }
+
         public CsvRule FindRule(string firstLine)
         {
             foreach (CsvRule rule in ruleList)
@@ -90,19 +124,27 @@ namespace FeliCa2Money
         }
     }
         
-    class CsvRule
+    public class CsvRule
     {
-        private int ident; // 銀行ID
+        private string org; // 組織名
+        private int bankId; // 銀行ID
         private string name;  // 銀行名
         private string firstLine; // １行目
         private bool isAscent;    // 昇順かどうか
 
         private System.Collections.Hashtable colHash = new System.Collections.Hashtable(); // カラムのマッピング
 
+        private DateTime prevDate;
+        private int idSerial;
 
-        public string Ident {
-            get { return ident.ToString(); }
-            set { ident = int.Parse(value); }
+        public string Org
+        {
+            get { return org; }
+            set { org = value; }
+        }
+        public int BankId {
+            get { return bankId; }
+            set { bankId = value; }
         }
         public string Name {
             get { return name; }
@@ -144,6 +186,13 @@ namespace FeliCa2Money
             }
         }
 
+        // リセット
+        public void Reset()
+        {
+            prevDate = new DateTime(1900, 1, 1, 0, 0, 0);
+            idSerial = 0;
+        }
+
         // 指定したカラムを取得
         private string getCol(string[] row, string key)
         {
@@ -171,9 +220,6 @@ namespace FeliCa2Money
 
             // TODO
             // quote を削除する
-            
-            // ID
-            t.id = getColInt(row, "Id");
 
             // 日付
             string date = getCol(row, "Date");
@@ -197,6 +243,27 @@ namespace FeliCa2Money
                 t.date = new DateTime(year, month, day, 0, 0, 0);
             }
 
+            // ID
+            string id = getCol(row, "Id");
+            if (id != null)
+            {
+                t.id = getColInt(row, "Id");
+            }
+            else
+            {
+                // 日付毎に ID を振る
+                if (t.date == prevDate)
+                {
+                    idSerial++;
+                }
+                else
+                {
+                    prevDate = t.date;
+                    idSerial = 0;
+                }
+                t.id = idSerial;
+            }
+
             // 金額
             t.value = getColInt(row, "Income");
             t.value -= getColInt(row, "Outgo");
@@ -210,6 +277,7 @@ namespace FeliCa2Money
             // 備考
             t.memo = getCol(row, "Memo");
 
+            // トランザクションタイプを自動設定
             t.GuessTransType(t.value >= 0);
             
             return t;

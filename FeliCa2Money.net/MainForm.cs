@@ -79,7 +79,10 @@ namespace FeliCa2Money
             CsvCard csv;
             try {
                 csv = new CsvCard();
-                csv.OpenFile(openFileDialog.FileName);
+                if (csv.OpenFile(openFileDialog.FileName) == false)
+                {
+                    return;
+                }
             }
             catch (Exception ex)
             {

@@ -34,28 +34,37 @@ namespace FeliCa2Money
 
         public CsvCard()
         {
-            rules.LoadFromFile("csvrule.xml");
+            rules.LoadFromFile("CsvRules.xml");
         }
 
-        public void OpenFile(string path)
+        public bool OpenFile(string path)
         {
             // ###
-            rules.LoadFromFile("csvrule.xml");
             sr = new StreamReader(path, System.Text.Encoding.Default);
 
             string firstLine = sr.ReadLine();
 
             // 合致するルールを探す
             rule = rules.FindRule(firstLine);
-            if (rule == null)
+
+            // ルール/口座番号などを選択
+            CsvDialog dlg = new CsvDialog(rules);
+            dlg.SelectRule(rule);
+            if (dlg.ShowDialog() == DialogResult.Cancel)
             {
-                throw new Exception("未知のCSVフォーマットです");
+                return false;
             }
 
-            // 銀行IDを設定
-            org = rule.Ident;
+            rule = dlg.SelectedRule();
+            rule.Reset();
 
-            // TODO: 支店番号, 口座番号をここで指定
+            // 銀行IDなどを設定
+            org = rule.Org;
+            bankId = rule.BankId;
+            branchId = dlg.BranchId;
+            accountId = dlg.AccountId;
+
+            return true;
         }
 
         public void Close()
