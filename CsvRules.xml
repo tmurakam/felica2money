@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CsvRules>
+  <Version>080315.1</Version>
   <Rule>
     <Ident>OFXConverter</Ident>
     <Name>OFXConverter互換</Name>
