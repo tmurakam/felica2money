@@ -34,14 +34,35 @@ body, th, td {
 
 body
 {
+        text-align: center;
+        background-color: #F0F9FF;
+}
+
+#contents {
         width: 900px;
         margin: auto;
         background-color: #FFFFFF;
         text-align: left;
-        /* border: solid 1px #CCCCCC; */
-	color: black;
+        border: solid 1px #CCCCCC;
+        padding-top: 10px;
 }
 
+#main {
+        float: left;
+        width: 680px;
+        padding-left: 15px;
+        padding-bottom: 5px;
+        padding-right: 5px;
+        text-align: left;
+}
+
+#ads {
+        width: 180px;
+        float: left;
+        padding-left: 0px;
+        padding-right: 0px;
+        text-align: right;
+}        
 
 h1
 {
