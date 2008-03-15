@@ -25,7 +25,7 @@ using System.Collections;
 
 namespace FeliCa2Money
 {
-    enum TransType
+    public enum TransType
     {
         Int,    // 利息
         Div,    // 配当
@@ -39,7 +39,7 @@ namespace FeliCa2Money
         Debit       // その他出金
     }
 
-    class Transaction
+    public class Transaction
     {
         public int id = -1; // ID
         public DateTime date;
