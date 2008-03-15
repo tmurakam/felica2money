@@ -29,7 +29,7 @@ namespace FeliCa2Money
     {
         protected string org;              // 組織名
         protected int bankId = 0;          // 銀行番号
-        protected int branchId = 0;        // 支店番号
+        protected string branchId;         // 支店番号
         protected string accountId;        // 口座番号
         protected string cardName;         // カード名
 
@@ -44,7 +44,7 @@ namespace FeliCa2Money
         {
             get { return this.bankId; }
         }
-        public int BranchId
+        public string BranchId
         {
             get { return this.branchId; }
         }

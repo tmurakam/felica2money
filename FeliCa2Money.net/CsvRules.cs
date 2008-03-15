@@ -37,6 +37,11 @@ namespace FeliCa2Money
             ruleList = new List<CsvRule>();
         }
 
+        public int Count
+        {
+            get { return ruleList.Count; }
+        }
+
         // 定義ファイルを読み込む
         public void LoadFromFile(string path)
         {
@@ -52,7 +57,15 @@ namespace FeliCa2Money
 
                 foreach (XmlElement e in list[i].ChildNodes)
                 {
-                    string value = e.FirstChild.Value;
+                    string value = "";
+                    if (e.FirstChild == null)
+                    {
+                        // 空要素
+                    }
+                    else
+                    {
+                        value = e.FirstChild.Value;
+                    }
 
                     switch (e.Name)
                     {
