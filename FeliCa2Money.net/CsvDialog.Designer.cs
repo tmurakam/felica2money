@@ -100,7 +100,6 @@
             this.button1.TabIndex = 6;
             this.button1.Text = "OK";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -131,7 +130,7 @@
             this.Name = "CsvDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CSV読み込み設定";
-            this.Load += new System.EventHandler(this.CsvDialog_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CsvDialog_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
