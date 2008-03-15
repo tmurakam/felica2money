@@ -139,6 +139,7 @@
     <BaseApplicationManifest Include="Properties\app.manifest" />
     <None Include="Resources\Suica.bmp" />
     <None Include="Resources\Edy.bmp" />
+    <None Include="Resources\CSV.bmp" />
     <Content Include="Resources\Nanaco.bmp" />
     <Content Include="StationCode.mdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
