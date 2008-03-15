@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CsvRules>
+  <Rule>
+    <Ident>OFXConverter</Ident>
+    <Name>OFXConverter互換</Name>
+    <FirstLine>明細日,明細金額,Money摘要欄,Money備考欄</FirstLine>
+    <Format>Date,Income,Desc,Memo</Format>
+    <Order>Ascent</Order>
+  </Rule>
+
+  <Rule>
+    <Ident>ebank</Ident>
+    <Name>イーバンク</Name>
+    <BankId>36</BankId>
+    <FirstLine>取引日,入出金(円),残高(円),入出金先内容</FirstLine>
+    <Format>Date,Income,Balance,Desc</Format>
+    <Order>Ascent</Order>
+  </Rule>
+
+  <Rule>
+    <Ident>JapanNetBank</Ident>
+    <Name>ジャパンネット銀行</Name>
+    <BankId>33</BankId>
+    <FirstLine>"操作日(年)","操作日(月)","操作日(日)","取引順番号","摘要","お支払金額","お預り金額","残高"</FirstLine>
+    <Format>Year,Month,Day,Id,Desc,Outgo,Income,Balance</Format>
+    <Order>Ascent</Order>
+  </Rule>
+
+  <Rule>
+    <Ident>SonyBank</Ident>
+    <Name>ソニー銀行</Name>
+    <BankId></BankId>
+    <FirstLine>"お取り引き日","摘要","お預け入れ額","お引き出し額","差し引き残高"</FirstLine>
+    <Format>Date,Desc,Income,Outgo,Balance</Format>
+    <Order>Ascent</Order>
+  </Rule>
+</CsvRules>

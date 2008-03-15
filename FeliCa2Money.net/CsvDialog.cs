@@ -43,6 +43,10 @@ namespace FeliCa2Money
         public CsvRule SelectedRule()
         {
             int idx = listBox.SelectedIndex;
+            if (idx < 0)
+            {
+                return null;
+            }
             return rules.GetRuleByIndex(idx);
         }
 
@@ -53,7 +57,7 @@ namespace FeliCa2Money
                 {
                     return int.Parse(textBranchId.Text);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     return 0;
                 }

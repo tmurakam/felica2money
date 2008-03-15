@@ -20,8 +20,10 @@
 
 using System;
 using System.IO;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace FeliCa2Money
@@ -34,12 +36,18 @@ namespace FeliCa2Money
 
         public CsvCard()
         {
-            rules.LoadFromFile("CsvRules.xml");
+            String dir = Path.GetDirectoryName(Application.ExecutablePath);
+
+            string[] xmlFiles = Directory.GetFiles(dir, "*.xml");
+            foreach (string xmlFile in xmlFiles)
+            {
+                rules.LoadFromFile(xmlFile);
+            }
         }
 
         public bool OpenFile(string path)
         {
-            // ###
+            // TODO: とりあえず SJIS で開く (UTF-8 とかあるかも?)
             sr = new StreamReader(path, System.Text.Encoding.Default);
 
             string firstLine = sr.ReadLine();
@@ -55,14 +63,29 @@ namespace FeliCa2Money
                 return false;
             }
 
+            // 選択されたルールを取り出す
             rule = dlg.SelectedRule();
-            rule.Reset();
+            if (rule == null)
+            {
+                MessageBox.Show("CSV変換ルールが選択されていません", "エラー");
+                return false;
+            }
 
             // 銀行IDなどを設定
             org = rule.Org;
             bankId = rule.BankId;
             branchId = dlg.BranchId;
             accountId = dlg.AccountId;
+
+            if (rule.FirstLine == null)
+            {
+                // 1行目から再度読み込み直す
+                sr.Close();
+                sr = new StreamReader(path, System.Text.Encoding.Default);
+            }
+
+            // 読み込み準備
+            rule.Reset();
 
             return true;
         }
@@ -72,6 +95,7 @@ namespace FeliCa2Money
             sr.Close();
         }
             
+        // CSV 読み込み処理
         public override List<Transaction> ReadCard()
         {
             List<Transaction> transactions = new List<Transaction>();
@@ -79,20 +103,54 @@ namespace FeliCa2Money
 
             while ((line = sr.ReadLine()) != null)
             {
-                // ad hoc...
-                string[] row = line.Split(new char[] { ',' });
+                // CSV カラム分割
+                string[] row = SplitCsv(line);
                 if (row.Length <= 1) continue; // ad hoc...
 
+                // パース
                 Transaction t = rule.parse(row);
                 transactions.Add(t);
             }
 
+            // 順序逆転処理
             if (!rule.IsAscent)
             {
                 transactions.Reverse();
             }
 
             return transactions;
+        }
+
+        // CSV のフィールド分割
+        private string[] SplitCsv(string line)
+        {
+            ArrayList fields = new ArrayList();
+            Regex regCsv = new System.Text.RegularExpressions.Regex(
+                "\\s*(\"(?:[^\"]|\"\")*\"|[^,]*)\\s*,", RegexOptions.None);
+
+            Match m = regCsv.Match(line + ",");
+            int count = 0;
+            while (m.Success)
+            {
+                string field = m.Groups[1].Value;
+
+                // 前後の空白を削除
+                field.Trim();
+
+                // ダブルクォートを抜く
+                if (field.StartsWith("\"") && field.EndsWith("\""))
+                {
+                    field = field.Substring(1, field.Length - 2);
+                }
+                // "" を " に変換
+                field = field.Replace("\"\"", "\"");
+
+                fields.Add(field);
+                count++;
+                m = m.NextMatch();
+            }
+
+            return fields.ToArray(typeof(string)) as string[];
         }
     }
 }
