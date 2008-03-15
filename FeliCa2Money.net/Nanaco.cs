@@ -66,23 +66,29 @@ namespace FeliCa2Money
             value = (data[1] << 24) + (data[2] << 16) + (data[3] << 8) + data[4];
 
             // 種別
+            t.type = TransType.DirectDep;
+            t.value = value;
+
             switch (data[0])
             {
-                case 0x47:
                 default:
+                case 0x47:
                     t.type = TransType.Debit;   // 支払い
                     t.desc = "nanaco支払";
                     t.value = - value;
                     break;
-                case 0x6f:
-                    t.type = TransType.DirectDep;    // チャージ
-                    t.desc = "nanacoチャージ";
-                    t.value = value;
+
+                case 0x35:  
+                    t.desc = "引継";
                     break;
+
+                case 0x6f:
+                case 0x70:
+                    t.desc = "nanacoチャージ";
+                    break;
+
                 case 0x83:
-                    t.type = TransType.DirectDep;
                     t.desc = "nanacoポイント交換";
-                    t.value = value;
                     break;
             }
             t.memo = "";
