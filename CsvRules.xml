@@ -29,7 +29,7 @@
   <Rule>
     <Ident>SonyBank</Ident>
     <Name>ソニー銀行</Name>
-    <BankId></BankId>
+    <BankId>35</BankId>
     <FirstLine>"お取り引き日","摘要","お預け入れ額","お引き出し額","差し引き残高"</FirstLine>
     <Format>Date,Desc,Income,Outgo,Balance</Format>
     <Order>Ascent</Order>

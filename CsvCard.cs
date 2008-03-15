@@ -36,12 +36,20 @@ namespace FeliCa2Money
 
         public CsvCard()
         {
+            // CSV 変換ルールを読み出す
             String dir = Path.GetDirectoryName(Application.ExecutablePath);
 
             string[] xmlFiles = Directory.GetFiles(dir, "*.xml");
             foreach (string xmlFile in xmlFiles)
             {
-                rules.LoadFromFile(xmlFile);
+                try
+                {
+                    rules.LoadFromFile(xmlFile);
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("定義ファイルエラー in " + xmlFile, "エラー");
+                }
             }
         }
 
@@ -55,8 +63,9 @@ namespace FeliCa2Money
             // 合致するルールを探す
             rule = rules.FindRule(firstLine);
 
-            // ルール/口座番号などを選択
             CsvDialog dlg = new CsvDialog(rules);
+
+            // ルール/口座番号などを選択
             dlg.SelectRule(rule);
             if (dlg.ShowDialog() == DialogResult.Cancel)
             {

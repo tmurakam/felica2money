@@ -46,6 +46,7 @@
             this.listBox.Name = "listBox";
             this.listBox.Size = new System.Drawing.Size(348, 244);
             this.listBox.TabIndex = 0;
+            this.listBox.SelectedIndexChanged += new System.EventHandler(this.listBox_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -80,6 +81,7 @@
             this.textBranchId.Name = "textBranchId";
             this.textBranchId.Size = new System.Drawing.Size(139, 19);
             this.textBranchId.TabIndex = 4;
+            this.textBranchId.Leave += new System.EventHandler(this.textBranchId_Leave);
             // 
             // textAccountId
             // 
@@ -87,6 +89,7 @@
             this.textAccountId.Name = "textAccountId";
             this.textAccountId.Size = new System.Drawing.Size(139, 19);
             this.textAccountId.TabIndex = 5;
+            this.textAccountId.Leave += new System.EventHandler(this.textAccountId_Leave);
             // 
             // button1
             // 
@@ -97,6 +100,7 @@
             this.button1.TabIndex = 6;
             this.button1.Text = "OK";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
