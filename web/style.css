@@ -34,21 +34,23 @@ body, th, td {
 
 body
 {
-	/*font-family: Verdana, Arial, Helvetica;*/
-	/*background-color: rgb(255,255,204);*/
-	/*background-color: rgb(255,255,210);*/
-	/*color: rgb(102,102,51);*/
+        width: 900px;
+        margin: auto;
+        background-color: #FFFFFF;
+        text-align: left;
+        /* border: solid 1px #CCCCCC; */
 	color: black;
 }
+
 
 h1
 {
 	font-size: 230%;
 	color: #A000A0;
 	background-color: #ececec;
-	border-left: 10px solid #000080;
+	border-left: 16px solid #000080;
 	border-top: 2px solid #000080;
-	padding-left: 10; padding-top: 3; padding-bottom: 3;
+	padding-left: 10px; padding-top: 3px; padding-bottom: 3px;
 }
 h2
 {
@@ -57,7 +59,7 @@ h2
 	background-color: #ececec;
 	border-left: 6px solid #000080;
 	border-top: 2px solid #000080;
-	padding-left: 10; padding-top: 3; padding-bottom: 3;
+	padding-left: 10px; padding-top: 3px; padding-bottom: 3px;
 }
 h3
 {
