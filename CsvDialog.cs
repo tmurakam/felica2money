@@ -89,10 +89,6 @@ namespace FeliCa2Money
             Properties.Settings.Default.Save();
         }
 
-        private void CsvDialog_Load(object sender, EventArgs e)
-        {
-        }
-
         // ルール選択
         public void SelectRule(CsvRule selRule)
         {
@@ -152,7 +148,7 @@ namespace FeliCa2Money
             accountIds[org] = textAccountId.Text;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void CsvDialog_FormClosing(object sender, FormClosingEventArgs e)
         {
             SaveAccountInfo();
         }

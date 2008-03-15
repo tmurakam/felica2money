@@ -35,4 +35,11 @@
     <Format>Date,Desc,Income,Outgo,Balance</Format>
     <Order>Ascent</Order>
   </Rule>
+
+  <Rule>
+    <Ident>JALCard</Ident>
+    <Name>JALカード</Name>
+    <Format>Dummy,Dummy,Dummy,Dummy,Date,Outgo,Desc</Format>
+    <Order>Ascent</Order>
+  </Rule>
 </CsvRules>
