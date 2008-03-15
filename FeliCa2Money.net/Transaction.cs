@@ -41,7 +41,7 @@ namespace FeliCa2Money
 
     class Transaction
     {
-        public int id = 0; // ID
+        public int id = -1; // ID
         public DateTime date;
         public TransType type;        // トランザクションタイプ
         public string desc = "";

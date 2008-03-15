@@ -70,6 +70,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Card.cs" />
+    <Compile Include="CsvCard.cs" />
+    <Compile Include="CsvRules.cs" />
     <Compile Include="Edy.cs" />
     <Compile Include="FelicaLib.cs" />
     <Compile Include="MainForm.cs">

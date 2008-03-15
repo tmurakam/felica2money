@@ -29,7 +29,7 @@ namespace FeliCa2Money
     {
         public Edy()
         {
-            ident       = "Edy";
+            org         = "Edy";
             cardName    = "Edy";
 
             systemCode  = (int)SystemCode.Edy;
@@ -45,9 +45,9 @@ namespace FeliCa2Money
                 throw new Exception("Edy番号を読み取れません");
             }
             
-            cardId = "";
+            accountId = "";
             for (int i = 2; i < 10; i++) {
-                cardId += data[i].ToString("X2");
+                accountId += data[i].ToString("X2");
             }
         }
 

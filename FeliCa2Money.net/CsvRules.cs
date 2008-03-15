@@ -239,7 +239,7 @@ namespace FeliCa2Money
                 }
 
                 int n = int.Parse(date);
-                year = n / 1000;
+                year = n / 10000;
                 month = (n / 100) % 100;
                 day = n % 100;
             }

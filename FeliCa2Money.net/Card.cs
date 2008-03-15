@@ -27,26 +27,36 @@ namespace FeliCa2Money
 {
     abstract class Card
     {
-        protected string ident;
-        protected string cardName;
-        protected string cardId;
+        protected string org;              // 組織名
+        protected int bankId = 0;          // 銀行番号
+        protected int branchId = 0;        // 支店番号
+        protected string accountId;        // 口座番号
+        protected string cardName;         // カード名
 
         public abstract List<Transaction> ReadCard();
 
-        public string Ident
+        public string Org
         {
-            get { return this.ident; }
+            get { return this.org; }
         }
 
+        public int BankId
+        {
+            get { return this.bankId; }
+        }
+        public int BranchId
+        {
+            get { return this.branchId; }
+        }
         public string CardName
         {
             get { return this.cardName; }
         }
         
-        public string CardId
+        public string AccountId
         {
-            set { this.cardId = value; }
-            get { return this.cardId; }
+            set { this.accountId = value; }
+            get { return this.accountId; }
         }
 
         protected string[] ParseLine(string line)
