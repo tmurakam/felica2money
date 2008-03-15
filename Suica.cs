@@ -38,7 +38,7 @@ namespace FeliCa2Money
 
         public Suica()
         {
-            ident       = "Suica";
+            org       = "Suica";
             cardName    = "Suica";
 
             systemCode  = (int)SystemCode.Suica;
@@ -64,9 +64,9 @@ namespace FeliCa2Money
                 throw new Exception("IDm を読み取れません");
             }
             
-            cardId = "";
+            accountId = "";
             for (int i = 0; i < 8; i++) {
-                cardId += data[i].ToString("X2");
+                accountId += data[i].ToString("X2");
             }
         }
 

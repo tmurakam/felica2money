@@ -53,7 +53,7 @@ namespace FeliCa2Money
             }
 
             // 銀行IDを設定
-            ident = rule.Ident;
+            org = rule.Ident;
 
             // TODO: 支店番号, 口座番号をここで指定
         }

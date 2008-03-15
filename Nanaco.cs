@@ -29,7 +29,7 @@ namespace FeliCa2Money
     {
         public    Nanaco()
         {
-            ident       = "Nanaco";
+            org       = "Nanaco";
             cardName    = "Nanaco";
 
             systemCode  = (int)SystemCode.Common;
@@ -45,9 +45,9 @@ namespace FeliCa2Money
                 throw new Exception("nanaco番号を読み取れません");
             }
             
-            cardId = "";
+            accountId = "";
             for (int i = 0; i < 8; i++) {
-                cardId += data[i].ToString("X2");
+                accountId += data[i].ToString("X2");
             }
         }
 

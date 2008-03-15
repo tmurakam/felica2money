@@ -44,6 +44,10 @@ namespace FeliCa2Money
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.buttonCSV = new System.Windows.Forms.Button();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.SuspendLayout();
             // 
             // buttonEdy
@@ -68,7 +72,7 @@ namespace FeliCa2Money
             // 
             // buttonQuit
             // 
-            this.buttonQuit.Location = new System.Drawing.Point(127, 341);
+            this.buttonQuit.Location = new System.Drawing.Point(129, 397);
             this.buttonQuit.Name = "buttonQuit";
             this.buttonQuit.Size = new System.Drawing.Size(94, 30);
             this.buttonQuit.TabIndex = 10;
@@ -78,7 +82,7 @@ namespace FeliCa2Money
             // 
             // buttonOption
             // 
-            this.buttonOption.Location = new System.Drawing.Point(12, 204);
+            this.buttonOption.Location = new System.Drawing.Point(12, 268);
             this.buttonOption.Name = "buttonOption";
             this.buttonOption.Size = new System.Drawing.Size(58, 58);
             this.buttonOption.TabIndex = 7;
@@ -126,7 +130,7 @@ namespace FeliCa2Money
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(76, 227);
+            this.label5.Location = new System.Drawing.Point(76, 291);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(111, 12);
             this.label5.TabIndex = 6;
@@ -134,7 +138,7 @@ namespace FeliCa2Money
             // 
             // buttonManual
             // 
-            this.buttonManual.Location = new System.Drawing.Point(12, 268);
+            this.buttonManual.Location = new System.Drawing.Point(12, 332);
             this.buttonManual.Name = "buttonManual";
             this.buttonManual.Size = new System.Drawing.Size(58, 58);
             this.buttonManual.TabIndex = 9;
@@ -145,7 +149,7 @@ namespace FeliCa2Money
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(76, 291);
+            this.label6.Location = new System.Drawing.Point(76, 355);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(193, 12);
             this.label6.TabIndex = 8;
@@ -183,11 +187,48 @@ namespace FeliCa2Money
             // 
             this.saveFileDialog.Filter = "OFX File(*.ofx)|*.ofx";
             // 
+            // buttonCSV
+            // 
+            this.buttonCSV.Location = new System.Drawing.Point(12, 204);
+            this.buttonCSV.Name = "buttonCSV";
+            this.buttonCSV.Size = new System.Drawing.Size(58, 58);
+            this.buttonCSV.TabIndex = 14;
+            this.buttonCSV.Text = "CSV";
+            this.buttonCSV.UseVisualStyleBackColor = true;
+            this.buttonCSV.Click += new System.EventHandler(this.buttonCSV_Click);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(76, 219);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(215, 12);
+            this.label9.TabIndex = 15;
+            this.label9.Text = "CSVファイルを読み込んで Microsoft Money";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(76, 231);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(84, 12);
+            this.label10.TabIndex = 16;
+            this.label10.Text = "に取り込みます。";
+            // 
+            // openFileDialog
+            // 
+            this.openFileDialog.DefaultExt = "csv";
+            this.openFileDialog.FileName = "openFileDialog";
+            this.openFileDialog.Filter = "CSVファイル|*.csv|すべてのファイル|*.*";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(363, 383);
+            this.ClientSize = new System.Drawing.Size(366, 439);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.buttonCSV);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.buttonNanaco);
@@ -230,6 +271,10 @@ namespace FeliCa2Money
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
+        private System.Windows.Forms.Button buttonCSV;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
     }
 }
 

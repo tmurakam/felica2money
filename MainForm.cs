@@ -72,6 +72,25 @@ namespace FeliCa2Money
             }
         }
 
+        private void buttonCSV_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog.ShowDialog() != DialogResult.OK) return;
+
+            CsvCard csv;
+            try {
+                csv = new CsvCard();
+                csv.OpenFile(openFileDialog.FileName);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "エラー");
+                return;
+            }
+             
+            doConvert(csv);
+            csv.Close();
+        }
+
         private void doConvert(Card c)
         {
             List<Transaction> list;
@@ -161,6 +180,7 @@ namespace FeliCa2Money
                 // do nothing
             }
         }
+
 
     }
 }

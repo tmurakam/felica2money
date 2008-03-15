@@ -85,7 +85,7 @@ namespace FeliCa2Money
 
             w.WriteLine("  <LANGUAGE>JPN");
             w.WriteLine("  <FI>");
-            w.WriteLine("    <ORG>{0}", card.Ident);
+            w.WriteLine("    <ORG>{0}", card.Org);
             w.WriteLine("  </FI>");
             w.WriteLine("</SONRS>");
             w.WriteLine("</SIGNONMSGSRSV1>");
@@ -105,9 +105,9 @@ namespace FeliCa2Money
             w.WriteLine("  <CURDEF>JPY");
 
             w.WriteLine("  <BANKACCTFROM>");
-            w.WriteLine("    <BANKID>{0}", card.Ident);
-            w.WriteLine("    <BRANCHID>000");
-            w.WriteLine("    <ACCTID>{0}", card.CardId);
+            w.WriteLine("    <BANKID>{0}", card.BankId);
+            w.WriteLine("    <BRANCHID>{0}", card.BranchId);
+            w.WriteLine("    <ACCTID>{0}", card.AccountId);
             w.WriteLine("    <ACCTTYPE>SAVINGS");
             w.WriteLine("  </BANKACCTFROM>");
 
