@@ -64,6 +64,16 @@ body
         text-align: right;
 }        
 
+#footer {
+	width: 900px;
+	clear: both;
+	border-top: solid 1px #cccccc;
+	padding-top: 7px;
+        padding-bottom: 7px;
+	text-align: center;
+	font-size: 80%;
+}
+
 h1
 {
 	font-size: 230%;
