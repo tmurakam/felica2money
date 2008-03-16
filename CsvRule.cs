@@ -115,14 +115,12 @@ namespace FeliCa2Money
             string v = getCol(row, key);
             if (v == null) return 0;
 
-            try
-            {
-                return int.Parse(v);
-            }
-            catch
-            {
-                return int.Parse(v, System.Globalization.NumberStyles.AllowThousands);
-            }
+            // 空フィールドの場合は 0 を返す
+            if (v == "") return 0;
+
+            // 区切り文字を抜く
+            v = v.Replace(",", "");
+            return int.Parse(v);
         }
 
         // １行解析
