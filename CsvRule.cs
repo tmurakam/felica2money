@@ -198,8 +198,14 @@ namespace FeliCa2Money
         {
             int year, month, day;
 
-            // '/' で区切られている場合
-            string[] split = date.Split(new Char[] { '/', '.', ' ' });
+            // 年月日で区切られている場合
+            string[] split = date.Split(new char[] { '年', '月', '日' });
+            if (split.Length < 3)
+            {
+                // '/' などで区切られている場合
+                split = date.Split(new Char[] { '/', '.', ' ' });
+            }
+
             if (split.Length >= 3)
             {
                 year = int.Parse(split[0]);
