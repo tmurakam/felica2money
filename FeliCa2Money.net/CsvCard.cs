@@ -34,23 +34,9 @@ namespace FeliCa2Money
         private StreamReader sr;
         private CsvRule rule;
 
-        public CsvCard()
+        public bool LoadAllRules()
         {
-            // CSV 変換ルールを読み出す
-            String dir = Path.GetDirectoryName(Application.ExecutablePath);
-
-            string[] xmlFiles = Directory.GetFiles(dir, "*.xml");
-            foreach (string xmlFile in xmlFiles)
-            {
-                try
-                {
-                    rules.LoadFromFile(xmlFile);
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("定義ファイルエラー in " + xmlFile, "エラー");
-                }
-            }
+            return rules.LoadAllRules();
         }
 
         public bool OpenFile(string path)
@@ -81,7 +67,7 @@ namespace FeliCa2Money
             }
 
             // 銀行IDなどを設定
-            org = rule.Org;
+            org = rule.Ident;
             bankId = rule.BankId;
             branchId = dlg.BranchId;
             accountId = dlg.AccountId;

@@ -39,6 +39,7 @@
             this.radioIruca = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.buttonCsvRulesUpdate = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -75,7 +76,7 @@
             // buttonOK
             // 
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(267, 161);
+            this.buttonOK.Location = new System.Drawing.Point(267, 221);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 6;
@@ -85,7 +86,7 @@
             // buttonCancel
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(357, 161);
+            this.buttonCancel.Location = new System.Drawing.Point(348, 221);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 7;
@@ -152,11 +153,22 @@
             this.label2.TabIndex = 11;
             this.label2.Text = "※店舗コード重複時に優先するエリアを指定してください";
             // 
+            // buttonCsvRulesUpdate
+            // 
+            this.buttonCsvRulesUpdate.Location = new System.Drawing.Point(24, 172);
+            this.buttonCsvRulesUpdate.Name = "buttonCsvRulesUpdate";
+            this.buttonCsvRulesUpdate.Size = new System.Drawing.Size(151, 34);
+            this.buttonCsvRulesUpdate.TabIndex = 8;
+            this.buttonCsvRulesUpdate.Text = "CSV変換定義の自動更新";
+            this.buttonCsvRulesUpdate.UseVisualStyleBackColor = true;
+            this.buttonCsvRulesUpdate.Click += new System.EventHandler(this.buttonCsvRulesUpdate_Click);
+            // 
             // OptionDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(450, 198);
+            this.ClientSize = new System.Drawing.Size(444, 256);
+            this.Controls.Add(this.buttonCsvRulesUpdate);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOK);
@@ -187,5 +199,6 @@
         private System.Windows.Forms.RadioButton radioIruca;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button buttonCsvRulesUpdate;
     }
 }

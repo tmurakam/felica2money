@@ -23,8 +23,10 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.IO;
 using System.Xml;
+using System.Windows.Forms;
+using System.Net;
+using System.IO;
 
 namespace FeliCa2Money
 {
@@ -42,19 +44,54 @@ namespace FeliCa2Money
             get { return ruleList.Count; }
         }
 
-        // 定義ファイルを読み込む
+        // 全 CSV 変換ルールを読み出す
+        public bool LoadAllRules()
+        {
+            // ユーザ設定フォルダのほうから読み出す
+            String path = getRulesPath();
+            //String path = Path.GetDirectoryName(Application.ExecutablePath);
+
+            string[] xmlFiles = Directory.GetFiles(path, "*.xml");
+            if (xmlFiles.Length == 0)
+            {
+                if (MessageBox.Show("CSV変換定義がありません。今すぐダウンロードしますか？", "確認",
+                    MessageBoxButtons.OKCancel) != DialogResult.OK) return false;
+
+                if (!DownloadRule()) return false;
+
+                xmlFiles = Directory.GetFiles(path, "*.xml");                
+            }
+
+            foreach (string xmlFile in xmlFiles)
+            {
+                try
+                {
+                    LoadFromFile(xmlFile);
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("定義ファイルエラー in " + xmlFile, "エラー");
+                }
+            }
+            return true;
+        }
+
+        // 定義ファイルを１つ読み込む
         public void LoadFromFile(string path)
         {
             XmlDocument doc = new XmlDocument();
             doc.Load(path);
             XmlElement root = doc.DocumentElement;
 
+            // Rule 子要素について処理
             XmlNodeList list = root.GetElementsByTagName("Rule");
 
             for (int i = 0; i < list.Count; i++)
             {
+                // rule 生成
                 CsvRule rule = new CsvRule();
 
+                // rule の各メンバを設定
                 foreach (XmlElement e in list[i].ChildNodes)
                 {
                     string value = "";
@@ -70,7 +107,7 @@ namespace FeliCa2Money
                     switch (e.Name)
                     {
                         case "Ident":
-                            rule.Org = value;
+                            rule.Ident = value;
                             break;
                         case "Name":
                             rule.Name = value;
@@ -100,13 +137,7 @@ namespace FeliCa2Money
         // 名前一覧を返す
         public string[] names()
         {
-            int size = 0;
-            foreach (CsvRule rule in ruleList)
-            {
-                size++;
-            }
-
-            string[] names = new string[size];
+            string[] names = new string[ruleList.Count];
             int i = 0;
             foreach (CsvRule rule in ruleList)
             {
@@ -117,7 +148,7 @@ namespace FeliCa2Money
         }
 
         // 指定したインデックスのルールを返す
-        public CsvRule GetRuleByIndex(int idx)
+        public CsvRule GetAt(int idx)
         {
             return ruleList[idx];
         }
@@ -128,6 +159,7 @@ namespace FeliCa2Money
             return ruleList.IndexOf(rule);
         }
 
+        // firstLine に一致するルールを探す
         public CsvRule FindRule(string firstLine)
         {
             foreach (CsvRule rule in ruleList)
@@ -138,6 +170,35 @@ namespace FeliCa2Money
                 }
             }
             return null;
+        }
+
+        // 定義ファイルをダウンロードする
+        public static bool DownloadRule()
+        {
+            string path = getRulesPath() + "\\CsvRules.xml";
+            //string url = "http://moneyimport.sourceforge.jp/CsvRules.xml";
+            string url = "http://svn.sourceforge.jp/svnroot/moneyimport/trunk/FeliCa2Money.net/CsvRules.xml";
+
+            WebClient w = new WebClient();
+            try
+            {
+                w.DownloadFile(url, path);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "エラー");
+                return false;
+            }
+            return true;
+        }
+
+        // 定義ファイルのディレクトリを返す
+        //   UserAppDataPath からバージョン番号を除いたもの
+        private static string getRulesPath()
+        {
+            string path = Application.LocalUserAppDataPath;
+            path = System.IO.Path.GetDirectoryName(path);
+            return path;
         }
     }
 }
