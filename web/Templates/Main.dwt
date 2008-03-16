@@ -2,15 +2,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"><!-- InstanceBegin template="/Templates/Main.dwt" codeOutsideHTMLIsLocked="false" -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-<!-- InstanceBeginEditable name="doctitle" -->
+<!-- TemplateBeginEditable name="doctitle" -->
 <title>FeliCa2Money</title>
-<!-- InstanceEndEditable -->
-<link rel="stylesheet" type="text/css" href="style.css" />
-<!-- InstanceBeginEditable name="head" -->
-<!-- InstanceEndEditable -->
+<!-- TemplateEndEditable -->
+<link rel="stylesheet" type="text/css" href="../style.css" />
+<!-- TemplateBeginEditable name="head" --><!-- TemplateEndEditable -->
 </head>
 <body>
 <!-- google analytics -->
@@ -24,7 +23,7 @@ urchinTracker();
 <div id="contents">
 
 <div id="header">
-<img src="images/title.jpg" alt="header" />
+<img src="../images/title.jpg" alt="header" />
 </div>
 
 <div id="menubar">
@@ -48,20 +47,8 @@ urchinTracker();
 <iframe src="http://rcm-jp.amazon.co.jp/e/cm?t=felica2money-22&o=9&p=8&l=as1&asins=4891005629&fc1=000000&IS2=1&lt1=_blank&lc1=0000FF&bc1=FFFFFF&bg1=FFFFFF&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
 </div>
 
-<div id="main"><!-- InstanceBeginEditable name="maincontents" -->
-<h2>必要環境</h2>
-
-<ul>
-<li>USB ポートを備えた Windows PC : たぶん Windows Vista, XP, 2000 あたりなら問題なく動作します</li>
-<li><font color="#FF0000">.NET Framework 2.0 以降</font></li>
-<li><a href="http://www.sony.co.jp/Products/felica/pcrw/">SONY 非接触 IC カードリーダー/ライター (PaSoRi)</a></li>
-<li>PaSoRi 基本ソフトウェア</li>
-</ul>
-
-<p>Version 2.0 から、.NET Framework が必要になりました。Windows Update などでインストールしておいてください。</p>
-
-また、Version 2.2 から、SFCPeep は不要となりました。
-<!-- InstanceEndEditable --></div>
+<div id="main"><!-- TemplateBeginEditable name="maincontents" -->
+<!-- TemplateEndEditable --></div>
 
 <div id="ads">
 <!-- google adsense -->
@@ -83,4 +70,4 @@ Copyright (C) 2007-2008 <a href="http://www.tmurakam.org/">Takuya Murakami</a>, 
 </div>
 
 </body>
-<!-- InstanceEnd --></html>
+</html>
