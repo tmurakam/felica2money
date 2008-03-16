@@ -51,9 +51,26 @@ body
 	padding-bottom: 20px;
 }
 
+#menubar {
+	float: left;
+	width: 120px;
+	padding-left: 0px;
+	padding-bottom: 0px;
+}
+
+.menuentry {
+	font-size: 100%;
+	border: 1px solid #CCCCCC;
+	border-left: 12px solid #B2CDEC;
+	padding: 3px;
+	margin: 3px;
+	margin-left: 1px;
+	background-color: #FFFFFF;
+}
+
 #main {
         float: left;
-        width: 680px;
+        width: 580px;
         padding-left: 15px;
         padding-bottom: 5px;
         padding-right: 5px;
