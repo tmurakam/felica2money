@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CsvRules>
-  <Version>080316.2</Version>
+  <Version>080316.3</Version>
   <Rule>
     <Ident>OFXConverter</Ident>
     <Name>OFXConverter互換</Name>
@@ -15,7 +15,7 @@
     <BankId>38</BankId>
     <FirstLine>"日付","内容","出金金額(円)","入金金額(円)","残高(円)","メモ"</FirstLine>
     <Format>Date,Desc,Outgo,Income,Balance,Memo</Format>
-    <Order>Ascent</Order>
+    <Order>Descent</Order>
   </Rule>
 
   <Rule>
