@@ -132,7 +132,7 @@ namespace FeliCa2Money
                 string field = m.Groups[1].Value;
 
                 // 前後の空白を削除
-                field.Trim();
+                field = field.Trim();
 
                 // ダブルクォートを抜く
                 if (field.StartsWith("\"") && field.EndsWith("\""))
@@ -141,6 +141,9 @@ namespace FeliCa2Money
                 }
                 // "" を " に変換
                 field = field.Replace("\"\"", "\"");
+
+                // もう一度前後の空白を削除
+                field = field.Trim();
 
                 fields.Add(field);
                 count++;
