@@ -21,6 +21,7 @@
 // CSV 変換ルール
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
@@ -30,21 +31,24 @@ namespace FeliCa2Money
 {
     public class CsvRule
     {
-        private string org; // 組織名
-        private int bankId; // 銀行ID
-        private string name;  // 銀行名
+        private string ident;    // 識別子(組織名)
+        private int bankId;      // 銀行ID
+        private string name;     // 銀行名
         private string firstLine = null; // １行目
         private bool isAscent;    // 昇順かどうか
 
-        private System.Collections.Hashtable colHash = new System.Collections.Hashtable(); // カラムのマッピング
+        // 各 CSV カラムのマッピング規則
+        private Hashtable colHash = new Hashtable();
 
+        // シリアル番号採番用
         private DateTime prevDate;
         private int idSerial;
 
-        public string Org
+        // プロパティ
+        public string Ident
         {
-            get { return org; }
-            set { org = value; }
+            get { return ident; }
+            set { ident = value; }
         }
         public int BankId {
             get { return bankId; }
@@ -76,7 +80,7 @@ namespace FeliCa2Money
             set { SetFormat(value); }
         }
         
-        // フォーマット解析
+        // CSV 変換フォーマット文字列解析
         public void SetFormat(string format)
         {
             string[] cols = format.Split(new Char[] { ',' });
@@ -87,7 +91,7 @@ namespace FeliCa2Money
             }
         }
 
-        // リセット
+        // シリアル番号リセット
         public void Reset()
         {
             prevDate = new DateTime(1900, 1, 1, 0, 0, 0);
@@ -105,22 +109,27 @@ namespace FeliCa2Money
             return row[col];
         }
 
+        // 指定したカラムを取得 (integer)
         private int getColInt(string[] row, string key)
         {
             string v = getCol(row, key);
             if (v == null) return 0;
 
-            //return int.Parse(v, System.Globalization.NumberStyles.AllowThousands);
-            return int.Parse(v);
+            try
+            {
+                return int.Parse(v);
+            }
+            catch
+            {
+                return int.Parse(v, System.Globalization.NumberStyles.AllowThousands);
+            }
         }
 
-        // データ解析
+        // １行解析
+        // CSV の各カラムはすでに分解されているものとする
         public Transaction parse(string[] row)
         {
             Transaction t = new Transaction();
-
-            // TODO
-            // quote を削除する
 
             // 日付
             string date = getCol(row, "Date");
@@ -184,6 +193,7 @@ namespace FeliCa2Money
             return t;
         }
 
+        // 日付文字列の解析
         private DateTime parseDate(string date)
         {
             int year, month, day;
@@ -204,7 +214,7 @@ namespace FeliCa2Money
                 {
                     // パース不可能
                     // TBD
-                    throw new Exception("不明なフォーマット");
+                    throw new Exception("日付文字列解析失敗 (" + date + ")");
                 }
 
                 int n = int.Parse(date);

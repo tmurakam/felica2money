@@ -74,15 +74,14 @@ namespace FeliCa2Money
 
         private void buttonCSV_Click(object sender, EventArgs e)
         {
+            CsvCard csv = new CsvCard();
+            if (!csv.LoadAllRules()) return;
+
             if (openFileDialog.ShowDialog() != DialogResult.OK) return;
 
-            CsvCard csv;
-            try {
-                csv = new CsvCard();
-                if (csv.OpenFile(openFileDialog.FileName) == false)
-                {
-                    return;
-                }
+            try
+            {
+                if (csv.OpenFile(openFileDialog.FileName) == false) return;
             }
             catch (Exception ex)
             {

@@ -1,10 +1,27 @@
-﻿using System;
+﻿/*
+ * FeliCa2Money
+ *
+ * Copyright (C) 2001-2008 Takuya Murakami
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ */
+
+// CSV 変換ダイアログ
+
+using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 
 namespace FeliCa2Money
@@ -14,16 +31,18 @@ namespace FeliCa2Money
         // CSV 変換ルールセット
         private CsvRules rules;
 
-        // 記憶した支店番号/口座番号
+        // 支店番号/口座番号のキャッシュ
         private Hashtable branchIds;
         private Hashtable accountIds;
 
+        // 支店番号テキストボックス
         public string BranchId
         {
             get { return textBranchId.Text; }
             set { textBranchId.Text = value; }
         }
 
+        // 口座番号テキストボックス
         public string AccountId
         {
             get { return textAccountId.Text; }
@@ -40,7 +59,7 @@ namespace FeliCa2Money
             listBox.Items.Clear();
             string[] names = rules.names();
 
-            // リストボックスに変換定義名を並べる
+            // リストボックスにルール名をリストする
             foreach (string name in names)
             {
                 listBox.Items.Add(name);
@@ -64,17 +83,19 @@ namespace FeliCa2Money
             }
         }
 
-        // ユーザ設定に書き戻す
+        // 支店番号/口座番号をユーザ設定に書き戻す
         private void SaveAccountInfo()
         {
-            Properties.Settings.Default.AccountInfo.Clear();
+            Properties.Settings s = Properties.Settings.Default;
+
+            s.AccountInfo.Clear();
 
             int count = rules.Count;
             for (int i = 0; i < count; i++)
             {
-                CsvRule rule = rules.GetRuleByIndex(i);
-                string org = rule.Org;
-                string x = rule.Org + ",";
+                CsvRule rule = rules.GetAt(i);
+                string org = rule.Ident;
+                string x = rule.Ident + ",";
                 if (branchIds[org] != null) {
                     x += branchIds[org];
                 }
@@ -83,13 +104,13 @@ namespace FeliCa2Money
                 {
                     x += accountIds[org];
                 }
-                Properties.Settings.Default.AccountInfo.Add(x);
+                s.AccountInfo.Add(x);
             }
 
-            Properties.Settings.Default.Save();
+            s.Save();
         }
 
-        // ルール選択
+        // 引数で指定したルールを選択状態にする
         public void SelectRule(CsvRule selRule)
         {
             if (selRule == null) return;
@@ -103,18 +124,18 @@ namespace FeliCa2Money
         {
             // 支店番号、口座番号をテキストボックスに設定する
             CsvRule rule = SelectedRule();
-            string org = rule.Org;
-            if (branchIds[org] != null)
+            string ident = rule.Ident;
+            if (branchIds[ident] != null)
             {
-                BranchId = (string)branchIds[org];
+                BranchId = (string)branchIds[ident];
             }
             else
             {
                 BranchId = "";
             }
-            if (accountIds[org] != null)
+            if (accountIds[ident] != null)
             {
-                AccountId = (string)accountIds[org];
+                AccountId = (string)accountIds[ident];
             }
             else
             {
@@ -130,21 +151,21 @@ namespace FeliCa2Money
             {
                 return null;
             }
-            return rules.GetRuleByIndex(idx);
+            return rules.GetAt(idx);
         }
 
 
         private void textBranchId_Leave(object sender, EventArgs e)
         {
             CsvRule rule = SelectedRule();
-            string org = rule.Org;
+            string org = rule.Ident;
             branchIds[org] = textBranchId.Text;
         }
 
         private void textAccountId_Leave(object sender, EventArgs e)
         {
             CsvRule rule = SelectedRule();
-            string org = rule.Org;
+            string org = rule.Ident;
             accountIds[org] = textAccountId.Text;
         }
 

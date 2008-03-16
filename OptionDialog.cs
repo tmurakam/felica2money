@@ -55,6 +55,14 @@ namespace FeliCa2Money
             s.Save();
         }
 
+        private void buttonCsvRulesUpdate_Click(object sender, EventArgs e)
+        {
+            if (CsvRules.DownloadRule())
+            {
+                MessageBox.Show("更新完了");
+            }
+        }
+
         /*
         private void buttonSfcPath_Click(object sender, EventArgs e)
         {
