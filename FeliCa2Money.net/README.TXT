@@ -1,9 +1,10 @@
-■ FeliCa2Money version 2.3
+■ FeliCa2Money version 2.4
 
 ・はじめに
 
 このツールは、PaSoRi を使って Edy などの電子マネーの履歴を読み取り、
 Microsoft Money の電子明細(OFX形式ファイル)に変換するものです。
+また、CSV ファイルの取り込みにも対応しています。
 
 現バージョンでは、以下の電子マネーに対応しています。
 
@@ -20,17 +21,15 @@ Microsoft Money の電子明細(OFX形式ファイル)に変換するものです。
  - .NET Framework 2.0 以降
  - SONY 非接触 IC カードリーダー/ライター (PaSoRi)
  - PaSoRi 基本ソフトウェア
- - Microsoft Money
 
 Version 2.0 から、.NET Framework 2.0 以降が必要になりました。Windows Update
 を使用してインストールしておいてください。
 
-また、Version 2.1 から SFCPeep 不要になりました。
-ンストールしておいてください。
 
 ・インストール
 
-Felica2Money-2.3-setup.exe を実行してインストールしてください。
+setup.exe を実行してインストールしてください。
+
 
 ・使用方法
 
@@ -38,20 +37,21 @@ Felica2Money-2.3-setup.exe を実行してインストールしてください。
 物販店舗検索優先エリアは自分が使用しているエリアに応じて設定を行って下さい。
 これを設定しないと、誤った店舗名が出力される可能性が高くなります。
 
-
 電子マネーを PaSoRi に置き、Edy/Suica/Nanao のいずれかのボタンをクリック
 してください。カードが読み取られ、電子明細(OFXファイル)が生成されます。
 
 「保存後に OFX ファイルを自動的に起動する」オプションをオンにしておくと、
 自動的に Microsoft Money が立ち上がり、明細が取り込まれます。
 
+
 ・その他
 
 その他詳細については、インストール時にインストールされるマニュアルを
 お読みください。
 
+
 ・作者連絡先
 
-村上　卓弥 : tmurakam@mtd.biglobe.ne.jp
+村上　卓弥 : tmurakam@mtd.biglobe.ne.jp, tmurakam@tmurakam.org
 プロジェクトWebサイト: http://moneyimport.sourceforge.jp
 

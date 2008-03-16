@@ -1,4 +1,5 @@
 2008-03-16 : Takuya Murakami
+	* ver 2.4
 	* CSV変換ルールダウンロード機能を実装
 	* Suica/Nanaco の解析機能を少しだけ強化
 	
