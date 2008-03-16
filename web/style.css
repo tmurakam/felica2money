@@ -47,6 +47,11 @@ body
         padding-top: 10px;
 }
 
+#header {
+	width: 900px;
+	padding-bottom: 10px;
+}
+
 #main {
         float: left;
         width: 680px;
