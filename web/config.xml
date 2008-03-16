@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <site
-  base_url="http://moneyimport.sourceforge.jp/"
+  base_url="http://felica2money.tmurakam.org/"
   store_into="sitemap.xml"
   verbose="1"
   >
 
-  <directory path="." url="http://moneyimport.sourceforge.jp/" />
+  <directory path="." url="http://felica2money.tmurakam.org/" />
 
   <!-- Exclude URLs that end with a '~'   (IE: emacs backup files)      -->
   <filter  action="drop"  type="wildcard"  pattern="*~"           />
