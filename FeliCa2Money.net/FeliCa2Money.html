@@ -44,11 +44,21 @@ pre {
 
 body
 {
-	/*font-family: Verdana, Arial, Helvetica;*/
-	/*background-color: rgb(255,255,204);*/
-	/*background-color: rgb(255,255,210);*/
-	/*color: rgb(102,102,51);*/
-	color: black;
+	text-align: center;
+        background-color: #F0F9FF;
+}
+
+#contents {
+        width: 900px;
+        margin: auto;
+        background-color: #FFFFFF;
+        text-align: left;
+        border: solid 1px #CCCCCC;
+        padding-top: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-bottom: 10px;
+
 }
 
 h1
@@ -94,13 +104,18 @@ h6
 </style>
 </head>
 <body>
-<h1>FeliCa2Money ver 2.3マニュアル</h1>
+<div id="contents">
+
+<h1>FeliCa2Money ver 2.4マニュアル</h1>
 
 <h2>はじめに</h2>
 
 FeliCa2Moneyは、PaSoRi を使って Edy などの電子マネーの履歴を読み取り、
 Microsoft Money の電子明細(OFX形式ファイル)に変換するものです。
 FeliCa2Money を使えば、ワンタッチで家計簿の記帳を行えます。
+<p>
+
+また、CSV ファイルからの明細の取り込みにも対応しています。
 
 <p>
 現バージョンでは、以下の電子マネーに対応しています。
@@ -115,23 +130,28 @@ FeliCa2Money を使えば、ワンタッチで家計簿の記帳を行えます�
 <li>TOICA
 </ul>
 
-<i>ただし、作者がテストしているのは Edy / Suica / nanacoだけです</i>
+<i>ただし、作者がテストしているのは Edy / Suica / nanaco / ICOCAだけです</i>
 <p>
 
 <h2>必要環境</h2>
 
+以下のものが必要です。
+
 <ul>
 <li>USB ポートを備えた Windows PC : たぶん Windows Vista, XP, 2000 あたりなら問題なく動作します
 <li><b>.NET Framework 2.0 以降</b>
-<li>SONY 非接触 IC カードリーダー/ライター (PaSoRi)
-<li>PaSoRi 基本ソフトウェア
 </ul>
 
 <b>注意: Version 2.0 から、.NET Framework が必要になりました。</b> Windows Update などを
 利用してインストールしておいてください。
 <p>
 
-また、ver 2.2 からは SFCPeep は不要となりました。
+また、電子マネーから明細を取り込むには以下のものが必要になります。
+
+<ul>
+<li>SONY 非接触 IC カードリーダー/ライター (PaSoRi)
+<li>PaSoRi 基本ソフトウェア
+</ul>
 
 <h2>使用方法</h2>
 
@@ -140,13 +160,15 @@ FeliCa2Money を使えば、ワンタッチで家計簿の記帳を行えます�
 しないと、誤った店舗名が出力される可能性が高くなります。
 <p>
 
+<h3>電子マネー明細の取り込み方</h3>
+
 電子マネーを PaSoRi に置き、Edy/Suica/Nanao のいずれかのボタンをクリックしてください。
 カードが読み取られ、電子明細(OFXファイル)が生成されます。
 <p>
 「保存後に OFX ファイルを自動的に起動する」オプションをオンにしておくと、
 自動的に Microsoft Money が立ち上がり、明細が取り込まれます。
 
-<h3>駅名データベースについて</h3>
+<h4>駅名データベースについて</h4>
 
 Suica などでは駅名/店舗名が自動的に入力されます。
 駅名/店舗名のデータベースは、<a href="http://www014.upp.so-net.ne.jp/SFCardFan/">IC SFCard Fan</a> で
@@ -157,6 +179,21 @@ Suica などでは駅名/店舗名が自動的に入力されます。
 <a href="http://www014.upp.so-net.ne.jp/SFCardFan/">IC SFCard Fan</a>の
 「差し替え用駅名情報データベース」をダウンロードし、圧縮ファイルを展開してできる
 StationCode.mdb を FeliCa2Money のインストールディレクトリにコピーしてください。
+
+<h3>CSVファイルの取り込み方</h3>
+
+CSV ボタンを押して CSV ファイルを選択して取り込みを行って下さい。
+CSV ファイルの種類を選択するダイアログが表示されますので、種類を選択し、支店番号/口座番号
+を入力して OK を押して下さい。
+<p>
+
+なお、CSVファイルの種類に該当するものがない場合は、設定画面で設定ルールの更新を行ってみて下さい。
+それでもない場合は、残念ながらその CSV ファイルは未対応の形式なので取り込めません。
+CSV ファイルを作者まで送っていただければ対応します。
+<p>
+
+なお、ご自分で CSV 変換ルールを作成することも可能です。変換ルールの作成方法については
+<a href="http://sourceforge.jp/projects/moneyimport/wiki/CSV%E5%8F%96%E3%82%8A%E8%BE%BC%E3%81%BF">こちら</a>をご覧下さい。 ルールを作成された場合は作者まで是非お送り下さい。
 
 <h2>アンインストール</h2>
 
@@ -190,6 +227,11 @@ URL は http://svn.sourceforge.jp/svnroot/moneyimport/trunk/ です。
 <h2>改版履歴</h2>
 
 <pre>
+2008-03-16 : ver 2.4
+
+	* CSV 取り込み機能を追加
+	* Suica/Nanaco 解析機能を強化
+
 2008-03-12 : ver 2.3
 
 	* Suica などにおいてエントリ数が２０未満のときにエラーが発生する
@@ -235,9 +277,10 @@ URL は http://svn.sourceforge.jp/svnroot/moneyimport/trunk/ です。
 <h2>作者連絡先</h2>
 
 <ul>
-<li>村上　卓弥 : tmurakam@mtd.biglobe.ne.jp
+<li>村上　卓弥 : tmurakam@tmurakam.org
 <li>プロジェクトWebサイト: <a href="http://moneyimport.sourceforge.jp">http://moneyimport.sourceforge.jp</a>
 </ul>
 
+</div>
 </body>
 </html>
