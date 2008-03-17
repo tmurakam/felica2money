@@ -206,7 +206,15 @@ namespace FeliCa2Money
 
             if (split.Length >= 3)
             {
-                year = int.Parse(split[0]);
+                // 和暦の処理
+                //   (三井住友銀行など)
+                if (split[0].SubString(1, 1) == "H")
+                {
+                    year = int.Parse(split[0].SubString(2));
+                    year += 1988;
+                } else {
+                    year = int.Parse(split[0]);
+                }
                 month = int.Parse(split[1]);
                 day = int.Parse(split[2]);
             }
