@@ -28,7 +28,7 @@ namespace FeliCa2Money
     // Card クラス
     abstract class Card
     {
-        protected string org;              // 組織名
+        protected string ident;              // 組織名
         protected int bankId = 0;          // 銀行番号
         protected string branchId = "0";   // 支店番号
         protected string accountId = "";   // 口座番号
@@ -36,28 +36,34 @@ namespace FeliCa2Money
 
         public abstract List<Transaction> ReadCard();
 
-        public string Org
+        public string Ident
         {
-            get { return this.org; }
+            get { return ident; }
         }
 
         public int BankId
         {
-            get { return this.bankId; }
+            get { return bankId; }
         }
         public string BranchId
         {
-            get { return this.branchId; }
+            get {
+                if (branchId == "") return "0";
+                return branchId;
+            }
         }
         public string CardName
         {
-            get { return this.cardName; }
+            get { return cardName; }
         }
         
         public string AccountId
         {
-            set { this.accountId = value; }
-            get { return this.accountId; }
+            set { accountId = value; }
+            get {
+                if (accountId == "") return "0";
+                return accountId;
+            }
         }
 
         // タブ区切りの分解 (SFCPeep用)

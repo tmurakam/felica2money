@@ -69,7 +69,7 @@ namespace FeliCa2Money
             }
 
             // 銀行IDなどを設定
-            org = rule.Ident;
+            ident = rule.Ident;
             bankId = rule.BankId;
             branchId = dlg.BranchId;
             accountId = dlg.AccountId;

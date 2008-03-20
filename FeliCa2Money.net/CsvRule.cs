@@ -141,6 +141,13 @@ namespace FeliCa2Money
 
             // 区切り文字を抜く
             v = v.Replace(",", "");
+
+            // 先頭に '\' があるときは抜く
+            if (v.Substring(1, 1) == "\\")
+            {
+                v = v.Substring(2);
+            }
+
             return int.Parse(v);
         }
 

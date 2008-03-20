@@ -29,7 +29,7 @@ namespace FeliCa2Money
     {
         public Edy()
         {
-            org         = "Edy";
+            ident         = "Edy";
             cardName    = "Edy";
 
             systemCode  = (int)SystemCode.Edy;
