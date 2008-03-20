@@ -72,6 +72,14 @@ namespace FeliCa2Money
             }
         }
 
+        private void buttonWaon_Click(object sender, EventArgs e)
+        {
+            using (Waon waon = new Waon())
+            {
+                doConvert(waon);
+            }
+        }
+
         private void buttonCSV_Click(object sender, EventArgs e)
         {
             CsvCard csv = new CsvCard();
@@ -182,7 +190,5 @@ namespace FeliCa2Money
                 // do nothing
             }
         }
-
-
     }
 }

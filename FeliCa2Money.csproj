@@ -144,6 +144,7 @@
     <None Include="Resources\Edy.bmp" />
     <None Include="Resources\CSV.bmp" />
     <Content Include="Resources\Nanaco.bmp" />
+    <None Include="Resources\waon.bmp" />
     <Content Include="StationCode.mdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

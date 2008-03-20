@@ -104,6 +104,9 @@ namespace FeliCa2Money
             }
             // TBD : 0-12 に備考が入っているのでこちらを使うべきか？
             
+            // トランザクションタイプを自動設定
+            t.GuessTransType(t.value >= 0);
+
             return false;
         }
     }
