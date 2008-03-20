@@ -54,7 +54,7 @@ namespace FeliCa2Money
         public override bool analyzeTransaction(Transaction t, byte[] data)
         {
             // 日付
-            int value = (data[4] << 24) + (data[5] << 16) + (data[6] << 8) + data[7];
+            int value = read4b(data, 4);
 
             if (value == 0 && data[0] == 0)
             {
@@ -67,13 +67,13 @@ namespace FeliCa2Money
             t.date += TimeSpan.FromSeconds(value & 0x1fff);
 
             // 金額
-            t.value = (data[8] << 24) + (data[9] << 16) + (data[10] << 8) + data[11];
+            t.value = read4b(data, 8);
 
             // 残高
-            t.balance = (data[12] << 24) + (data[13] << 16) + (data[14] << 8) + data[15];
+            t.balance = read4b(data, 12);
 
             // 連番
-            t.id = (data[1] << 16) + (data[2] << 8) + data[3];
+            t.id = read3b(data, 1);
 
             // 種別
             switch (data[0])

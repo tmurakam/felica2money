@@ -74,6 +74,7 @@ namespace FeliCa2Money
         protected int serviceCode;  // サービスコード
         protected bool needReverse; // レコード順序を逆転するかどうか
         protected int blocksPerTransaction = 1;   // 1トランザクションあたりのブロック数
+        protected int maxTransactions = 100;     // 最大トランザクション数
 
         // カード ID 取得
         public abstract void analyzeCardId(Felica f);
@@ -91,14 +92,14 @@ namespace FeliCa2Money
                 f.Polling(systemCode);
                 analyzeCardId(f);
 
-                for (int i = 0; ; i++)
+                for (int i = 0; i < maxTransactions; i++)
                 {
                     byte[] data = new byte[16 * blocksPerTransaction];
                     byte[] block = null;
 
                     for (int j = 0; j < blocksPerTransaction; j++)
                     {
-                        block = f.ReadWithoutEncryption(serviceCode, i);
+                        block = f.ReadWithoutEncryption(serviceCode, i * blocksPerTransaction + j);
                         if (block == null)
                         {
                             break;
@@ -149,6 +150,32 @@ namespace FeliCa2Money
 
         public virtual void Dispose()
         {
+        }
+
+        // 複数バイト読み込み (big endian)
+        protected int read2b(byte[] b, int pos)
+        {
+            int ret = b[pos] << 8 | b[pos + 1];
+            return ret;
+        }
+
+        protected int read3b(byte[] b, int pos)
+        {
+            int ret = b[pos] << 16 | b[pos + 1] << 8 | b[pos + 2];
+            return ret;
+        }
+
+        protected int read4b(byte[] b, int pos)
+        {
+            int ret = b[pos] << 24 | b[pos + 1] << 16 | b[pos + 2] << 8 | b[pos + 3];
+            return ret;
+        }
+
+        // little endian
+        protected int read2l(byte[] b, int pos)
+        {
+            int ret = b[pos + 1] << 8 | b[pos];
+            return ret;
         }
     }
 }
