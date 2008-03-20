@@ -124,6 +124,9 @@ namespace FeliCa2Money
                         case "Order":
                             rule.Order = value;
                             break;
+                        case "Separator":
+                            rule.Separator = value;
+                            break;
                         default:
                             // ignore
                             break;

@@ -74,11 +74,17 @@ namespace FeliCa2Money
             branchId = dlg.BranchId;
             accountId = dlg.AccountId;
 
-            if (rule.FirstLine == null)
+            // 1行目から再度読み込み直す
+            sr.Close();
+            sr = new StreamReader(path, System.Text.Encoding.Default);
+
+            // firstLine まで読み飛ばす
+            if (rule.FirstLine != null)
             {
-                // 1行目から再度読み込み直す
-                sr.Close();
-                sr = new StreamReader(path, System.Text.Encoding.Default);
+                while ((firstLine = sr.ReadLine()) != null)
+                {
+                    if (firstLine == rule.FirstLine) break;
+                }
             }
 
             // 読み込み準備
@@ -122,10 +128,20 @@ namespace FeliCa2Money
         private string[] SplitCsv(string line)
         {
             ArrayList fields = new ArrayList();
-            Regex regCsv = new System.Text.RegularExpressions.Regex(
-                "\\s*(\"(?:[^\"]|\"\")*\"|[^,]*)\\s*,", RegexOptions.None);
+            Regex regCsv;
 
-            Match m = regCsv.Match(line + ",");
+            if (rule.IsTSV)
+            {
+                regCsv = new Regex("([^\\t]*)\\t");
+                line = line + "\t";
+            }
+            else
+            {
+                regCsv = new Regex("\\s*(\"(?:[^\"]|\"\")*\"|[^,]*)\\s*,", RegexOptions.None);
+                line = line + ",";
+            }
+
+            Match m = regCsv.Match(line);
             int count = 0;
             while (m.Success)
             {

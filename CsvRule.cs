@@ -36,6 +36,7 @@ namespace FeliCa2Money
         private string name;     // 銀行名
         private string firstLine = null; // １行目
         private bool isAscent;    // 昇順かどうか
+        private bool isTSV = false; // TSV かどうか
 
         // 各 CSV カラムのマッピング規則
         private Hashtable colHash = new Hashtable();
@@ -75,6 +76,26 @@ namespace FeliCa2Money
         {
             get { return isAscent; }
         }
+        public string Separator 
+        {
+            set
+            {
+                if (value == "Tab")
+                {
+                    isTSV = true;
+                }
+                else
+                {
+                    isTSV = false;
+                }
+            }
+        }
+        public bool IsTSV
+        {
+            get { return isTSV; }
+        }
+            
+        
         public string Format
         {
             set { SetFormat(value); }
@@ -83,7 +104,7 @@ namespace FeliCa2Money
         // CSV 変換フォーマット文字列解析
         public void SetFormat(string format)
         {
-            string[] cols = format.Split(new Char[] { ',' });
+            string[] cols = format.Split(new Char[] { ',', '\t' });
 
             for (int i = 0; i < cols.Length; i++)
             {
