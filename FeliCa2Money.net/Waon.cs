@@ -63,10 +63,26 @@ namespace FeliCa2Money
             }
         }
 
+        // 履歴連番でソートする
+        protected override void PostProcess(List<Transaction> list)
+        {
+            list.Sort(compareById);
+        }
+        private static int compareById(Transaction x, Transaction y)
+        {
+            int ret = x.id - y.id;
+            if (ret < -32768)
+            {
+                ret += 65535; // 周回したときの処理
+            }
+            return ret;
+        }
+
+        // トランザクション解析
         public override bool analyzeTransaction(Transaction t, byte[] data)
         {
             // ID
-            int id = read2b(data, 13);
+            t.id = read2b(data, 13);
 
             // 日付
             int x = read4b(data, 18);
@@ -75,7 +91,7 @@ namespace FeliCa2Money
             int dd = (x >> 18) & 0x1f;
             int hh = (x >> 13) & 0x1f;
             int min = (x >> 7) & 0x3f;
-            t.date = new DateTime(yy + 2000, mm, dd, hh, min, 0);
+            t.date = new DateTime(yy + 2005, mm, dd, hh, min, 0);
 
             // 残高
             x = read3b(data, 21);
@@ -94,12 +110,12 @@ namespace FeliCa2Money
             {
                 case 0x0c:
                 case 0x10:
-                    t.desc = "チャージ";
+                    t.desc = "WAONチャージ";
                     break;
 
                 case 0x04:
                 default:
-                    t.desc = "支払";
+                    t.desc = "WAON支払";
                     break;
             }
             // TBD : 0-12 に備考が入っているのでこちらを使うべきか？
@@ -107,7 +123,7 @@ namespace FeliCa2Money
             // トランザクションタイプを自動設定
             t.GuessTransType(t.value >= 0);
 
-            return false;
+            return true;
         }
     }
 }
