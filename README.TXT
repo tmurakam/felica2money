@@ -1,4 +1,4 @@
-■ FeliCa2Money version 2.4
+■ FeliCa2Money version 2.5
 
 ・はじめに
 
@@ -9,11 +9,12 @@ Microsoft Money の電子明細(OFX形式ファイル)に変換するものです。
 現バージョンでは、以下の電子マネーに対応しています。
 
  - Edy
+ - nanaco
+ - WAON
  - Suica
  - ICOCA
  - PiTaPa
  - PASMO
- - nanaco
 
 ・必要環境
 
@@ -37,7 +38,7 @@ setup.exe を実行してインストールしてください。
 物販店舗検索優先エリアは自分が使用しているエリアに応じて設定を行って下さい。
 これを設定しないと、誤った店舗名が出力される可能性が高くなります。
 
-電子マネーを PaSoRi に置き、Edy/Suica/Nanao のいずれかのボタンをクリック
+電子マネーを PaSoRi に置き、Edy/Suica/Nanaco/WAON のいずれかのボタンをクリック
 してください。カードが読み取られ、電子明細(OFXファイル)が生成されます。
 
 「保存後に OFX ファイルを自動的に起動する」オプションをオンにしておくと、
