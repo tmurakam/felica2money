@@ -46,6 +46,15 @@
   </Rule>
 
   <Rule>
+    <Ident>ShinseiBank</Ident>
+    <Name>新生銀行(試験中、まだ動作しません)</Name>
+    <BankId>9999</BankId>
+    <FirstLine>取引日	照会番号	摘要	お支払金額	お預り金額	残高</FirstLine>
+    <Format>Date,Dummy,Desc,Outgo,Income,Balance</Format>
+    <Order>Descent</Order>
+  </Rule>
+
+  <Rule>
     <Ident>JALCard</Ident>
     <Name>JALカード</Name>
     <Format>Dummy,Dummy,Dummy,Dummy,Date,Outgo,Desc</Format>
