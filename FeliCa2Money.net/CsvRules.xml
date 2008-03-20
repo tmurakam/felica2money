@@ -12,7 +12,7 @@
   <Rule>
     <Ident>SumishinSBI</Ident>
     <Name>住信SBIネット銀行</Name>
-    <BankId>38</BankId>
+    <BankId>0038</BankId>
     <FirstLine>"日付","内容","出金金額(円)","入金金額(円)","残高(円)","メモ"</FirstLine>
     <Format>Date,Desc,Outgo,Income,Balance,Memo</Format>
     <Order>Descent</Order>
@@ -21,7 +21,7 @@
   <Rule>
     <Ident>ebank</Ident>
     <Name>イーバンク</Name>
-    <BankId>36</BankId>
+    <BankId>0036</BankId>
     <FirstLine>取引日,入出金(円),残高(円),入出金先内容</FirstLine>
     <Format>Date,Income,Balance,Desc</Format>
     <Order>Ascent</Order>
@@ -30,7 +30,7 @@
   <Rule>
     <Ident>JapanNetBank</Ident>
     <Name>ジャパンネット銀行</Name>
-    <BankId>33</BankId>
+    <BankId>0033</BankId>
     <FirstLine>"操作日(年)","操作日(月)","操作日(日)","取引順番号","摘要","お支払金額","お預り金額","残高"</FirstLine>
     <Format>Year,Month,Day,Id,Desc,Outgo,Income,Balance</Format>
     <Order>Ascent</Order>
@@ -39,7 +39,7 @@
   <Rule>
     <Ident>SonyBank</Ident>
     <Name>ソニー銀行</Name>
-    <BankId>35</BankId>
+    <BankId>0035</BankId>
     <FirstLine>"お取り引き日","摘要","参考情報","お預け入れ額","お引き出し額","差し引き残高"</FirstLine>
     <Format>Date,Desc,Memo,Income,Outgo,Balance</Format>
     <Order>Ascent</Order>
@@ -48,7 +48,7 @@
   <Rule>
     <Ident>ShinseiBank</Ident>
     <Name>新生銀行(Ver 2.6以降対応予定)</Name>
-    <BankId>397</BankId>
+    <BankId>0397</BankId>
     <FirstLine>取引日	照会番号	摘要	お支払金額	お預り金額	残高</FirstLine>
     <Format>Date,Dummy,Desc,Outgo,Income,Balance</Format>
     <Separator>Tab</Separator>
@@ -58,6 +58,7 @@
   <Rule>
     <Ident>TokyoStarBank</Ident>
     <Name>東京スター銀行(Ver 2.6以降対応予定)</Name>
+    <BankId>0526</BankId>
     <FirstLine>"日付","お支払い金額","お預かり金額","摘要","残高","備考"</FirstLine>
     <Format>Date,Outgo,Income,Desc,Balance,Memo</Format>
     <Order>Ascent</Order>
