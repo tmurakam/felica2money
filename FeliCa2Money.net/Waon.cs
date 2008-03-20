@@ -71,9 +71,14 @@ namespace FeliCa2Money
         private static int compareById(Transaction x, Transaction y)
         {
             int ret = x.id - y.id;
-            if (ret < -32768)
+            // 周回したときの処理
+            if (ret < - 0x8000)
             {
-                ret += 65535; // 周回したときの処理
+                ret += 0x10000;
+            }
+            else if (ret > 0x8000)
+            {
+                ret -= 0x10000;
             }
             return ret;
         }
