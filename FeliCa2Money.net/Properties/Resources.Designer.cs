@@ -94,5 +94,12 @@ namespace FeliCa2Money.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        internal static System.Drawing.Bitmap waon {
+            get {
+                object obj = ResourceManager.GetObject("waon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
