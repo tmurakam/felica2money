@@ -106,7 +106,7 @@ h6
 <body>
 <div id="contents">
 
-<h1>FeliCa2Money ver 2.4マニュアル</h1>
+<h1>FeliCa2Money ver 2.5マニュアル</h1>
 
 <h2>はじめに</h2>
 
@@ -122,15 +122,12 @@ FeliCa2Money を使えば、ワンタッチで家計簿の記帳を行えます�
 
 <ul>
 <li>Edy
-<li>Suica
-<li>ICOCA
-<li>PiTaPa
-<li>PASMO
 <li>nanaco
-<li>TOICA
+<li>WAON
+<li>交通系電子マネー : Suica, ICOCA, PiTaPa, PASMO, TOICA
 </ul>
 
-<i>ただし、作者がテストしているのは Edy / Suica / nanaco / ICOCAだけです</i>
+<i>ただし、作者がテストしているのは Edy / nanaco / WAON / Suica / ICOCAだけです</i>
 <p>
 
 <h2>必要環境</h2>
@@ -162,7 +159,7 @@ FeliCa2Money を使えば、ワンタッチで家計簿の記帳を行えます�
 
 <h3>電子マネー明細の取り込み方</h3>
 
-電子マネーを PaSoRi に置き、Edy/Suica/Nanao のいずれかのボタンをクリックしてください。
+電子マネーを PaSoRi に置き、Edy/Suica/Nanaco/WAON のいずれかのボタンをクリックしてください。
 カードが読み取られ、電子明細(OFXファイル)が生成されます。
 <p>
 「保存後に OFX ファイルを自動的に起動する」オプションをオンにしておくと、
@@ -206,11 +203,12 @@ CSV ファイルを作者まで送っていただければ対応します。
 <ul>
 <li>Edy には使用履歴は最新６件までしか保存されていませんので、Money に取り込めるのも最新６件だけです。
 <li>Suica には使用履歴が最新２０件まで保存されていますが、FeliCa2Money で変換できるのは最新１９件のみです。これは、Suica の各履歴には残高しか記録されておらず、取引額を前回残高との差分で計算するしかないためです。
+<li>WAON の使用履歴は３件までしか保存されていません。
 </ul>
 
 <h2>ライセンス</h2>
 
-Copyright (C) 2001-2007 Takuya Murakami, All Rights Reserved.
+Copyright (C) 2001-2008 Takuya Murakami, All Rights Reserved.
 <p>
 
 ライセンスは GPL に準じます。付属の <a href="LICENSE.TXT">LICENSE.TXT</a> を参照してください。
@@ -227,6 +225,10 @@ URL は http://svn.sourceforge.jp/svnroot/moneyimport/trunk/ です。
 <h2>改版履歴</h2>
 
 <pre>
+2008-03-20 : ver 2.5
+
+	* WAON 対応
+
 2008-03-16 : ver 2.4
 
 	* CSV 取り込み機能を追加
