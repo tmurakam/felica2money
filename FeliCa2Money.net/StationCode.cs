@@ -18,7 +18,7 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-// stationcode.mdb アクセスクラス (試作中)
+// stationcode.mdb アクセスクラス
 
 using System;
 using System.Data.OleDb;

@@ -91,9 +91,9 @@ namespace FeliCa2Money
         {
             int ctype = data[0];    // 端末種
             int proc = data[1];     // 処理
-            int date = (data[4] << 8) | data[5]; // 日付
-            int balance = (data[11] << 8) | data[10];   // 残高(little endian)
-            int seq = (data[12] << 16) | (data[13] << 8) | data[14]; // 連番
+            int date = read2b(data, 4); // 日付
+            int balance = read2l(data, 10);   // 残高(little endian)
+            int seq = read3b(data, 12); // 連番
             int region = data[15];      // リージョン
 
             // 処理
@@ -151,8 +151,8 @@ namespace FeliCa2Money
 
                 case CT_CAR:
                     // 車載端末(バス)
-                    out_line = (data[6] << 8) | data[7];
-                    out_sta = (data[8] << 8) | data[9];
+                    out_line = read2b(data, 6);
+                    out_sta = read2b(data, 8);
                     out_name = stCode.getBusName(out_line, out_sta);
                     break;
 

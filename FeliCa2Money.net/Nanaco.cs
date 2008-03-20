@@ -54,7 +54,7 @@ namespace FeliCa2Money
         public override bool analyzeTransaction(Transaction t, byte[] data)
         {
             // 日付
-            int value = (data[9] << 24) + (data[10] << 16) + (data[11] << 8) + data[12];
+            int value = read4b(data, 9);
             int year = (value >> 21) + 2000;
             int month = (value >> 17) & 0xf;
             int date = (value >> 12) & 0x1f;
@@ -63,7 +63,7 @@ namespace FeliCa2Money
             t.date = new DateTime(year, month, date, hour, min, 0);
 
             // 金額
-            value = (data[1] << 24) + (data[2] << 16) + (data[3] << 8) + data[4];
+            value = read4b(data, 1);
 
             // 種別
             t.type = TransType.DirectDep;
@@ -94,11 +94,11 @@ namespace FeliCa2Money
             t.memo = "";
 
             // 残高
-            value = (data[5] << 24) + (data[6] << 16) + (data[7] << 8) + data[8];
+            value = read4b(data, 5);
             t.balance = value;
 
             // 連番
-            value = (data[13] << 8) + data[14];
+            value = read2b(data, 13);
             t.id = value;
 
             return true;
