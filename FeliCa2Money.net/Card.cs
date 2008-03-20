@@ -25,6 +25,7 @@ using FelicaLib;
 
 namespace FeliCa2Money
 {
+    // Card クラス
     abstract class Card
     {
         protected string org;              // 組織名
@@ -59,17 +60,20 @@ namespace FeliCa2Money
             get { return this.accountId; }
         }
 
+        // タブ区切りの分解 (SFCPeep用)
         protected string[] ParseLine(string line)
         {
             return line.Split('\t');
         }
     }
 
+    // FeliCa カードクラス
     abstract class CardWithFelicaLib : Card, IDisposable
     {
         protected int systemCode;   // システムコード
         protected int serviceCode;  // サービスコード
         protected bool needReverse; // レコード順序を逆転するかどうか
+        protected int blocksPerTransaction = 1;   // 1トランザクションあたりのブロック数
 
         // カード ID 取得
         public abstract void analyzeCardId(Felica f);
@@ -77,6 +81,7 @@ namespace FeliCa2Money
         // Transaction 解析
         public abstract bool analyzeTransaction(Transaction t, byte[] data);
 
+        // カード読み込み
         public override List<Transaction> ReadCard()
         {
             List<Transaction> list = new List<Transaction>();
@@ -88,8 +93,23 @@ namespace FeliCa2Money
 
                 for (int i = 0; ; i++)
                 {
-                    byte[] data = f.ReadWithoutEncryption(serviceCode, i);
-                    if (data == null) break;
+                    byte[] data = new byte[16 * blocksPerTransaction];
+                    byte[] block = null;
+
+                    for (int j = 0; j < blocksPerTransaction; j++)
+                    {
+                        block = f.ReadWithoutEncryption(serviceCode, i);
+                        if (block == null)
+                        {
+                            break;
+                        }
+
+                        block.CopyTo(data, j * 16);
+                    }
+                    if (block == null)
+                    {
+                        break;
+                    }
 
                     Transaction t = new Transaction();
                     
