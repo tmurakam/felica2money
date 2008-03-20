@@ -38,7 +38,7 @@ namespace FeliCa2Money
 
         public Suica()
         {
-            org       = "Suica";
+            ident       = "Suica";
             cardName    = "Suica";
 
             systemCode  = (int)SystemCode.Suica;

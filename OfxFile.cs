@@ -85,7 +85,7 @@ namespace FeliCa2Money
 
             w.WriteLine("  <LANGUAGE>JPN");
             w.WriteLine("  <FI>");
-            w.WriteLine("    <ORG>{0}", card.Org);
+            w.WriteLine("    <ORG>{0}", card.Ident);
             w.WriteLine("  </FI>");
             w.WriteLine("</SONRS>");
             w.WriteLine("</SIGNONMSGSRSV1>");

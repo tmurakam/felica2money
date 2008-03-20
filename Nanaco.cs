@@ -29,7 +29,7 @@ namespace FeliCa2Money
     {
         public    Nanaco()
         {
-            org       = "Nanaco";
+            ident       = "Nanaco";
             cardName    = "Nanaco";
 
             systemCode  = (int)SystemCode.Common;

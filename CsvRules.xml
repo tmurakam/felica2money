@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CsvRules>
-  <Version>080321.1</Version>
+  <Version>080321.2</Version>
   <Rule>
     <Ident>OFXConverter</Ident>
     <Name>OFXConverter互換</Name>
@@ -47,12 +47,20 @@
 
   <Rule>
     <Ident>ShinseiBank</Ident>
-    <Name>新生銀行(Ver 2.6以降予定)</Name>
+    <Name>新生銀行(Ver 2.6以降対応予定)</Name>
     <BankId>397</BankId>
     <FirstLine>取引日	照会番号	摘要	お支払金額	お預り金額	残高</FirstLine>
     <Format>Date,Dummy,Desc,Outgo,Income,Balance</Format>
     <Separator>Tab</Separator>
     <Order>Descent</Order>
+  </Rule>
+
+  <Rule>
+    <Ident>TokyoStarBank</Ident>
+    <Name>東京スター銀行(Ver 2.6以降対応予定)</Name>
+    <FirstLine>"日付","お支払い金額","お預かり金額","摘要","残高","備考"</FirstLine>
+    <Format>Date,Outgo,Income,Desc,Balance,Memo</Format>
+    <Order>Ascent</Order>
   </Rule>
 
   <Rule>

@@ -31,7 +31,7 @@ namespace FeliCa2Money
     {
         public Waon()
         {
-            org       = "WAON";
+            ident       = "WAON";
             cardName    = "WAON";
 
             systemCode  = (int)SystemCode.Common;
