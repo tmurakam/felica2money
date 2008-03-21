@@ -64,7 +64,7 @@ namespace FeliCa2Money
             rule = dlg.SelectedRule();
             if (rule == null)
             {
-                MessageBox.Show("CSV変換ルールが選択されていません", "エラー");
+                MessageBox.Show(Properties.Resources.NoCsvRuleSelected, Properties.Resources.Error);
                 return false;
             }
 

@@ -60,6 +60,24 @@ namespace FeliCa2Money.Properties {
             }
         }
         
+        /// <summary>
+        ///   カードを読むことができませんでした に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string CardReadError {
+            get {
+                return ResourceManager.GetString("CardReadError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   確認 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Confirm {
+            get {
+                return ResourceManager.GetString("Confirm", resourceCulture);
+            }
+        }
+        
         internal static System.Drawing.Bitmap CSV {
             get {
                 object obj = ResourceManager.GetObject("CSV", resourceCulture);
@@ -67,10 +85,28 @@ namespace FeliCa2Money.Properties {
             }
         }
         
+        /// <summary>
+        ///   定義ファイルエラー に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string CsvRuleError {
+            get {
+                return ResourceManager.GetString("CsvRuleError", resourceCulture);
+            }
+        }
+        
         internal static System.Drawing.Bitmap Edy {
             get {
                 object obj = ResourceManager.GetObject("Edy", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   エラー に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
             }
         }
         
@@ -88,10 +124,46 @@ namespace FeliCa2Money.Properties {
             }
         }
         
+        /// <summary>
+        ///   CSV変換ルールが選択されていません に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string NoCsvRuleSelected {
+            get {
+                return ResourceManager.GetString("NoCsvRuleSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   履歴が一件もありません に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string NoHistory {
+            get {
+                return ResourceManager.GetString("NoHistory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   CSV変換定義がありません。今すぐダウンロードしますか？ に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string QueryCsvRuleDownload {
+            get {
+                return ResourceManager.GetString("QueryCsvRuleDownload", resourceCulture);
+            }
+        }
+        
         internal static System.Drawing.Bitmap Suica {
             get {
                 object obj = ResourceManager.GetObject("Suica", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   更新完了 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string UpdateCompleted {
+            get {
+                return ResourceManager.GetString("UpdateCompleted", resourceCulture);
             }
         }
         

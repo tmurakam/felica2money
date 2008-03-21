@@ -90,8 +90,8 @@
     <Compile Include="Nanaco.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Ofx2.cs" />
     <Compile Include="OfxFile.cs" />
+    <Compile Include="OfxFile2.cs" />
     <Compile Include="OptionDialog.cs">
       <SubType>Form</SubType>
     </Compile>
