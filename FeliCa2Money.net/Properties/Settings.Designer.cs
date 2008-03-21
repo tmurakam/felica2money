@@ -105,5 +105,17 @@ namespace FeliCa2Money.Properties {
                 this["AccountInfo"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool OfxVer2 {
+            get {
+                return ((bool)(this["OfxVer2"]));
+            }
+            set {
+                this["OfxVer2"] = value;
+            }
+        }
     }
 }

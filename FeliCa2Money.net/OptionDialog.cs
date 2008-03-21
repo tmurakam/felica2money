@@ -24,6 +24,7 @@ namespace FeliCa2Money
             checkIgnoreZeroTransaction.Checked = s.IgnoreZeroTransaction;
             checkManualOfxPath.Checked = s.ManualOfxPath;
             checkAutoKickOfxFile.Checked = s.AutoKickOfxFile;
+            checkOfxVer2.Checked = s.OfxVer2;
 
             //textSfcPeepPath.Text = s.SFCPeepPath;
 
@@ -44,6 +45,7 @@ namespace FeliCa2Money
             s.IgnoreZeroTransaction = checkIgnoreZeroTransaction.Checked;
             s.ManualOfxPath = checkManualOfxPath.Checked;
             s.AutoKickOfxFile = checkAutoKickOfxFile.Checked;
+            s.OfxVer2 = checkOfxVer2.Checked;
             //s.SFCPeepPath = textSfcPeepPath.Text;
 
             int p = Suica.AreaSuica;

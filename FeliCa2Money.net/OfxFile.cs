@@ -18,6 +18,11 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+/*
+   OFX ファイル生成
+   ファイルバージョンは 1.0.2 (SGML)
+ */
+
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -28,7 +33,7 @@ namespace FeliCa2Money
 {
     class OfxFile
     {
-        private string ofxFilePath;
+        protected string ofxFilePath;
 
         public OfxFile()
         {
@@ -39,7 +44,7 @@ namespace FeliCa2Money
             ofxFilePath = path;
         }
 
-        private string dateStr(DateTime d)
+        protected string dateStr(DateTime d)
         {
             string s = String.Format("{0}{1:00}{2:00}", d.Year, d.Month, d.Day);
             s += String.Format("{0:00}{1:00}{2:00}", d.Hour, d.Minute, d.Second);
@@ -47,7 +52,7 @@ namespace FeliCa2Money
             return s;
         }
 
-        private string transId(Transaction t)
+        protected string transId(Transaction t)
         {
             /* トランザクションの ID は日付と取引番号で生成 */
             string longId = String.Format("{0:0000}{1:00}{2:00}", t.date.Year, t.date.Month, t.date.Day);
@@ -55,7 +60,7 @@ namespace FeliCa2Money
             return longId;
         }
 
-        public void WriteFile(Card card,  List<Transaction> transactions)
+        public virtual void WriteFile(Card card,  List<Transaction> transactions)
         {
             Transaction first = transactions[0];
             Transaction last = transactions[transactions.Count - 1];
