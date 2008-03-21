@@ -158,7 +158,7 @@ namespace FeliCa2Money
             // OFX ファイル生成
             OfxFile ofx = new OfxFile(); 
             ofx.SetOfxFilePath(ofxFilePath);
-            ofx.WriteFile(c, list);
+            ofx.WriteFile2(c, list);
 
             // Money 起動
             if (Properties.Settings.Default.AutoKickOfxFile)
