@@ -61,7 +61,7 @@ namespace FeliCa2Money
         {
             if (CsvRules.DownloadRule())
             {
-                MessageBox.Show("更新完了");
+                MessageBox.Show(Properties.Resources.UpdateCompleted);
             }
         }
 

@@ -93,7 +93,7 @@ namespace FeliCa2Money
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "エラー");
+                MessageBox.Show(ex.Message, Properties.Resources.Error);
                 return;
             }
              
@@ -111,13 +111,13 @@ namespace FeliCa2Money
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "エラー");
+                MessageBox.Show(ex.Message, Properties.Resources.Error);
                 return;
             }
 
             if (list == null)
             {
-                MessageBox.Show("カードを読むことができませんでした", "エラー");
+                MessageBox.Show(Properties.Resources.CardReadError, Properties.Resources.Error);
                 return;
             }
 
@@ -132,7 +132,7 @@ namespace FeliCa2Money
 
             if (list.Count == 0)
             {
-                MessageBox.Show("履歴が一件もありません", "エラー");
+                MessageBox.Show(Properties.Resources.NoHistory, Properties.Resources.Error);
                 return;
             }
 

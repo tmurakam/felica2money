@@ -54,7 +54,7 @@ namespace FeliCa2Money
             string[] xmlFiles = Directory.GetFiles(path, "*.xml");
             if (xmlFiles.Length == 0)
             {
-                if (MessageBox.Show("CSV変換定義がありません。今すぐダウンロードしますか？", "確認",
+                if (MessageBox.Show(Properties.Resources.QueryCsvRuleDownload, Properties.Resources.Confirm,
                     MessageBoxButtons.OKCancel) != DialogResult.OK) return false;
 
                 if (!DownloadRule()) return false;
@@ -70,7 +70,7 @@ namespace FeliCa2Money
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("定義ファイルエラー in " + xmlFile, "エラー");
+                    MessageBox.Show(Properties.Resources.CsvRuleError + " in " + xmlFile, Properties.Resources.Error);
                 }
             }
             return true;
@@ -189,7 +189,7 @@ namespace FeliCa2Money
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "エラー");
+                MessageBox.Show(ex.Message, Properties.Resources.Error);
                 return false;
             }
             return true;

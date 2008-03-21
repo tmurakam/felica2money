@@ -18,7 +18,7 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-// OFX 2.0
+// OFX ver 2.0 (XML)
 
 using System;
 using System.Collections.Generic;
@@ -39,7 +39,7 @@ namespace FeliCa2Money
         }
 
         // OFX 2 ドキュメント生成
-        public XmlDocument Generate(Card card,  List<Transaction> transactions)
+        private XmlDocument Generate(Card card,  List<Transaction> transactions)
         {
             Transaction first = transactions[0];
             Transaction last = transactions[transactions.Count - 1];

@@ -136,4 +136,28 @@
   <data name="waon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\waon.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="CardReadError" xml:space="preserve">
+    <value>カードを読むことができませんでした</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>確認</value>
+  </data>
+  <data name="CsvRuleError" xml:space="preserve">
+    <value>定義ファイルエラー</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>エラー</value>
+  </data>
+  <data name="NoCsvRuleSelected" xml:space="preserve">
+    <value>CSV変換ルールが選択されていません</value>
+  </data>
+  <data name="NoHistory" xml:space="preserve">
+    <value>履歴が一件もありません</value>
+  </data>
+  <data name="QueryCsvRuleDownload" xml:space="preserve">
+    <value>CSV変換定義がありません。今すぐダウンロードしますか？</value>
+  </data>
+  <data name="UpdateCompleted" xml:space="preserve">
+    <value>更新完了</value>
+  </data>
 </root>
