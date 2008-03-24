@@ -70,6 +70,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Card.cs" />
+    <Compile Include="card\Edy.cs" />
+    <Compile Include="card\Nanaco.cs" />
+    <Compile Include="card\Suica.cs" />
+    <Compile Include="card\Waon.cs" />
     <Compile Include="CsvCard.cs" />
     <Compile Include="CsvDialog.cs">
       <SubType>Form</SubType>
@@ -79,16 +83,12 @@
     </Compile>
     <Compile Include="CsvRule.cs" />
     <Compile Include="CsvRules.cs" />
-    <Compile Include="Edy.cs" />
     <Compile Include="FelicaLib.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Nanaco.cs">
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="OfxFile.cs" />
     <Compile Include="OfxFile2.cs" />
@@ -133,9 +133,7 @@
     </Compile>
     <Compile Include="Settings.cs" />
     <Compile Include="StationCode.cs" />
-    <Compile Include="Suica.cs" />
     <Compile Include="Transaction.cs" />
-    <Compile Include="Waon.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
