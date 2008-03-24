@@ -61,6 +61,24 @@ namespace FeliCa2Money.Properties {
         }
         
         /// <summary>
+        ///   日付文字列解析失敗 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string CantParseDateStr {
+            get {
+                return ResourceManager.GetString("CantParseDateStr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   カード番号を読み取れません に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string CantReadCardNo {
+            get {
+                return ResourceManager.GetString("CantReadCardNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   カードを読むことができませんでした に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string CardReadError {

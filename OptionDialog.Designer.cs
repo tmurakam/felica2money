@@ -160,7 +160,7 @@
             this.buttonCsvRulesUpdate.Name = "buttonCsvRulesUpdate";
             this.buttonCsvRulesUpdate.Size = new System.Drawing.Size(151, 34);
             this.buttonCsvRulesUpdate.TabIndex = 5;
-            this.buttonCsvRulesUpdate.Text = "CSV変換定義のダウンロード";
+            this.buttonCsvRulesUpdate.Text = "CSV変換定義の更新";
             this.buttonCsvRulesUpdate.UseVisualStyleBackColor = true;
             this.buttonCsvRulesUpdate.Click += new System.EventHandler(this.buttonCsvRulesUpdate_Click);
             // 
