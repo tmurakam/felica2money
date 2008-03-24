@@ -42,7 +42,7 @@ namespace FeliCa2Money
             byte[] data = f.ReadWithoutEncryption(0x558b, 0);
             if (data == null)
             {
-                throw new Exception("nanaco番号を読み取れません");
+                throw new Exception(Properties.Resources.CantReadCardNo);
             }
             
             accountId = "";
