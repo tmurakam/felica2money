@@ -61,7 +61,7 @@ namespace FeliCa2Money
             byte[] data = f.IDm();
             if (data == null)
             {
-                throw new Exception("IDm を読み取れません");
+                throw new Exception(Properties.Resources.CantReadCardNo);
             }
             
             accountId = "";

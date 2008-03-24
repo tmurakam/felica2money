@@ -49,7 +49,7 @@ namespace FeliCa2Money
             byte[] data2 = f.ReadWithoutEncryption(0x67cf, 1);
             if (data == null || data2 == null)
             {
-                throw new Exception("WAON番号を読み取れません");
+                throw new Exception(Properties.Resources.CantReadCardNo);
             }
 
             accountId = "";
