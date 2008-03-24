@@ -254,7 +254,7 @@ namespace FeliCa2Money
                 {
                     // パース不可能
                     // TBD
-                    throw new Exception("日付文字列解析失敗 (" + date + ")");
+                    throw new Exception(Properties.Resources.CantParseDateStr + " (" + date + ")");
                 }
 
                 int n = int.Parse(date);
