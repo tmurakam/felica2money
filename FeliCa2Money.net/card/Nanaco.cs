@@ -37,18 +37,20 @@ namespace FeliCa2Money
             needReverse = true;
         }
 
-        public override void analyzeCardId(Felica f)
+        public override bool analyzeCardId(Felica f)
         {
             byte[] data = f.ReadWithoutEncryption(0x558b, 0);
             if (data == null)
             {
-                throw new Exception(Properties.Resources.CantReadCardNo);
+                return false;
             }
             
             accountId = "";
             for (int i = 0; i < 8; i++) {
                 accountId += data[i].ToString("X2");
             }
+
+            return true;
         }
 
         public override bool analyzeTransaction(Transaction t, byte[] data)
