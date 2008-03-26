@@ -94,18 +94,25 @@ namespace FeliCa2Money
             {
                 return false;
             }
-            
-            accountId = "";
-            for (int i = 0; i < 8; i++) {
-                accountId += data[i].ToString("X2");
-            }
+
+            accountId = binString(data, 0, 8);
 
             return true;
         }
 
+        // バイナリデータを16進文字列に変換
+        protected string binString(byte[] data, int offset, int len)
+        {
+            string s = "";
+            for (int i = offset; i < offset + len; i++)
+            {
+                s += data[i].ToString("X2");
+            }
+            return s;
+        }
 
         // カード読み込み
-        public override List<Transaction> ReadCard()
+        public sealed override List<Transaction> ReadCard()
         {
             List<Transaction> list = new List<Transaction>();
 
