@@ -44,11 +44,8 @@ namespace FeliCa2Money
             {
                 return false;
             }
-            
-            accountId = "";
-            for (int i = 2; i < 10; i++) {
-                accountId += data[i].ToString("X2");
-            }
+
+            accountId = binString(data, 2, 8);
 
             return true;
         }

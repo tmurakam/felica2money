@@ -29,6 +29,12 @@ namespace FeliCa2Money
     {
         private OleDbConnection conn;
 
+        public class Names
+        {
+            public string r1 = "";  // 会社名
+            public string r2 = "";  // 駅名 or 支店名
+        }
+
         public StationCode()
         {
             conn = new System.Data.OleDb.OleDbConnection();
@@ -41,7 +47,7 @@ namespace FeliCa2Money
             conn.Close();
         }
 
-        private string[] doQuery(string sql)
+        private Names doQuery(string sql)
         {
             OleDbCommand cmd;
             OleDbDataReader dr;
@@ -49,41 +55,30 @@ namespace FeliCa2Money
             cmd = new OleDbCommand(sql, conn);
             dr = cmd.ExecuteReader();
 
-            string[] result = null;
+            Names s = null;
             if (dr.Read())
             {
-                result = new string[2];
-                if (dr.IsDBNull(0))
+                s = new Names();
+                if (!dr.IsDBNull(0))
                 {
-                    result[0] = "";
-                }
-                else
-                {
-                    result[0] = dr.GetString(0);
+                    s.r1 = dr.GetString(0);
                 }
 
-                if (dr.IsDBNull(1))
+                if (!dr.IsDBNull(1))
                 {
-                    result[1] = "";
-                }
-                else
-                {
-                    result[1] = dr.GetString(1);
+                    s.r2 = dr.GetString(1);
                 }
             }
             dr.Close();
-            return result;
+            return s;
         }
 
         // 駅名を検索する
-        public string[] getStationName(int area, int line, int station)
+        public Names getStationName(int area, int line, int station)
         {
             if (line == 0 && station == 0)
             {
-                string[] res = new string[2];
-                res[0] = "";
-                res[1] = "";
-                return res;
+                return null;
             }
             string sql = string.Format("SELECT CompanyName,StationName FROM StationCode WHERE"
                 + " AreaCode={0} AND LineCode={1} AND StationCode={2}", area, line, station);
@@ -92,7 +87,7 @@ namespace FeliCa2Money
 
         // 店舗名を検索する
         // area = -1 として検索すると、area 指定なしとみなす
-        public string[] getShopName(int area, int terminal, int line, int station)
+        public Names getShopName(int area, int terminal, int line, int station)
         {
             string sql = string.Format("SELECT CompanyName,ShopName FROM ShopCode WHERE"
                 + " TerminalCode={0} AND LineCode={1} AND StationCode={2}", terminal, line, station);
@@ -104,7 +99,7 @@ namespace FeliCa2Money
         }
 
         // バス停留所名を検索する
-        public string[] getBusName(int line, int station)
+        public Names getBusName(int line, int station)
         {
             string sql = string.Format("SELECT BusCompanyName,BusStationName FROM BusCode WHERE"
                 + " BusLineCode={0} AND BusStationCode={1}", line, station);

@@ -110,7 +110,7 @@ namespace FeliCa2Money
             int in_line = -1;
             int in_sta = -1;
             int out_line, out_sta;
-            string[] in_name = null, out_name = null;
+            StationCode.Names in_name = null, out_name = null;
             int area;
 
             switch (ctype)
@@ -179,7 +179,7 @@ namespace FeliCa2Money
                     if (out_name != null)
                     {
                         // 適用に店舗名を入れる
-                        t.desc += " " + out_name[0] + " " + out_name[1];
+                        t.desc += " " + out_name.r1 + " " + out_name.r2;
                     }
                     else
                     {
@@ -194,8 +194,8 @@ namespace FeliCa2Money
                     if (out_name != null)
                     {
                         // 適用にバス会社名、備考に停留所名を入れる
-                        t.desc += " " + out_name[0];
-                        t.memo += " " + out_name[1];
+                        t.desc += " " + out_name.r1;
+                        t.memo += " " + out_name.r2;
                     }
                     break;
 
@@ -209,23 +209,23 @@ namespace FeliCa2Money
                     // 適用に入会社または出会社を追加
                     if (in_name != null)
                     {
-                        t.desc += " " + in_name[0];
+                        t.desc += " " + in_name.r1;
                     }
                     else if (out_name != null)
                     {
-                        t.desc += " " + out_name[0];
+                        t.desc += " " + out_name.r1;
                     }
 
                     // 備考に入出会社/駅名を記載
                     if (in_name != null) {
-                        t.memo += " " + in_name[0] + "(" + in_name[1] + ")";
+                        t.memo += " " + in_name.r1 + "(" + in_name.r2 + ")";
                     } else {
                         t.memo += " 未登録";
                     }
                     t.memo += " - ";
 
                     if (out_name != null) {
-                        t.memo += out_name[0] + "(" + out_name[1] + ")";
+                        t.memo += out_name.r1 + "(" + out_name.r2 + ")";
                     } else {
                         t.memo += "未登録";
                     }
