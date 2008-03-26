@@ -43,13 +43,13 @@ namespace FeliCa2Money
             maxTransactions = 3; // 履歴数は３
         }
 
-        public override void analyzeCardId(Felica f)
+        public override bool analyzeCardId(Felica f)
         {
             byte[] data = f.ReadWithoutEncryption(0x67cf, 0);
             byte[] data2 = f.ReadWithoutEncryption(0x67cf, 1);
             if (data == null || data2 == null)
             {
-                throw new Exception(Properties.Resources.CantReadCardNo);
+                return false;
             }
 
             accountId = "";
@@ -61,6 +61,7 @@ namespace FeliCa2Money
             {
                 accountId += data2[i].ToString("X2");
             }
+            return true;
         }
 
         // 履歴連番でソートする

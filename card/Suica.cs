@@ -54,22 +54,6 @@ namespace FeliCa2Money
             stCode.Dispose();
         }
 
-        // カード ID を取得
-        // Suica では IDm を用いる
-        public override void analyzeCardId(Felica f)
-        {
-            byte[] data = f.IDm();
-            if (data == null)
-            {
-                throw new Exception(Properties.Resources.CantReadCardNo);
-            }
-            
-            accountId = "";
-            for (int i = 0; i < 8; i++) {
-                accountId += data[i].ToString("X2");
-            }
-        }
-
         // 後処理
         //  Suica の場合、履歴には残高しか記録されていない。
         //  ここでは、残高の差額から各トランザクションの金額を計算する

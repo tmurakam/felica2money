@@ -82,11 +82,27 @@ namespace FeliCa2Money
         protected int blocksPerTransaction = 1;   // 1トランザクションあたりのブロック数
         protected int maxTransactions = 100;     // 最大トランザクション数
 
-        // カード ID 取得
-        public abstract void analyzeCardId(Felica f);
-
         // Transaction 解析
         public abstract bool analyzeTransaction(Transaction t, byte[] data);
+
+        // カード ID 取得
+        public virtual bool analyzeCardId(Felica f)
+        {
+            // デフォルトでは、IDm を用いる。
+            byte[] data = f.IDm();
+            if (data == null)
+            {
+                return false;
+            }
+            
+            accountId = "";
+            for (int i = 0; i < 8; i++) {
+                accountId += data[i].ToString("X2");
+            }
+
+            return true;
+        }
+
 
         // カード読み込み
         public override List<Transaction> ReadCard()
@@ -96,7 +112,10 @@ namespace FeliCa2Money
             using (Felica f = new Felica())
             {
                 f.Polling(systemCode);
-                analyzeCardId(f);
+
+                if (!analyzeCardId(f)) {
+                    throw new Exception(Properties.Resources.CantReadCardNo);
+                }
 
                 for (int i = 0; i < maxTransactions; i++)
                 {
