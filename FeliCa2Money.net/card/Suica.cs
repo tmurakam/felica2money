@@ -44,6 +44,7 @@ namespace FeliCa2Money
             systemCode  = (int)SystemCode.Suica;
             serviceCode = 0x090f;       // 履歴エリアのサービスコード
             needReverse = true;
+            needCalcValue = true;
 
             stCode = new StationCode();
         }
@@ -52,22 +53,6 @@ namespace FeliCa2Money
         {
             base.Dispose();
             stCode.Dispose();
-        }
-
-        // 後処理
-        //  Suica の場合、履歴には残高しか記録されていない。
-        //  ここでは、残高の差額から各トランザクションの金額を計算する
-        //  (このため、最も古いエントリは金額を計算できない)
-        protected override void PostProcess(List<Transaction> list)
-        {
-            int prevBalance = 0;
-
-            foreach (Transaction t in list)
-            {
-                t.value = t.balance - prevBalance;
-                prevBalance = t.balance;
-            }
-            list.RemoveAt(0);   // 最古のエントリは捨てる
         }
 
         // トランザクション解析
