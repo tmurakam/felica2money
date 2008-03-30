@@ -78,12 +78,22 @@ namespace FeliCa2Money
     {
         protected int systemCode;   // システムコード
         protected int serviceCode;  // サービスコード
-        protected bool needReverse; // レコード順序を逆転するかどうか
-        protected int blocksPerTransaction = 1;   // 1トランザクションあたりのブロック数
+        protected int blocksPerTransaction = 1;  // 1トランザクションあたりのブロック数
         protected int maxTransactions = 100;     // 最大トランザクション数
+        protected bool needReverse = false;      // レコード順序を逆転するかどうか
+        protected bool needCalcValue = true;     // 入出金額を残高から計算するかどうか
+
+        //--------------------------------------------------------------------
+        // 以下のメソッドはサブクラスで必要に応じてオーバライドする
 
         // Transaction 解析
         public abstract bool analyzeTransaction(Transaction t, byte[] data);
+
+        // 後処理
+        protected virtual void PostProcess(List<Transaction> list) { }
+
+        // Dispose 処理 
+        public virtual void Dispose() { }
 
         // カード ID 取得
         public virtual bool analyzeCardId(Felica f)
@@ -100,16 +110,7 @@ namespace FeliCa2Money
             return true;
         }
 
-        // バイナリデータを16進文字列に変換
-        protected string binString(byte[] data, int offset, int len)
-        {
-            string s = "";
-            for (int i = offset; i < offset + len; i++)
-            {
-                s += data[i].ToString("X2");
-            }
-            return s;
-        }
+        //--------------------------------------------------------------------
 
         // カード読み込み
         public sealed override List<Transaction> ReadCard()
@@ -170,18 +171,40 @@ namespace FeliCa2Money
             {
                 list.Reverse();
             }
+            if (needCalcValue)
+            {
+                CalcValueFromBalance(list);
+            }
             PostProcess(list);
 
             return list;
         }
 
-        protected virtual void PostProcess(List<Transaction> list)
+        //-------------------------------------------------------------------
+        // ユーティリティ
+
+        // バイナリデータを16進文字列に変換
+        protected string binString(byte[] data, int offset, int len)
         {
-            // do nothing
+            string s = "";
+            for (int i = offset; i < offset + len; i++)
+            {
+                s += data[i].ToString("X2");
+            }
+            return s;
         }
 
-        public virtual void Dispose()
+        // 残高から金額を計算する
+        private void CalcValueFromBalance(List<Transaction> list)
         {
+            int prevBalance = 0;
+
+            foreach (Transaction t in list)
+            {
+                t.value = t.balance - prevBalance;
+                prevBalance = t.balance;
+            }
+            list.RemoveAt(0);   // 最古のエントリは捨てる
         }
 
         // 複数バイト読み込み (big endian)

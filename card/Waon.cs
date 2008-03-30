@@ -62,6 +62,7 @@ namespace FeliCa2Money
         {
             list.Sort(compareById);
         }
+
         private static int compareById(Transaction x, Transaction y)
         {
             int ret = x.id - y.id;
