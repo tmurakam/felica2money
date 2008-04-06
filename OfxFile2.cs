@@ -111,10 +111,10 @@ namespace FeliCa2Money
                 
                 // トランザクションの ID は日付と取引番号で生成
                 appendElementWithText(stmttrn, "FITID", transId(t));
-                appendElementWithText(stmttrn, "NAME", t.desc);
+                appendElementWithText(stmttrn, "NAME", quoteString(t.desc));
                 if (t.memo != null)
                 {
-                    appendElementWithText(stmttrn, "MEMO", t.memo);
+                    appendElementWithText(stmttrn, "MEMO", quoteString(t.memo));
                 }
             }
 
