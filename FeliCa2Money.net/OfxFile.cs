@@ -60,6 +60,16 @@ namespace FeliCa2Money
             return longId;
         }
 
+        protected string quoteString(string s)
+        {
+            s.Replace("&", "&amp;");
+            s.Replace("<", "&lt;");
+            s.Replace(">", "&gt;");
+            //s.Replace("'", "&apos;");
+            //s.Replace("\"", "&quot;");
+            return s;
+        }
+
         public virtual void WriteFile(Card card,  List<Transaction> transactions)
         {
             Transaction first = transactions[0];
@@ -132,10 +142,10 @@ namespace FeliCa2Money
 
                 /* トランザクションの ID は日付と取引番号で生成 */
                 w.WriteLine("      <FITID>{0}", transId(t));
-                w.WriteLine("      <NAME>{0}", t.desc);
+                w.WriteLine("      <NAME>{0}", quoteString(t.desc));
                 if (t.memo != null)
                 {
-                    w.WriteLine("      <MEMO>{0}", t.memo);
+                    w.WriteLine("      <MEMO>{0}", quoteString(t.memo));
                 }
                 w.WriteLine("    </STMTTRN>");
             }
