@@ -62,11 +62,11 @@ namespace FeliCa2Money
 
         protected string quoteString(string s)
         {
-            s.Replace("&", "&amp;");
-            s.Replace("<", "&lt;");
-            s.Replace(">", "&gt;");
-            //s.Replace("'", "&apos;");
-            //s.Replace("\"", "&quot;");
+            s = s.Replace("&", "&amp;");
+            s = s.Replace("<", "&lt;");
+            s = s.Replace(">", "&gt;");
+            //s = s.Replace("'", "&apos;");
+            //s = s.Replace("\"", "&quot;");
             return s;
         }
 
