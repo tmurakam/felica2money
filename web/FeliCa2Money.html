@@ -106,11 +106,11 @@ h6
 <body>
 <div id="contents">
 
-<h1>FeliCa2Money ver 2.5マニュアル</h1>
+<h1>FeliCa2Money ver 2.6.1マニュアル</h1>
 
 <h2>はじめに</h2>
 
-FeliCa2Moneyは、PaSoRi を使って Edy などの電子マネーの履歴を読み取り、
+FeliCa2Moneyは、FeliCaポート/PaSoRi を使って Edy などの電子マネーの履歴を読み取り、
 Microsoft Money の電子明細(OFX形式ファイル)に変換するものです。
 FeliCa2Money を使えば、ワンタッチで家計簿の記帳を行えます。
 <p>
@@ -135,7 +135,7 @@ FeliCa2Money を使えば、ワンタッチで家計簿の記帳を行えます�
 以下のものが必要です。
 
 <ul>
-<li>USB ポートを備えた Windows PC : たぶん Windows Vista, XP, 2000 あたりなら問題なく動作します
+<li>Windows PC : たぶん Windows Vista, XP, 2000 あたりなら問題なく動作します
 <li><b>.NET Framework 2.0 以降</b>
 </ul>
 
@@ -146,7 +146,7 @@ FeliCa2Money を使えば、ワンタッチで家計簿の記帳を行えます�
 また、電子マネーから明細を取り込むには以下のものが必要になります。
 
 <ul>
-<li>SONY 非接触 IC カードリーダー/ライター (PaSoRi)
+<li>PC内蔵の FeliCaポート、または SONY 非接触 IC カードリーダー/ライター (PaSoRi)
 <li>PaSoRi 基本ソフトウェア
 </ul>
 
@@ -225,6 +225,15 @@ URL は http://svn.sourceforge.jp/svnroot/moneyimport/trunk/ です。
 <h2>改版履歴</h2>
 
 <pre>
+2008-04-08 : ver 2.6.1
+	* バグ修正: &amp;, &lt;, &gt; などの文字列置換が行われていなかったのを修正
+
+2008-04-07 : ver 2.6
+	* OFX 2.0 対応
+	* TSV(タブ区切りテキスト)に対応
+	* CSV ファイル読み込み処理を修正、多少のゆらぎを吸収するようにした
+	* 適用名に &amp;, &lt;, &gt; などの文字列が入っていたときにエラーとなる問題を修正。
+
 2008-03-20 : ver 2.5
 
 	* WAON 対応
