@@ -1,3 +1,8 @@
+2008-04-19 : Takuya Murakami
+	* ver 2.7
+	* x64 対応
+	* felicalib ver 0.4 に置き換え
+
 2008-04-08 : Takuya Murakami
 	* ver 2.6.1
 	* quote 処理ミス(文字列置換してなかった)を修正
