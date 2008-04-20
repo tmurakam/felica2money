@@ -96,21 +96,21 @@ namespace FeliCa2Money
             int in_sta = -1;
             int out_line, out_sta;
             StationCode.Names in_name = null, out_name = null;
-            int area;
+            int in_area = 0, out_area = 0;
 
             switch (ctype)
             {
                 case CT_SHOP:
                 case CT_VEND:
                     // 物販/自販機
-                    area = Properties.Settings.Default.ShopAreaPriority;
+                    out_area = Properties.Settings.Default.ShopAreaPriority;
 
                     //time = (data[6] << 8) | data[7];
                     out_line = data[8];
                     out_sta = data[9];
 
                     // 優先エリアで検索
-                    out_name = stCode.getShopName(area, ctype, out_line, out_sta);
+                    out_name = stCode.getShopName(out_area, ctype, out_line, out_sta);
                     if (out_name == null)
                     {
                         // 全エリアで検索
@@ -135,22 +135,11 @@ namespace FeliCa2Money
                     {
                         break;
                     }
+                    in_area  = getAreaCode(in_line, region);
+                    out_area = getAreaCode(out_line, region);
 
-                    // エリアを求める
-                    if (region >= 1) {
-                        area = 2; // 関西公営・私鉄
-                    }
-                    else if (in_line >= 0x80)
-                    {
-                        area = 1; // 関東公営・私鉄
-                    }
-                    else
-                    {
-                        area = 0; // JR
-                    }
-
-                    in_name = stCode.getStationName(area, in_line, in_sta);
-                    out_name = stCode.getStationName(area, out_line, out_sta);
+                    in_name  = stCode.getStationName(in_area, in_line, in_sta);
+                    out_name = stCode.getStationName(out_area, out_line, out_sta);
                     break;
             }
 
@@ -202,22 +191,40 @@ namespace FeliCa2Money
                     }
 
                     // 備考に入出会社/駅名を記載
+                    t.memo += " ";
                     if (in_name != null) {
-                        t.memo += " " + in_name.r1 + "(" + in_name.r2 + ")";
+                        t.memo += in_name.r1 + "(" + in_name.r2 + ")";
                     } else {
-                        t.memo += " 未登録";
+                        t.memo += string.Format("未登録({0}:{1}:{2})", in_area, in_line, in_sta);
                     }
                     t.memo += " - ";
 
                     if (out_name != null) {
                         t.memo += out_name.r1 + "(" + out_name.r2 + ")";
                     } else {
-                        t.memo += "未登録";
+                        t.memo += string.Format("未登録({0}:{1}:{2})", out_area, out_sta, region);
                     }
                     break;
             }
 
             return true;
+        }
+
+        // エリアコードを求める
+        private int getAreaCode(int line, int region)
+        {
+            if (line < 0x80)
+            {
+                return 0; // JR
+            }
+            else if (region == 0)
+            {
+                return 1; // 関東公営・私鉄
+            }
+            else
+            {
+                return 2;
+            }
         }
 
         private const int CT_SHOP = 199;  // 物販端末
