@@ -152,8 +152,17 @@ namespace FeliCa2Money
                 case CT_VEND:
                     if (out_name != null)
                     {
-                        // 適用に店舗名を入れる
-                        t.desc += " " + out_name.r1 + " " + out_name.r2;
+                        // "物販" の場合は、"物販" は消して店舗名だけにする
+                        if (t.desc == "物販")
+                        {
+                            t.desc = "";
+                        }
+                        else
+                        {
+                            t.desc += " ";
+                        }
+                        // 店舗名追加
+                        t.desc += out_name.r1 + " " + out_name.r2;
                     }
                     else
                     {

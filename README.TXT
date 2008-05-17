@@ -1,4 +1,4 @@
-Å° FeliCa2Money version 2.7.1
+Å° FeliCa2Money version 2.8
 
 ÅEÇÕÇ∂ÇﬂÇ…
 

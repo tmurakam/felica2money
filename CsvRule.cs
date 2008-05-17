@@ -143,9 +143,9 @@ namespace FeliCa2Money
             v = v.Replace(",", "");
 
             // 先頭に '\' があるときは抜く
-            if (v.Substring(1, 1) == "\\")
+            if (v.StartsWith("\\"))
             {
-                v = v.Substring(2);
+                v = v.Substring(1);
             }
 
             return int.Parse(v);
@@ -236,9 +236,9 @@ namespace FeliCa2Money
             {
                 // 和暦の処理
                 //   (三井住友銀行など)
-                if (split[0].Substring(1, 1) == "H")
+                if (split[0].StartsWith("H"))
                 {
-                    year = int.Parse(split[0].Substring(2));
+                    year = int.Parse(split[0].Substring(1));
                     year += 1988;
                 } else {
                     year = int.Parse(split[0]);
