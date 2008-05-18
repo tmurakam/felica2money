@@ -1,9 +1,0 @@
-2,1,9,JNB2Money,1,{2F873BEC-96AC-4DA7-BB6E-5BFB4CC3A7F0},{53464377-36D9-4FC1-A763-AB2EB587F23D},True,False,False,True,False,True,False,True,True,False,False,True,True,False,False,,False,,False,,False,,False,,,False,0,0,1,0,-1,-1,-1,-1,,vb,0,,0,,1,"c:\program files\microsoft visual studio\vc98\mfc\include\afxres.h",1,"c:\program files\hhv\userafxhelp.h",1,"ID_,IDC_,IDM_,DIALOG_",1,"IDR_,IDD_",1,IDP_,1,ID_HT_,1,IDW_,1,"AFX_,CG_",0,,0,,0,,,,False,False,False,False,False,False,"ＭＳ Ｐゴシック",9,False,False,False
-1,True,"{75F40A52-D0BD-42B5-8636-9834A697510B},True,0,""{53464377-36D9-4FC1-A763-AB2EB587F23D},D:\USR\SRC\MoneyImport\Help\index.html,index.html,MoneyImportヘルプ,,-1,0,"""
-2,False,"{2F873BEC-96AC-4DA7-BB6E-5BFB4CC3A7F0},D:\USR\SRC\MoneyImport\Help\intro.html,intro.html,はじめに,,-1,0,"
-2,False,"{D48DF5F3-8614-4EC0-89AD-285A28A0842C},D:\USR\SRC\MoneyImport\Help\usage.html,usage.html,使い方,,-1,0,"
-2,False,"{03EAF642-7B9B-40ED-8AD7-99A24B95EAA5},D:\USR\SRC\MoneyImport\Help\drop.html,drop.html,CSVファイルのドラッグ＆ドロップ,,-1,0,"
-2,False,"{43BBF5BB-B7F5-4444-ABBD-80CCEFA5377E},D:\USR\SRC\MoneyImport\Help\licence.html,licence.html,利用条件,,-1,0,"
-2,False,"{6B1E29E9-FD9C-4706-ADD6-9BD4ED806C38},D:\USR\SRC\MoneyImport\Help\source.html,source.html,ソースコードの配布,,-1,0,"
-2,False,"{7811E807-B050-4910-8B5D-C7ABD036B7D0},D:\USR\SRC\MoneyImport\Help\reference.html,reference.html,参考文献,,-1,0,"
-2,False,"{012DFD3C-F8F1-447E-8B9C-CF3EFDB117D6},D:\USR\SRC\MoneyImport\Help\contact.html,contact.html,連絡先/ホームページ,,-1,0,"
