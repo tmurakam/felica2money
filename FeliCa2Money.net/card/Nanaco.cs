@@ -25,7 +25,7 @@ using FelicaLib;
 
 namespace FeliCa2Money
 {
-    class Nanaco : CardWithFelicaLib
+    public class Nanaco : CardWithFelicaLib
     {
         public    Nanaco()
         {

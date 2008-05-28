@@ -25,7 +25,7 @@ using FelicaLib;
 
 namespace FeliCa2Money
 {
-    class Edy : CardWithFelicaLib
+    public class Edy : CardWithFelicaLib
     {
         public Edy()
         {

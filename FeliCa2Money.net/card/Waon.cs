@@ -27,7 +27,7 @@ using FelicaLib;
 
 namespace FeliCa2Money
 {
-    class Waon : CardWithFelicaLib
+    public class Waon : CardWithFelicaLib
     {
         public Waon()
         {

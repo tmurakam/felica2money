@@ -27,7 +27,7 @@ using FelicaLib;
 
 namespace FeliCa2Money
 {
-    class Suica : CardWithFelicaLib
+    public class Suica : CardWithFelicaLib
     {
         // 物販エリアコード
         public const int AreaSuica = 1;

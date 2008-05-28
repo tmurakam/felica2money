@@ -26,7 +26,7 @@ using FelicaLib;
 namespace FeliCa2Money
 {
     // Card クラス
-    abstract class Card
+    public abstract class Card
     {
         protected string ident;              // 組織名
         protected int bankId = 0;          // 銀行番号
@@ -74,7 +74,7 @@ namespace FeliCa2Money
     }
 
     // FeliCa カードクラス
-    abstract class CardWithFelicaLib : Card, IDisposable
+    public abstract class CardWithFelicaLib : Card, IDisposable
     {
         protected int systemCode;   // システムコード
         protected int serviceCode;  // サービスコード
