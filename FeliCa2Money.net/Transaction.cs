@@ -96,7 +96,7 @@ namespace FeliCa2Money
 
             foreach (string key in h.Keys)
             {
-                if (desc.Contains(key))
+                if (desc != null && desc.Contains(key))
                 {
                     type = (TransType)h[key];
                     return;
