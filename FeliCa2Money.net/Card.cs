@@ -115,58 +115,67 @@ namespace FeliCa2Money
         // カード読み込み
         public sealed override List<Transaction> ReadCard()
         {
+            List<Transaction> list;
+
+            using (IFelica f = new Felica()) {
+                list = ReadCard(f);
+            }
+
+            return list;
+        }
+
+        public List<Transaction> ReadCard(IFelica f)
+        {
             List<Transaction> list = new List<Transaction>();
 
-            using (IFelica f = new Felica())
+            f.Polling(systemCode);
+
+            if (!analyzeCardId(f)) {
+                throw new Exception(Properties.Resources.CantReadCardNo);
+            }
+
+            for (int i = 0; i < maxTransactions; i++)
             {
-                f.Polling(systemCode);
+                byte[] data = new byte[16 * blocksPerTransaction];
+                byte[] block = null;
 
-                if (!analyzeCardId(f)) {
-                    throw new Exception(Properties.Resources.CantReadCardNo);
-                }
-
-                for (int i = 0; i < maxTransactions; i++)
+                for (int j = 0; j < blocksPerTransaction; j++)
                 {
-                    byte[] data = new byte[16 * blocksPerTransaction];
-                    byte[] block = null;
-
-                    for (int j = 0; j < blocksPerTransaction; j++)
-                    {
-                        block = f.ReadWithoutEncryption(serviceCode, i * blocksPerTransaction + j);
-                        if (block == null)
-                        {
-                            break;
-                        }
-
-                        block.CopyTo(data, j * 16);
-                    }
+                    block = f.ReadWithoutEncryption(serviceCode, i * blocksPerTransaction + j);
                     if (block == null)
                     {
                         break;
                     }
 
-                    Transaction t = new Transaction();
-                    
-                    // データが全0かどうかチェック
-                    int x = 0;
-                    foreach (int xx in data)
-                    {
-                        x |= xx;
-                    }
-                    if (x == 0) 
-                    {
-                        // データが全0なら無視(空エントリ)
-                        t.Invalidate();
-                    }
-
-                    // トランザクション解析
-                    else if (!analyzeTransaction(t, data))
-                    {
-                        t.Invalidate();
-                    }
-                    list.Add(t);
+                    block.CopyTo(data, j * 16);
                 }
+                if (block == null)
+                {
+                    break;
+                }
+
+                Transaction t = new Transaction();
+                    
+                // データが全0かどうかチェック
+                int x = 0;
+                foreach (int xx in data)
+                {
+                    x |= xx;
+                }
+                if (x == 0) 
+                {
+                    // データが全0なら無視(空エントリ)
+                    t.Invalidate();
+                }
+
+                // トランザクション解析
+                else if (!analyzeTransaction(t, data))
+                {
+                    t.Invalidate();
+                }
+                list.Add(t);
             }
+
             if (needReverse)
             {
                 list.Reverse();

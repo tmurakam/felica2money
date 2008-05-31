@@ -20,9 +20,7 @@ namespace FeliCa2Money.test
             f.SetSystemCode((int)SystemCode.Edy);
 
             // set card id
-            byte[] d;
-            d = new byte[] { 0x01, 0x23, 0x45, 0x67, 0x89, 0xab, 0xcd, 0xef, 0x01, 0x23, 0x45, 0x67, 0x89, 0xab, 0xcd, 0xef };
-            f.SetTestData(0x110b, d);
+            f.SetTestData(0x110b, new byte[] { 0x01, 0x23, 0x45, 0x67, 0x89, 0xab, 0xcd, 0xef, 0x01, 0x23, 0x45, 0x67, 0x89, 0xab, 0xcd, 0xef });
         }
 
         [TearDown]
@@ -38,6 +36,16 @@ namespace FeliCa2Money.test
             c.analyzeCardId(f);
 
             Assert.AreEqual(c.AccountId, "456789ABCDEF0123");
+        }
+
+        [Test]
+        public void ReadCard()
+        {
+            // set dummy data
+            f.SetTestData(0x170f, new byte[16]);
+
+            FeliCa2Money.Edy c = new FeliCa2Money.Edy();
+            List<Transaction> t = c.ReadCard(f);
         }
     }
 }
