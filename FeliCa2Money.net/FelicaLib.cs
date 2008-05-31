@@ -16,7 +16,15 @@ namespace FelicaLib
         Suica = 0x0003,     // Suica (=サイバネ領域)
     }
 
-    public class Felica : IDisposable
+    public interface IFelica : IDisposable
+    {
+        void Polling(int systemcode);
+        byte[] IDm();
+        byte[] PMm();
+        byte[] ReadWithoutEncryption(int servicecode, int addr);
+    }
+
+    public class Felica : IFelica
     {
         [DllImport("felicalib.dll")]
         private extern static IntPtr pasori_open(String dummy);

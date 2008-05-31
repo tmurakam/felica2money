@@ -96,7 +96,7 @@ namespace FeliCa2Money
         public virtual void Dispose() { }
 
         // カード ID 取得
-        public virtual bool analyzeCardId(Felica f)
+        public virtual bool analyzeCardId(IFelica f)
         {
             // デフォルトでは、IDm を用いる。
             byte[] data = f.IDm();
@@ -117,7 +117,7 @@ namespace FeliCa2Money
         {
             List<Transaction> list = new List<Transaction>();
 
-            using (Felica f = new Felica())
+            using (IFelica f = new Felica())
             {
                 f.Polling(systemCode);
 

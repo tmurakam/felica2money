@@ -43,7 +43,7 @@ namespace FeliCa2Money
             maxTransactions = 3; // 履歴数は３
         }
 
-        public override bool analyzeCardId(Felica f)
+        public override bool analyzeCardId(IFelica f)
         {
             byte[] data = f.ReadWithoutEncryption(0x67cf, 0);
             byte[] data2 = f.ReadWithoutEncryption(0x67cf, 1);
