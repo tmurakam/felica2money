@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,8 +7,9 @@ namespace FelicaLib
 {
     public class DummyFelica : IFelica
     {
-        private byte[] dataBuf = null;
+        private Hashtable dataBufs = new Hashtable();
         private int pos = 0;
+        private int systemCode;
 
         public DummyFelica()
         {
@@ -16,12 +18,12 @@ namespace FelicaLib
 
         public void Dispose()
         {
-            // do nothing
+            dataBufs = null;
         }
 
-        public void Polling(int systemcode)
+        public void Polling(int s)
         {
-            pos = 0;
+            systemCode = s;
         }
 
         public byte[] IDm()
@@ -44,26 +46,34 @@ namespace FelicaLib
             return buf;
         }    
 
-        public byte[] ReadWithoutEncryption(int servicecode, int addr)
+        public byte[] ReadWithoutEncryption(int sv, int addr)
         {
-            byte[] data = new byte[16];
+            byte[] ret = new byte[16];
+            byte[] data = (byte[])dataBufs[systemCode << 16 | sv];
 
-            if (pos > data.Length)
+            if (data == null || data.Length < (addr + 1) * 16)
             {
                 return null;
             }
 
             for (int i = 0; i < 16; i++)
             {
-                data[i] = dataBuf[pos + i];
+                ret[i] = data[addr * 16 + i];
             }
             pos += 16;
             return data;
         }
 
-        public void SetTestData(byte[] data)
+        // set data
+
+        public void SetSystemCode(int s)
         {
-            dataBuf = data;
+            systemCode = s;
+        }
+
+        public void SetTestData(int sv, byte[] data)
+        {
+            dataBufs[systemCode << 16 | sv] = data;
         }
     }
 }

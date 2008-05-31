@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 namespace FelicaLib
 {
     // システムコード
-    enum SystemCode : int
+    public enum SystemCode : int
     {
         Any = 0xffff,       // ANY
         Common = 0xfe00,    // 共通領域
