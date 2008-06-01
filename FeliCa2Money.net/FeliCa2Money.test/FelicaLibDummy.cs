@@ -59,7 +59,7 @@ namespace FelicaLib
             {
                 ret[i] = data[addr * 16 + i];
             }
-            return data;
+            return ret;
         }
 
         // set data

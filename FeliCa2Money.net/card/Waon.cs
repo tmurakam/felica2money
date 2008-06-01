@@ -37,7 +37,8 @@ namespace FeliCa2Money
             systemCode  = (int)SystemCode.Common;
             serviceCode = 0x680b;
 
-            //needSort = true;
+            needReverse = false;
+            needCalcValue = false;
 
             blocksPerTransaction = 2;  // 2ブロックで１履歴
             maxTransactions = 3; // 履歴数は３

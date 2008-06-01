@@ -35,6 +35,7 @@ namespace FeliCa2Money
             systemCode  = (int)SystemCode.Edy;
             serviceCode = 0x170f;
             needReverse = true;
+            needCalcValue = false;
         }
 
         public override bool analyzeCardId(IFelica f)
