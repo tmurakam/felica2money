@@ -64,7 +64,7 @@ namespace FeliCa2Money
             t.date = new DateTime(2000, 1, 1);
 
             t.date += TimeSpan.FromDays(value >> 17);
-            t.date += TimeSpan.FromSeconds(value & 0x1fff);
+            t.date += TimeSpan.FromSeconds(value & 0x1ffff);
 
             // 金額
             t.value = read4b(data, 8);

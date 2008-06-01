@@ -73,5 +73,21 @@ namespace FelicaLib
         {
             dataBufs[systemCode << 16 | sv] = data;
         }
+
+        public void SetTestDataFromStrings(int sv, string[] ss)
+        {
+            byte[] buf = new byte[ss.Length * 16];
+
+            for (int i = 0; i < ss.Length; i++)
+            {
+                string[] cols = ss[i].Split(new char[] { ' ', '\t' });
+                for (int j = 0; j < 16; j++)
+                {
+                    buf[i * 16 + j] = (byte)int.Parse(cols[j + 1], System.Globalization.NumberStyles.HexNumber);
+                }
+            }
+
+            SetTestData(sv, buf);
+        }
     }
 }
