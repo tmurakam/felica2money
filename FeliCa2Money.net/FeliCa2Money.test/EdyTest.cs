@@ -42,10 +42,23 @@ namespace FeliCa2Money.test
         public void ReadCard()
         {
             // set dummy data
-            f.SetTestData(0x170f, new byte[16]);
+            f.SetTestData(0x170f, new byte[] {
+                0x20, // 支払
+                0x01, 0x23, 0x45, // 連番
+                0x0, 0x0, 0x0, 0x0, // 時刻 (2000/1/1, 0:00)
+                0x0, 0x0, 0x16, 0x2e, // 金額 (5,678円)
+                0x0, 0x0, 0xb2, 0x6e, // 残高 (45,678円)
+            });
 
             FeliCa2Money.Edy c = new FeliCa2Money.Edy();
             List<Transaction> t = c.ReadCard(f);
+
+            string d = t[0].date.ToString();
+            Assert.AreEqual(0x12345, t[0].id);
+            Assert.AreEqual("2000/01/01 0:00:00", t[0].date.ToString());
+            Assert.AreEqual(-5678, t[0].value);
+            Assert.AreEqual(45678, t[0].balance, 45678);
+            Assert.AreEqual("支払 74565", t[0].desc);
         }
     }
 }

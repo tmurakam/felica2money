@@ -81,7 +81,7 @@ namespace FeliCa2Money
         protected int blocksPerTransaction = 1;  // 1トランザクションあたりのブロック数
         protected int maxTransactions = 100;     // 最大トランザクション数
         protected bool needReverse = false;      // レコード順序を逆転するかどうか
-        protected bool needCalcValue = true;     // 入出金額を残高から計算するかどうか
+        protected bool needCalcValue = false;     // 入出金額を残高から計算するかどうか
 
         //--------------------------------------------------------------------
         // 以下のメソッドはサブクラスで必要に応じてオーバライドする

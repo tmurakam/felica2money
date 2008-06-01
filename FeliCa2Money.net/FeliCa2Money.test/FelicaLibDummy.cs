@@ -8,7 +8,6 @@ namespace FelicaLib
     public class DummyFelica : IFelica
     {
         private Hashtable dataBufs = new Hashtable();
-        private int pos = 0;
         private int systemCode;
 
         public DummyFelica()
@@ -60,7 +59,6 @@ namespace FelicaLib
             {
                 ret[i] = data[addr * 16 + i];
             }
-            pos += 16;
             return data;
         }
 
