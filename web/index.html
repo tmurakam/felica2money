@@ -15,18 +15,19 @@
 	font-weight: bold;
 	color: #FF0000;
 }
-.style2 {color: #FF0000}
 -->
 </style>
 <!-- InstanceEndEditable -->
 </head>
 <body>
 <!-- google analytics -->
-<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
 </script>
 <script type="text/javascript">
-_uacct = "UA-413697-7";
-urchinTracker();
+var pageTracker = _gat._getTracker("UA-413697-7");
+pageTracker._trackPageview();
 </script>
 
 <div id="contents">
@@ -82,7 +83,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
   </ul>
 <h2>FeliCa2Money とは？</h2>
 
-<p>FeliCa2Moneyは、FeliCaポート/パソリを使って Edy や Suica などの電子マネーの利用明細を読み取り、
+<p>FeliCa2Moneyは、FeliCaポート/パソリを使って Edy や nanaco などの電子マネーの利用明細を読み取り、
 電子明細(OFX形式ファイル)に変換するものです。これを使えば、電子マネーの利用明細を
 ワンタッチで家計簿に記帳できます。</p>
 
@@ -112,9 +113,9 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 </ul>
 </ul>
 
-<h3>対応電子マネー</h3>
+<h3>読み取り可能電子マネー</h3>
 
-<p>FeliCa2Money は、以下の電子マネーに対応しています。</p>
+<p>FeliCa2Money は、以下の電子マネーを読み取ることができます。</p>
 
 <ul>
 <li><a href="http://www.edy.jp/">Edy</a></li>
@@ -122,17 +123,6 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 <li><a href="http://www.waon.com/">WAON</a></li>
 <li>交通系電子マネー : <a href="http://www.jreast.co.jp/suica/">Suica</a>, <a href="http://www.jr-odekake.net/guide/icoca/">ICOCA</a>, <a href="http://toica.jr-central.co.jp/">TOICA</a>, <a href="http://www.pasmo.co.jp/">PASMO</a>, <a href="http://www.pitapa.com/">PiTaPa</a></li>
 </ul>
-
-
-<h3>対応CSVフォーマット</h3>
-<p>CSVファイルフォーマットは以下のものに対応しています(徐々に増やしていきます）。CSV変換ルールを作れば、対応CSVフォーマットはご自分で増やすことができます。</p>
-<ul>
-  <li>OFX Converter 互換</li>
-  <li>住信SBIネット銀行</li>
-  <li>JALカード</li>
-  <li>イーバンク</li>
-</ul>
-
 
 <!-- #BeginLibraryItem "/Library/AdsenseBanner.lbi" -->
 <!-- Adsense バナー -->
@@ -147,6 +137,30 @@ google_ad_height = 60;
 src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 </script>
 <!-- #EndLibraryItem -->
+
+<h3>対応CSVフォーマット</h3>
+<p>CSVファイルフォーマットは以下のものに対応しています(徐々に増やしていきます）。CSV変換ルールを作れば、対応CSVフォーマットはご自分で増やすことができます。</p>
+<ul>
+  <li>OFX Converter 互換</li>
+  <li>住信SBIネット銀行</li>
+  <li>JALカード</li>
+  <li>イーバンク    </li>
+  </ul>
+
+<h3>Legal notice</h3>
+<p>本ソフトウェアは、いくつかの種類の電子マネーを読み込むことができますが、この機能はこれら電子マネーの発行者から公式に認められたものではありません。なお、本ソフトウェアは、これら電子マネーの発行事業者およびその事業といかなる関係もありません。 </p>
+<p> 本ソフトウェアの動作や記載に関しての正確性に関しては一切の保証をいたしません。At your own risk でお使い下さい。 </p>
+<ul>
+  <li>「FeliCa」「PaSoRi」はソニー株式会社の登録商標です。 </li>
+  <li> 「Edy」は、ビットワレット株式会社が管理するプリペイド型電子マネーサービスのブランドです。</li>
+  <li>「nanaco」は株式会社アイワイ・カード・サービスの登録商標です。</li>
+  <li> 「Suica」はJR東日本の登録商標です。 </li>
+  <li> 「ICOCA」はJR西日本の登録商標です。</li>
+  <li> 「PASMO」は株式会社パスモの登録商標です。 </li>
+  <li>「PiTaPa」は、株式会社スルッとKANSAIの登録商標です。</li>
+  <li>「TOICA」は東海旅客鉄道株式会社の登録商標です</li>
+  <li>その他、記載されている会社名および商品・サービス名は、各社の登録商標または商標です。 </li>
+</ul>
 
 <!-- InstanceEndEditable --></div>
 
