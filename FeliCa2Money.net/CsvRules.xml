@@ -79,4 +79,12 @@
     <Format>Dummy,Dummy,Dummy,Dummy,Date,Outgo,Desc</Format>
     <Order>Ascent</Order>
   </Rule>
+
+  <Rule>
+    <Ident>CashFlowApp</Ident>
+    <Name>CashFlow Application</Name>
+    <FirstLine>Serial,Date,Value,Balance,Description</FirstLine>
+    <Format>Id,Date,Income,Balance,Desc</Format>
+    <Order>Ascent</Order>
+  </Rule>
 </CsvRules>
