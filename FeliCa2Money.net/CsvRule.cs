@@ -148,7 +148,8 @@ namespace FeliCa2Money
                 v = v.Substring(1);
             }
 
-            return int.Parse(v);
+            // 小数点が含まれることを考慮して、double でパース
+            return (int)double.Parse(v);
         }
 
         // １行解析

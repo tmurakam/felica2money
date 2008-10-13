@@ -81,6 +81,12 @@ namespace FeliCa2Money
         {
             XmlDocument doc = new XmlDocument();
             doc.Load(path);
+
+            LoadFromXml(doc);
+        }
+
+        public void LoadFromXml(XmlDocument doc)
+        {
             XmlElement root = doc.DocumentElement;
 
             // Rule 子要素について処理
