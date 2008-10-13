@@ -81,10 +81,10 @@
   </Rule>
 
   <Rule>
-    <Ident>CashFlowApp</Ident>
-    <Name>CashFlow Application</Name>
-    <FirstLine>Serial,Date,Value,Balance,Description</FirstLine>
-    <Format>Id,Date,Income,Balance,Desc</Format>
+    <Ident>3SPocketMoney</Ident>
+    <Name>3S Pocket Money</Name>
+    <FirstLine>"ID","日付","分類","備考","金額","支払先","支払方法"</FirstLine>
+    <Format>Dummy,Date,Memo,Desc,Outgo,Dummy,Dummy</Format>
     <Order>Ascent</Order>
   </Rule>
 </CsvRules>
