@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CsvRules>
-  <Version>080811.1</Version>
+  <Version>081014.1</Version>
   <Rule>
     <Ident>OFXConverter</Ident>
     <Name>OFXConverter互換</Name>
@@ -84,7 +84,7 @@
     <Ident>3SPocketMoney</Ident>
     <Name>3S Pocket Money</Name>
     <FirstLine>"ID","日付","分類","備考","金額","支払先","支払方法"</FirstLine>
-    <Format>Dummy,Date,Memo,Desc,Outgo,Dummy,Dummy</Format>
+    <Format>Id,Date,Memo,Desc,Outgo,Dummy,Dummy</Format>
     <Order>Ascent</Order>
   </Rule>
 </CsvRules>
