@@ -68,6 +68,15 @@ body
 	background-color: #FFFFFF;
 }
 
+.adsblock {
+	font-size: 90%;
+	padding: 3px;
+	margin: 10px;
+        margin-bottom: 20px;
+	background-color: #FFFFFF;
+        text-align: left;
+}
+
 #main {
         float: left;
         width: 580px;
