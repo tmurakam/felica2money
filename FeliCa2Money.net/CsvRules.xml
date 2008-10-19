@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CsvRules>
-  <Version>081018.1</Version>
+  <Version>081020.1</Version>
   <Rule>
     <Ident>OFXConverter</Ident>
     <Name>OFXConverter互換</Name>
@@ -85,6 +85,14 @@
     <Name>三井住友VISAカード</Name>
     <Format>Date,Desc,Dummy,Dummy,Dummy,Dummy,Outgo,Dummy,Dummy,Dummy,Dummy,Dummy,Dummy</Format>
     <Order>Descent</Order>
+  </Rule>
+
+  <Rule>
+    <Ident>SAISONCard</Ident>
+    <Name>セゾンカード</Name>
+    <FirstLine>利用日,ご利用店名及び商品名,本人・家族区分,支払区分名称,締前入金区分,利用金額,備考</FirstLine>
+    <Format>Date,Desc,Dummy,Dummy,Dummy,Outgo,Dummy</Format>
+    <Order>Ascent</Order>
   </Rule>
 
   <Rule>
