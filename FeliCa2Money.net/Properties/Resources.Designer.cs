@@ -176,6 +176,13 @@ namespace FeliCa2Money.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap train {
+            get {
+                object obj = ResourceManager.GetObject("train", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         /// <summary>
         ///   更新完了 に類似しているローカライズされた文字列を検索します。
         /// </summary>

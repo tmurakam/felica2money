@@ -162,6 +162,7 @@
     <None Include="Resources\CSV.bmp" />
     <Content Include="Resources\Nanaco.bmp" />
     <None Include="Resources\waon.bmp" />
+    <None Include="Resources\train.bmp" />
     <Content Include="StationCode.mdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
