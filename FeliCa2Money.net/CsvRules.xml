@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CsvRules>
-  <Version>081020.1</Version>
+  <Version>090321.1</Version>
   <Rule>
     <Ident>OFXConverter</Ident>
     <Name>OFXConverter互換</Name>
@@ -70,6 +70,15 @@
     <BankId>0155</BankId>
     <FirstLine>"日付","振替文言","お支払い金額","お預かり金額","摘要","残高","取扱店番"</FirstLine>
     <Format>Date,memo,Outgo,Income,Desc,Balance,Dummy</Format>
+    <Order>Descent</Order>
+  </Rule>
+
+  <Rule>
+    <Ident>JibunBank</Ident>
+    <Name>じぶん銀行</Name>
+    <BankId>0039</BankId>
+    <FirstLine>年月日,入金,出金,お取引内容,残高</FirstLine>
+    <Format>Date,Income,Outgo,Desc,Balance</Format>
     <Order>Descent</Order>
   </Rule>
 
