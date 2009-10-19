@@ -31,19 +31,19 @@ namespace FeliCa2Money
 {
     public class CsvRule
     {
+        public const int SortAscent = 0;
+        public const int SortDescent = 1;
+        public const int SortAuto = 2;
+
         private string ident;    // 識別子(組織名)
         private int bankId;      // 銀行ID
         private string name;     // 銀行名
         private string firstLine = null; // １行目
-        private bool isAscent;    // 昇順かどうか
+        private int sortOrder; // ソートオーダー
         private bool isTSV = false; // TSV かどうか
 
         // 各 CSV カラムのマッピング規則
         private Hashtable colHash = new Hashtable();
-
-        // シリアル番号採番用
-        private DateTime prevDate;
-        private int idSerial;
 
         // プロパティ
         public string Ident
@@ -68,13 +68,18 @@ namespace FeliCa2Money
         {
             set
             {
-                if (value == "Descent") isAscent = false;
-                else isAscent = true;
+                if (value == "Sort") {
+                    sortOrder = SortAuto;
+                } else if (value == "Descent") {
+                    sortOrder = SortDescent;
+                } else {
+                    sortOrder = SortAscent;
+                }
             }
         }
-        public bool IsAscent
+        public int SortOrder
         {
-            get { return isAscent; }
+            get { return sortOrder; }
         }
         public string Separator 
         {
@@ -110,13 +115,6 @@ namespace FeliCa2Money
             {
                 colHash[cols[i].Trim()] = i;
             }
-        }
-
-        // シリアル番号リセット
-        public void Reset()
-        {
-            prevDate = new DateTime(1900, 1, 1, 0, 0, 0);
-            idSerial = 0;
         }
 
         // 指定したカラムを取得
@@ -188,17 +186,7 @@ namespace FeliCa2Money
             }
             else
             {
-                // 日付毎に ID を振る
-                if (t.date == prevDate)
-                {
-                    idSerial++;
-                }
-                else
-                {
-                    prevDate = t.date;
-                    idSerial = 0;
-                }
-                t.id = idSerial;
+                t.id = Transaction.UnassignedId;
             }
 
             // 金額

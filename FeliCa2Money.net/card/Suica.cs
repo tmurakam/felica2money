@@ -71,7 +71,7 @@ namespace FeliCa2Money
             // 残高
             t.balance = balance;
 
-            // 金額は PostProcess で計算する
+            // 金額は CalcValueFromBalance() で計算する
             t.value = 0;
 
             // 日付

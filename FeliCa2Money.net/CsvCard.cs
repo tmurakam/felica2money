@@ -87,9 +87,6 @@ namespace FeliCa2Money
                 }
             }
 
-            // 読み込み準備
-            rule.Reset();
-
             return true;
         }
 
@@ -97,7 +94,12 @@ namespace FeliCa2Money
         {
             sr.Close();
         }
-            
+
+        private static int compareByDate(Transaction x, Transaction y)
+        {
+            return x.date.CompareTo(y.date);
+        }
+
         // CSV 読み込み処理
         public override List<Transaction> ReadCard()
         {
@@ -115,12 +117,43 @@ namespace FeliCa2Money
                 transactions.Add(t);
             }
 
-            // 順序逆転処理
-            if (!rule.IsAscent)
+            // ソート処理
+            switch (rule.SortOrder)
             {
-                transactions.Reverse();
+                default:
+                case CsvRule.SortAscent:
+                    break;
+
+                case CsvRule.SortDescent:
+                    transactions.Reverse();
+                    break;
+
+                case CsvRule.SortAuto:
+                    transactions.Sort(compareByDate);
+                    break;
             }
 
+            // ID採番
+            int idSerial = 0;
+            DateTime prevDate = new DateTime(1900, 1, 1, 0, 0, 0);
+
+            foreach (Transaction t in transactions)
+            {
+                if (t.id == Transaction.UnassignedId)
+                {
+                    if (t.date == prevDate)
+                    {
+                       idSerial++;
+                    }
+                    else
+                    {
+                        idSerial = 0;
+                        prevDate = t.date;
+                    }
+                    t.id = idSerial;
+                }
+            }
+            
             return transactions;
         }
 

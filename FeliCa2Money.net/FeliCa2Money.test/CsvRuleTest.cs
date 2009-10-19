@@ -35,9 +35,11 @@ namespace FeliCa2Money.test
         public void Order()
         {
             rule.Order = "Ascent";
-            Assert.IsTrue(rule.IsAscent);
+            Assert.AreEqual(rule.SortOrder, CsvRule.SortAscent);
             rule.Order = "Descent";
-            Assert.IsFalse(rule.IsAscent);
+            Assert.AreEqual(rule.SortOrder, CsvRule.SortDescent);
+            rule.Order = "Sort";
+            Assert.AreEqual(rule.SortOrder, CsvRule.SortAuto);
         }
 
         [Test]

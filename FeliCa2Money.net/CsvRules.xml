@@ -111,4 +111,11 @@
     <Format>Id,Date,Memo,Desc,Outgo,Dummy,Dummy</Format>
     <Order>Ascent</Order>
   </Rule>
+
+  <Rule>
+    <Ident>CitiBank</Ident>
+    <Name>シティバンク</Name>
+    <Format>Date,Desc,Income,Id,Dummy</Format>
+    <Order>Descent</Order>
+  </Rule>
 </CsvRules>

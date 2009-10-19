@@ -1,4 +1,4 @@
-■ FeliCa2Money version 2.8
+■ FeliCa2Money version 2.9
 
 ・はじめに
 
@@ -18,7 +18,7 @@ Microsoft Money の電子明細(OFX形式ファイル)に変換するものです。
 
 ・必要環境
 
- - Windows 2000/XP/Vista(x86/x64)
+ - Windows 2000/XP/Vista/Windows 7 (x86/x64)
  - .NET Framework 2.0 以降
  - 内蔵FeliCaポート、またはSONY 非接触 IC カードリーダー/ライター (PaSoRi)
  - PaSoRi 基本ソフトウェア
