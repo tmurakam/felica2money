@@ -3,14 +3,14 @@
 
 [Setup]
 AppName=FeliCa2Money
-AppVerName=FeliCa2Money ver 2.8
+AppVerName=FeliCa2Money ver 2.9
 AppPublisher=Takuya Murakami
 AppPublisherURL=http://moneyimport.sourceforge.jp
 AppSupportURL=http://moneyimport.sourceforge.jp
 AppUpdatesURL=http://moneyimport.sourceforge.jp
 DefaultDirName={pf}\FeliCa2Money
 DefaultGroupName=FeliCa2Money
-LicenseFile=D:\dev\moneyimport\FeliCa2Money.net\Release\2.8\LICENSE.TXT
+LicenseFile=D:\dev\moneyimport\FeliCa2Money.net\Release\2.9\LICENSE.TXT
 OutputBaseFilename=setup
 Compression=lzma
 SolidCompression=yes
@@ -23,12 +23,12 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "D:\dev\moneyimport\FeliCa2Money.net\Release\2.8\FeliCa2Money.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\dev\moneyimport\FeliCa2Money.net\Release\2.8\FeliCa2Money.exe.config"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\dev\moneyimport\FeliCa2Money.net\Release\2.8\felicalib.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\dev\moneyimport\FeliCa2Money.net\Release\2.8\StationCode.mdb"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\dev\moneyimport\FeliCa2Money.net\Release\2.8\FeliCa2Money.html"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\dev\moneyimport\FeliCa2Money.net\Release\2.8\LICENSE.TXT"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\dev\moneyimport\FeliCa2Money.net\Release\2.9\FeliCa2Money.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\dev\moneyimport\FeliCa2Money.net\Release\2.9\FeliCa2Money.exe.config"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\dev\moneyimport\FeliCa2Money.net\Release\2.9\felicalib.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\dev\moneyimport\FeliCa2Money.net\Release\2.9\StationCode.mdb"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\dev\moneyimport\FeliCa2Money.net\Release\2.9\FeliCa2Money.html"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\dev\moneyimport\FeliCa2Money.net\Release\2.9\LICENSE.TXT"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
@@ -38,4 +38,5 @@ Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\FeliCa2Money"; Fil
 
 [Run]
 Filename: "{app}\FeliCa2Money.exe"; Description: "{cm:LaunchProgram,FeliCa2Money}"; Flags: nowait postinstall skipifsilent
+
 
