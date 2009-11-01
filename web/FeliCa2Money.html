@@ -106,7 +106,7 @@ h6
 <body>
 <div id="contents">
 
-<h1>FeliCa2Money ver 2.7.1マニュアル</h1>
+<h1>FeliCa2Money ver 2.9マニュアル</h1>
 
 <h2>はじめに</h2>
 
@@ -118,7 +118,7 @@ FeliCa2Money を使えば、ワンタッチで家計簿の記帳を行えます�
 また、CSV ファイルからの明細の取り込みにも対応しています。
 
 <p>
-現バージョンでは、以下の電子マネーに対応しています。
+現バージョンでは、以下の電子マネーを取り込むことができます。
 
 <ul>
 <li>Edy
@@ -135,7 +135,7 @@ FeliCa2Money を使えば、ワンタッチで家計簿の記帳を行えます�
 以下のものが必要です。
 
 <ul>
-<li>Windows 2000/XP/Vista(x86/x64)
+<li>Windows 2000/XP/Vista/7(x86/x64)
 <li><b>.NET Framework 2.0 以降</b>
 </ul>
 
@@ -169,7 +169,7 @@ FeliCa2Money を使えば、ワンタッチで家計簿の記帳を行えます�
 
 Suica などでは駅名/店舗名が自動的に入力されます。
 駅名/店舗名のデータベースは、<a href="http://www014.upp.so-net.ne.jp/SFCardFan/">IC SFCard Fan</a> で
-配布されているデータベース(2008/2/25版)を使用しています。
+配布されているデータベース(2008/12/22版)を使用しています。
 
 <p>
 データベースを最新のものに入れ替えるには、
@@ -206,7 +206,7 @@ CSV ファイルを作者まで送っていただければ対応します。
 <li>WAON の使用履歴は３件までしか保存されていません。
 </ul>
 
-<h2>ライセンス</h2>
+<h2>ライセンス / Legal Notice</h2>
 
 Copyright (C) 2001-2008 Takuya Murakami, All Rights Reserved.
 <p>
@@ -218,6 +218,26 @@ URL は http://svn.sourceforge.jp/svnroot/moneyimport/trunk/ です。
 <p>
 プロジェクトホームページは <a href="http://sourceforge.jp/projects/moneyimport/">http://sourceforge.jp/projects/moneyimport/</a> にあります。
 
+<p>
+本ソフトウェアは、いくつかの種類の電子マネーを読み込むことができますが、この機能はこれら電子マネーの発行者から公式に認められたものではありません。なお、本ソフトウェアは、これら電子マネーの発行事業者およびその事業といかなる関係もありません。 
+<p>
+本ソフトウェアの動作や記載に関しての正確性に関しては一切の保証をいたしません。At your own risk でお使い下さい。 
+<p>
+
+<font size=-1>
+<ul>
+<li>「FeliCa」「PaSoRi」はソニー株式会社の登録商標です。 
+<li>「Edy」は、ビットワレット株式会社が管理するプリペイド型電子マネーサービスのブランドです。 
+<li>「nanaco」は株式会社アイワイ・カード・サービスの登録商標です。 
+<li>「Suica」はJR東日本の登録商標です。 
+<li>「ICOCA」はJR西日本の登録商標です。 
+<li>「PASMO」は株式会社パスモの登録商標です。 
+<li>「PiTaPa」は、株式会社スルッとKANSAIの登録商標です。 
+<li>「TOICA」は東海旅客鉄道株式会社の登録商標です 
+<li>その他、記載されている会社名および商品・サービス名は、各社の登録商標または商標です。 
+</ul>
+</font>
+
 <h2>謝辞</h2>
 
 駅名/店舗名データベースを提供下さっているでんのすけさん(IC SFCard Fan)に感謝します。
@@ -225,6 +245,16 @@ URL は http://svn.sourceforge.jp/svnroot/moneyimport/trunk/ です。
 <h2>改版履歴</h2>
 
 <pre>
+2009-11-1 : ver 2.9
+	* Edy 取り込み件数が１件少なかった問題を修正
+	* station.mdb を 2008/12/22 版に差し替え
+	* CSV変換: Order に "Sort" を指定できるようにし、一部の CSV で日付
+	  ソートすることで取引IDを正しく付与できるようにした。
+
+2008-05-17 : ver 2.8
+	* バグ修正 : CSV ファイル取り込みが失敗するバグを修正
+	* 駅名/店舗名データベース（StationCode.mdb）を 2008/5/3版にアップデート
+
 2008-04-20 : ver 2.7.1
 	* 一部の駅名が正しく表示されなかった問題を修正
 	* felicalib ver 0.4.1 に置き換え、MSVCRT.dll がない環境で
