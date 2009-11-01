@@ -106,7 +106,7 @@ h6
 <body>
 <div id="contents">
 
-<h1>FeliCa2Money ver 2.8マニュアル</h1>
+<h1>FeliCa2Money ver 2.9マニュアル</h1>
 
 <h2>はじめに</h2>
 
@@ -135,7 +135,7 @@ FeliCa2Money を使えば、ワンタッチで家計簿の記帳を行えます�
 以下のものが必要です。
 
 <ul>
-<li>Windows 2000/XP/Vista(x86/x64)
+<li>Windows 2000/XP/Vista/7(x86/x64)
 <li><b>.NET Framework 2.0 以降</b>
 </ul>
 
@@ -169,7 +169,7 @@ FeliCa2Money を使えば、ワンタッチで家計簿の記帳を行えます�
 
 Suica などでは駅名/店舗名が自動的に入力されます。
 駅名/店舗名のデータベースは、<a href="http://www014.upp.so-net.ne.jp/SFCardFan/">IC SFCard Fan</a> で
-配布されているデータベース(2008/2/25版)を使用しています。
+配布されているデータベース(2008/12/22版)を使用しています。
 
 <p>
 データベースを最新のものに入れ替えるには、
@@ -245,6 +245,12 @@ URL は http://svn.sourceforge.jp/svnroot/moneyimport/trunk/ です。
 <h2>改版履歴</h2>
 
 <pre>
+2009-11-1 : ver 2.9
+	* Edy 取り込み件数が１件少なかった問題を修正
+	* station.mdb を 2008/12/22 版に差し替え
+	* CSV変換: Order に "Sort" を指定できるようにし、一部の CSV で日付
+	  ソートすることで取引IDを正しく付与できるようにした。
+
 2008-05-17 : ver 2.8
 	* バグ修正 : CSV ファイル取り込みが失敗するバグを修正
 	* 駅名/店舗名データベース（StationCode.mdb）を 2008/5/3版にアップデート

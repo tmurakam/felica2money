@@ -222,7 +222,7 @@ namespace FeliCa2Money
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FeliCa2Money ver 2.8";
+            this.Text = "FeliCa2Money ver 2.9";
             this.ResumeLayout(false);
             this.PerformLayout();
 

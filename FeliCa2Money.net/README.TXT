@@ -53,5 +53,5 @@ setup.exe を実行してインストールしてください。
 
 ・作者連絡先
 
-村上　卓弥 : tmurakam@mtd.biglobe.ne.jp, tmurakam@tmurakam.org
+村上　卓弥 : tmurakam@tmurakam.org
 プロジェクトWebサイト: http://felica2money.tmurakam.org
