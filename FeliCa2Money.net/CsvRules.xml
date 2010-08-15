@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CsvRules>
-  <Version>090321.1</Version>
+  <Version>100815.1</Version>
   <Rule>
     <Ident>OFXConverter</Ident>
     <Name>OFXConverter互換</Name>
@@ -52,6 +52,13 @@
     <FirstLine>取引日	照会番号	摘要	お支払金額	お預り金額	残高</FirstLine>
     <Format>Date,Dummy,Desc,Outgo,Income,Balance</Format>
     <Separator>Tab</Separator>
+    <Order>Descent</Order>
+  </Rule>
+
+  <Rule>
+    <Ident>CitiBank</Ident>
+    <Name>シティバンク</Name>
+    <Format>Date,Desc,Income,Id,Dummy</Format>
     <Order>Descent</Order>
   </Rule>
 
@@ -113,9 +120,11 @@
   </Rule>
 
   <Rule>
-    <Ident>CitiBank</Ident>
-    <Name>シティバンク</Name>
-    <Format>Date,Desc,Income,Id,Dummy</Format>
-    <Order>Descent</Order>
+    <Ident>みずほＵＣカード</Ident>
+    <Name>ＵＣカード</Name>
+    <FirstLine>ご利用区分,ご利用日,ご利用者区分,ご利用店,ポイント対象,今回回数,ご利用金額,今回のお支払い金額,備考１,備考２,備考３,備考４,備考５,備考６</FirstLine>
+    <Format>Dummy,Date,Dummy,Desc,Dummy,Dummy,Outgo,Dummy,Dummy,Dummy,Dummy,Dummy,Dummy,Dummy</Format>
+    <Order>Ascent</Order>
   </Rule>
+
 </CsvRules>
