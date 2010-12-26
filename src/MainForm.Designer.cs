@@ -46,6 +46,8 @@ namespace FeliCa2Money
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.buttonWaon = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonEdy
@@ -70,7 +72,7 @@ namespace FeliCa2Money
             // 
             // buttonQuit
             // 
-            this.buttonQuit.Location = new System.Drawing.Point(129, 468);
+            this.buttonQuit.Location = new System.Drawing.Point(133, 538);
             this.buttonQuit.Name = "buttonQuit";
             this.buttonQuit.Size = new System.Drawing.Size(94, 30);
             this.buttonQuit.TabIndex = 7;
@@ -80,7 +82,7 @@ namespace FeliCa2Money
             // 
             // buttonOption
             // 
-            this.buttonOption.Location = new System.Drawing.Point(12, 332);
+            this.buttonOption.Location = new System.Drawing.Point(12, 396);
             this.buttonOption.Name = "buttonOption";
             this.buttonOption.Size = new System.Drawing.Size(58, 58);
             this.buttonOption.TabIndex = 5;
@@ -108,7 +110,7 @@ namespace FeliCa2Money
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(76, 355);
+            this.label5.Location = new System.Drawing.Point(76, 419);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(111, 12);
             this.label5.TabIndex = 13;
@@ -116,7 +118,7 @@ namespace FeliCa2Money
             // 
             // buttonManual
             // 
-            this.buttonManual.Location = new System.Drawing.Point(12, 396);
+            this.buttonManual.Location = new System.Drawing.Point(12, 460);
             this.buttonManual.Name = "buttonManual";
             this.buttonManual.Size = new System.Drawing.Size(58, 58);
             this.buttonManual.TabIndex = 6;
@@ -127,7 +129,7 @@ namespace FeliCa2Money
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(76, 419);
+            this.label6.Location = new System.Drawing.Point(76, 483);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(193, 12);
             this.label6.TabIndex = 14;
@@ -178,6 +180,7 @@ namespace FeliCa2Money
             this.openFileDialog.DefaultExt = "csv";
             this.openFileDialog.FileName = "openFileDialog";
             this.openFileDialog.Filter = "CSVファイル|*.csv|すべてのファイル|*.*";
+            this.openFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog_FileOk);
             // 
             // buttonWaon
             // 
@@ -197,11 +200,31 @@ namespace FeliCa2Money
             this.label3.TabIndex = 11;
             this.label3.Text = "PaSoRiを使って WAON の利用履歴を Microsoft Money に取り込みます。";
             // 
+            // button1
+            // 
+            this.button1.Image = global::FeliCa2Money.Properties.Resources.CSV;
+            this.button1.Location = new System.Drawing.Point(12, 332);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(58, 58);
+            this.button1.TabIndex = 15;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.buttonAGR_Click);
+            // 
+            // label4
+            // 
+            this.label4.Location = new System.Drawing.Point(76, 346);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(266, 28);
+            this.label4.TabIndex = 16;
+            this.label4.Text = "MasterMoney形式(AGR)ファイルを読み込んで Microsoft Money に取り込みます。";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(378, 515);
+            this.ClientSize = new System.Drawing.Size(378, 580);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.buttonWaon);
             this.Controls.Add(this.label9);
@@ -247,6 +270,8 @@ namespace FeliCa2Money
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.Button buttonWaon;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label4;
     }
 }
 

@@ -85,6 +85,7 @@ namespace FeliCa2Money
             CsvCard csv = new CsvCard();
             if (!csv.LoadAllRules()) return;
 
+            openFileDialog.Filter = "CSVファイル|*.csv|すべてのファイル|*.*";
             if (openFileDialog.ShowDialog() != DialogResult.OK) return;
 
             try
@@ -99,6 +100,27 @@ namespace FeliCa2Money
              
             doReadAndConvert(csv);
             csv.Close();
+        }
+
+        private void buttonAGR_Click(object sender, EventArgs e)
+        {
+            // AGR ファイル読み込み
+            AgrFile agr = new AgrFile();
+
+            openFileDialog.Filter = "AGRファイル|*.agr|すべてのファイル|*.*";
+            if (openFileDialog.ShowDialog() != DialogResult.OK) return;
+
+            try
+            {
+                if (agr.loadFromFile(openFileDialog.FileName) == false) return;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, Properties.Resources.Error);
+                return;
+            }
+
+            doConvert(agr.cards);
         }
 
         private void doReadAndConvert(Card c)
@@ -147,6 +169,13 @@ namespace FeliCa2Money
 
         private void doConvert(Card c)
         {
+            List<Card> cards = new List<Card>();
+            cards.Add(c);
+            doConvert(cards);
+        }
+
+        private void doConvert(List<Card> cards)
+        {
             // OFX ファイルパス指定
             String ofxFilePath;
             if (Properties.Settings.Default.ManualOfxPath)
@@ -178,7 +207,7 @@ namespace FeliCa2Money
             }
 
             ofx.SetOfxFilePath(ofxFilePath);
-            ofx.WriteFile(c);
+            ofx.WriteFile(cards);
 
             // Money 起動
             if (Properties.Settings.Default.AutoKickOfxFile)
