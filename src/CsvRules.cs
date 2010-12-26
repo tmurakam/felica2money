@@ -119,7 +119,7 @@ namespace FeliCa2Money
                             rule.Name = value;
                             break;
                         case "BankId":
-                            rule.BankId = int.Parse(value);
+                            rule.BankId = value;
                             break;
                         case "FirstLine":
                             rule.FirstLine = value;

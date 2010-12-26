@@ -29,7 +29,7 @@ namespace FeliCa2Money
     public abstract class Card
     {
         protected string mIdent;              // 組織名
-        protected int mBankId = 0;          // 銀行番号
+        protected string mBankId = "Felica2Money";  // 銀行ID
         protected string mBranchId = "0";   // 支店番号
         protected string mAccountId = "";   // 口座番号
         protected string mCardName;         // カード名
@@ -42,7 +42,7 @@ namespace FeliCa2Money
             get { return mIdent; }
         }
 
-        public int bankId
+        public string bankId
         {
             get { return mBankId; }
         }

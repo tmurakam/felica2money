@@ -134,7 +134,7 @@ namespace FeliCa2Money
             string accountId = columns[2];
 
             mIdent = bankName;
-            mBankId = getDummyId(bankName);
+            mBankId = bankName;
             mBranchId = getDummyId(branchName).ToString();
             mAccountId = accountId;
 

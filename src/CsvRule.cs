@@ -36,7 +36,7 @@ namespace FeliCa2Money
         public const int SortAuto = 2;
 
         private string ident;    // 識別子(組織名)
-        private int bankId;      // 銀行ID
+        private string bankId;      // 銀行ID
         private string name;     // 銀行名
         private string firstLine = null; // １行目
         private int sortOrder; // ソートオーダー
@@ -51,7 +51,7 @@ namespace FeliCa2Money
             get { return ident; }
             set { ident = value; }
         }
-        public int BankId {
+        public string BankId {
             get { return bankId; }
             set { bankId = value; }
         }

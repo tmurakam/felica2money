@@ -180,7 +180,6 @@ namespace FeliCa2Money
             this.openFileDialog.DefaultExt = "csv";
             this.openFileDialog.FileName = "openFileDialog";
             this.openFileDialog.Filter = "CSVファイル|*.csv|すべてのファイル|*.*";
-
             // 
             // buttonWaon
             // 
@@ -245,7 +244,7 @@ namespace FeliCa2Money
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FeliCa2Money ver 2.9";
+            this.Text = "FeliCa2Money ver 3.0 beta 1";
             this.ResumeLayout(false);
             this.PerformLayout();
 

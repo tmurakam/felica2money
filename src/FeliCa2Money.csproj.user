@@ -10,6 +10,7 @@
     </BootstrapperUrlHistory>
     <FallbackCulture>ja-JP</FallbackCulture>
     <VerifyUploadedFiles>false</VerifyUploadedFiles>
+    <ErrorReportUrlHistory />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <StartWorkingDirectory>.\</StartWorkingDirectory>
