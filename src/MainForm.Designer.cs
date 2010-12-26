@@ -180,7 +180,7 @@ namespace FeliCa2Money
             this.openFileDialog.DefaultExt = "csv";
             this.openFileDialog.FileName = "openFileDialog";
             this.openFileDialog.Filter = "CSVファイル|*.csv|すべてのファイル|*.*";
-            this.openFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog_FileOk);
+
             // 
             // buttonWaon
             // 

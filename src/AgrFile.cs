@@ -69,14 +69,17 @@ namespace FeliCa2Money
             {
                 switch (state) {
                     case State.SearchingStart:
-                        if (line.StartsWith("<START_")) {
+                        if (line.StartsWith("<START_CP")) {
                             state = State.ReadAccountInfo;
                         }
                         break;
 
                     case State.ReadAccountInfo:
                         card = new AgrCard();
-                        card.readAccountInfo(line);
+                        if (!card.readAccountInfo(line))
+                        {
+                            return false;
+                        }
                         state = State.ReadTransactions;
                         break;
 
@@ -88,7 +91,11 @@ namespace FeliCa2Money
                         }
                         else
                         {
-                            card.readTransaction(line);
+                            if (!card.readTransaction(line))
+                            {
+                                // 解析エラー: この口座は無視する
+                                state = State.SearchingStart;
+                            }
                         }
                         break;
                 }
@@ -161,18 +168,41 @@ namespace FeliCa2Money
 
             // 日付の処理
             string[] ary = columns[0].Split(new char[] { '/' });
-            if (ary.Length != 3) return false;
-            transaction.date = new DateTime(int.Parse(ary[0]), int.Parse(ary[1]), int.Parse(ary[2]), 0, 0, 0);
+            if (ary.Length == 3)
+            {
+                transaction.date = new DateTime(int.Parse(ary[0]), int.Parse(ary[1]), int.Parse(ary[2]), 0, 0, 0);
+            }
+            else if (ary.Length == 2)
+            {
+                // 月と日のみ。年は推定する。
+                DateTime now = DateTime.Now;
+                int mm = int.Parse(ary[0]);
+                int dd = int.Parse(ary[1]);
+
+                DateTime d = new DateTime(now.Year, mm, dd, 0, 0, 0);
+
+                // ３ヶ月以上先の場合、昨年とみなす。
+                TimeSpan ts = d - now;
+                if (ts.TotalDays > 90) {
+                    d = new DateTime(now.Year - 1, mm, dd, 0, 0, 0);
+                }
+                transaction.date = d;
+            }
+            else
+            {
+                return false;
+            }
+            
 
             // 摘要
             transaction.desc = columns[1];
 
             // 入金額/出金額
-            if (columns[2] != "--")
+            if (columns[2] != "--" && columns[2] != "*")
             {
                 transaction.value = int.Parse(columns[2]);
             }
-            else if (columns[4] != "--")
+            else if (columns[4] != "--" && columns[4] != "*")
             {
                 transaction.value = -int.Parse(columns[4]);
             }
@@ -182,14 +212,11 @@ namespace FeliCa2Money
             }
 
             // 残高
-            if (columns[6] != "--")
+            if (columns[6] != "--" && columns[6] != "*")
             {
                 transaction.balance = int.Parse(columns[6]);
             }
-            else
-            {
-                return false;
-            }
+            // Note: 残高は入っていない場合もある
 
             // ID採番
             transaction.id = 0;

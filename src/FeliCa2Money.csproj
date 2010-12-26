@@ -69,6 +69,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AgrFile.cs" />
     <Compile Include="Card.cs" />
     <Compile Include="card\Edy.cs" />
     <Compile Include="card\Nanaco.cs" />

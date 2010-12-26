@@ -85,6 +85,7 @@ namespace FeliCa2Money
             CsvCard csv = new CsvCard();
             if (!csv.LoadAllRules()) return;
 
+            openFileDialog.DefaultExt = "csv";
             openFileDialog.Filter = "CSVファイル|*.csv|すべてのファイル|*.*";
             if (openFileDialog.ShowDialog() != DialogResult.OK) return;
 
@@ -107,12 +108,17 @@ namespace FeliCa2Money
             // AGR ファイル読み込み
             AgrFile agr = new AgrFile();
 
+            openFileDialog.DefaultExt = "agr";
             openFileDialog.Filter = "AGRファイル|*.agr|すべてのファイル|*.*";
             if (openFileDialog.ShowDialog() != DialogResult.OK) return;
 
             try
             {
-                if (agr.loadFromFile(openFileDialog.FileName) == false) return;
+                if (agr.loadFromFile(openFileDialog.FileName) == false)
+                {
+                    MessageBox.Show("フォーマットエラー");
+                    return;
+                }
             }
             catch (Exception ex)
             {
