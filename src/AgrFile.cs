@@ -60,7 +60,7 @@ namespace FeliCa2Money
             }
 
             mCards = new List<Card>();
-            AgrCard card = null;
+            AgrAccount card = null;
 
             // 行をパースする
             State state = State.SearchingStart;
@@ -75,7 +75,7 @@ namespace FeliCa2Money
                         break;
 
                     case State.ReadAccountInfo:
-                        card = new AgrCard();
+                        card = new AgrAccount();
                         if (!card.readAccountInfo(line))
                         {
                             return false;
@@ -104,9 +104,9 @@ namespace FeliCa2Money
         }
     }
 
-    class AgrCard : Card
+    class AgrAccount : Card
     {
-        public AgrCard()
+        public AgrAccount()
         {
             mTransactions = new List<Transaction>();
         }
@@ -120,11 +120,11 @@ namespace FeliCa2Money
         {
             string[] columns = SplitCsv(line);
 
-            if (columns.Length != 5)
+            if (columns.Length < 3)
             {
                 return false;
             }
-            if (columns[4] != "JPY")
+            if (columns.Length >= 5 && columns[4] != "JPY")
             {
                 return false;
             }
@@ -154,12 +154,7 @@ namespace FeliCa2Money
         public bool readTransaction(string line)
         {
             string[] columns = SplitCsv(line);
-            if (columns.Length != 8)
-            {
-                return false;
-            }
-            // 通貨チェック
-            if (columns[3] != "JPY" || columns[5] != "JPY" || columns[7] != "JPY")
+            if (columns.Length < 8)
             {
                 return false;
             }
@@ -198,11 +193,11 @@ namespace FeliCa2Money
             transaction.desc = columns[1];
 
             // 入金額/出金額
-            if (columns[2] != "--" && columns[2] != "*")
+            if (columns[2] != "" && columns[2] != "--" && columns[2] != "*")
             {
                 transaction.value = int.Parse(columns[2]);
             }
-            else if (columns[4] != "--" && columns[4] != "*")
+            else if (columns[4] != "" && columns[4] != "--" && columns[4] != "*")
             {
                 transaction.value = -int.Parse(columns[4]);
             }
@@ -212,7 +207,7 @@ namespace FeliCa2Money
             }
 
             // 残高
-            if (columns[6] != "--" && columns[6] != "*")
+            if (columns[6] != "" && columns[6] != "--" && columns[6] != "*")
             {
                 transaction.balance = int.Parse(columns[6]);
             }
