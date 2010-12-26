@@ -186,7 +186,8 @@ namespace FeliCa2Money
         {
             string path = getRulesPath() + "\\CsvRules.xml";
             //string url = "http://moneyimport.sourceforge.jp/CsvRules.xml";
-            string url = "http://svn.sourceforge.jp/svnroot/moneyimport/trunk/FeliCa2Money.net/CsvRules.xml";
+            //string url = "http://svn.sourceforge.jp/svnroot/moneyimport/trunk/FeliCa2Money.net/CsvRules.xml";
+            string url = "https://github.com/tmurakam/felica2money/raw/master/src/CsvRules.xml";
 
             WebClient w = new WebClient();
             try
