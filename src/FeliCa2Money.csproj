@@ -143,6 +143,7 @@
     <None Include="Resources\Suica.bmp" />
     <None Include="Resources\Edy.bmp" />
     <None Include="Resources\CSV.bmp" />
+    <Content Include="Resources\Agurippa.gif" />
     <Content Include="Resources\Nanaco.bmp" />
     <None Include="Resources\waon.bmp" />
     <None Include="Resources\train.bmp" />

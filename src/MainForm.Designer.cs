@@ -201,7 +201,7 @@ namespace FeliCa2Money
             // 
             // button1
             // 
-            this.button1.Image = global::FeliCa2Money.Properties.Resources.CSV;
+            this.button1.Image = global::FeliCa2Money.Properties.Resources.Agurippa;
             this.button1.Location = new System.Drawing.Point(12, 332);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(58, 58);
@@ -215,7 +215,7 @@ namespace FeliCa2Money
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(266, 28);
             this.label4.TabIndex = 16;
-            this.label4.Text = "MasterMoney形式(AGR)ファイルを読み込んで Microsoft Money に取り込みます。";
+            this.label4.Text = "Agurippa電子明細ファイルを読み込んで Microsoft Money に取り込みます。";
             // 
             // MainForm
             // 
