@@ -32,18 +32,16 @@ namespace FeliCa2Money
     {
         private XmlDocument doc;
 
-        public override void WriteFile(Card card)
+        public override void WriteFile(List<Card> cards)
         {
-            XmlDocument d = Generate(card);
-            d.Save(ofxFilePath);
+            XmlDocument d = Generate(cards);
+            d.Save(mOfxFilePath);
         }
 
         // OFX 2 ドキュメント生成
-        private XmlDocument Generate(Card card)
+        private XmlDocument Generate(List<Card> cards)
         {
-            List<Transaction> transactions = card.transactions;
-            Transaction first = transactions[0];
-            Transaction last = transactions[transactions.Count - 1];
+            getFirstLastDate(cards);
 
             // XML ドキュメント生成
             doc = new XmlDocument();
@@ -65,65 +63,78 @@ namespace FeliCa2Money
             XmlElement status = appendElement(sonrs, "STATUS");
             appendElementWithText(status, "CODE", "0");
             appendElementWithText(status, "SEVERITY", "INFO");
-            appendElementWithText(sonrs, "DTSERVER", dateStr(last.date));
+            appendElementWithText(sonrs, "DTSERVER", dateStr(mAllLast.date));
             appendElementWithText(sonrs, "LANGUAGE", "JPN");
             XmlElement fi = appendElement(sonrs, "FI");
-            appendElementWithText(fi, "ORG", card.ident);
+            if (cards.Count == 1)
+            {
+                appendElementWithText(fi, "ORG", cards[0].ident);
+            }
+            else
+            {
+                appendElementWithText(fi, "ORG", "FeliCa2Money");
+            }
             // FITIDは？
 
             /* 口座情報(バンクメッセージレスポンス) */
             XmlElement bankMsgSrsv1 = appendElement(root, "BANKMSGSRSV1");
 
-            /* 預金口座型明細情報作成 */
-            XmlElement stmttrnrs = appendElement(bankMsgSrsv1, "STMTTRNRS");
-            appendElementWithText(stmttrnrs, "TRNUID", "0");
-
-            status = appendElement(stmttrnrs, "STATUS");
-            appendElementWithText(status, "CODE", "0");
-            appendElementWithText(status, "SEVERITY", "INFO");
-
-            /* STMTRS */
-            XmlElement stmtrs = appendElement(stmttrnrs, "STMTRS");
-            appendElementWithText(stmtrs, "CURDEF", "JPY");
-
-            // 口座番号など
-            XmlElement bankacctfrom = doc.CreateElement("BANKACCTFROM");
-            stmtrs.AppendChild(bankacctfrom);
-
-            appendElementWithText(bankacctfrom, "BANKID", card.bankId.ToString());            
-            appendElementWithText(bankacctfrom, "BRANCHID", card.branchId);
-            appendElementWithText(bankacctfrom, "ACCTID", card.accountId);
-            appendElementWithText(bankacctfrom, "ACCTTYPE", "SAVINGS");
-
-            /* 明細情報開始(バンクトランザクションリスト) */
-            XmlElement banktranlist = appendElement(stmtrs, "BANKTRANLIST");
-
-            appendElementWithText(banktranlist, "DTSTART", dateStr(first.date));
-            appendElementWithText(banktranlist, "DTEND", dateStr(last.date));            
-
-            /* トランザクション */
-            foreach (Transaction t in transactions)
+            foreach (Card card in cards)
             {
-                XmlElement stmttrn = appendElement(banktranlist, "STMTTRN");
+                Transaction first = card.transactions[0];
+                Transaction last = card.transactions[card.transactions.Count - 1];
 
-                appendElementWithText(stmttrn, "TRNTYPE", t.GetTransString());
-                appendElementWithText(stmttrn, "DTPOSTED", dateStr(t.date));
-                appendElementWithText(stmttrn, "TRNAMT", t.value.ToString());
-                
-                // トランザクションの ID は日付と取引番号で生成
-                appendElementWithText(stmttrn, "FITID", transId(t));
-                appendElementWithText(stmttrn, "NAME", quoteString(t.desc));
-                if (t.memo != null)
+                /* 預金口座型明細情報作成 */
+                XmlElement stmttrnrs = appendElement(bankMsgSrsv1, "STMTTRNRS");
+                appendElementWithText(stmttrnrs, "TRNUID", "0");
+
+                status = appendElement(stmttrnrs, "STATUS");
+                appendElementWithText(status, "CODE", "0");
+                appendElementWithText(status, "SEVERITY", "INFO");
+
+                /* STMTRS */
+                XmlElement stmtrs = appendElement(stmttrnrs, "STMTRS");
+                appendElementWithText(stmtrs, "CURDEF", "JPY");
+
+                // 口座番号など
+                XmlElement bankacctfrom = doc.CreateElement("BANKACCTFROM");
+                stmtrs.AppendChild(bankacctfrom);
+
+                appendElementWithText(bankacctfrom, "BANKID", card.bankId.ToString());
+                appendElementWithText(bankacctfrom, "BRANCHID", card.branchId);
+                appendElementWithText(bankacctfrom, "ACCTID", card.accountId);
+                appendElementWithText(bankacctfrom, "ACCTTYPE", "SAVINGS");
+
+                /* 明細情報開始(バンクトランザクションリスト) */
+                XmlElement banktranlist = appendElement(stmtrs, "BANKTRANLIST");
+
+                appendElementWithText(banktranlist, "DTSTART", dateStr(first.date));
+                appendElementWithText(banktranlist, "DTEND", dateStr(last.date));
+
+                /* トランザクション */
+                foreach (Transaction t in card.transactions)
                 {
-                    appendElementWithText(stmttrn, "MEMO", quoteString(t.memo));
+                    XmlElement stmttrn = appendElement(banktranlist, "STMTTRN");
+
+                    appendElementWithText(stmttrn, "TRNTYPE", t.GetTransString());
+                    appendElementWithText(stmttrn, "DTPOSTED", dateStr(t.date));
+                    appendElementWithText(stmttrn, "TRNAMT", t.value.ToString());
+
+                    // トランザクションの ID は日付と取引番号で生成
+                    appendElementWithText(stmttrn, "FITID", transId(t));
+                    appendElementWithText(stmttrn, "NAME", quoteString(t.desc));
+                    if (t.memo != null)
+                    {
+                        appendElementWithText(stmttrn, "MEMO", quoteString(t.memo));
+                    }
                 }
+
+                /* 残高 */
+                XmlElement ledgerbal = appendElement(stmtrs, "LEDGERBAL");
+
+                appendElementWithText(ledgerbal, "BALAMT", last.balance.ToString());
+                appendElementWithText(ledgerbal, "DTASOF", dateStr(last.date));
             }
-
-            /* 残高 */
-            XmlElement ledgerbal = appendElement(stmtrs, "LEDGERBAL");
-
-            appendElementWithText(ledgerbal, "BALAMT", last.balance.ToString());
-            appendElementWithText(ledgerbal, "DTASOF", dateStr(last.date));
 
             return doc;
         }

@@ -33,7 +33,9 @@ namespace FeliCa2Money
 {
     class OfxFile
     {
-        protected string ofxFilePath;
+        protected string mOfxFilePath;
+
+        protected Transaction mAllFirst, mAllLast;
 
         public OfxFile()
         {
@@ -41,7 +43,7 @@ namespace FeliCa2Money
 
         public void SetOfxFilePath(String path)
         {
-            ofxFilePath = path;
+            mOfxFilePath = path;
         }
 
         protected string dateStr(DateTime d)
@@ -70,13 +72,41 @@ namespace FeliCa2Money
             return s;
         }
 
-        public virtual void WriteFile(Card card)
+        // 最初のトランザクションと最後のトランザクションを取り出しておく
+        // (日付範囲取得のため)
+        protected void getFirstLastDate(List<Card> cards)
         {
-            List<Transaction> transactions = card.transactions;
-            Transaction first = transactions[0];
-            Transaction last = transactions[transactions.Count - 1];
+            mAllFirst = null;
+            mAllLast = null;
+            foreach (Card card in cards) {
+                Transaction t;
+                t = card.transactions[0];
+                if (mAllFirst == null || t.date < mAllFirst.date)
+                {
+                    mAllFirst = t;
+                }
 
-            StreamWriter w = new StreamWriter(ofxFilePath, false); //, Encoding.UTF8);
+                t = card.transactions[card.transactions.Count - 1];
+                if (mAllLast == null || t.date > mAllLast.date)
+                {
+                    mAllLast = t;
+                }
+            }
+
+        }
+
+        public void WriteFile(Card card)
+        {
+            List<Card> cards = new List<Card>();
+            cards.Add(card);
+            WriteFile(cards);
+        }
+
+        public virtual void WriteFile(List<Card> cards)
+        {
+            getFirstLastDate(cards);
+
+            StreamWriter w = new StreamWriter(mOfxFilePath, false); //, Encoding.UTF8);
             w.NewLine = "\n";
 
             w.WriteLine("OFXHEADER:100");
@@ -98,11 +128,19 @@ namespace FeliCa2Money
             w.WriteLine("    <CODE>0");
             w.WriteLine("    <SEVERITY>INFO");
             w.WriteLine("  </STATUS>");
-            w.WriteLine("  <DTSERVER>{0}", dateStr(last.date));
+            w.WriteLine("  <DTSERVER>{0}", dateStr(mAllLast.date));
 
             w.WriteLine("  <LANGUAGE>JPN");
             w.WriteLine("  <FI>");
-            w.WriteLine("    <ORG>{0}", card.ident);
+            if (cards.Count == 1)
+            {
+                w.WriteLine("    <ORG>{0}", cards[0].ident);
+            }
+            else
+            {
+                // 複数アカウントなので、組織名は固定
+                w.WriteLine("    <ORG>FeliCa2Money");
+            }
             w.WriteLine("  </FI>");
             w.WriteLine("</SONRS>");
             w.WriteLine("</SIGNONMSGSRSV1>");
@@ -110,58 +148,65 @@ namespace FeliCa2Money
             /* 口座情報(バンクメッセージレスポンス) */
             w.WriteLine("<BANKMSGSRSV1>");
 
-            /* 預金口座型明細情報作成 */
-            w.WriteLine("<STMTTRNRS>");
-            w.WriteLine("<TRNUID>0");
-            w.WriteLine("<STATUS>");
-            w.WriteLine("  <CODE>0");
-            w.WriteLine("  <SEVERITY>INFO");
-            w.WriteLine("</STATUS>");
-
-            w.WriteLine("<STMTRS>");
-            w.WriteLine("  <CURDEF>JPY");
-
-            w.WriteLine("  <BANKACCTFROM>");
-            w.WriteLine("    <BANKID>{0}", card.bankId);
-            w.WriteLine("    <BRANCHID>{0}", card.branchId);
-            w.WriteLine("    <ACCTID>{0}", card.accountId);
-            w.WriteLine("    <ACCTTYPE>SAVINGS");
-            w.WriteLine("  </BANKACCTFROM>");
-
-            /* 明細情報開始(バンクトランザクションリスト) */
-            w.WriteLine("  <BANKTRANLIST>");
-            w.WriteLine("    <DTSTART>{0}", dateStr(first.date));
-            w.WriteLine("    <DTEND>{0}", dateStr(last.date));
-
-            /* トランザクション */
-            foreach (Transaction t in transactions)
+            foreach (Card card in cards)
             {
-                w.WriteLine("    <STMTTRN>");
-                w.WriteLine("      <TRNTYPE>{0}", t.GetTransString());
-                w.WriteLine("      <DTPOSTED>{0}", dateStr(t.date));
-                w.WriteLine("      <TRNAMT>{0}", t.value);
+                Transaction first = card.transactions[0];
+                Transaction last = card.transactions[card.transactions.Count - 1];
 
-                /* トランザクションの ID は日付と取引番号で生成 */
-                w.WriteLine("      <FITID>{0}", transId(t));
-                w.WriteLine("      <NAME>{0}", quoteString(t.desc));
-                if (t.memo != null)
+                /* 預金口座型明細情報作成 */
+                w.WriteLine("<STMTTRNRS>");
+                w.WriteLine("<TRNUID>0");
+                w.WriteLine("<STATUS>");
+                w.WriteLine("  <CODE>0");
+                w.WriteLine("  <SEVERITY>INFO");
+                w.WriteLine("</STATUS>");
+
+                w.WriteLine("<STMTRS>");
+                w.WriteLine("  <CURDEF>JPY");
+
+                w.WriteLine("  <BANKACCTFROM>");
+                w.WriteLine("    <BANKID>{0}", card.bankId);
+                w.WriteLine("    <BRANCHID>{0}", card.branchId);
+                w.WriteLine("    <ACCTID>{0}", card.accountId);
+                w.WriteLine("    <ACCTTYPE>SAVINGS");
+                w.WriteLine("  </BANKACCTFROM>");
+
+                /* 明細情報開始(バンクトランザクションリスト) */
+                w.WriteLine("  <BANKTRANLIST>");
+                w.WriteLine("    <DTSTART>{0}", dateStr(first.date));
+                w.WriteLine("    <DTEND>{0}", dateStr(last.date));
+
+                /* トランザクション */
+                foreach (Transaction t in card.transactions)
                 {
-                    w.WriteLine("      <MEMO>{0}", quoteString(t.memo));
+                    w.WriteLine("    <STMTTRN>");
+                    w.WriteLine("      <TRNTYPE>{0}", t.GetTransString());
+                    w.WriteLine("      <DTPOSTED>{0}", dateStr(t.date));
+                    w.WriteLine("      <TRNAMT>{0}", t.value);
+
+                    /* トランザクションの ID は日付と取引番号で生成 */
+                    w.WriteLine("      <FITID>{0}", transId(t));
+                    w.WriteLine("      <NAME>{0}", quoteString(t.desc));
+                    if (t.memo != null)
+                    {
+                        w.WriteLine("      <MEMO>{0}", quoteString(t.memo));
+                    }
+                    w.WriteLine("    </STMTTRN>");
                 }
-                w.WriteLine("    </STMTTRN>");
+
+                w.WriteLine("  </BANKTRANLIST>");
+
+                /* 残高 */
+                w.WriteLine("  <LEDGERBAL>");
+                w.WriteLine("    <BALAMT>{0}", last.balance);
+                w.WriteLine("    <DTASOF>{0}", dateStr(last.date));
+                w.WriteLine("  </LEDGERBAL>");
+
+                w.WriteLine("  </STMTRS>");
+                w.WriteLine("</STMTTRNRS>");
             }
 
-            w.WriteLine("  </BANKTRANLIST>");
-
-            /* 残高 */
-            w.WriteLine("  <LEDGERBAL>");
-            w.WriteLine("    <BALAMT>{0}", last.balance);
-            w.WriteLine("    <DTASOF>{0}", dateStr(last.date));
-            w.WriteLine("  </LEDGERBAL>");
-
             /* OFX 終了 */
-            w.WriteLine("  </STMTRS>");
-            w.WriteLine("</STMTTRNRS>");
             w.WriteLine("</BANKMSGSRSV1>");
             w.WriteLine("</OFX>");
 
@@ -171,7 +216,7 @@ namespace FeliCa2Money
 
         public void Execute()
         {
-            System.Diagnostics.Process.Start(ofxFilePath);
+            System.Diagnostics.Process.Start(mOfxFilePath);
         }
     }
 }
