@@ -60,6 +60,13 @@ namespace FeliCa2Money.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap Agurippa {
+            get {
+                object obj = ResourceManager.GetObject("Agurippa", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         /// <summary>
         ///   日付文字列解析失敗 に類似しているローカライズされた文字列を検索します。
         /// </summary>

@@ -117,12 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Confirm" xml:space="preserve">
+    <value>確認</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="Felica2Money" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Felica2Money.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Nanaco" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Nanaco.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Edy" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Edy.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -130,26 +130,11 @@
   <data name="CSV" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CSV.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="CantParseDateStr" xml:space="preserve">
+    <value>日付文字列解析失敗</value>
+  </data>
   <data name="Suica" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Suica.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="waon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\waon.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="CardReadError" xml:space="preserve">
-    <value>カードを読むことができませんでした</value>
-  </data>
-  <data name="Confirm" xml:space="preserve">
-    <value>確認</value>
-  </data>
-  <data name="CsvRuleError" xml:space="preserve">
-    <value>定義ファイルエラー</value>
-  </data>
-  <data name="Error" xml:space="preserve">
-    <value>エラー</value>
-  </data>
-  <data name="NoCsvRuleSelected" xml:space="preserve">
-    <value>CSV変換ルールが選択されていません</value>
   </data>
   <data name="NoHistory" xml:space="preserve">
     <value>履歴が一件もありません</value>
@@ -157,16 +142,35 @@
   <data name="QueryCsvRuleDownload" xml:space="preserve">
     <value>CSV変換定義がありません。今すぐダウンロードしますか？</value>
   </data>
-  <data name="UpdateCompleted" xml:space="preserve">
-    <value>更新完了</value>
-  </data>
-  <data name="CantParseDateStr" xml:space="preserve">
-    <value>日付文字列解析失敗</value>
+  <data name="CsvRuleError" xml:space="preserve">
+    <value>定義ファイルエラー</value>
   </data>
   <data name="CantReadCardNo" xml:space="preserve">
     <value>カード番号を読み取れません</value>
   </data>
+  <data name="Error" xml:space="preserve">
+    <value>エラー</value>
+  </data>
+  <data name="NoCsvRuleSelected" xml:space="preserve">
+    <value>CSV変換ルールが選択されていません</value>
+  </data>
   <data name="train" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\train.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="waon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\waon.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="UpdateCompleted" xml:space="preserve">
+    <value>更新完了</value>
+  </data>
+  <data name="Nanaco" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Nanaco.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CardReadError" xml:space="preserve">
+    <value>カードを読むことができませんでした</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Agurippa" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Agurippa.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
