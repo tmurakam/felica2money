@@ -52,7 +52,7 @@ namespace FeliCa2Money
         {
             using (Edy edy = new Edy())
             {
-                doConvert(edy);
+                doReadAndConvert(edy);
             }
         }
 
@@ -60,7 +60,7 @@ namespace FeliCa2Money
         {
             using (Suica suica = new Suica())
             {
-                doConvert(suica);
+                doReadAndConvert(suica);
             }
         }
 
@@ -68,7 +68,7 @@ namespace FeliCa2Money
         {
             using(Nanaco nanaco = new Nanaco())
             {
-                doConvert(nanaco);
+                doReadAndConvert(nanaco);
             }
         }
 
@@ -76,7 +76,7 @@ namespace FeliCa2Money
         {
             using (Waon waon = new Waon())
             {
-                doConvert(waon);
+                doReadAndConvert(waon);
             }
         }
 
@@ -97,45 +97,56 @@ namespace FeliCa2Money
                 return;
             }
              
-            doConvert(csv);
+            doReadAndConvert(csv);
             csv.Close();
         }
 
-        private void doConvert(Card c)
+        private void doReadAndConvert(Card c)
         {
-            List<Transaction> list;
+            if (doRead(c))
+            {
+                doConvert(c);
+            }
+        }
 
+        // カードを読み込む
+        // カードが正常に読み取られ、１件以上有効な取引があれば、true を返す。
+        private bool doRead(Card c)
+        {
             try
             {
-                list = c.ReadCard();
+                c.ReadCard();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, Properties.Resources.Error);
-                return;
+                return false;
             }
-
-            if (list == null)
+            if (c.transactions == null)
             {
                 MessageBox.Show(Properties.Resources.CardReadError, Properties.Resources.Error);
-                return;
+                return false;
             }
 
             // 無効な取引を削除する
-            list.RemoveAll(Transaction.isInvalid);
+            c.transactions.RemoveAll(Transaction.isInvalid);
 
             // 0円の取引を削除する
             if (Properties.Settings.Default.IgnoreZeroTransaction)
             {
-                list.RemoveAll(Transaction.isZeroTransaction);
+                c.transactions.RemoveAll(Transaction.isZeroTransaction);
             }
 
-            if (list.Count == 0)
+            if (c.transactions.Count == 0)
             {
                 MessageBox.Show(Properties.Resources.NoHistory, Properties.Resources.Error);
-                return;
+                return false;
             }
+            return true;
+        }
 
+        private void doConvert(Card c)
+        {
             // OFX ファイルパス指定
             String ofxFilePath;
             if (Properties.Settings.Default.ManualOfxPath)
@@ -167,7 +178,7 @@ namespace FeliCa2Money
             }
 
             ofx.SetOfxFilePath(ofxFilePath);
-            ofx.WriteFile(c, list);
+            ofx.WriteFile(c);
 
             // Money 起動
             if (Properties.Settings.Default.AutoKickOfxFile)

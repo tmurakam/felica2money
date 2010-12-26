@@ -29,8 +29,8 @@ namespace FeliCa2Money
     {
         public    Nanaco()
         {
-            ident       = "Nanaco";
-            cardName    = "Nanaco";
+            mIdent       = "Nanaco";
+            mCardName    = "Nanaco";
 
             systemCode  = (int)SystemCode.Common;
             serviceCode = 0x564f;
@@ -46,7 +46,7 @@ namespace FeliCa2Money
                 return false;
             }
 
-            accountId = binString(data, 0, 8);
+            mAccountId = binString(data, 0, 8);
 
             return true;
         }

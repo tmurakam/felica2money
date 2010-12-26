@@ -31,8 +31,8 @@ namespace FeliCa2Money
     {
         public Waon()
         {
-            ident       = "WAON";
-            cardName    = "WAON";
+            mIdent       = "WAON";
+            mCardName    = "WAON";
 
             systemCode  = (int)SystemCode.Common;
             serviceCode = 0x680b;
@@ -53,7 +53,7 @@ namespace FeliCa2Money
                 return false;
             }
 
-            accountId = binString(data, 12, 4) + binString(data2, 0, 4);
+            mAccountId = binString(data, 12, 4) + binString(data2, 0, 4);
 
             return true;
         }

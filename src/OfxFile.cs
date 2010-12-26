@@ -70,8 +70,9 @@ namespace FeliCa2Money
             return s;
         }
 
-        public virtual void WriteFile(Card card,  List<Transaction> transactions)
+        public virtual void WriteFile(Card card)
         {
+            List<Transaction> transactions = card.transactions;
             Transaction first = transactions[0];
             Transaction last = transactions[transactions.Count - 1];
 
@@ -101,7 +102,7 @@ namespace FeliCa2Money
 
             w.WriteLine("  <LANGUAGE>JPN");
             w.WriteLine("  <FI>");
-            w.WriteLine("    <ORG>{0}", card.Ident);
+            w.WriteLine("    <ORG>{0}", card.ident);
             w.WriteLine("  </FI>");
             w.WriteLine("</SONRS>");
             w.WriteLine("</SIGNONMSGSRSV1>");
@@ -121,9 +122,9 @@ namespace FeliCa2Money
             w.WriteLine("  <CURDEF>JPY");
 
             w.WriteLine("  <BANKACCTFROM>");
-            w.WriteLine("    <BANKID>{0}", card.BankId);
-            w.WriteLine("    <BRANCHID>{0}", card.BranchId);
-            w.WriteLine("    <ACCTID>{0}", card.AccountId);
+            w.WriteLine("    <BANKID>{0}", card.bankId);
+            w.WriteLine("    <BRANCHID>{0}", card.branchId);
+            w.WriteLine("    <ACCTID>{0}", card.accountId);
             w.WriteLine("    <ACCTTYPE>SAVINGS");
             w.WriteLine("  </BANKACCTFROM>");
 

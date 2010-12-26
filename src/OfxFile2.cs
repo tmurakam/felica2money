@@ -32,15 +32,16 @@ namespace FeliCa2Money
     {
         private XmlDocument doc;
 
-        public override void WriteFile(Card card, List<Transaction> transactions)
+        public override void WriteFile(Card card)
         {
-            XmlDocument d = Generate(card, transactions);
+            XmlDocument d = Generate(card);
             d.Save(ofxFilePath);
         }
 
         // OFX 2 ドキュメント生成
-        private XmlDocument Generate(Card card,  List<Transaction> transactions)
+        private XmlDocument Generate(Card card)
         {
+            List<Transaction> transactions = card.transactions;
             Transaction first = transactions[0];
             Transaction last = transactions[transactions.Count - 1];
 
@@ -67,7 +68,7 @@ namespace FeliCa2Money
             appendElementWithText(sonrs, "DTSERVER", dateStr(last.date));
             appendElementWithText(sonrs, "LANGUAGE", "JPN");
             XmlElement fi = appendElement(sonrs, "FI");
-            appendElementWithText(fi, "ORG", card.Ident);
+            appendElementWithText(fi, "ORG", card.ident);
             // FITIDは？
 
             /* 口座情報(バンクメッセージレスポンス) */
@@ -89,9 +90,9 @@ namespace FeliCa2Money
             XmlElement bankacctfrom = doc.CreateElement("BANKACCTFROM");
             stmtrs.AppendChild(bankacctfrom);
 
-            appendElementWithText(bankacctfrom, "BANKID", card.BankId.ToString());            
-            appendElementWithText(bankacctfrom, "BRANCHID", card.BranchId);
-            appendElementWithText(bankacctfrom, "ACCTID", card.AccountId);
+            appendElementWithText(bankacctfrom, "BANKID", card.bankId.ToString());            
+            appendElementWithText(bankacctfrom, "BRANCHID", card.branchId);
+            appendElementWithText(bankacctfrom, "ACCTID", card.accountId);
             appendElementWithText(bankacctfrom, "ACCTTYPE", "SAVINGS");
 
             /* 明細情報開始(バンクトランザクションリスト) */

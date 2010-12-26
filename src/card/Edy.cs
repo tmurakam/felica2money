@@ -29,8 +29,8 @@ namespace FeliCa2Money
     {
         public Edy()
         {
-            ident         = "Edy";
-            cardName    = "Edy";
+            mIdent         = "Edy";
+            mCardName    = "Edy";
 
             systemCode  = (int)SystemCode.Edy;
             serviceCode = 0x170f;
@@ -46,7 +46,7 @@ namespace FeliCa2Money
                 return false;
             }
 
-            accountId = binString(data, 2, 8);
+            mAccountId = binString(data, 2, 8);
 
             return true;
         }

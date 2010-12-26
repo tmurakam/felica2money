@@ -35,7 +35,7 @@ namespace FeliCa2Money.test
             FeliCa2Money.Edy c = new FeliCa2Money.Edy();
             c.analyzeCardId(f);
 
-            Assert.AreEqual(c.AccountId, "456789ABCDEF0123");
+            Assert.AreEqual(c.accountId, "456789ABCDEF0123");
         }
 
         [Test]

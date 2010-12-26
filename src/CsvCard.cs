@@ -69,10 +69,10 @@ namespace FeliCa2Money
             }
 
             // 銀行IDなどを設定
-            ident = rule.Ident;
-            bankId = rule.BankId;
-            branchId = dlg.BranchId;
-            accountId = dlg.AccountId;
+            mIdent = rule.Ident;
+            mBankId = rule.BankId;
+            mBranchId = dlg.BranchId;
+            mAccountId = dlg.AccountId;
 
             // 1行目から再度読み込み直す
             sr.Close();
@@ -101,7 +101,7 @@ namespace FeliCa2Money
         }
 
         // CSV 読み込み処理
-        public override List<Transaction> ReadCard()
+        public override void ReadCard()
         {
             List<Transaction> transactions = new List<Transaction>();
             string line;
@@ -154,7 +154,7 @@ namespace FeliCa2Money
                 }
             }
             
-            return transactions;
+            mTransactions = transactions;
         }
 
         // CSV のフィールド分割

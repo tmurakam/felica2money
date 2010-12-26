@@ -28,42 +28,48 @@ namespace FeliCa2Money
     // Card クラス
     public abstract class Card
     {
-        protected string ident;              // 組織名
-        protected int bankId = 0;          // 銀行番号
-        protected string branchId = "0";   // 支店番号
-        protected string accountId = "";   // 口座番号
-        protected string cardName;         // カード名
+        protected string mIdent;              // 組織名
+        protected int mBankId = 0;          // 銀行番号
+        protected string mBranchId = "0";   // 支店番号
+        protected string mAccountId = "";   // 口座番号
+        protected string mCardName;         // カード名
+        protected List<Transaction> mTransactions; // 取引リスト
 
-        public abstract List<Transaction> ReadCard();
+        public abstract void ReadCard();
 
-        public string Ident
+        public string ident
         {
-            get { return ident; }
+            get { return mIdent; }
         }
 
-        public int BankId
+        public int bankId
         {
-            get { return bankId; }
+            get { return mBankId; }
         }
-        public string BranchId
+        public string branchId
         {
             get {
-                if (branchId == "") return "0";
-                return branchId;
+                if (mBranchId == "") return "0";
+                return mBranchId;
             }
         }
-        public string CardName
+        public string cardName
         {
-            get { return cardName; }
+            get { return mCardName; }
         }
         
-        public string AccountId
+        public string accountId
         {
-            set { accountId = value; }
+            set { mAccountId = value; }
             get {
-                if (accountId == "") return "0";
-                return accountId;
+                if (mAccountId == "") return "0";
+                return mAccountId;
             }
+        }
+
+        public List<Transaction> transactions
+        {
+            get { return mTransactions; }
         }
 
         // タブ区切りの分解 (SFCPeep用)
@@ -105,7 +111,7 @@ namespace FeliCa2Money
                 return false;
             }
 
-            accountId = binString(data, 0, 8);
+            mAccountId = binString(data, 0, 8);
 
             return true;
         }
@@ -113,17 +119,15 @@ namespace FeliCa2Money
         //--------------------------------------------------------------------
 
         // カード読み込み
-        public sealed override List<Transaction> ReadCard()
+        public sealed override void ReadCard()
         {
-            List<Transaction> list;
-
             using (IFelica f = new Felica()) {
-                list = ReadCard(f);
+                mTransactions = ReadCard(f);
             }
-
-            return list;
         }
 
+        // カード読み込み
+        // Note: 本来はこのメソッドは private で良いが、UnitTest 用に public にしてある。
         public List<Transaction> ReadCard(IFelica f)
         {
             List<Transaction> list = new List<Transaction>();

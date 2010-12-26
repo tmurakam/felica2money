@@ -38,8 +38,8 @@ namespace FeliCa2Money
 
         public Suica()
         {
-            ident       = "Suica";
-            cardName    = "Suica";
+            mIdent       = "Suica";
+            mCardName    = "Suica";
 
             systemCode  = (int)SystemCode.Suica;
             serviceCode = 0x090f;       // 履歴エリアのサービスコード
