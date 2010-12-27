@@ -1,100 +1,107 @@
+2010-12-26 : Takuya Murakami
+	* AGRファイルサポートを追加
+	* リファクタリング
+
+2009-11-01 : Takuya Murakami
+	* ver 2.9
+
 2009-10-20 : Takuya Murakami
-	* CSV: Order �� "Sort" ���w��ł���悤�ɂ����B
-	  �\�[�g���邱�ƂŁA���������ID��t�^�ł���悤�ɂ����B
+	* CSV: Order に "Sort" を指定できるようにした。
+	  ソートすることで、正しく取引IDを付与できるようにした。
 
 2008-06-01 : Takuya Murakami
-	* �o�O�C�� : Edy �ɂ������荞�݌������P�����Ȃ����������C��
-	* �o�O�C�� : Edy �ɂ�������t�v�Z�~�X���C��
+	* バグ修正 : Edy における取り込み件数が１件少なかった問題を修正
+	* バグ修正 : Edy における日付計算ミスを修正
 
 2008-05-17 : Takuya Murakami
 	* ver 2.8
-	* �o�O�C�� : CSV ��荞�݂����삵�Ȃ������C��
-	* StationCode.mdb �� 2008/5/3�łɍ����ւ�
+	* バグ修正 : CSV 取り込みが動作しない問題を修正
+	* StationCode.mdb を 2008/5/3版に差し替え
 	
 2008-04-20 : Takuya Murakami
 	* ver 2.7.1
-	* �ꕔ�̉w�����������\������Ȃ����������C��
-	* felicalib ver 0.4.1 �ɒu�������AMSVCRT.dll ���Ȃ�����
-	  ���삵�Ȃ������C��
+	* 一部の駅名が正しく表示されなかった問題を修正
+	* felicalib ver 0.4.1 に置き換え、MSVCRT.dll がない環境で
+	  動作しない問題を修正
 	
 2008-04-19 : Takuya Murakami
 	* ver 2.7
-	* x64 �Ή�
-	* felicalib ver 0.4 �ɒu������
+	* x64 対応
+	* felicalib ver 0.4 に置き換え
 
 2008-04-08 : Takuya Murakami
 	* ver 2.6.1
-	* quote �����~�X(������u�����ĂȂ�����)���C��
+	* quote 処理ミス(文字列置換してなかった)を修正
 	
 2008-04-07 : Takuya Murakami
 	* ver 2.6
-	* ���̓X�ܖ��ɓ��ꕶ��(&�Ȃ�)�������Ă���Ƃ��� quote ����悤�ɂ���
+	* 物販店舗名に特殊文字(&など)が入っているときに quote するようにした
 	
 2008-03-21 : Takuya Murakami
-	* TSV (�^�u��؂�e�L�X�g)�ɑΉ�
-	* FirstLine ���O�ɗ]�v�ȍs�������Ă��X�L�b�v����悤�ɂ���
-	* ���l�̑O�� '\' ������Ƃ��ɂ��ǂݍ��߂�悤�ɂ���
-	* OFX 2.0 �Ή�
+	* TSV (タブ区切りテキスト)に対応
+	* FirstLine より前に余計な行があってもスキップするようにした
+	* 数値の前に '\' があるときにも読み込めるようにした
+	* OFX 2.0 対応
 
 2008-03-20 : Takuya Murakami
 	* ver 2.5
-	* WAON �Ή�
+	* WAON 対応
 	
 2008-03-16 : Takuya Murakami
 	* ver 2.4
-	* CSV�ϊ����[���_�E�����[�h�@�\������
-	* Suica/Nanaco �̉�͋@�\��������������
+	* CSV変換ルールダウンロード機能を実装
+	* Suica/Nanaco の解析機能を少しだけ強化
 	
 2008-03-15 : Takuya Murakami
 	* ver 2.4 beta1
-	* �O�o�[�W�����̐ݒ�𖈉�����p���ł��܂��Ă��������C��
-	* ����/�w�����Ƃ��� 0 �̏ꍇ�͖��̕ϊ����Ȃ�
-	* CSV �ϊ��@�\������
+	* 前バージョンの設定を毎回引き継いでしまっていた問題を修正
+	* 線区/駅順がともに 0 の場合は名称変換しない
+	* CSV 変換機能を実装
 	
 2008-03-12 : Takuya Murakami
 	* ver 2.3
-	* Suica �Ȃǂɂ����ăG���g�������Q�O�����̂Ƃ��ɃG���[����������
-	  �o�O���C���B
+	* Suica などにおいてエントリ数が２０未満のときにエラーが発生する
+	  バグを修正。
 
 2008-03-09 : Takuya Murakami
 	* ver 2.2
-	* SFCPeep ���g�p�����Afelicalib �݂̂��g���悤�ɕύX
-	* Suica ��͏����� felicalib �ōs���悤�ɂ���
-	* StationCode.mdb ����������ǉ�
-	* ���̓X�܌����D��G���A�I�v�V������ǉ�
+	* SFCPeep を使用せず、felicalib のみを使うように変更
+	* Suica 解析処理を felicalib で行うようにした
+	* StationCode.mdb 検索処理を追加
+	* 物販店舗検索優先エリアオプションを追加
 	
 2008-03-08 : Takuya Murakami
-	* nanaco �|�C���g�����ɑΉ�(��������)
+	* nanaco ポイント交換に対応(したつもり)
 	
 2008-03-06 : Takuya Murakami
-	* Edy �ǂݎ��� SFCPeep �ł͂Ȃ� felicalib ���g���悤�ɂ����B
+	* Edy 読み取りに SFCPeep ではなく felicalib を使うようにした。
 
 2008-03-01 : Takuya Murakami
 	* ver 2.1
-	* Suica ���o�^�X�܂ɂ����āA�A�Ԃł͂Ȃ��o����/�o�w�����o�͂���悤�ɂ����B
-	  (Money �����⊮��L���ɂ��邽��)
+	* Suica 未登録店舗において、連番ではなく出線区/出駅順を出力するようにした。
+	  (Money 自動補完を有効にするため)
 	
 2008-02-03 : Takuya Murakami
 	* ver 2.0
-	* .NET Framework �Ή� (C# ��������)
-	* ���z�� 0 �̎�����X�L�b�v����I�v�V�����ǉ� (PiTaPa �|�X�g�y�C�Ȃǂ̑Ή�)
-	* OFX �t�@�C���ۑ���w��I�v�V�����ǉ�
-	* OFX �t�@�C�������N���I�v�V�����ǉ�
+	* .NET Framework 対応 (C# 書き直し)
+	* 金額が 0 の取引をスキップするオプション追加 (PiTaPa ポストペイなどの対応)
+	* OFX ファイル保存先指定オプション追加
+	* OFX ファイル自動起動オプション追加
 
 2007-11-06 : Takuya Murakami
 	* ver 1.2
-	* nanaco �ɑΉ��B
+	* nanaco に対応。
 
 2007-08-22 : Takuya Murakami
 	* ver 1.1
-	* �x����ɗ��p�X�ܖ��������Ă��Ȃ��ꍇ(Edy �� "�x��" �����Suica �� "����")�A
-	Money ������Ďx�����⊮���Ă��܂��̂�h�~���邽�߁A�A�Ԃ�ǋL����悤�ɂ����B
+	* 支払先に利用店舗名が入っていない場合(Edy の "支払" およびSuica の "物販")、
+	Money が誤って支払先を補完してしまうのを防止するため、連番を追記するようにした。
 
 2007-03-18 : Takuya Murakami
-	* ver ��2:  (PASMO�J�n���� :-)
-	* �Z�b�g�A�b�v��ǉ�
-	* OFX �t�@�C���� MEMO (���l)�t�B�[���h��ǉ�����悤�ɂ���
+	* ver β2:  (PASMO開始当日 :-)
+	* セットアップを追加
+	* OFX ファイルに MEMO (備考)フィールドを追加するようにした
 
 2007-03-17 : Takuya Murakami 
-	* ver ��1
-	* ���� (PASMO�J�n�O�� :-)
+	* ver β1
+	* 初版 (PASMO開始前日 :-)
