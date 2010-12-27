@@ -32,6 +32,10 @@ namespace FeliCa2Money
 {
     public class CsvRules
     {
+	private const String CSV_RULE_URL = "https://github.com/tmurakam/felica2money/raw/master/defs/CsvRules.xml";
+	// "http://moneyimport.sourceforge.jp/CsvRules.xml";
+        // "http://svn.sourceforge.jp/svnroot/moneyimport/trunk/FeliCa2Money.net/CsvRules.xml";
+
         private List<CsvRule> ruleList;
 
         public CsvRules()
@@ -185,14 +189,11 @@ namespace FeliCa2Money
         public static bool DownloadRule()
         {
             string path = getRulesPath() + "\\CsvRules.xml";
-            //string url = "http://moneyimport.sourceforge.jp/CsvRules.xml";
-            //string url = "http://svn.sourceforge.jp/svnroot/moneyimport/trunk/FeliCa2Money.net/CsvRules.xml";
-            string url = "https://github.com/tmurakam/felica2money/raw/master/src/CsvRules.xml";
 
             WebClient w = new WebClient();
             try
             {
-                w.DownloadFile(url, path);
+                w.DownloadFile(CSV_RULE_URL, path);
             }
             catch (Exception ex)
             {
