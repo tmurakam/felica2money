@@ -30,6 +30,8 @@ namespace FeliCa2Money
 {
     public partial class MainForm : Form
     {
+	private const String HELP_URL = "http://felica2money.tmurakam.org/manual.html";
+
         public MainForm()
         {
             InitializeComponent();
@@ -237,8 +239,10 @@ namespace FeliCa2Money
         {
             try
             {
-                String helpFile = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Felica2Money.html";
-                System.Diagnostics.Process.Start(helpFile);
+                System.Diagnostics.Process.Start(HELP_URL);
+
+	        //String helpFile = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Felica2Money.html";
+                //System.Diagnostics.Process.Start(helpFile);
             }
             catch
             {
