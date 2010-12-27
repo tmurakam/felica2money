@@ -1,12 +1,12 @@
-¡ FeliCa2Money version 2.9
+â–  FeliCa2Money version 2.9
 
-E‚Í‚¶‚ß‚É
+ãƒ»ã¯ã˜ã‚ã«
 
-‚±‚Ìƒc[ƒ‹‚ÍAPaSoRi ‚ðŽg‚Á‚Ä Edy ‚È‚Ç‚Ì“dŽqƒ}ƒl[‚Ì—š—ð‚ð“Ç‚ÝŽæ‚èA
-Microsoft Money ‚Ì“dŽq–¾×(OFXŒ`Ž®ƒtƒ@ƒCƒ‹)‚É•ÏŠ·‚·‚é‚à‚Ì‚Å‚·B
-‚Ü‚½ACSV ƒtƒ@ƒCƒ‹‚ÌŽæ‚èž‚Ý‚É‚à‘Î‰ž‚µ‚Ä‚¢‚Ü‚·B
+ã“ã®ãƒ„ãƒ¼ãƒ«ã¯ã€PaSoRi ã‚’ä½¿ã£ã¦ Edy ãªã©ã®é›»å­ãƒžãƒãƒ¼ã®å±¥æ­´ã‚’èª­ã¿å–ã‚Šã€
+Microsoft Money ã®é›»å­æ˜Žç´°(OFXå½¢å¼ãƒ•ã‚¡ã‚¤ãƒ«)ã«å¤‰æ›ã™ã‚‹ã‚‚ã®ã§ã™ã€‚
+ã¾ãŸã€CSV ãƒ•ã‚¡ã‚¤ãƒ«ã®å–ã‚Šè¾¼ã¿ã«ã‚‚å¯¾å¿œã—ã¦ã„ã¾ã™ã€‚
 
-Œ»ƒo[ƒWƒ‡ƒ“‚Å‚ÍAˆÈ‰º‚Ì“dŽqƒ}ƒl[‚É‘Î‰ž‚µ‚Ä‚¢‚Ü‚·B
+ç¾ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã§ã¯ã€ä»¥ä¸‹ã®é›»å­ãƒžãƒãƒ¼ã«å¯¾å¿œã—ã¦ã„ã¾ã™ã€‚
 
  - Edy
  - nanaco
@@ -16,42 +16,42 @@ Microsoft Money ‚Ì“dŽq–¾×(OFXŒ`Ž®ƒtƒ@ƒCƒ‹)‚É•ÏŠ·‚·‚é‚à‚Ì‚Å‚·B
  - PiTaPa
  - PASMO
 
-E•K—vŠÂ‹«
+ãƒ»å¿…è¦ç’°å¢ƒ
 
  - Windows 2000/XP/Vista/Windows 7 (x86/x64)
- - .NET Framework 2.0 ˆÈ~
- - “à‘ FeliCaƒ|[ƒgA‚Ü‚½‚ÍSONY ”ñÚG IC ƒJ[ƒhƒŠ[ƒ_[/ƒ‰ƒCƒ^[ (PaSoRi)
- - PaSoRi Šî–{ƒ\ƒtƒgƒEƒFƒA
+ - .NET Framework 2.0 ä»¥é™
+ - å†…è”µFeliCaãƒãƒ¼ãƒˆã€ã¾ãŸã¯SONY éžæŽ¥è§¦ IC ã‚«ãƒ¼ãƒ‰ãƒªãƒ¼ãƒ€ãƒ¼/ãƒ©ã‚¤ã‚¿ãƒ¼ (PaSoRi)
+ - PaSoRi åŸºæœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢
 
-Version 2.0 ‚©‚çA.NET Framework 2.0 ˆÈ~‚ª•K—v‚É‚È‚è‚Ü‚µ‚½BWindows Update
-‚ðŽg—p‚µ‚ÄƒCƒ“ƒXƒg[ƒ‹‚µ‚Ä‚¨‚¢‚Ä‚­‚¾‚³‚¢B
-
-
-EƒCƒ“ƒXƒg[ƒ‹
-
-setup.exe ‚ðŽÀs‚µ‚ÄƒCƒ“ƒXƒg[ƒ‹‚µ‚Ä‚­‚¾‚³‚¢B
+Version 2.0 ã‹ã‚‰ã€.NET Framework 2.0 ä»¥é™ãŒå¿…è¦ã«ãªã‚Šã¾ã—ãŸã€‚Windows Update
+ã‚’ä½¿ç”¨ã—ã¦ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã—ã¦ãŠã„ã¦ãã ã•ã„ã€‚
 
 
-EŽg—p•û–@
+ãƒ»ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«
 
-Å‰‚ÉuÝ’èv‚ð‰Ÿ‚µ‚ÄÝ’è‚ðs‚Á‚Ä‚¨‚¢‚Ä‰º‚³‚¢B
-•¨”Ì“X•ÜŒŸõ—DæƒGƒŠƒA‚ÍŽ©•ª‚ªŽg—p‚µ‚Ä‚¢‚éƒGƒŠƒA‚É‰ž‚¶‚ÄÝ’è‚ðs‚Á‚Ä‰º‚³‚¢B
-‚±‚ê‚ðÝ’è‚µ‚È‚¢‚ÆAŒë‚Á‚½“X•Ü–¼‚ªo—Í‚³‚ê‚é‰Â”\«‚ª‚‚­‚È‚è‚Ü‚·B
-
-“dŽqƒ}ƒl[‚ð PaSoRi ‚É’u‚«AEdy/Suica/Nanaco/WAON ‚Ì‚¢‚¸‚ê‚©‚Ìƒ{ƒ^ƒ“‚ðƒNƒŠƒbƒN
-‚µ‚Ä‚­‚¾‚³‚¢BƒJ[ƒh‚ª“Ç‚ÝŽæ‚ç‚êA“dŽq–¾×(OFXƒtƒ@ƒCƒ‹)‚ª¶¬‚³‚ê‚Ü‚·B
-
-u•Û‘¶Œã‚É OFX ƒtƒ@ƒCƒ‹‚ðŽ©“®“I‚É‹N“®‚·‚évƒIƒvƒVƒ‡ƒ“‚ðƒIƒ“‚É‚µ‚Ä‚¨‚­‚ÆA
-Ž©“®“I‚É Microsoft Money ‚ª—§‚¿ã‚ª‚èA–¾×‚ªŽæ‚èž‚Ü‚ê‚Ü‚·B
+setup.exe ã‚’å®Ÿè¡Œã—ã¦ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã—ã¦ãã ã•ã„ã€‚
 
 
-E‚»‚Ì‘¼
+ãƒ»ä½¿ç”¨æ–¹æ³•
 
-‚»‚Ì‘¼Ú×‚É‚Â‚¢‚Ä‚ÍAƒCƒ“ƒXƒg[ƒ‹Žž‚ÉƒCƒ“ƒXƒg[ƒ‹‚³‚ê‚éƒ}ƒjƒ…ƒAƒ‹‚ð
-‚¨“Ç‚Ý‚­‚¾‚³‚¢B
+æœ€åˆã«ã€Œè¨­å®šã€ã‚’æŠ¼ã—ã¦è¨­å®šã‚’è¡Œã£ã¦ãŠã„ã¦ä¸‹ã•ã„ã€‚
+ç‰©è²©åº—èˆ—æ¤œç´¢å„ªå…ˆã‚¨ãƒªã‚¢ã¯è‡ªåˆ†ãŒä½¿ç”¨ã—ã¦ã„ã‚‹ã‚¨ãƒªã‚¢ã«å¿œã˜ã¦è¨­å®šã‚’è¡Œã£ã¦ä¸‹ã•ã„ã€‚
+ã“ã‚Œã‚’è¨­å®šã—ãªã„ã¨ã€èª¤ã£ãŸåº—èˆ—åãŒå‡ºåŠ›ã•ã‚Œã‚‹å¯èƒ½æ€§ãŒé«˜ããªã‚Šã¾ã™ã€‚
+
+é›»å­ãƒžãƒãƒ¼ã‚’ PaSoRi ã«ç½®ãã€Edy/Suica/Nanaco/WAON ã®ã„ãšã‚Œã‹ã®ãƒœã‚¿ãƒ³ã‚’ã‚¯ãƒªãƒƒã‚¯
+ã—ã¦ãã ã•ã„ã€‚ã‚«ãƒ¼ãƒ‰ãŒèª­ã¿å–ã‚‰ã‚Œã€é›»å­æ˜Žç´°(OFXãƒ•ã‚¡ã‚¤ãƒ«)ãŒç”Ÿæˆã•ã‚Œã¾ã™ã€‚
+
+ã€Œä¿å­˜å¾Œã« OFX ãƒ•ã‚¡ã‚¤ãƒ«ã‚’è‡ªå‹•çš„ã«èµ·å‹•ã™ã‚‹ã€ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‚’ã‚ªãƒ³ã«ã—ã¦ãŠãã¨ã€
+è‡ªå‹•çš„ã« Microsoft Money ãŒç«‹ã¡ä¸ŠãŒã‚Šã€æ˜Žç´°ãŒå–ã‚Šè¾¼ã¾ã‚Œã¾ã™ã€‚
 
 
-EìŽÒ˜A—æ
+ãƒ»ãã®ä»–
 
-‘ºã@‘ì–í : tmurakam@tmurakam.org
-ƒvƒƒWƒFƒNƒgWebƒTƒCƒg: http://felica2money.tmurakam.org
+ãã®ä»–è©³ç´°ã«ã¤ã„ã¦ã¯ã€ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«æ™‚ã«ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã•ã‚Œã‚‹ãƒžãƒ‹ãƒ¥ã‚¢ãƒ«ã‚’
+ãŠèª­ã¿ãã ã•ã„ã€‚
+
+
+ãƒ»ä½œè€…é€£çµ¡å…ˆ
+
+æ‘ä¸Šã€€å“å¼¥ : tmurakam@tmurakam.org
+ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆWebã‚µã‚¤ãƒˆ: http://felica2money.tmurakam.org
