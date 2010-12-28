@@ -252,8 +252,17 @@ namespace FeliCa2Money
                 w.WriteLine("  </BANKTRANLIST>");
 
                 /* 残高 */
+                int balance;
+                if (account.hasBalance)
+                {
+                    balance = account.balance;
+                }
+                else
+                {
+                    balance = last.balance;
+                }
                 w.WriteLine("  <LEDGERBAL>");
-                w.WriteLine("    <BALAMT>{0}", last.balance);
+                w.WriteLine("    <BALAMT>{0}", balance);
                 w.WriteLine("    <DTASOF>{0}", dateStr(last.date));
                 w.WriteLine("  </LEDGERBAL>");
 

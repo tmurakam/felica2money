@@ -172,7 +172,18 @@ namespace FeliCa2Money
                 string bankName = columns[0];
                 string branchName = columns[1];
                 string accountId = columns[2];
-                // TODO: 残高(4カラム目)はとりあえず使用しない
+                if (columns.Length >= 4)
+                {
+                    try
+                    {
+                        balance = int.Parse(columns[3]);
+                        hasBalance = true;
+                    }
+                    catch
+                    {
+                        hasBalance = false;
+                    }
+                }
 
                 mIdent = bankName;
                 mBankId = bankName;
@@ -183,6 +194,16 @@ namespace FeliCa2Money
             {
                 // クレジットカード
                 string cardName = columns[0];
+                try
+                {
+                    // 借入額
+                    balance = - int.Parse(columns[2]);
+                    hasBalance = true;
+                }
+                catch
+                {
+                    hasBalance = false;
+                }
 
                 // 末尾の 'カード' という文字を抜く
                 cardName = "CARD_" + Regex.Replace(cardName, @"カード$", "");
@@ -263,25 +284,32 @@ namespace FeliCa2Money
             transaction.desc = columns[1];
 
             // 入金額/出金額
-            if (columns[2] != "" && columns[2] != "--" && columns[2] != "*")
+            try
             {
                 transaction.value = int.Parse(columns[2]);
             }
-            else if (columns[4] != "" && columns[4] != "--" && columns[4] != "*")
+            catch
             {
-                transaction.value = -int.Parse(columns[4]);
-            }
-            else
-            {
-                return false;
+                try
+                {
+                    transaction.value = -int.Parse(columns[4]);
+                }
+                catch
+                {
+                    return false;
+                }
             }
 
             // 残高
-            if (columns[6] != "" && columns[6] != "--" && columns[6] != "*")
+            try
             {
                 transaction.balance = int.Parse(columns[6]);
             }
-            // Note: 残高は入っていない場合もある
+            catch
+            {
+                // Note: 残高は入っていない場合もある
+                transaction.balance = 0;
+            }
 
             // ID採番
             transaction.id = 0;

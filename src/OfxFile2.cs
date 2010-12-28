@@ -176,7 +176,16 @@ namespace FeliCa2Money
                 /* 残高 */
                 XmlElement ledgerbal = appendElement(stmtrs, "LEDGERBAL");
 
-                appendElementWithText(ledgerbal, "BALAMT", last.balance.ToString());
+                int balance;
+                if (account.hasBalance)
+                {
+                    balance = account.balance;
+                }
+                else
+                {
+                    balance = last.balance;
+                }
+                appendElementWithText(ledgerbal, "BALAMT", balance.ToString());
                 appendElementWithText(ledgerbal, "DTASOF", dateStr(last.date));
             }
         }
