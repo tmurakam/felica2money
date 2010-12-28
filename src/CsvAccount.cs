@@ -30,69 +30,84 @@ using System.Windows.Forms;
 
 namespace FeliCa2Money
 {
+    /// <summary>
+    /// CSVアカウント
+    /// </summary>
     class CsvAccount : Account
     {
-        private CsvRules rules = new CsvRules();
-        private StreamReader sr;
-        private CsvRule rule;
+        private CsvRules mRules = new CsvRules();
+        private StreamReader mSr;
+        private CsvRule mRule;
 
+        /// <summary>
+        /// CSVルールを読み込む
+        /// </summary>
+        /// <returns></returns>
         public bool LoadAllRules()
         {
-            return rules.LoadAllRules();
+            return mRules.LoadAllRules();
         }
 
+        /// <summary>
+        /// CSVファイルをオープン
+        /// </summary>
+        /// <param name="path">CSVファイルパス</param>
+        /// <returns></returns>
         public bool OpenFile(string path)
         {
             // TODO: とりあえず SJIS で開く (UTF-8 とかあるかも?)
-            sr = new StreamReader(path, System.Text.Encoding.Default);
+            mSr = new StreamReader(path, System.Text.Encoding.Default);
 
-            string firstLine = sr.ReadLine();
+            string firstLine = mSr.ReadLine();
 
             // 合致するルールを探す
-            rule = rules.FindRule(firstLine);
+            mRule = mRules.FindRule(firstLine);
 
-            CsvDialog dlg = new CsvDialog(rules);
+            CsvDialog dlg = new CsvDialog(mRules);
 
             // ルール/口座番号などを選択
-            dlg.SelectRule(rule);
+            dlg.SelectRule(mRule);
             if (dlg.ShowDialog() == DialogResult.Cancel)
             {
                 return false;
             }
 
             // 選択されたルールを取り出す
-            rule = dlg.SelectedRule();
-            if (rule == null)
+            mRule = dlg.SelectedRule();
+            if (mRule == null)
             {
                 MessageBox.Show(Properties.Resources.NoCsvRuleSelected, Properties.Resources.Error);
                 return false;
             }
 
             // 銀行IDなどを設定
-            mIdent = rule.Ident;
-            mBankId = rule.BankId;
+            mIdent = mRule.Ident;
+            mBankId = mRule.BankId;
             mBranchId = dlg.BranchId;
             mAccountId = dlg.AccountId;
 
             // 1行目から再度読み込み直す
-            sr.Close();
-            sr = new StreamReader(path, System.Text.Encoding.Default);
+            mSr.Close();
+            mSr = new StreamReader(path, System.Text.Encoding.Default);
 
             // firstLine まで読み飛ばす
-            if (rule.FirstLine != null)
+            if (mRule.FirstLine != null)
             {
-                while ((firstLine = sr.ReadLine()) != null)
+                while ((firstLine = mSr.ReadLine()) != null)
                 {
-                    if (firstLine == rule.FirstLine) break;
+                    if (firstLine == mRule.FirstLine) break;
                 }
             }
 
             return true;
         }
 
+        /// <summary>
+        /// CSVファイルクローズ
+        /// </summary>
         public void Close()
         {
-            sr.Close();
+            mSr.Close();
         }
 
         private static int compareByDate(Transaction x, Transaction y)
@@ -100,25 +115,27 @@ namespace FeliCa2Money
             return x.date.CompareTo(y.date);
         }
 
-        // CSV 読み込み処理
+        /// <summary>
+        /// CSVデータ読み込み
+        /// </summary>
         public override void ReadCard()
         {
             List<Transaction> transactions = new List<Transaction>();
             string line;
 
-            while ((line = sr.ReadLine()) != null)
+            while ((line = mSr.ReadLine()) != null)
             {
                 // CSV カラム分割
                 string[] row = SplitCsv(line);
                 if (row.Length <= 1) continue; // ad hoc...
 
                 // パース
-                Transaction t = rule.parse(row);
+                Transaction t = mRule.parse(row);
                 transactions.Add(t);
             }
 
             // ソート処理
-            switch (rule.SortOrder)
+            switch (mRule.SortOrder)
             {
                 default:
                 case CsvRule.SortAscent:
@@ -160,10 +177,21 @@ namespace FeliCa2Money
         // CSV のフィールド分割
         private string[] SplitCsv(string line)
         {
+            return SplitCsv(line, mRule.IsTSV);
+        }
+
+        /// <summary>
+        /// CSVフィールド分割
+        /// </summary>
+        /// <param name="line">CSV行</param>
+        /// <param name="isTsv">区切りがタブの場合は true, カンマの場合は false</param>
+        /// <returns>分割されたカラム</returns>
+        public static string[] SplitCsv(string line, bool isTsv)
+        {
             ArrayList fields = new ArrayList();
             Regex regCsv;
 
-            if (rule.IsTSV)
+            if (isTsv)
             {
                 regCsv = new Regex("([^\\t]*)\\t");
                 line = line + "\t";

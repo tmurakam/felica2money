@@ -32,13 +32,14 @@ namespace FeliCa2Money
         protected string mBankId = "Felica2Money";  // 銀行ID
         protected string mBranchId = "0";   // 支店番号
         protected string mAccountId = "";   // 口座番号
-        protected string mAccountName;         // カード名
+        protected string mAccountName;         // アカウント名(カード名etc)
+
         protected List<Transaction> mTransactions; // 取引リスト
 
         protected bool mHasBalance = false; // 残高があるか
         protected int mBalance = 0; // 残高
 
-        protected bool mIsCreditCard = false;
+        protected bool mIsCreditCard = false; // クレジットカードの場合に真
 
         public abstract void ReadCard();
 
@@ -51,6 +52,7 @@ namespace FeliCa2Money
         {
             get { return mBankId; }
         }
+
         public string branchId
         {
             get {
@@ -58,6 +60,7 @@ namespace FeliCa2Money
                 return mBranchId;
             }
         }
+
         public string accountName
         {
             get { return mAccountName; }

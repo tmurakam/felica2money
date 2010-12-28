@@ -128,7 +128,7 @@ namespace FeliCa2Money
                 return;
             }
 
-            doConvert(agr.cards);
+            doConvert(agr.accounts);
         }
 
         private void doReadAndConvert(Account c)

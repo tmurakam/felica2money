@@ -18,7 +18,7 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-// AGRファイル 取り込み処理
+// AGR(Agurippa電子明細)ファイル 取り込み処理
 
 using System;
 using System.IO;
@@ -31,6 +31,9 @@ using System.Security.Cryptography;
 
 namespace FeliCa2Money
 {
+    /// <summary>
+    /// AGRファイル解析クラス
+    /// </summary>
     class AgrFile
     {
         private List<Account> mAccounts;
@@ -42,11 +45,19 @@ namespace FeliCa2Money
             ReadTransactions
         };
 
-        public List<Account> cards
+        /// <summary>
+        /// アカウントリスト
+        /// </summary>
+        public List<Account> accounts
         {
             get { return mAccounts; }
         }
 
+        /// <summary>
+        /// AGRファイルを読み込む
+        /// </summary>
+        /// <param name="path">AGRファイルパス</param>
+        /// <returns>成功時は true、失敗時はfalse</returns>
         public bool loadFromFile(string path)
         {
             // SJIS で開く
@@ -121,21 +132,35 @@ namespace FeliCa2Money
         }
     }
 
+    /// <summary>
+    /// AGRアカウント
+    /// </summary>
     class AgrAccount : Account
     {
         private static Hashtable mNameHash;
 
+        /// <summary>
+        /// 初期化処理。readAccountInfo 開始前に呼び出すこと。
+        /// </summary>
         public static void initNameHash()
         {
             mNameHash = new Hashtable();
         }
 
+        /// <summary>
+        /// 銀行型アカウントの生成
+        /// </summary>
+        /// <returns></returns>
         public static AgrAccount newBankAccount() {
             AgrAccount account = new AgrAccount();
             account.isCreditCard = false;
             return account;
         }
 
+        /// <summary>
+        /// クレジットカード型アカウントの作成
+        /// </summary>
+        /// <returns></returns>
         public static AgrAccount newCreditCardAccount()
         {
             AgrAccount account = new AgrAccount();
@@ -153,9 +178,14 @@ namespace FeliCa2Money
             // 使用しない
         }
 
+        /// <summary>
+        /// アカウント情報を読み込む
+        /// </summary>
+        /// <param name="line">アカウント情報行</param>
+        /// <returns></returns>
         public bool readAccountInfo(string line)
         {
-            string[] columns = SplitCsv(line);
+            string[] columns = CsvAccount.SplitCsv(line, false);
 
             if (columns.Length < 3)
             {
@@ -242,9 +272,15 @@ namespace FeliCa2Money
             return result;
         }
 
+        /// <summary>
+        /// 取引行の解析
+        /// </summary>
+        /// <param name="line">取引行</param>
+        /// <returns>成功フラグ</returns>
+        /// 
         public bool readTransaction(string line)
         {
-            string[] columns = SplitCsv(line);
+            string[] columns = CsvAccount.SplitCsv(line, false);
             if (columns.Length < 8)
             {
                 return false;
@@ -325,44 +361,6 @@ namespace FeliCa2Money
             mTransactions.Add(transaction);
 
             return true;
-        }
-
-        // CSV のフィールド分割
-        private string[] SplitCsv(string line)
-        {
-            ArrayList fields = new ArrayList();
-            Regex regCsv;
-
-            // カンマ区切り
-            regCsv = new Regex("\\s*(\"(?:[^\"]|\"\")*\"|[^,]*)\\s*,", RegexOptions.None);
-            line = line + ",";
-
-            Match m = regCsv.Match(line);
-            int count = 0;
-            while (m.Success)
-            {
-                string field = m.Groups[1].Value;
-
-                // 前後の空白を削除
-                field = field.Trim();
-
-                // ダブルクォートを抜く
-                if (field.StartsWith("\"") && field.EndsWith("\""))
-                {
-                    field = field.Substring(1, field.Length - 2);
-                }
-                // "" を " に変換
-                field = field.Replace("\"\"", "\"");
-
-                // もう一度前後の空白を削除
-                field = field.Trim();
-
-                fields.Add(field);
-                count++;
-                m = m.NextMatch();
-            }
-
-            return fields.ToArray(typeof(string)) as string[];
         }
     }
 }
