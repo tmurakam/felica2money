@@ -34,6 +34,7 @@ namespace FeliCa2Money
         protected string mAccountId = "";   // 口座番号
         protected string mAccountName;         // カード名
         protected List<Transaction> mTransactions; // 取引リスト
+        protected bool mIsCreditCard = false;
 
         public abstract void ReadCard();
 
@@ -65,6 +66,12 @@ namespace FeliCa2Money
                 if (mAccountId == "") return "0";
                 return mAccountId;
             }
+        }
+
+        public bool isCreditCard
+        {
+            set { mIsCreditCard = value; }
+            get { return mIsCreditCard; }
         }
 
         public List<Transaction> transactions

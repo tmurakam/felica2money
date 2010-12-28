@@ -70,12 +70,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AgrFile.cs" />
-    <Compile Include="Card.cs" />
+    <Compile Include="Account.cs" />
     <Compile Include="card\Edy.cs" />
     <Compile Include="card\Nanaco.cs" />
     <Compile Include="card\Suica.cs" />
     <Compile Include="card\Waon.cs" />
-    <Compile Include="CsvCard.cs" />
+    <Compile Include="CsvAccount.cs" />
     <Compile Include="CsvDialog.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -60,10 +60,11 @@ namespace FeliCa2Money
             }
 
             mCards = new List<Account>();
-            AgrAccount card = null;
+            AgrAccount account = null;
 
             // 行をパースする
             State state = State.SearchingStart;
+            bool isCreditCard = false;
 
             while ((line = sr.ReadLine()) != null)
             {
@@ -71,12 +72,21 @@ namespace FeliCa2Money
                     case State.SearchingStart:
                         if (line.StartsWith("<START_CP")) {
                             state = State.ReadAccountInfo;
+                            if (line.EndsWith("_PAY>"))
+                            {
+                                isCreditCard = true;
+                            }
+                            else
+                            {
+                                isCreditCard = false;
+                            }
                         }
                         break;
 
                     case State.ReadAccountInfo:
-                        card = new AgrAccount();
-                        if (!card.readAccountInfo(line))
+                        account = new AgrAccount();
+                        account.isCreditCard = isCreditCard;
+                        if (!account.readAccountInfo(line))
                         {
                             return false;
                         }
@@ -86,12 +96,12 @@ namespace FeliCa2Money
                     case State.ReadTransactions:
                         if (line.StartsWith("<END_"))
                         {
-                            mCards.Add(card);
+                            mCards.Add(account);
                             state = State.SearchingStart;
                         }
                         else
                         {
-                            if (!card.readTransaction(line))
+                            if (!account.readTransaction(line))
                             {
                                 // 解析エラー: この口座は無視する
                                 state = State.SearchingStart;
