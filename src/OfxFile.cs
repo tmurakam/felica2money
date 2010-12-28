@@ -73,6 +73,18 @@ namespace FeliCa2Money
             return s;
         }
 
+        protected string limitString(string s, int maxlen)
+        {
+            if (s.Length <= maxlen)
+            {
+                return s;
+            }
+            else
+            {
+                return s.Substring(0, maxlen);
+            }
+        }
+
         // 最初のトランザクションと最後のトランザクションを取り出しておく
         // (日付範囲取得のため)
         protected void getFirstLastDate(List<Account> accounts, out Transaction allFirst, out Transaction allLast)
@@ -244,7 +256,7 @@ namespace FeliCa2Money
 
                     /* トランザクションの ID は日付と取引番号で生成 */
                     w.WriteLine("      <FITID>{0}", transId(t));
-                    w.WriteLine("      <NAME>{0}", quoteString(t.desc));
+                    w.WriteLine("      <NAME>{0}", quoteString(limitString(t.desc, 32)));
                     if (t.memo != null)
                     {
                         w.WriteLine("      <MEMO>{0}", quoteString(t.memo));
