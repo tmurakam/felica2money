@@ -41,7 +41,8 @@ namespace FeliCa2Money
         // OFX 2 ドキュメント生成
         private XmlDocument Generate(List<Account> accounts)
         {
-            getFirstLastDate(accounts);
+            Transaction allFirst, allLast;
+            getFirstLastDate(accounts, out allFirst, out allLast);
 
             // XML ドキュメント生成
             doc = new XmlDocument();
@@ -63,7 +64,7 @@ namespace FeliCa2Money
             XmlElement status = appendElement(sonrs, "STATUS");
             appendElementWithText(status, "CODE", "0");
             appendElementWithText(status, "SEVERITY", "INFO");
-            appendElementWithText(sonrs, "DTSERVER", dateStr(mAllLast.date));
+            appendElementWithText(sonrs, "DTSERVER", dateStr(allLast.date));
             appendElementWithText(sonrs, "LANGUAGE", "JPN");
             XmlElement fi = appendElement(sonrs, "FI");
             appendElementWithText(fi, "ORG", "FeliCa2Money");
@@ -90,11 +91,11 @@ namespace FeliCa2Money
 
             foreach (Account account in accounts)
             {
-                if (account.transactions.Count == 0) continue;
                 if (account.isCreditCard != isCreditCard) continue;
+                if (account.transactions.Count == 0) continue;
 
-                Transaction first = account.transactions[0];
-                Transaction last = account.transactions[account.transactions.Count - 1];
+                Transaction first, last;
+                getFirstLastDate(account, out first, out last);
 
                 /* 預金口座型明細情報作成 */
                 XmlElement stmttrnrs;
@@ -137,8 +138,11 @@ namespace FeliCa2Money
 
                 stmtrs.AppendChild(acctfrom);
 
-                appendElementWithText(acctfrom, "BANKID", account.bankId.ToString());
-                appendElementWithText(acctfrom, "BRANCHID", account.branchId);
+                if (!isCreditCard)
+                {
+                    appendElementWithText(acctfrom, "BANKID", account.bankId.ToString());
+                    appendElementWithText(acctfrom, "BRANCHID", account.branchId);
+                }
                 appendElementWithText(acctfrom, "ACCTID", account.accountId);
                 if (!isCreditCard)
                 {

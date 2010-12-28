@@ -35,8 +35,6 @@ namespace FeliCa2Money
     {
         protected string mOfxFilePath;
 
-        protected Transaction mAllFirst, mAllLast;
-
         public OfxFile()
         {
         }
@@ -74,21 +72,38 @@ namespace FeliCa2Money
 
         // 最初のトランザクションと最後のトランザクションを取り出しておく
         // (日付範囲取得のため)
-        protected void getFirstLastDate(List<Account> accounts)
+        protected void getFirstLastDate(List<Account> accounts, out Transaction allFirst, out Transaction allLast)
         {
-            mAllFirst = null;
-            mAllLast = null;
+            allFirst = null;
+            allLast = null;
             foreach (Account account in accounts) {
                 foreach (Transaction t in account.transactions)
                 {
-                    if (mAllFirst == null || t.date < mAllFirst.date)
+                    if (allFirst == null || t.date < allFirst.date)
                     {
-                        mAllFirst = t;
+                        allFirst = t;
                     }
-                    if (mAllLast == null || t.date > mAllLast.date)
+                    if (allLast == null || t.date > allLast.date)
                     {
-                        mAllLast = t;
+                        allLast = t;
                     }
+                }
+            }
+        }
+
+        protected void getFirstLastDate(Account account, out Transaction first, out Transaction last)
+        {
+            first = null;
+            last = null;
+            foreach (Transaction t in account.transactions)
+            {
+                if (first == null || t.date < first.date)
+                {
+                    first = t;
+                }
+                if (last == null || t.date > last.date)
+                {
+                    last = t;
                 }
             }
         }
@@ -102,7 +117,9 @@ namespace FeliCa2Money
 
         public virtual void WriteFile(List<Account> accounts)
         {
-            getFirstLastDate(accounts);
+            Transaction allFirst;
+            Transaction allLast;
+            getFirstLastDate(accounts, out allFirst, out allLast);
 
             StreamWriter w = new StreamWriter(mOfxFilePath, false); //, Encoding.UTF8);
             w.NewLine = "\n";
@@ -126,7 +143,7 @@ namespace FeliCa2Money
             w.WriteLine("    <CODE>0");
             w.WriteLine("    <SEVERITY>INFO");
             w.WriteLine("  </STATUS>");
-            w.WriteLine("  <DTSERVER>{0}", dateStr(mAllLast.date));
+            w.WriteLine("  <DTSERVER>{0}", dateStr(allLast.date));
 
             w.WriteLine("  <LANGUAGE>JPN");
             w.WriteLine("  <FI>");
@@ -157,10 +174,11 @@ namespace FeliCa2Money
 
             foreach (Account account in accounts)
             {
+                if (account.isCreditCard != isCreditCard) continue;
                 if (account.transactions.Count == 0) continue; // no transactions
 
-                Transaction first = account.transactions[0];
-                Transaction last = account.transactions[account.transactions.Count - 1];
+                Transaction first, last;
+                getFirstLastDate(account, out first, out last);
 
                 /* 預金口座型明細情報作成 */
                 if (!isCreditCard)
@@ -190,13 +208,13 @@ namespace FeliCa2Money
                 if (!isCreditCard)
                 {
                     w.WriteLine("  <BANKACCTFROM>");
+                    w.WriteLine("    <BANKID>{0}", account.bankId);
+                    w.WriteLine("    <BRANCHID>{0}", account.branchId);
                 }
                 else
                 {
                     w.WriteLine("  <CCACCTFROM>");
                 }
-                w.WriteLine("    <BANKID>{0}", account.bankId);
-                w.WriteLine("    <BRANCHID>{0}", account.branchId);
                 w.WriteLine("    <ACCTID>{0}", account.accountId);
                 if (!isCreditCard)
                 {

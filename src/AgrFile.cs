@@ -33,7 +33,7 @@ namespace FeliCa2Money
 {
     class AgrFile
     {
-        private List<Account> mCards;
+        private List<Account> mAccounts;
 
         enum State
         {
@@ -44,7 +44,7 @@ namespace FeliCa2Money
 
         public List<Account> cards
         {
-            get { return mCards; }
+            get { return mAccounts; }
         }
 
         public bool loadFromFile(string path)
@@ -59,8 +59,10 @@ namespace FeliCa2Money
                 return false;
             }
 
-            mCards = new List<Account>();
+            mAccounts = new List<Account>();
             AgrAccount account = null;
+
+            AgrAccount.initNameHash();
 
             // 行をパースする
             State state = State.SearchingStart;
@@ -84,8 +86,14 @@ namespace FeliCa2Money
                         break;
 
                     case State.ReadAccountInfo:
-                        account = new AgrAccount();
-                        account.isCreditCard = isCreditCard;
+                        if (isCreditCard)
+                        {
+                            account = AgrAccount.newCreditCardAccount();
+                        }
+                        else
+                        {
+                            account = AgrAccount.newBankAccount();
+                        }
                         if (!account.readAccountInfo(line))
                         {
                             return false;
@@ -96,15 +104,14 @@ namespace FeliCa2Money
                     case State.ReadTransactions:
                         if (line.StartsWith("<END_"))
                         {
-                            mCards.Add(account);
+                            mAccounts.Add(account);
                             state = State.SearchingStart;
                         }
                         else
                         {
                             if (!account.readTransaction(line))
                             {
-                                // 解析エラー: この口座は無視する
-                                state = State.SearchingStart;
+                                // 解析エラー: この取引は無視する
                             }
                         }
                         break;
@@ -116,7 +123,27 @@ namespace FeliCa2Money
 
     class AgrAccount : Account
     {
-        public AgrAccount()
+        private static Hashtable mNameHash;
+
+        public static void initNameHash()
+        {
+            mNameHash = new Hashtable();
+        }
+
+        public static AgrAccount newBankAccount() {
+            AgrAccount account = new AgrAccount();
+            account.isCreditCard = false;
+            return account;
+        }
+
+        public static AgrAccount newCreditCardAccount()
+        {
+            AgrAccount account = new AgrAccount();
+            account.isCreditCard = true;
+            return account;
+        }
+
+        private AgrAccount()
         {
             mTransactions = new List<Transaction>();
         }
@@ -139,14 +166,47 @@ namespace FeliCa2Money
                 return false;
             }
 
-            string bankName = columns[0];
-            string branchName = columns[1];
-            string accountId = columns[2];
+            if (!isCreditCard)
+            {
+                // 銀行口座
+                string bankName = columns[0];
+                string branchName = columns[1];
+                string accountId = columns[2];
+                // TODO: 残高(4カラム目)はとりあえず使用しない
 
-            mIdent = bankName;
-            mBankId = bankName;
-            mBranchId = getDummyId(branchName).ToString();
-            mAccountId = accountId;
+                mIdent = bankName;
+                mBankId = bankName;
+                mBranchId = getDummyId(branchName).ToString();
+                mAccountId = accountId;
+            }
+            else
+            {
+                // クレジットカード
+                string cardName = columns[0];
+
+                // 末尾の 'カード' という文字を抜く
+                cardName = "CARD_" + Regex.Replace(cardName, @"カード$", "");
+
+
+                // 2カラム目は空の模様
+                //string balance = columns[2];
+                mIdent = "";
+                mBankId = "";
+                mBranchId = "";
+
+                // 重複しないよう、連番を振る
+                int counter;
+                if (!mNameHash.ContainsKey(cardName))
+                {
+                    counter = 1;
+                }
+                else
+                {
+                    counter = (int)mNameHash[cardName];
+                }
+                mAccountId = cardName + counter.ToString();
+                mNameHash[cardName] = counter + 1;
+            }
 
             return true;
         }
