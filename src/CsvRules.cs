@@ -30,25 +30,40 @@ using System.IO;
 
 namespace FeliCa2Money
 {
+    /// <summary>
+    /// CSVルールセット
+    /// </summary>
     public class CsvRules
     {
-	private const String CSV_RULE_URL = "https://github.com/tmurakam/felica2money/raw/master/defs/CsvRules.xml";
-	// "http://moneyimport.sourceforge.jp/CsvRules.xml";
+        /// <summary>
+        /// CSVルール定義ファイルの URL
+        /// </summary>
+        private const String CSV_RULE_URL = "https://github.com/tmurakam/felica2money/raw/master/defs/CsvRules.xml";
+        // "http://moneyimport.sourceforge.jp/CsvRules.xml";
         // "http://svn.sourceforge.jp/svnroot/moneyimport/trunk/FeliCa2Money.net/CsvRules.xml";
 
-        private List<CsvRule> ruleList;
+        private List<CsvRule> mRules;
 
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
         public CsvRules()
         {
-            ruleList = new List<CsvRule>();
+            mRules = new List<CsvRule>();
         }
 
+        /// <summary>
+        /// ルール数
+        /// </summary>
         public int Count
         {
-            get { return ruleList.Count; }
+            get { return mRules.Count; }
         }
 
-        // 全 CSV 変換ルールを読み出す
+        /// <summary>
+        /// 全 CSV 変換ルールを読み出す
+        /// </summary>
+        /// <returns></returns>
         public bool LoadAllRules()
         {
             // ユーザ設定フォルダのほうから読み出す
@@ -80,8 +95,11 @@ namespace FeliCa2Money
             return true;
         }
 
-        // 定義ファイルを１つ読み込む
-        public void LoadFromFile(string path)
+        /// <summary>
+        /// 定義ファイルを１つ読み込む
+        /// </summary>
+        /// <param name="path">定義ファイルパス</param>
+        private void LoadFromFile(string path)
         {
             XmlDocument doc = new XmlDocument();
             doc.Load(path);
@@ -89,7 +107,7 @@ namespace FeliCa2Money
             LoadFromXml(doc);
         }
 
-        public void LoadFromXml(XmlDocument doc)
+        private void LoadFromXml(XmlDocument doc)
         {
             XmlElement root = doc.DocumentElement;
 
@@ -143,16 +161,19 @@ namespace FeliCa2Money
                     }
                 }
 
-                ruleList.Add(rule);
+                mRules.Add(rule);
             }
         }
 
-        // 名前一覧を返す
+        /// <summary>
+        /// ルール名一覧を返す
+        /// </summary>
+        /// <returns>ルール名</returns>
         public string[] names()
         {
-            string[] names = new string[ruleList.Count];
+            string[] names = new string[mRules.Count];
             int i = 0;
-            foreach (CsvRule rule in ruleList)
+            foreach (CsvRule rule in mRules)
             {
                 names[i] = rule.name;
                 i++;
@@ -160,22 +181,34 @@ namespace FeliCa2Money
             return names;
         }
 
-        // 指定したインデックスのルールを返す
+        /// <summary>
+        /// 指定したインデックスのルールを返す
+        /// </summary>
+        /// <param name="idx">インデックス</param>
+        /// <returns>ルール</returns>
         public CsvRule GetAt(int idx)
         {
-            return ruleList[idx];
+            return mRules[idx];
         }
 
-        // 指定したルールのインデックスを返す
+        /// <summary>
+        /// 指定したルールのインデックスを返す
+        /// </summary>
+        /// <param name="rule">ルール</param>
+        /// <returns>インデックス</returns>
         public int IndexOf(CsvRule rule)
         {
-            return ruleList.IndexOf(rule);
+            return mRules.IndexOf(rule);
         }
 
-        // firstLine に一致するルールを探す
+        /// <summary>
+        /// firstLine に一致するルールを探す
+        /// </summary>
+        /// <param name="firstLine">firstLine</param>
+        /// <returns>ルール</returns>
         public CsvRule FindRule(string firstLine)
         {
-            foreach (CsvRule rule in ruleList)
+            foreach (CsvRule rule in mRules)
             {
                 if (rule.firstLine == firstLine)
                 {
@@ -185,7 +218,10 @@ namespace FeliCa2Money
             return null;
         }
 
-        // 定義ファイルをダウンロードする
+        /// <summary>
+        /// 定義ファイルをダウンロードする
+        /// </summary>
+        /// <returns></returns>
         public static bool DownloadRule()
         {
             string path = getRulesPath() + "\\CsvRules.xml";
@@ -203,8 +239,11 @@ namespace FeliCa2Money
             return true;
         }
 
-        // 定義ファイルのディレクトリを返す
-        //   UserAppDataPath からバージョン番号を除いたもの
+        /// <summary>
+        /// 定義ファイルのディレクトリを返す
+        /// UserAppDataPath からバージョン番号を除いたものが帰る
+        /// </summary>
+        /// <returns></returns>
         private static string getRulesPath()
         {
             string path = Application.LocalUserAppDataPath;
