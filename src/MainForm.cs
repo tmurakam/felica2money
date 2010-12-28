@@ -84,7 +84,7 @@ namespace FeliCa2Money
 
         private void buttonCSV_Click(object sender, EventArgs e)
         {
-            CsvCard csv = new CsvCard();
+            CsvAccount csv = new CsvAccount();
             if (!csv.LoadAllRules()) return;
 
             openFileDialog.DefaultExt = "csv";
