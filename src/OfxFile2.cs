@@ -32,14 +32,14 @@ namespace FeliCa2Money
     {
         private XmlDocument doc;
 
-        public override void WriteFile(List<Card> cards)
+        public override void WriteFile(List<Account> cards)
         {
             XmlDocument d = Generate(cards);
             d.Save(mOfxFilePath);
         }
 
         // OFX 2 ドキュメント生成
-        private XmlDocument Generate(List<Card> cards)
+        private XmlDocument Generate(List<Account> cards)
         {
             getFirstLastDate(cards);
 
@@ -79,8 +79,10 @@ namespace FeliCa2Money
             /* 口座情報(バンクメッセージレスポンス) */
             XmlElement bankMsgSrsv1 = appendElement(root, "BANKMSGSRSV1");
 
-            foreach (Card card in cards)
+            foreach (Account card in cards)
             {
+                if (card.transactions.Count == 0) continue;
+
                 Transaction first = card.transactions[0];
                 Transaction last = card.transactions[card.transactions.Count - 1];
 

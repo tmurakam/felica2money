@@ -74,12 +74,14 @@ namespace FeliCa2Money
 
         // 最初のトランザクションと最後のトランザクションを取り出しておく
         // (日付範囲取得のため)
-        protected void getFirstLastDate(List<Card> cards)
+        protected void getFirstLastDate(List<Account> cards)
         {
             mAllFirst = null;
             mAllLast = null;
-            foreach (Card card in cards) {
+            foreach (Account card in cards) {
                 Transaction t;
+                if (card.transactions.Count == 0) continue;
+
                 t = card.transactions[0];
                 if (mAllFirst == null || t.date < mAllFirst.date)
                 {
@@ -95,14 +97,14 @@ namespace FeliCa2Money
 
         }
 
-        public void WriteFile(Card card)
+        public void WriteFile(Account card)
         {
-            List<Card> cards = new List<Card>();
+            List<Account> cards = new List<Account>();
             cards.Add(card);
             WriteFile(cards);
         }
 
-        public virtual void WriteFile(List<Card> cards)
+        public virtual void WriteFile(List<Account> cards)
         {
             getFirstLastDate(cards);
 
@@ -148,8 +150,10 @@ namespace FeliCa2Money
             /* 口座情報(バンクメッセージレスポンス) */
             w.WriteLine("<BANKMSGSRSV1>");
 
-            foreach (Card card in cards)
+            foreach (Account card in cards)
             {
+                if (card.transactions.Count == 0) continue; // no transactions
+
                 Transaction first = card.transactions[0];
                 Transaction last = card.transactions[card.transactions.Count - 1];
 

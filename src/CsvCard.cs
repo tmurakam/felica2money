@@ -30,7 +30,7 @@ using System.Windows.Forms;
 
 namespace FeliCa2Money
 {
-    class CsvCard : Card
+    class CsvCard : Account
     {
         private CsvRules rules = new CsvRules();
         private StreamReader sr;

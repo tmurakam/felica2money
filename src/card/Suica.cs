@@ -27,7 +27,7 @@ using FelicaLib;
 
 namespace FeliCa2Money
 {
-    public class Suica : CardWithFelicaLib
+    public class Suica : FelicaCard
     {
         // 物販エリアコード
         public const int AreaSuica = 1;
@@ -39,7 +39,7 @@ namespace FeliCa2Money
         public Suica()
         {
             mIdent       = "Suica";
-            mCardName    = "Suica";
+            mAccountName    = "Suica";
 
             systemCode  = (int)SystemCode.Suica;
             serviceCode = 0x090f;       // 履歴エリアのサービスコード

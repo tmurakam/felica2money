@@ -25,14 +25,14 @@ using FelicaLib;
 
 namespace FeliCa2Money
 {
-    // Card クラス
-    public abstract class Card
+    // Account クラス
+    public abstract class Account
     {
         protected string mIdent;              // 組織名
         protected string mBankId = "Felica2Money";  // 銀行ID
         protected string mBranchId = "0";   // 支店番号
         protected string mAccountId = "";   // 口座番号
-        protected string mCardName;         // カード名
+        protected string mAccountName;         // カード名
         protected List<Transaction> mTransactions; // 取引リスト
 
         public abstract void ReadCard();
@@ -53,9 +53,9 @@ namespace FeliCa2Money
                 return mBranchId;
             }
         }
-        public string cardName
+        public string accountName
         {
-            get { return mCardName; }
+            get { return mAccountName; }
         }
         
         public string accountId
@@ -80,7 +80,7 @@ namespace FeliCa2Money
     }
 
     // FeliCa カードクラス
-    public abstract class CardWithFelicaLib : Card, IDisposable
+    public abstract class FelicaCard : Account, IDisposable
     {
         protected int systemCode;   // システムコード
         protected int serviceCode;  // サービスコード

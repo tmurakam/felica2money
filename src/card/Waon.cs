@@ -27,12 +27,12 @@ using FelicaLib;
 
 namespace FeliCa2Money
 {
-    public class Waon : CardWithFelicaLib
+    public class Waon : FelicaCard
     {
         public Waon()
         {
             mIdent       = "WAON";
-            mCardName    = "WAON";
+            mAccountName    = "WAON";
 
             systemCode  = (int)SystemCode.Common;
             serviceCode = 0x680b;

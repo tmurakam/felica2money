@@ -33,7 +33,7 @@ namespace FeliCa2Money
 {
     class AgrFile
     {
-        private List<Card> mCards;
+        private List<Account> mCards;
 
         enum State
         {
@@ -42,7 +42,7 @@ namespace FeliCa2Money
             ReadTransactions
         };
 
-        public List<Card> cards
+        public List<Account> cards
         {
             get { return mCards; }
         }
@@ -59,7 +59,7 @@ namespace FeliCa2Money
                 return false;
             }
 
-            mCards = new List<Card>();
+            mCards = new List<Account>();
             AgrAccount card = null;
 
             // 行をパースする
@@ -104,7 +104,7 @@ namespace FeliCa2Money
         }
     }
 
-    class AgrAccount : Card
+    class AgrAccount : Account
     {
         public AgrAccount()
         {

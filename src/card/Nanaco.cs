@@ -25,12 +25,12 @@ using FelicaLib;
 
 namespace FeliCa2Money
 {
-    public class Nanaco : CardWithFelicaLib
+    public class Nanaco : FelicaCard
     {
         public    Nanaco()
         {
             mIdent       = "Nanaco";
-            mCardName    = "Nanaco";
+            mAccountName    = "Nanaco";
 
             systemCode  = (int)SystemCode.Common;
             serviceCode = 0x564f;

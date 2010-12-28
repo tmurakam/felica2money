@@ -131,7 +131,7 @@ namespace FeliCa2Money
             doConvert(agr.cards);
         }
 
-        private void doReadAndConvert(Card c)
+        private void doReadAndConvert(Account c)
         {
             if (doRead(c))
             {
@@ -141,7 +141,7 @@ namespace FeliCa2Money
 
         // カードを読み込む
         // カードが正常に読み取られ、１件以上有効な取引があれば、true を返す。
-        private bool doRead(Card c)
+        private bool doRead(Account c)
         {
             try
             {
@@ -175,14 +175,14 @@ namespace FeliCa2Money
             return true;
         }
 
-        private void doConvert(Card c)
+        private void doConvert(Account c)
         {
-            List<Card> cards = new List<Card>();
+            List<Account> cards = new List<Account>();
             cards.Add(c);
             doConvert(cards);
         }
 
-        private void doConvert(List<Card> cards)
+        private void doConvert(List<Account> cards)
         {
             // OFX ファイルパス指定
             String ofxFilePath;

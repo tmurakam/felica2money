@@ -25,12 +25,12 @@ using FelicaLib;
 
 namespace FeliCa2Money
 {
-    public class Edy : CardWithFelicaLib
+    public class Edy : FelicaCard
     {
         public Edy()
         {
             mIdent         = "Edy";
-            mCardName    = "Edy";
+            mAccountName    = "Edy";
 
             systemCode  = (int)SystemCode.Edy;
             serviceCode = 0x170f;
