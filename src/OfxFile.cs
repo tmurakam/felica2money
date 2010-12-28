@@ -31,6 +31,9 @@ using System.Xml;
 
 namespace FeliCa2Money
 {
+    /// <summary>
+    /// OFXファイルバージョン1
+    /// </summary>
     class OfxFile
     {
         protected string mOfxFilePath;

@@ -184,7 +184,7 @@ namespace FeliCa2Money
             }
             else
             {
-                t.id = Transaction.UnassignedId;
+                t.id = Transaction.UNASSIGNED_ID;
             }
 
             // 金額

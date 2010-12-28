@@ -28,9 +28,12 @@ using System.Xml;
 
 namespace FeliCa2Money
 {
+    /// <summary>
+    /// OFXファイルバージョン2
+    /// </summary>
     class OfxFile2 : OfxFile
     {
-        private XmlDocument doc;
+        private XmlDocument mDoc;
 
         public override void WriteFile(List<Account> accounts)
         {
@@ -45,18 +48,18 @@ namespace FeliCa2Money
             getFirstLastDate(accounts, out allFirst, out allLast);
 
             // XML ドキュメント生成
-            doc = new XmlDocument();
+            mDoc = new XmlDocument();
 
-            XmlDeclaration decl = doc.CreateXmlDeclaration("1.0", "UTF-8", "yes");
-            doc.AppendChild(decl);
+            XmlDeclaration decl = mDoc.CreateXmlDeclaration("1.0", "UTF-8", "yes");
+            mDoc.AppendChild(decl);
 
             // OFX 宣言
-            XmlProcessingInstruction pi = doc.CreateProcessingInstruction("OFX",
+            XmlProcessingInstruction pi = mDoc.CreateProcessingInstruction("OFX",
                 "OFXHEADER=\"200\" VERSION=\"200\" SECURITY=\"NONE\" OLDFILEUID=\"NONE\" NEWFILEUID=\"NONE\"");
-            doc.AppendChild(pi);
+            mDoc.AppendChild(pi);
 
-            XmlElement root = doc.CreateElement("OFX");
-            doc.AppendChild(root);
+            XmlElement root = mDoc.CreateElement("OFX");
+            mDoc.AppendChild(root);
 
             // ヘッダ部分
             XmlElement signOnMsgSrsv1 = appendElement(root, "SIGNONMSGSRSV1");
@@ -73,7 +76,7 @@ namespace FeliCa2Money
             genCardsInfo(root, accounts, false);
             genCardsInfo(root, accounts, true);
 
-            return doc;
+            return mDoc;
         }
 
         private void genCardsInfo(XmlElement root, List<Account> accounts, bool isCreditCard)
@@ -129,11 +132,11 @@ namespace FeliCa2Money
                 XmlElement acctfrom;
                 if (!isCreditCard)
                 {
-                    acctfrom = doc.CreateElement("BANKACCTFROM");
+                    acctfrom = mDoc.CreateElement("BANKACCTFROM");
                 }
                 else
                 {
-                    acctfrom = doc.CreateElement("CCACCTFROM");
+                    acctfrom = mDoc.CreateElement("CCACCTFROM");
                 }
 
                 stmtrs.AppendChild(acctfrom);
@@ -193,7 +196,7 @@ namespace FeliCa2Money
         // 要素追加
         private XmlElement appendElement(XmlElement parent, string elem)
         {
-            XmlElement e = doc.CreateElement(elem);
+            XmlElement e = mDoc.CreateElement(elem);
             parent.AppendChild(e);
             return e;
         }
@@ -201,8 +204,8 @@ namespace FeliCa2Money
         // 要素追加 (テキストノード付き)
         private void appendElementWithText(XmlElement parent, string elem, string text)
         {
-            XmlElement e = doc.CreateElement(elem);
-            e.AppendChild(doc.CreateTextNode(text));
+            XmlElement e = mDoc.CreateElement(elem);
+            e.AppendChild(mDoc.CreateTextNode(text));
             parent.AppendChild(e);
         }
     }

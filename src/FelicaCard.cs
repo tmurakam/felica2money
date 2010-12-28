@@ -25,29 +25,45 @@ using FelicaLib;
 
 namespace FeliCa2Money
 {
-    // FeliCa カードクラス
+    /// <summary>
+    /// FeliCa カードクラス
+    /// </summary>
     public abstract class FelicaCard : Account, IDisposable
     {
-        protected int systemCode;   // システムコード
-        protected int serviceCode;  // サービスコード
-        protected int blocksPerTransaction = 1;  // 1トランザクションあたりのブロック数
-        protected int maxTransactions = 100;     // 最大トランザクション数
-        protected bool needReverse = false;      // レコード順序を逆転するかどうか
-        protected bool needCalcValue = false;     // 入出金額を残高から計算するかどうか
+        protected int mSystemCode;   // システムコード
+        protected int mServiceCode;  // サービスコード
+        protected int mBlocksPerTransaction = 1;  // 1トランザクションあたりのブロック数
+        protected int mMaxTransactions = 100;     // 最大トランザクション数
+        protected bool mNeedReverse = false;      // レコード順序を逆転するかどうか
+        protected bool mNeedCalcValue = false;     // 入出金額を残高から計算するかどうか
 
         //--------------------------------------------------------------------
         // 以下のメソッドはサブクラスで必要に応じてオーバライドする
 
-        // Transaction 解析
+        /// <summary>
+        /// Transaction 解析
+        /// </summary>
+        /// <param name="t"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public abstract bool analyzeTransaction(Transaction t, byte[] data);
 
-        // 後処理
+        /// <summary>
+        /// 後処理
+        /// </summary>
+        /// <param name="list"></param>
         protected virtual void PostProcess(List<Transaction> list) { }
 
-        // Dispose 処理 
+        /// <summary>
+        /// Dispose 処理
+        /// </summary>
         public virtual void Dispose() { }
 
-        // カード ID 取得
+        /// <summary>
+        /// カード ID 取得
+        /// </summary>
+        /// <param name="f"></param>
+        /// <returns></returns>
         public virtual bool analyzeCardId(IFelica f)
         {
             // デフォルトでは、IDm を用いる。
@@ -64,7 +80,9 @@ namespace FeliCa2Money
 
         //--------------------------------------------------------------------
 
-        // カード読み込み
+        /// <summary>
+        /// カード読み込み
+        /// </summary>
         public sealed override void ReadCard()
         {
             using (IFelica f = new Felica()) {
@@ -72,26 +90,30 @@ namespace FeliCa2Money
             }
         }
 
-        // カード読み込み
-        // Note: 本来はこのメソッドは private で良いが、UnitTest 用に public にしてある。
+        /// <summary>
+        /// カード読み込み
+        /// Note: 本来はこのメソッドは private で良いが、UnitTest 用に public にしてある。
+        /// </summary>
+        /// <param name="f"></param>
+        /// <returns></returns>
         public List<Transaction> ReadCard(IFelica f)
         {
             List<Transaction> list = new List<Transaction>();
 
-            f.Polling(systemCode);
+            f.Polling(mSystemCode);
 
             if (!analyzeCardId(f)) {
                 throw new Exception(Properties.Resources.CantReadCardNo);
             }
 
-            for (int i = 0; i < maxTransactions; i++)
+            for (int i = 0; i < mMaxTransactions; i++)
             {
-                byte[] data = new byte[16 * blocksPerTransaction];
+                byte[] data = new byte[16 * mBlocksPerTransaction];
                 byte[] block = null;
 
-                for (int j = 0; j < blocksPerTransaction; j++)
+                for (int j = 0; j < mBlocksPerTransaction; j++)
                 {
-                    block = f.ReadWithoutEncryption(serviceCode, i * blocksPerTransaction + j);
+                    block = f.ReadWithoutEncryption(mServiceCode, i * mBlocksPerTransaction + j);
                     if (block == null)
                     {
                         break;
@@ -126,11 +148,11 @@ namespace FeliCa2Money
                 list.Add(t);
             }
 
-            if (needReverse)
+            if (mNeedReverse)
             {
                 list.Reverse();
             }
-            if (needCalcValue)
+            if (mNeedCalcValue)
             {
                 CalcValueFromBalance(list);
             }
@@ -142,7 +164,13 @@ namespace FeliCa2Money
         //-------------------------------------------------------------------
         // ユーティリティ
 
-        // バイナリデータを16進文字列に変換
+        /// <summary>
+        /// バイナリデータを16進文字列に変換
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="offset"></param>
+        /// <param name="len"></param>
+        /// <returns></returns>
         protected string binString(byte[] data, int offset, int len)
         {
             string s = "";

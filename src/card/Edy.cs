@@ -32,10 +32,10 @@ namespace FeliCa2Money
             mIdent         = "Edy";
             mAccountName    = "Edy";
 
-            systemCode  = (int)SystemCode.Edy;
-            serviceCode = 0x170f;
-            needReverse = true;
-            needCalcValue = false;
+            mSystemCode  = (int)SystemCode.Edy;
+            mServiceCode = 0x170f;
+            mNeedReverse = true;
+            mNeedCalcValue = false;
         }
 
         public override bool analyzeCardId(IFelica f)

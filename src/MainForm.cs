@@ -1,7 +1,7 @@
 /*
  * FeliCa2Money
  *
- * Copyright (C) 2001-2008 Takuya Murakami
+ * Copyright (C) 2001-2010 Takuya Murakami
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -30,7 +30,7 @@ namespace FeliCa2Money
 {
     public partial class MainForm : Form
     {
-	private const String HELP_URL = "http://felica2money.tmurakam.org/manual.html";
+	    private const String HELP_URL = "http://felica2money.tmurakam.org/manual.html";
 
         public MainForm()
         {
@@ -241,7 +241,7 @@ namespace FeliCa2Money
             {
                 System.Diagnostics.Process.Start(HELP_URL);
 
-	        //String helpFile = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Felica2Money.html";
+	            //String helpFile = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Felica2Money.html";
                 //System.Diagnostics.Process.Start(helpFile);
             }
             catch

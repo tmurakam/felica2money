@@ -1,7 +1,7 @@
 /*
  * FeliCa2Money
  *
- * Copyright (C) 2001-2008 Takuya Murakami
+ * Copyright (C) 2001-2010 Takuya Murakami
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -41,9 +41,9 @@ namespace FeliCa2Money
 
     public class Transaction
     {
-        public const int UnassignedId = -1;
+        public const int UNASSIGNED_ID = -1;
 
-        public int id = UnassignedId; // ID
+        public int id = UNASSIGNED_ID; // ID
         public DateTime date;
         public TransType type;        // トランザクションタイプ
         public string desc = "";
@@ -51,49 +51,49 @@ namespace FeliCa2Money
         public int value = 0;      // 金額
         public int balance = 0;    // 残高
 
-        private bool valid = true;
+        private bool mValid = true;
 
-        private static Hashtable TransIncome;
-        private static Hashtable TransOutgo;
-        private static Hashtable TransStrings;
+        private static Hashtable mTransIncome;
+        private static Hashtable mTransOutgo;
+        private static Hashtable mTransStrings;
 
         static Transaction()
         {
             // initialize
-            TransStrings = new Hashtable();
-            TransStrings[TransType.Int] = "INT";
-            TransStrings[TransType.Div] = "DIV";
-            TransStrings[TransType.DirectDep] = "DIRECTDEP";
-            TransStrings[TransType.Dep] = "DEP";
-            TransStrings[TransType.Payment] = "PAYMENT";
-            TransStrings[TransType.Cash] = "CASH";
-            TransStrings[TransType.ATM] = "ATM";
-            TransStrings[TransType.Check] = "CHECK";
-            TransStrings[TransType.Debit] = "DEBIT";
+            mTransStrings = new Hashtable();
+            mTransStrings[TransType.Int] = "INT";
+            mTransStrings[TransType.Div] = "DIV";
+            mTransStrings[TransType.DirectDep] = "DIRECTDEP";
+            mTransStrings[TransType.Dep] = "DEP";
+            mTransStrings[TransType.Payment] = "PAYMENT";
+            mTransStrings[TransType.Cash] = "CASH";
+            mTransStrings[TransType.ATM] = "ATM";
+            mTransStrings[TransType.Check] = "CHECK";
+            mTransStrings[TransType.Debit] = "DEBIT";
 
-            TransIncome = new Hashtable();
-            TransIncome["利息"] = TransType.Int;
-            TransIncome["振込"] = TransType.DirectDep;
-            TransIncome["ﾁｬｰｼﾞ"]= TransType.DirectDep;  // Edy チャージ
-            TransIncome["入金"] = TransType.DirectDep;    // Suica チャージ
+            mTransIncome = new Hashtable();
+            mTransIncome["利息"] = TransType.Int;
+            mTransIncome["振込"] = TransType.DirectDep;
+            mTransIncome["ﾁｬｰｼﾞ"]= TransType.DirectDep;  // Edy チャージ
+            mTransIncome["入金"] = TransType.DirectDep;    // Suica チャージ
 
-            TransOutgo = new Hashtable();
-            TransOutgo["ＡＴＭ"] = TransType.ATM;
-            TransOutgo["ATM"]    = TransType.ATM;
+            mTransOutgo = new Hashtable();
+            mTransOutgo["ＡＴＭ"] = TransType.ATM;
+            mTransOutgo["ATM"]    = TransType.ATM;
         }
 
         public string GetTransString()
         {
-            return (string)TransStrings[type];
+            return (string)mTransStrings[type];
         }
 
         public void GuessTransType(bool isIncome)
         {
-            Hashtable h = TransOutgo;
+            Hashtable h = mTransOutgo;
 
             if (isIncome)
             {
-                h = TransIncome;
+                h = mTransIncome;
             }
 
             foreach (string key in h.Keys)
@@ -118,12 +118,12 @@ namespace FeliCa2Money
 
         public void Invalidate()
         {
-            valid = false;
+            mValid = false;
         }
 
         public static bool isInvalid(Transaction t)
         {
-            return !t.valid;
+            return !t.mValid;
         }
 
         public static bool isZeroTransaction(Transaction t)

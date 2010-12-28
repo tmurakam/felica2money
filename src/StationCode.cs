@@ -27,7 +27,7 @@ namespace FeliCa2Money
 {
     class StationCode : IDisposable
     {
-        private OleDbConnection conn;
+        private OleDbConnection mConn;
 
         public class Names
         {
@@ -37,14 +37,14 @@ namespace FeliCa2Money
 
         public StationCode()
         {
-            conn = new System.Data.OleDb.OleDbConnection();
-            conn.ConnectionString = Properties.Settings.Default.StationCodeConnectionString;
-            conn.Open();
+            mConn = new System.Data.OleDb.OleDbConnection();
+            mConn.ConnectionString = Properties.Settings.Default.StationCodeConnectionString;
+            mConn.Open();
         }
 
         public void Dispose()
         {
-            conn.Close();
+            mConn.Close();
         }
 
         private Names doQuery(string sql)
@@ -52,7 +52,7 @@ namespace FeliCa2Money
             OleDbCommand cmd;
             OleDbDataReader dr;
 
-            cmd = new OleDbCommand(sql, conn);
+            cmd = new OleDbCommand(sql, mConn);
             dr = cmd.ExecuteReader();
 
             Names s = null;

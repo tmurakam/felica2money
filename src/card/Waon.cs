@@ -34,14 +34,14 @@ namespace FeliCa2Money
             mIdent       = "WAON";
             mAccountName    = "WAON";
 
-            systemCode  = (int)SystemCode.Common;
-            serviceCode = 0x680b;
+            mSystemCode  = (int)SystemCode.Common;
+            mServiceCode = 0x680b;
 
-            needReverse = false;
-            needCalcValue = false;
+            mNeedReverse = false;
+            mNeedCalcValue = false;
 
-            blocksPerTransaction = 2;  // 2ブロックで１履歴
-            maxTransactions = 3; // 履歴数は３
+            mBlocksPerTransaction = 2;  // 2ブロックで１履歴
+            mMaxTransactions = 3; // 履歴数は３
         }
 
         public override bool analyzeCardId(IFelica f)

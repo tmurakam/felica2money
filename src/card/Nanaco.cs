@@ -32,10 +32,10 @@ namespace FeliCa2Money
             mIdent       = "Nanaco";
             mAccountName    = "Nanaco";
 
-            systemCode  = (int)SystemCode.Common;
-            serviceCode = 0x564f;
-            needReverse = true;
-            needCalcValue = false;
+            mSystemCode  = (int)SystemCode.Common;
+            mServiceCode = 0x564f;
+            mNeedReverse = true;
+            mNeedCalcValue = false;
         }
 
         public override bool analyzeCardId(IFelica f)

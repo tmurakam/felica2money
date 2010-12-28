@@ -41,10 +41,10 @@ namespace FeliCa2Money
             mIdent       = "Suica";
             mAccountName    = "Suica";
 
-            systemCode  = (int)SystemCode.Suica;
-            serviceCode = 0x090f;       // 履歴エリアのサービスコード
-            needReverse = true;
-            needCalcValue = true;
+            mSystemCode  = (int)SystemCode.Suica;
+            mServiceCode = 0x090f;       // 履歴エリアのサービスコード
+            mNeedReverse = true;
+            mNeedCalcValue = true;
 
             stCode = new StationCode();
         }
