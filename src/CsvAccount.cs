@@ -81,8 +81,8 @@ namespace FeliCa2Money
             }
 
             // 銀行IDなどを設定
-            mIdent = mRule.Ident;
-            mBankId = mRule.BankId;
+            mIdent = mRule.ident;
+            mBankId = mRule.bankId;
             mBranchId = dlg.BranchId;
             mAccountId = dlg.AccountId;
 
@@ -91,11 +91,11 @@ namespace FeliCa2Money
             mSr = new StreamReader(path, System.Text.Encoding.Default);
 
             // firstLine まで読み飛ばす
-            if (mRule.FirstLine != null)
+            if (mRule.firstLine != null)
             {
                 while ((firstLine = mSr.ReadLine()) != null)
                 {
-                    if (firstLine == mRule.FirstLine) break;
+                    if (firstLine == mRule.firstLine) break;
                 }
             }
 
@@ -135,17 +135,17 @@ namespace FeliCa2Money
             }
 
             // ソート処理
-            switch (mRule.SortOrder)
+            switch (mRule.sortOrder)
             {
                 default:
-                case CsvRule.SortAscent:
+                case CsvRule.SortOrder.Ascent:
                     break;
 
-                case CsvRule.SortDescent:
+                case CsvRule.SortOrder.Descent:
                     transactions.Reverse();
                     break;
 
-                case CsvRule.SortAuto:
+                case CsvRule.SortOrder.Auto:
                     transactions.Sort(compareByDate);
                     break;
             }
@@ -177,7 +177,7 @@ namespace FeliCa2Money
         // CSV のフィールド分割
         private string[] SplitCsv(string line)
         {
-            return SplitCsv(line, mRule.IsTSV);
+            return SplitCsv(line, mRule.isTSV);
         }
 
         /// <summary>

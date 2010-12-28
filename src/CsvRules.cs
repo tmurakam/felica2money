@@ -117,25 +117,25 @@ namespace FeliCa2Money
                     switch (e.Name)
                     {
                         case "Ident":
-                            rule.Ident = value;
+                            rule.ident = value;
                             break;
                         case "Name":
-                            rule.Name = value;
+                            rule.name = value;
                             break;
                         case "BankId":
-                            rule.BankId = value;
+                            rule.bankId = value;
                             break;
                         case "FirstLine":
-                            rule.FirstLine = value;
+                            rule.firstLine = value;
                             break;
                         case "Format":
-                            rule.Format = value;
+                            rule.format = value;
                             break;
                         case "Order":
-                            rule.Order = value;
+                            rule.order = value;
                             break;
                         case "Separator":
-                            rule.Separator = value;
+                            rule.separator = value;
                             break;
                         default:
                             // ignore
@@ -154,7 +154,7 @@ namespace FeliCa2Money
             int i = 0;
             foreach (CsvRule rule in ruleList)
             {
-                names[i] = rule.Name;
+                names[i] = rule.name;
                 i++;
             }
             return names;
@@ -177,7 +177,7 @@ namespace FeliCa2Money
         {
             foreach (CsvRule rule in ruleList)
             {
-                if (rule.FirstLine == firstLine)
+                if (rule.firstLine == firstLine)
                 {
                     return rule;
                 }

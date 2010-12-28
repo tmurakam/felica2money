@@ -31,77 +31,75 @@ namespace FeliCa2Money
 {
     public class CsvRule
     {
-        public const int SortAscent = 0;
-        public const int SortDescent = 1;
-        public const int SortAuto = 2;
+        public enum SortOrder { Ascent, Descent, Auto };
 
-        private string ident;    // 識別子(組織名)
-        private string bankId;      // 銀行ID
-        private string name;     // 銀行名
-        private string firstLine = null; // １行目
-        private int sortOrder; // ソートオーダー
-        private bool isTSV = false; // TSV かどうか
+        private string mIdent;    // 識別子(組織名)
+        private string mBankId;      // 銀行ID
+        private string mName;     // 銀行名
+        private string mFirstLine = null; // １行目
+        private SortOrder mSortOrder; // ソートオーダー
+        private bool mIsTSV = false; // TSV かどうか
 
         // 各 CSV カラムのマッピング規則
         private Hashtable colHash = new Hashtable();
 
         // プロパティ
-        public string Ident
+        public string ident
         {
-            get { return ident; }
-            set { ident = value; }
+            get { return mIdent; }
+            set { mIdent = value; }
         }
-        public string BankId {
-            get { return bankId; }
-            set { bankId = value; }
+        public string bankId {
+            get { return mBankId; }
+            set { mBankId = value; }
         }
-        public string Name {
-            get { return name; }
-            set { name = value; }
+        public string name {
+            get { return mName; }
+            set { mName = value; }
         }
-        public string FirstLine
+        public string firstLine
         {
-            get { return firstLine; }
-            set { firstLine = value; }
+            get { return mFirstLine; }
+            set { mFirstLine = value; }
         }
-        public string Order
+        public string order
         {
             set
             {
                 if (value == "Sort") {
-                    sortOrder = SortAuto;
+                    mSortOrder = SortOrder.Auto;
                 } else if (value == "Descent") {
-                    sortOrder = SortDescent;
+                    mSortOrder = SortOrder.Descent;
                 } else {
-                    sortOrder = SortAscent;
+                    mSortOrder = SortOrder.Ascent;
                 }
             }
         }
-        public int SortOrder
+        public SortOrder sortOrder
         {
-            get { return sortOrder; }
+            get { return mSortOrder; }
         }
-        public string Separator 
+        public string separator 
         {
             set
             {
                 if (value == "Tab")
                 {
-                    isTSV = true;
+                    mIsTSV = true;
                 }
                 else
                 {
-                    isTSV = false;
+                    mIsTSV = false;
                 }
             }
         }
-        public bool IsTSV
+        public bool isTSV
         {
-            get { return isTSV; }
+            get { return mIsTSV; }
         }
             
         
-        public string Format
+        public string format
         {
             set { SetFormat(value); }
         }

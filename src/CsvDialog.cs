@@ -94,8 +94,8 @@ namespace FeliCa2Money
             for (int i = 0; i < count; i++)
             {
                 CsvRule rule = rules.GetAt(i);
-                string org = rule.Ident;
-                string x = rule.Ident + ",";
+                string org = rule.ident;
+                string x = rule.ident + ",";
                 if (branchIds[org] != null) {
                     x += branchIds[org];
                 }
@@ -124,7 +124,7 @@ namespace FeliCa2Money
         {
             // 支店番号、口座番号をテキストボックスに設定する
             CsvRule rule = SelectedRule();
-            string ident = rule.Ident;
+            string ident = rule.ident;
             if (branchIds[ident] != null)
             {
                 BranchId = (string)branchIds[ident];
@@ -158,14 +158,14 @@ namespace FeliCa2Money
         private void textBranchId_Leave(object sender, EventArgs e)
         {
             CsvRule rule = SelectedRule();
-            string org = rule.Ident;
+            string org = rule.ident;
             branchIds[org] = textBranchId.Text;
         }
 
         private void textAccountId_Leave(object sender, EventArgs e)
         {
             CsvRule rule = SelectedRule();
-            string org = rule.Ident;
+            string org = rule.ident;
             accountIds[org] = textAccountId.Text;
         }
 

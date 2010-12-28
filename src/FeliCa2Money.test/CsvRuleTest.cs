@@ -27,28 +27,28 @@ namespace FeliCa2Money.test
         [Test]
         public void Ident()
         {
-            rule.Ident = "hoge";
-            Assert.AreEqual(rule.Ident, "hoge");
+            rule.ident = "hoge";
+            Assert.AreEqual(rule.ident, "hoge");
         }
 
         [Test]
         public void Order()
         {
-            rule.Order = "Ascent";
-            Assert.AreEqual(rule.SortOrder, CsvRule.SortAscent);
-            rule.Order = "Descent";
-            Assert.AreEqual(rule.SortOrder, CsvRule.SortDescent);
-            rule.Order = "Sort";
-            Assert.AreEqual(rule.SortOrder, CsvRule.SortAuto);
+            rule.order = "Ascent";
+            Assert.AreEqual(rule.sortOrder, CsvRule.SortOrder.Ascent);
+            rule.order = "Descent";
+            Assert.AreEqual(rule.sortOrder, CsvRule.SortOrder.Descent);
+            rule.order = "Sort";
+            Assert.AreEqual(rule.sortOrder, CsvRule.SortOrder.Auto);
         }
 
         [Test]
         public void Separator()
         {
-            rule.Separator = "Tab";
-            Assert.IsTrue(rule.IsTSV);
-            rule.Separator = "Comma";
-            Assert.IsFalse(rule.IsTSV);
+            rule.separator = "Tab";
+            Assert.IsTrue(rule.isTSV);
+            rule.separator = "Comma";
+            Assert.IsFalse(rule.isTSV);
         }
 
         private string[] splitCSV(string x)
