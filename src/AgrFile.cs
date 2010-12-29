@@ -73,7 +73,7 @@ namespace FeliCa2Money
             mAccounts = new List<Account>();
             AgrAccount account = null;
 
-            AgrAccount.initNameHash();
+            AgrAccount.Builder builder = new AgrAccount.Builder();
 
             // 行をパースする
             State state = State.SearchingStart;
@@ -99,13 +99,13 @@ namespace FeliCa2Money
                     case State.ReadAccountInfo:
                         if (isCreditCard)
                         {
-                            account = AgrAccount.newCreditCardAccount();
+                            account = builder.newCreditCardAccount(line);
                         }
                         else
                         {
-                            account = AgrAccount.newBankAccount();
+                            account = builder.newBankAccount(line);
                         }
-                        if (!account.readAccountInfo(line))
+                        if (account == null)
                         {
                             return false;
                         }
@@ -137,35 +137,49 @@ namespace FeliCa2Money
     /// </summary>
     class AgrAccount : Account
     {
-        private static Hashtable mNameHash;
-
         /// <summary>
-        /// 初期化処理。readAccountInfo 開始前に呼び出すこと。
+        /// AGRアカウントビルダ
         /// </summary>
-        public static void initNameHash()
+        public class Builder
         {
-            mNameHash = new Hashtable();
-        }
+            private Hashtable mNameHash;
 
-        /// <summary>
-        /// 銀行型アカウントの生成
-        /// </summary>
-        /// <returns></returns>
-        public static AgrAccount newBankAccount() {
-            AgrAccount account = new AgrAccount();
-            account.isCreditCard = false;
-            return account;
-        }
+            /// <summary>
+            /// コンストラクタ
+            /// </summary>
+            public Builder()
+            {
+                mNameHash = new Hashtable();
+            }
 
-        /// <summary>
-        /// クレジットカード型アカウントの作成
-        /// </summary>
-        /// <returns></returns>
-        public static AgrAccount newCreditCardAccount()
-        {
-            AgrAccount account = new AgrAccount();
-            account.isCreditCard = true;
-            return account;
+            /// <summary>
+            /// 銀行型アカウントの生成
+            /// </summary>
+            /// <returns>アカウント</returns>
+            public AgrAccount newBankAccount(string line)
+            {
+                return newAccount(line, false);
+            }
+
+            /// <summary>
+            /// クレジットカード型アカウントの作成
+            /// </summary>
+            /// <returns>アカウント</returns>
+            public AgrAccount newCreditCardAccount(string line)
+            {
+                return newAccount(line, true);
+            }
+
+            private AgrAccount newAccount(string line, bool isCreditCard)
+            {
+                AgrAccount account = new AgrAccount();
+                account.isCreditCard = isCreditCard;
+                if (!account.readAccountInfo(line, mNameHash))
+                {
+                    return null;
+                }
+                return account;
+            }
         }
 
         private AgrAccount()
@@ -183,7 +197,7 @@ namespace FeliCa2Money
         /// </summary>
         /// <param name="line">アカウント情報行</param>
         /// <returns></returns>
-        public bool readAccountInfo(string line)
+        private bool readAccountInfo(string line, Hashtable nameHash)
         {
             string[] columns = CsvAccount.SplitCsv(line, false);
 
@@ -247,16 +261,16 @@ namespace FeliCa2Money
 
                 // 重複しないよう、連番を振る
                 int counter;
-                if (!mNameHash.ContainsKey(cardName))
+                if (!nameHash.ContainsKey(cardName))
                 {
                     counter = 1;
                 }
                 else
                 {
-                    counter = (int)mNameHash[cardName];
+                    counter = (int)nameHash[cardName];
                 }
                 mAccountId = cardName + counter.ToString();
-                mNameHash[cardName] = counter + 1;
+                nameHash[cardName] = counter + 1;
             }
 
             return true;
