@@ -34,7 +34,7 @@ namespace FeliCa2Money
     /// <summary>
     /// AGRファイル解析クラス
     /// </summary>
-    class AgrFile
+    public class AgrFile
     {
         private List<Account> mAccounts;
 
@@ -135,7 +135,7 @@ namespace FeliCa2Money
     /// <summary>
     /// AGRアカウント
     /// </summary>
-    class AgrAccount : Account
+    public class AgrAccount : Account
     {
         /// <summary>
         /// AGRアカウントビルダ
@@ -231,7 +231,7 @@ namespace FeliCa2Money
 
                 mIdent = bankName;
                 mBankId = bankName;
-                mBranchId = getDummyId(branchName).ToString();
+                mBranchId = branchName; // getDummyId(branchName).ToString();
                 mAccountId = accountId;
             }
             else

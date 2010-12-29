@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AgrFileTest.cs" />
     <Compile Include="EdyTest.cs" />
     <Compile Include="CsvRuleTest.cs" />
     <Compile Include="FelicaLibDummy.cs" />
