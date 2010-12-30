@@ -52,6 +52,7 @@
     <Compile Include="EdyTest.cs" />
     <Compile Include="CsvRuleTest.cs" />
     <Compile Include="FelicaLibDummy.cs" />
+    <Compile Include="OfxTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

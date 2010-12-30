@@ -40,7 +40,7 @@ namespace FeliCa2Money
         /// <param name="accounts">アカウント</param>
         public override void WriteFile(List<Account> accounts)
         {
-            mDoc = new XmlDocument();
+            newDoc();
 
             XmlDeclaration decl = mDoc.CreateXmlDeclaration("1.0", "UTF-8", "yes");
             mDoc.AppendChild(decl);
@@ -50,7 +50,7 @@ namespace FeliCa2Money
                 "OFXHEADER=\"200\" VERSION=\"200\" SECURITY=\"NONE\" OLDFILEUID=\"NONE\" NEWFILEUID=\"NONE\"");
             mDoc.AppendChild(pi);
 
-            genOfxElement(mDoc, accounts);
+            genOfxElement(accounts);
 
             mDoc.Save(mOfxFilePath);
         }

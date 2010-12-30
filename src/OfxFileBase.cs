@@ -34,7 +34,7 @@ namespace FeliCa2Money
     /// <summary>
     /// OFXファイル生成: 基底クラス
     /// </summary>
-    abstract class OfxFile
+    abstract public class OfxFile
     {
         protected string mOfxFilePath;
         protected XmlDocument mDoc;
@@ -61,7 +61,16 @@ namespace FeliCa2Money
         /// </summary>
         public OfxFile()
         {
-            //mDoc = new XmlDocument();
+        }
+
+        public void newDoc()
+        {
+            mDoc = new XmlDocument();
+        }
+
+        public XmlDocument doc
+        {
+            get { return mDoc; }
         }
 
         /// <summary>
@@ -101,8 +110,8 @@ namespace FeliCa2Money
 
         // ------------ private I/F
 
-        // OFX要素生成
-        protected void genOfxElement(XmlDocument doc, List<Account> accounts)
+        // OFX要素生成 (テストするために public)
+        public void genOfxElement(List<Account> accounts)
         {
             Transaction allFirst, allLast;
             getFirstLastDate(accounts, out allFirst, out allLast);
@@ -111,8 +120,8 @@ namespace FeliCa2Money
                 throw new System.InvalidOperationException("No entry");
             }
             
-            XmlElement root = doc.CreateElement("OFX");
-            doc.AppendChild(root);
+            XmlElement root = mDoc.CreateElement("OFX");
+            mDoc.AppendChild(root);
 
             // Signon MessageSet Response
             signonMessageSetResponse(root, allLast.date);
