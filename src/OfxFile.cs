@@ -94,11 +94,13 @@ namespace FeliCa2Money
             foreach (Account account in accounts) {
                 foreach (Transaction t in account.transactions)
                 {
+                    // 先頭エントリ: 同じ日付の場合は、前のエントリを優先
                     if (allFirst == null || t.date < allFirst.date)
                     {
                         allFirst = t;
                     }
-                    if (allLast == null || t.date > allLast.date)
+                    // 最終エントリ: 同じ日付の場合は、後のエントリを優先
+                    if (allLast == null || t.date >= allLast.date)
                     {
                         allLast = t;
                     }
@@ -112,11 +114,13 @@ namespace FeliCa2Money
             last = null;
             foreach (Transaction t in account.transactions)
             {
+                // 先頭エントリ: 同じ日付の場合は、前のエントリを優先
                 if (first == null || t.date < first.date)
                 {
                     first = t;
                 }
-                if (last == null || t.date > last.date)
+                // 最終エントリ: 同じ日付の場合は、後のエントリを優先
+                if (last == null || t.date >= last.date)
                 {
                     last = t;
                 }
