@@ -63,73 +63,87 @@ namespace FeliCa2Money
             // SJIS で開く
             StreamReader sr = new StreamReader(path, System.Text.Encoding.Default);
 
-            // フォーマットチェック
-            string line = sr.ReadLine();
-            if (line != "\"あぐりっぱ\",\"1.0\"")
+            try
             {
-                return false;
+                // フォーマットチェック
+                string line = sr.ReadLine();
+                if (line != "\"あぐりっぱ\",\"1.0\"")
+                {
+                    return false;
+                }
+
+                mAccounts = new List<Account>();
+                AgrAccount account = null;
+
+                AgrAccount.Builder builder = new AgrAccount.Builder();
+
+                // 行をパースする
+                State state = State.SearchingStart;
+                bool isCreditCard = false;
+
+                while ((line = sr.ReadLine()) != null)
+                {
+                    switch (state)
+                    {
+                        case State.SearchingStart:
+                            if (line.StartsWith("<START_CP"))
+                            {
+                                if (line.EndsWith("_PAY>"))
+                                {
+                                    state = State.ReadAccountInfo;
+                                    isCreditCard = true;
+                                }
+                                else if (line.EndsWith("_ORD>"))
+                                {
+                                    state = State.ReadAccountInfo;
+                                    isCreditCard = false;
+                                }
+                                else
+                                {
+                                    // ignore : _BILL など
+                                }
+                            }
+                            break;
+
+                        case State.ReadAccountInfo:
+                            if (isCreditCard)
+                            {
+                                account = builder.newCreditCardAccount(line);
+                            }
+                            else
+                            {
+                                account = builder.newBankAccount(line);
+                            }
+                            if (account == null)
+                            {
+                                sr.Close();
+                                return false;
+                            }
+                            state = State.ReadTransactions;
+                            break;
+
+                        case State.ReadTransactions:
+                            if (line.StartsWith("<END_"))
+                            {
+                                mAccounts.Add(account);
+                                state = State.SearchingStart;
+                            }
+                            else
+                            {
+                                if (!account.readTransaction(line))
+                                {
+                                    // 解析エラー: この取引は無視する
+                                }
+                            }
+                            break;
+                    }
+                }
             }
-
-            mAccounts = new List<Account>();
-            AgrAccount account = null;
-
-            AgrAccount.Builder builder = new AgrAccount.Builder();
-
-            // 行をパースする
-            State state = State.SearchingStart;
-            bool isCreditCard = false;
-
-            while ((line = sr.ReadLine()) != null)
+            finally
             {
-                switch (state) {
-                    case State.SearchingStart:
-                        if (line.StartsWith("<START_CP")) {
-                            if (line.EndsWith("_PAY>"))
-                            {
-                                state = State.ReadAccountInfo;
-                                isCreditCard = true;
-                            }
-                            else if (line.EndsWith("_ORD>"))
-                            {
-                                state = State.ReadAccountInfo;
-                                isCreditCard = false;
-                            }
-                            else {
-                                // ignore : _BILL など
-                            }
-                        }
-                        break;
-
-                    case State.ReadAccountInfo:
-                        if (isCreditCard)
-                        {
-                            account = builder.newCreditCardAccount(line);
-                        }
-                        else
-                        {
-                            account = builder.newBankAccount(line);
-                        }
-                        if (account == null)
-                        {
-                            return false;
-                        }
-                        state = State.ReadTransactions;
-                        break;
-
-                    case State.ReadTransactions:
-                        if (line.StartsWith("<END_"))
-                        {
-                            mAccounts.Add(account);
-                            state = State.SearchingStart;
-                        }
-                        else
-                        {
-                            if (!account.readTransaction(line))
-                            {
-                                // 解析エラー: この取引は無視する
-                            }
-                        }
-                        break;
+                if (sr != null)
+                {
+                    sr.Close();
                 }
             }
             return true;
