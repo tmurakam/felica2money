@@ -114,183 +114,194 @@ namespace FeliCa2Money
             XmlElement root = doc.CreateElement("OFX");
             doc.AppendChild(root);
 
-            // SIGNONMSGSRSV1
-            signonMsgSrsv1(root, allLast.date);
+            // Signon MessageSet Response
+            signonMessageSetResponse(root, allLast.date);
 
-            // BANKMSGSRSV1 / CREDITCARDMSGSRSV1
-            for (int i = 0; i < 2; i++)
+            // Bank / CreditCard MessageSet Response
+            List<Account> banks = new List<Account>();
+            List<Account> creditCards = new List<Account>();
+
+            foreach (Account account in accounts)
             {
-                bool isCreditCard = (i == 0) ? false : true;
-
-                // BANK or CREDITCARD アカウントのみを取り出す
-                List<Account> subaccts = new List<Account>();
-                foreach (Account account in accounts)
+                if (account.transactions.Count > 0)
                 {
-                    if (account.isCreditCard == isCreditCard && account.transactions.Count > 0)
+                    if (account.isCreditCard)
                     {
-                        subaccts.Add(account);
+                        creditCards.Add(account);
+                    }
+                    else
+                    {
+                        banks.Add(account);
                     }
                 }
+            }
 
-                if (!isCreditCard)
-                {
-                    bankMsgSrsv1(root, subaccts);
-                }
-                else
-                {
-                    creditCardMsgSrsv1(root, subaccts);
-                }
+            if (banks.Count > 0)
+            {
+                bankMessageSetResponse(root, banks);
+            }
+            if (creditCards.Count > 0)
+            {
+                creditCardMessageSetResponse(root, creditCards);
             }
         }
 
-        // SIGNONMSGSRSV1
-        private void signonMsgSrsv1(XmlElement parent, DateTime dtserver)
+        // Signon MessageSet Response (SIGNONMSGSRSV1)
+        private void signonMessageSetResponse(XmlElement parent, DateTime dtserver)
         {
-            XmlElement signOnMsgSrsv1 = appendElement(parent, "SIGNONMSGSRSV1");
-            XmlElement sonrs = appendElement(signOnMsgSrsv1, "SONRS");
+            XmlElement e = appendElement(parent, "SIGNONMSGSRSV1");
+
+            // Signon (Response)
+            XmlElement sonrs = appendElement(e, "SONRS");
+
             XmlElement status = appendElement(sonrs, "STATUS");
             appendElementWithText(status, "CODE", "0");
             appendElementWithText(status, "SEVERITY", "INFO");
             appendElementWithText(sonrs, "DTSERVER", dateStr(dtserver));
             appendElementWithText(sonrs, "LANGUAGE", "JPN");
+
             XmlElement fi = appendElement(sonrs, "FI");
             appendElementWithText(fi, "ORG", "FeliCa2Money");
             // FITIDは？
         }
 
-        // BANKMSGSRSV1 要素生成
-        private void bankMsgSrsv1(XmlElement parent, List<Account> accounts)
+        // Bank MessageSet Response (BANKMSGSRSV1)
+        private void bankMessageSetResponse(XmlElement parent, List<Account> accounts)
         {
             // XXXMSGSRSV1 生成
-            XmlElement msgsrsv1 = appendElement(parent, "BANKMSGSRSV1");
+            XmlElement e = appendElement(parent, "BANKMSGSRSV1");
             foreach (Account account in accounts)
             {
-                stmttrnrs(msgsrsv1, account);
+                statementTransactionResponse(e, account);
             }
         }
 
-        // CREDITCARDMSGSRSV1 要素生成
-        private void creditCardMsgSrsv1(XmlElement parent, List<Account> accounts)
+        // Credit Card MessageSet Response (CREDITCARDMSGSRSV1)
+        private void creditCardMessageSetResponse(XmlElement parent, List<Account> accounts)
         {
-            XmlElement msgsrsv1 = appendElement(parent, "CREDITCARDMSGSRSV1");
+            XmlElement e = appendElement(parent, "CREDITCARDMSGSRSV1");
             foreach (Account account in accounts)
             {
-                stmttrnrs(msgsrsv1, account);
+                statementTransactionResponse(e, account);
             }
         }
 
-        // STMTTRNRS または CCSTMTTRNRS
-        private void stmttrnrs(XmlElement parent, Account account)
+        // Statement Transaction Response (STMTTRNRS / CCSTMTTRNRS)
+        private void statementTransactionResponse(XmlElement parent, Account account)
         {
-            /* 預金口座型明細情報作成 */
-            XmlElement stmttrnrs;
+            XmlElement e;
             if (!account.isCreditCard)
             {
-                stmttrnrs = appendElement(parent, "STMTTRNRS");
+                e = appendElement(parent, "STMTTRNRS");
             }
             else
             {
-                stmttrnrs = appendElement(parent, "CCSTMTTRNRS");
+                e = appendElement(parent, "CCSTMTTRNRS");
             }
 
             // TRNUID
-            appendElementWithText(stmttrnrs, "TRNUID", "0");
+            appendElementWithText(e, "TRNUID", "0");
 
             // STATUS
-            XmlElement status = appendElement(stmttrnrs, "STATUS");
+            XmlElement status = appendElement(e, "STATUS");
             appendElementWithText(status, "CODE", "0");
             appendElementWithText(status, "SEVERITY", "INFO");
 
             // STMTRS / CCSTMTRS
-            stmtrs(stmttrnrs, account);
+            statementResponse(e, account);
         }
 
-        // STMTRS または CCSTMTRS
-        private void stmtrs(XmlElement parent, Account account)
+        // Statement Response (STMTRS or CCSTMTRS)
+        private void statementResponse(XmlElement parent, Account account)
         {
             Transaction first, last;
             getFirstLastDate(account, out first, out last);
 
-            /* STMTRS */
-            XmlElement stmtrs;
+            XmlElement e;
             if (!account.isCreditCard)
             {
-                stmtrs = appendElement(parent, "STMTRS");
+                e = appendElement(parent, "STMTRS");
             }
             else
             {
-                stmtrs = appendElement(parent, "CCSTMTRS");
+                e = appendElement(parent, "CCSTMTRS");
             }
 
             // CURDEF
-            appendElementWithText(stmtrs, "CURDEF", "JPY");
+            appendElementWithText(e, "CURDEF", "JPY");
 
             // BANKACCTFROM / CCACCTFROM
-            acctFrom(stmtrs, account);
+            accountFrom(e, account);
 
             // BANKTRANLIST
-            bankTranList(stmtrs, account, first, last);
+            bankTransactionList(e, account, first, last);
 
             // LEDGERBAL
-            ledgerBal(stmtrs, account, last);
+            ledgerBal(e, account, last);
         }
 
-        // BANKACCTFROM または CCACCTFROM
-        private void acctFrom(XmlElement parent, Account account)
+        // Account From (BANKACCTFROM or CCACCTFROM)
+        private void accountFrom(XmlElement parent, Account account)
         {
-            XmlElement acctfrom;
+            XmlElement e;
             if (!account.isCreditCard)
             {
-                acctfrom = appendElement(parent, "BANKACCTFROM");
+                e = appendElement(parent, "BANKACCTFROM");
             }
             else
             {
-                acctfrom = appendElement(parent, "CCACCTFROM");
+                e = appendElement(parent, "CCACCTFROM");
             }
 
             if (!account.isCreditCard)
             {
-                appendElementWithText(acctfrom, "BANKID", account.bankId.ToString());
-                appendElementWithText(acctfrom, "BRANCHID", account.branchId);
+                appendElementWithText(e, "BANKID", account.bankId.ToString());
+                appendElementWithText(e, "BRANCHID", account.branchId);
             }
-            appendElementWithText(acctfrom, "ACCTID", account.accountId);
+            appendElementWithText(e, "ACCTID", account.accountId);
             if (!account.isCreditCard)
             {
-                appendElementWithText(acctfrom, "ACCTTYPE", "SAVINGS");
+                appendElementWithText(e, "ACCTTYPE", "SAVINGS");
             }
         }
 
-        // 明細情報開始(バンクトランザクションリスト)
-        private void bankTranList(XmlElement parent, Account account, Transaction first, Transaction last)
+        // Bank Transaction List
+        private void bankTransactionList(XmlElement parent, Account account, Transaction first, Transaction last)
         {
-            XmlElement banktranlist = appendElement(parent, "BANKTRANLIST");
+            XmlElement e = appendElement(parent, "BANKTRANLIST");
             
-            appendElementWithText(banktranlist, "DTSTART", dateStr(first.date));
-            appendElementWithText(banktranlist, "DTEND", dateStr(last.date));
+            appendElementWithText(e, "DTSTART", dateStr(first.date));
+            appendElementWithText(e, "DTEND", dateStr(last.date));
 
-            /* トランザクション */
             foreach (Transaction t in account.transactions)
             {
-                XmlElement stmttrn = appendElement(banktranlist, "STMTTRN");
+                statementTransaction(e, t);
+            }
+        }
 
-                appendElementWithText(stmttrn, "TRNTYPE", t.GetTransString());
-                appendElementWithText(stmttrn, "DTPOSTED", dateStr(t.date));
-                appendElementWithText(stmttrn, "TRNAMT", t.value.ToString());
+        // Statement Transaction
+        private void statementTransaction(XmlElement parent, Transaction t)
+        {
+            // Statement Transaction
+            XmlElement e = appendElement(parent, "STMTTRN");
 
-                // トランザクションの ID は日付と取引番号で生成
-                appendElementWithText(stmttrn, "FITID", transId(t));
-                appendElementWithText(stmttrn, "NAME", quoteString(limitString(t.desc, 32)));
-                if (t.memo != null)
-                {
-                    appendElementWithText(stmttrn, "MEMO", quoteString(t.memo));
-                }
+            appendElementWithText(e, "TRNTYPE", t.GetTransString());
+            appendElementWithText(e, "DTPOSTED", dateStr(t.date));
+            appendElementWithText(e, "TRNAMT", t.value.ToString());
+
+            // トランザクションの ID は日付と取引番号で生成
+            appendElementWithText(e, "FITID", transId(t));
+            appendElementWithText(e, "NAME", quoteString(limitString(t.desc, 32)));
+            if (t.memo != null)
+            {
+                appendElementWithText(e, "MEMO", quoteString(t.memo));
             }
         }
 
         // 残高
         private void ledgerBal(XmlElement parent, Account account, Transaction last)
         {
-            XmlElement ledgerbal = appendElement(parent, "LEDGERBAL");
+            XmlElement e = appendElement(parent, "LEDGERBAL");
 
             int balance;
             if (account.hasBalance)
@@ -302,8 +313,8 @@ namespace FeliCa2Money
                 balance = last.balance;
             }
 
-            appendElementWithText(ledgerbal, "BALAMT", balance.ToString());
-            appendElementWithText(ledgerbal, "DTASOF", dateStr(last.date));
+            appendElementWithText(e, "BALAMT", balance.ToString());
+            appendElementWithText(e, "DTASOF", dateStr(last.date));
         }
 
         // 要素追加
