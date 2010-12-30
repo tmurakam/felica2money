@@ -115,6 +115,13 @@ namespace FeliCa2Money
 
         private void onAgrUnAssociateClick(object sender, EventArgs e)
         {
+            DialogResult result = MessageBox.Show("AGRファイルの関連付けを解除しますか？", "確認",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2);
+            if (result != DialogResult.Yes)
+            {
+                return;
+            }
+
             string filetype = Application.ProductName;
 
             try

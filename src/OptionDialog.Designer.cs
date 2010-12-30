@@ -43,7 +43,9 @@
             this.checkOfxVer2 = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // checkIgnoreZeroTransaction
@@ -79,7 +81,7 @@
             // buttonOK
             // 
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(267, 281);
+            this.buttonOK.Location = new System.Drawing.Point(272, 318);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 6;
@@ -89,7 +91,7 @@
             // buttonCancel
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(357, 281);
+            this.buttonCancel.Location = new System.Drawing.Point(357, 318);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 7;
@@ -162,7 +164,7 @@
             this.buttonCsvRulesUpdate.Name = "buttonCsvRulesUpdate";
             this.buttonCsvRulesUpdate.Size = new System.Drawing.Size(178, 34);
             this.buttonCsvRulesUpdate.TabIndex = 5;
-            this.buttonCsvRulesUpdate.Text = "CSV変換定義の更新";
+            this.buttonCsvRulesUpdate.Text = "CSV変換定義のオンライン更新";
             this.buttonCsvRulesUpdate.UseVisualStyleBackColor = true;
             this.buttonCsvRulesUpdate.Click += new System.EventHandler(this.buttonCsvRulesUpdate_Click);
             // 
@@ -178,17 +180,17 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(24, 233);
+            this.button1.Location = new System.Drawing.Point(14, 18);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(178, 34);
+            this.button1.Size = new System.Drawing.Size(134, 34);
             this.button1.TabIndex = 8;
-            this.button1.Text = "Agurippa電子明細を関連付け";
+            this.button1.Text = "関連付けする";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.onAgrAssociateClick);
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(208, 233);
+            this.button2.Location = new System.Drawing.Point(161, 18);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(134, 34);
             this.button2.TabIndex = 9;
@@ -196,13 +198,23 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.onAgrUnAssociateClick);
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.button1);
+            this.groupBox2.Controls.Add(this.button2);
+            this.groupBox2.Location = new System.Drawing.Point(10, 245);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(322, 67);
+            this.groupBox2.TabIndex = 10;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Agurippa電子明細の関連付け";
+            // 
             // OptionDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(444, 317);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(444, 353);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.checkOfxVer2);
             this.Controls.Add(this.buttonCsvRulesUpdate);
             this.Controls.Add(this.groupBox1);
@@ -217,6 +229,7 @@
             this.Text = "オプション";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -239,5 +252,6 @@
         private System.Windows.Forms.CheckBox checkOfxVer2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.GroupBox groupBox2;
     }
 }
