@@ -84,14 +84,18 @@ namespace FeliCa2Money
                 switch (state) {
                     case State.SearchingStart:
                         if (line.StartsWith("<START_CP")) {
-                            state = State.ReadAccountInfo;
                             if (line.EndsWith("_PAY>"))
                             {
+                                state = State.ReadAccountInfo;
                                 isCreditCard = true;
                             }
-                            else
+                            else if (line.EndsWith("_ORD>"))
                             {
+                                state = State.ReadAccountInfo;
                                 isCreditCard = false;
+                            }
+                            else {
+                                // ignore : _BILL など
                             }
                         }
                         break;
