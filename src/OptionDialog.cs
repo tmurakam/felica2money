@@ -133,6 +133,10 @@ namespace FeliCa2Money
             {
                 runasAdmin();
             }
+            catch (ArgumentException ex)
+            {
+                // サブキーなし。無視。
+            }
         }
 
         private void runasAdmin()
