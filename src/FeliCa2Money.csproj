@@ -94,8 +94,9 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="OfxFile.cs" />
-    <Compile Include="OfxFile2.cs" />
+    <Compile Include="OfxFileBase.cs" />
+    <Compile Include="OfxFileV1.cs" />
+    <Compile Include="OfxFileV2.cs" />
     <Compile Include="OptionDialog.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -32,7 +32,7 @@ namespace FeliCa2Money
     /// <summary>
     /// OFXファイルバージョン2
     /// </summary>
-    class OfxFile2 : OfxFile
+    class OfxFileV2 : OfxFileBase
     {
         private XmlDocument mDoc;
 

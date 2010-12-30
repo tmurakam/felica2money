@@ -230,14 +230,14 @@ namespace FeliCa2Money
             }
 
             // OFX ファイル生成
-            OfxFile ofx;
+            OfxFileBase ofx;
             if (Properties.Settings.Default.OfxVer2)
             {
-                ofx = new OfxFile2();
+                ofx = new OfxFileV2();
             }
             else
             {
-                ofx = new OfxFile();
+                ofx = new OfxFileV1();
             }
 
             ofx.SetOfxFilePath(ofxFilePath);
