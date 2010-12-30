@@ -126,6 +126,35 @@ namespace FeliCa2Money.test
             Assert.NotNull(doc);
             Assert.NotNull(doc.SelectSingleNode("/OFX/BANKMSGSRSV1"));
             Assert.NotNull(doc.SelectSingleNode("/OFX/CREDITCARDMSGSRSV1"));
+
+            XmlNode node;
+
+            // 各エントリチェック
+            testNodeText(doc, "/OFX/SIGNONMSGSRSV1/SONRS/DTSERVER", "20101231000000[+9:JST]");
+
+            node = doc.SelectSingleNode("/OFX/BANKMSGSRSV1/STMTTRNRS/STMTRS/BANKTRANLIST/DTSTART");
+            Assert.AreEqual("20000101000000[+9:JST]", node.InnerText);
+
+            node = doc.SelectSingleNode("/OFX/BANKMSGSRSV1/STMTTRNRS/STMTRS/LEDGERBAL/DTASOF");
+            Assert.AreEqual("20000101000000[+9:JST]", node.InnerText);
+
+            node = doc.SelectSingleNode("/OFX/BANKMSGSRSV1/STMTTRNRS/STMTRS/LEDGERBAL/BALAMT");
+            Assert.AreEqual("10000", node.InnerText);
+
+            node = doc.SelectSingleNode("/OFX/CREDITCARDMSGSRSV1/CCSTMTTRNRS/CCSTMTRS/BANKTRANLIST/DTSTART");
+            Assert.AreEqual("20101231000000[+9:JST]", node.InnerText);
+
+            node = doc.SelectSingleNode("/OFX/CREDITCARDMSGSRSV1/CCSTMTTRNRS/CCSTMTRS/LEDGERBAL/DTASOF");
+            Assert.AreEqual("20101231000000[+9:JST]", node.InnerText);
+
+            node = doc.SelectSingleNode("/OFX/CREDITCARDMSGSRSV1/CCSTMTTRNRS/CCSTMTRS/LEDGERBAL/BALAMT");
+            Assert.AreEqual("12000", node.InnerText);
+        }
+
+        private void testNodeText(XmlDocument doc, string path, string expected) {
+            XmlNode node = doc.SelectSingleNode(path);
+            Assert.NotNull(node);
+            Assert.AreEqual(expected, node.InnerText);
         }
     }
 }
