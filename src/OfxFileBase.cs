@@ -34,14 +34,31 @@ namespace FeliCa2Money
     /// <summary>
     /// OFXファイル生成: 基底クラス
     /// </summary>
-    abstract class OfxFileBase
+    abstract class OfxFile
     {
         protected string mOfxFilePath;
 
         /// <summary>
+        /// OFXファイルインスタンス生成
+        /// </summary>
+        /// <param name="version">バージョン</param>
+        /// <returns>OfxFile</returns>
+        public static OfxFile newOfxFile(int version)
+        {
+            switch (version)
+            {
+                case 1:
+                    return new OfxFileV1();
+                case 2:
+                    return new OfxFileV2();
+            }
+            return null;
+        }
+
+        /// <summary>
         /// コンストラクタ
         /// </summary>
-        public OfxFileBase()
+        public OfxFile()
         {
         }
 
