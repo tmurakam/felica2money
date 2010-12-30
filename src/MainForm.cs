@@ -45,6 +45,20 @@ namespace FeliCa2Money
             }
         }
 
+        // コマンドライン処理
+        private void onLoad(object sender, EventArgs e)
+        {
+            string[] argv = System.Environment.GetCommandLineArgs();
+            if (argv.Length == 2)
+            {
+                string filepath = argv[1];
+                if (filepath.EndsWith(".agr") || filepath.EndsWith(".AGR"))
+                {
+                    processAgrFile(filepath);
+                }
+            }
+        }
+
         private void buttonQuit_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -107,16 +121,22 @@ namespace FeliCa2Money
 
         private void buttonAGR_Click(object sender, EventArgs e)
         {
-            // AGR ファイル読み込み
-            AgrFile agr = new AgrFile();
-
             openFileDialog.DefaultExt = "agr";
             openFileDialog.Filter = "AGRファイル|*.agr|すべてのファイル|*.*";
-            if (openFileDialog.ShowDialog() != DialogResult.OK) return;
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                processAgrFile(openFileDialog.FileName);
+            }
+        }
+
+        // AGRファイル処理
+        private void processAgrFile(string filepath)
+        {
+            AgrFile agr = new AgrFile();
 
             try
             {
-                if (agr.loadFromFile(openFileDialog.FileName) == false)
+                if (agr.loadFromFile(filepath) == false)
                 {
                     MessageBox.Show("フォーマットエラー");
                     return;

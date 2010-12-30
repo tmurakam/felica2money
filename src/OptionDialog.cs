@@ -5,6 +5,9 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Security;
+using System.Security.Principal;
+using System.Diagnostics;
 
 namespace FeliCa2Money
 {
@@ -63,6 +66,93 @@ namespace FeliCa2Money
             {
                 MessageBox.Show(Properties.Resources.UpdateCompleted);
             }
+        }
+
+        // AGR関連付け
+        private void onAgrAssociateClick(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("AGRファイルをFeliCa2Moneyに関連付けますか？", "確認",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2);
+            if (result != DialogResult.Yes)
+            {
+                return;
+            }
+
+            try
+            {
+                string cmdline = "\"" + Application.ExecutablePath + "\" %1";
+                string filetype = Application.ProductName;
+                string description = "Agurippa電子明細";
+                string iconpath = Application.ExecutablePath;
+
+                // ファイルタイプ登録
+                Microsoft.Win32.RegistryKey regkey = Microsoft.Win32.Registry.ClassesRoot.CreateSubKey(".agr");
+                regkey.SetValue("", filetype);
+                regkey.Close();
+
+                Microsoft.Win32.RegistryKey shellkey = Microsoft.Win32.Registry.ClassesRoot.CreateSubKey(filetype);
+                shellkey.SetValue("", description);
+
+                // 動詞登録
+                shellkey = shellkey.CreateSubKey("shell\\open");
+                shellkey.SetValue("", "FeliCa2Moneyで開く(&O)");
+
+                // コマンドライン登録
+                shellkey = shellkey.CreateSubKey("command");
+                shellkey.SetValue("", cmdline);
+                shellkey.Close();
+
+                // アイコン登録
+                Microsoft.Win32.RegistryKey iconkey = Microsoft.Win32.Registry.ClassesRoot.CreateSubKey(filetype + "\\DefaultIcon");
+                iconkey.SetValue("", iconpath + ",0");
+                iconkey.Close();
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                runasAdmin();
+            }
+        }
+
+        private void onAgrUnAssociateClick(object sender, EventArgs e)
+        {
+            string filetype = Application.ProductName;
+
+            try
+            {
+                Microsoft.Win32.Registry.ClassesRoot.DeleteSubKeyTree(".agr");
+                Microsoft.Win32.Registry.ClassesRoot.DeleteSubKeyTree(filetype);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                runasAdmin();
+            }
+        }
+
+        private void runasAdmin()
+        {
+            DialogResult result = MessageBox.Show("管理者権限がありません。管理者権限で起動しなおしますので、再度実行してください。", "確認", MessageBoxButtons.OKCancel,
+                MessageBoxIcon.Exclamation);
+            if (result != DialogResult.OK)
+            {
+                return;
+            }
+
+            // 管理者権限で起動しなおす
+            ProcessStartInfo si = new ProcessStartInfo();
+            si.UseShellExecute = true;
+            si.WorkingDirectory = Environment.CurrentDirectory;
+            si.FileName = Application.ExecutablePath;
+            si.Verb = "runas";
+
+            try
+            {
+                Process p = Process.Start(si);
+            }
+            catch
+            {
+                return;
+            }
+            Application.Exit();
         }
 
         /*

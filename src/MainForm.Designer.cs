@@ -244,6 +244,7 @@ namespace FeliCa2Money
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FeliCa2Money ver 3.0 beta 3";
+            this.Load += new System.EventHandler(this.onLoad);
             this.ResumeLayout(false);
             this.PerformLayout();
 
