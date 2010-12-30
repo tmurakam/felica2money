@@ -37,6 +37,7 @@ namespace FeliCa2Money
     abstract class OfxFile
     {
         protected string mOfxFilePath;
+        protected XmlDocument mDoc;
 
         /// <summary>
         /// OFXファイルインスタンス生成
@@ -60,6 +61,7 @@ namespace FeliCa2Money
         /// </summary>
         public OfxFile()
         {
+            //mDoc = new XmlDocument();
         }
 
         /// <summary>
@@ -74,6 +76,12 @@ namespace FeliCa2Money
         /// <summary>
         /// OFXファイル書き出し
         /// </summary>
+        /// <param name="accounts">アカウントリスト</param>
+        public abstract void WriteFile(List<Account> accounts);
+
+        /// <summary>
+        /// OFXファイル書き出し (backward compat)
+        /// </summary>
         /// <param name="account">アカウント</param>
         public void WriteFile(Account account)
         {
@@ -83,10 +91,236 @@ namespace FeliCa2Money
         }
 
         /// <summary>
-        /// OFXファイル書き出し
+        /// OFX ファイルをアプリケーションで開く
         /// </summary>
-        /// <param name="accounts">アカウントリスト</param>
-        public abstract void WriteFile(List<Account> accounts);
+        public void Execute()
+        {
+            System.Diagnostics.Process.Start(mOfxFilePath);
+        }
+
+
+        // ------------ private I/F
+
+        // OFX要素生成
+        protected void genOfxElement(XmlDocument doc, List<Account> accounts)
+        {
+            Transaction allFirst, allLast;
+            getFirstLastDate(accounts, out allFirst, out allLast);
+            if (allFirst == null)
+            {
+                throw new System.InvalidOperationException("No entry");
+            }
+            
+            XmlElement root = doc.CreateElement("OFX");
+            doc.AppendChild(root);
+
+            // SIGNONMSGSRSV1
+            signonMsgSrsv1(root, allLast.date);
+
+            // BANKMSGSRSV1 / CREDITCARDMSGSRSV1
+            for (int i = 0; i < 2; i++)
+            {
+                bool isCreditCard = (i == 0) ? false : true;
+
+                // BANK or CREDITCARD アカウントのみを取り出す
+                List<Account> subaccts = new List<Account>();
+                foreach (Account account in accounts)
+                {
+                    if (account.isCreditCard == isCreditCard && account.transactions.Count > 0)
+                    {
+                        subaccts.Add(account);
+                    }
+                }
+
+                if (!isCreditCard)
+                {
+                    bankMsgSrsv1(root, subaccts);
+                }
+                else
+                {
+                    creditCardMsgSrsv1(root, subaccts);
+                }
+            }
+        }
+
+        // SIGNONMSGSRSV1
+        private void signonMsgSrsv1(XmlElement parent, DateTime dtserver)
+        {
+            XmlElement signOnMsgSrsv1 = appendElement(parent, "SIGNONMSGSRSV1");
+            XmlElement sonrs = appendElement(signOnMsgSrsv1, "SONRS");
+            XmlElement status = appendElement(sonrs, "STATUS");
+            appendElementWithText(status, "CODE", "0");
+            appendElementWithText(status, "SEVERITY", "INFO");
+            appendElementWithText(sonrs, "DTSERVER", dateStr(dtserver));
+            appendElementWithText(sonrs, "LANGUAGE", "JPN");
+            XmlElement fi = appendElement(sonrs, "FI");
+            appendElementWithText(fi, "ORG", "FeliCa2Money");
+            // FITIDは？
+        }
+
+        // BANKMSGSRSV1 要素生成
+        private void bankMsgSrsv1(XmlElement parent, List<Account> accounts)
+        {
+            // XXXMSGSRSV1 生成
+            XmlElement msgsrsv1 = appendElement(parent, "BANKMSGSRSV1");
+            foreach (Account account in accounts)
+            {
+                stmttrnrs(msgsrsv1, account);
+            }
+        }
+
+        // CREDITCARDMSGSRSV1 要素生成
+        private void creditCardMsgSrsv1(XmlElement parent, List<Account> accounts)
+        {
+            XmlElement msgsrsv1 = appendElement(parent, "CREDITCARDMSGSRSV1");
+            foreach (Account account in accounts)
+            {
+                stmttrnrs(msgsrsv1, account);
+            }
+        }
+
+        // STMTTRNRS または CCSTMTTRNRS
+        private void stmttrnrs(XmlElement parent, Account account)
+        {
+            /* 預金口座型明細情報作成 */
+            XmlElement stmttrnrs;
+            if (!account.isCreditCard)
+            {
+                stmttrnrs = appendElement(parent, "STMTTRNRS");
+            }
+            else
+            {
+                stmttrnrs = appendElement(parent, "CCSTMTTRNRS");
+            }
+
+            // TRNUID
+            appendElementWithText(stmttrnrs, "TRNUID", "0");
+
+            // STATUS
+            XmlElement status = appendElement(stmttrnrs, "STATUS");
+            appendElementWithText(status, "CODE", "0");
+            appendElementWithText(status, "SEVERITY", "INFO");
+
+            // STMTRS / CCSTMTRS
+            stmtrs(stmttrnrs, account);
+        }
+
+        // STMTRS または CCSTMTRS
+        private void stmtrs(XmlElement parent, Account account)
+        {
+            Transaction first, last;
+            getFirstLastDate(account, out first, out last);
+
+            /* STMTRS */
+            XmlElement stmtrs;
+            if (!account.isCreditCard)
+            {
+                stmtrs = appendElement(parent, "STMTRS");
+            }
+            else
+            {
+                stmtrs = appendElement(parent, "CCSTMTRS");
+            }
+
+            // CURDEF
+            appendElementWithText(stmtrs, "CURDEF", "JPY");
+
+            // BANKACCTFROM / CCACCTFROM
+            acctFrom(stmtrs, account);
+
+            // BANKTRANLIST
+            bankTranList(stmtrs, account, first, last);
+
+            // LEDGERBAL
+            ledgerBal(stmtrs, account, last);
+        }
+
+        // BANKACCTFROM または CCACCTFROM
+        private void acctFrom(XmlElement parent, Account account)
+        {
+            XmlElement acctfrom;
+            if (!account.isCreditCard)
+            {
+                acctfrom = appendElement(parent, "BANKACCTFROM");
+            }
+            else
+            {
+                acctfrom = appendElement(parent, "CCACCTFROM");
+            }
+
+            if (!account.isCreditCard)
+            {
+                appendElementWithText(acctfrom, "BANKID", account.bankId.ToString());
+                appendElementWithText(acctfrom, "BRANCHID", account.branchId);
+            }
+            appendElementWithText(acctfrom, "ACCTID", account.accountId);
+            if (!account.isCreditCard)
+            {
+                appendElementWithText(acctfrom, "ACCTTYPE", "SAVINGS");
+            }
+        }
+
+        // 明細情報開始(バンクトランザクションリスト)
+        private void bankTranList(XmlElement parent, Account account, Transaction first, Transaction last)
+        {
+            XmlElement banktranlist = appendElement(parent, "BANKTRANLIST");
+            
+            appendElementWithText(banktranlist, "DTSTART", dateStr(first.date));
+            appendElementWithText(banktranlist, "DTEND", dateStr(last.date));
+
+            /* トランザクション */
+            foreach (Transaction t in account.transactions)
+            {
+                XmlElement stmttrn = appendElement(banktranlist, "STMTTRN");
+
+                appendElementWithText(stmttrn, "TRNTYPE", t.GetTransString());
+                appendElementWithText(stmttrn, "DTPOSTED", dateStr(t.date));
+                appendElementWithText(stmttrn, "TRNAMT", t.value.ToString());
+
+                // トランザクションの ID は日付と取引番号で生成
+                appendElementWithText(stmttrn, "FITID", transId(t));
+                appendElementWithText(stmttrn, "NAME", quoteString(limitString(t.desc, 32)));
+                if (t.memo != null)
+                {
+                    appendElementWithText(stmttrn, "MEMO", quoteString(t.memo));
+                }
+            }
+        }
+
+        // 残高
+        private void ledgerBal(XmlElement parent, Account account, Transaction last)
+        {
+            XmlElement ledgerbal = appendElement(parent, "LEDGERBAL");
+
+            int balance;
+            if (account.hasBalance)
+            {
+                balance = account.balance;
+            }
+            else
+            {
+                balance = last.balance;
+            }
+
+            appendElementWithText(ledgerbal, "BALAMT", balance.ToString());
+            appendElementWithText(ledgerbal, "DTASOF", dateStr(last.date));
+        }
+
+        // 要素追加
+        private XmlElement appendElement(XmlElement parent, string elem)
+        {
+            XmlElement e = mDoc.CreateElement(elem);
+            parent.AppendChild(e);
+            return e;
+        }
+
+        // 要素追加 (テキストノード付き)
+        private void appendElementWithText(XmlElement parent, string elem, string text)
+        {
+            XmlElement e = mDoc.CreateElement(elem);
+            e.AppendChild(mDoc.CreateTextNode(text));
+            parent.AppendChild(e);
+        }
 
         protected string dateStr(DateTime d)
         {
@@ -166,14 +400,6 @@ namespace FeliCa2Money
                     last = t;
                 }
             }
-        }
-
-        /// <summary>
-        /// OFX ファイルをアプリケーションで開く
-        /// </summary>
-        public void Execute()
-        {
-            System.Diagnostics.Process.Start(mOfxFilePath);
         }
     }
 }
