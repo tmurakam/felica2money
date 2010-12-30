@@ -147,7 +147,6 @@ namespace FeliCa2Money
                 MessageBox.Show(ex.Message, Properties.Resources.Error);
                 return;
             }
-
             doConvert(agr.accounts);
         }
 
@@ -160,7 +159,7 @@ namespace FeliCa2Money
         }
 
         // カードを読み込む
-        // カードが正常に読み取られ、１件以上有効な取引があれば、true を返す。
+        // 正常に読み込んだら true を返す
         private bool doRead(Account c)
         {
             try
@@ -187,23 +186,30 @@ namespace FeliCa2Money
                 c.transactions.RemoveAll(Transaction.isZeroTransaction);
             }
 
-            if (c.transactions.Count == 0)
-            {
-                MessageBox.Show(Properties.Resources.NoHistory, Properties.Resources.Error);
-                return false;
-            }
             return true;
         }
 
         private void doConvert(Account c)
         {
-            List<Account> cards = new List<Account>();
-            cards.Add(c);
-            doConvert(cards);
+            List<Account> accounts = new List<Account>();
+            accounts.Add(c);
+            doConvert(accounts);
         }
 
-        private void doConvert(List<Account> cards)
+        private void doConvert(List<Account> accounts)
         {
+            // 明細件数をチェック
+            int count = 0;
+            foreach (Account account in accounts)
+            {
+                count += account.transactions.Count;
+            }
+            if (count == 0)
+            {
+                MessageBox.Show(Properties.Resources.NoHistory, Properties.Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
             // OFX ファイルパス指定
             String ofxFilePath;
             if (Properties.Settings.Default.ManualOfxPath)
@@ -235,7 +241,7 @@ namespace FeliCa2Money
             }
 
             ofx.SetOfxFilePath(ofxFilePath);
-            ofx.WriteFile(cards);
+            ofx.WriteFile(accounts);
 
             // Money 起動
             if (Properties.Settings.Default.AutoKickOfxFile)

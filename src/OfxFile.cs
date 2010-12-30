@@ -28,6 +28,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Xml;
+using System.Windows.Forms;
 
 namespace FeliCa2Money
 {
@@ -140,6 +141,11 @@ namespace FeliCa2Money
             Transaction allLast;
             getFirstLastDate(accounts, out allFirst, out allLast);
 
+            if (allFirst == null)
+            {
+                throw new System.InvalidOperationException("No entry");
+            }
+
             StreamWriter w = new StreamWriter(mOfxFilePath, false); //, Encoding.UTF8);
             w.NewLine = "\n";
 
@@ -181,6 +187,17 @@ namespace FeliCa2Money
 
         private void genCardsInfo(StreamWriter w, List<Account> accounts, bool isCreditCard)
         {
+            // トランザクション数を確認する
+            int count = 0;
+            foreach (Account account in accounts)
+            {
+                if (account.isCreditCard == isCreditCard)
+                {
+                    count += account.transactions.Count;
+                }
+            }
+            if (count == 0) return;
+
             /* 口座情報(バンクメッセージレスポンス) */
             if (!isCreditCard)
             {

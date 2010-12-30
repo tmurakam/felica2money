@@ -159,7 +159,7 @@ namespace FeliCa2Money.Properties {
         }
         
         /// <summary>
-        ///   履歴が一件もありません に類似しているローカライズされた文字列を検索します。
+        ///   明細が一件もありません に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string NoHistory {
             get {

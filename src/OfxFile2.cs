@@ -25,6 +25,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Xml;
+using System.Windows.Forms;
 
 namespace FeliCa2Money
 {
@@ -46,7 +47,11 @@ namespace FeliCa2Money
         {
             Transaction allFirst, allLast;
             getFirstLastDate(accounts, out allFirst, out allLast);
-
+            if (allFirst == null)
+            {
+                throw new System.InvalidOperationException("No entry");
+            }
+            
             // XML ドキュメント生成
             mDoc = new XmlDocument();
 
@@ -81,6 +86,17 @@ namespace FeliCa2Money
 
         private void genCardsInfo(XmlElement root, List<Account> accounts, bool isCreditCard)
         {
+            // 該当するトランザクション数を数える
+            int count = 0;
+            foreach (Account account in accounts)
+            {
+                if (account.isCreditCard == isCreditCard)
+                {
+                    count += account.transactions.Count;
+                }
+            }
+            if (count == 0) return; // 該当口座なし
+            
             /* 口座情報(バンクメッセージレスポンス) */
             XmlElement accountElem;
             if (!isCreditCard)

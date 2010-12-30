@@ -134,6 +134,19 @@ namespace FeliCa2Money
             }
             return true;
         }
+
+        /// <summary>
+        /// 全トランザクション数を返す
+        /// </summary>
+        /// <returns></returns>
+        public int numTransactions()
+        {
+            int count = 0;
+            foreach (AgrAccount account in mAccounts) {
+                count += account.transactions.Count;
+            }
+            return count;
+        }
     }
 
     /// <summary>
