@@ -39,95 +39,26 @@ namespace FeliCa2Money
     {
         protected string mOfxFilePath;
 
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
         public OfxFile()
         {
         }
 
+        /// <summary>
+        /// OFXファイルパスを設定する
+        /// </summary>
+        /// <param name="path">OFXファイルパス</param>
         public void SetOfxFilePath(String path)
         {
             mOfxFilePath = path;
         }
 
-        protected string dateStr(DateTime d)
-        {
-            string s = String.Format("{0}{1:00}{2:00}", d.Year, d.Month, d.Day);
-            s += String.Format("{0:00}{1:00}{2:00}", d.Hour, d.Minute, d.Second);
-            s += "[+9:JST]";
-            return s;
-        }
-
-        protected string transId(Transaction t)
-        {
-            /* トランザクションの ID は日付と取引番号で生成 */
-            string longId = String.Format("{0:0000}{1:00}{2:00}", t.date.Year, t.date.Month, t.date.Day);
-            longId += String.Format("{0:0000000}", t.id);
-            return longId;
-        }
-
-        protected string quoteString(string s)
-        {
-            s = s.Replace("&", "&amp;");
-            s = s.Replace("<", "&lt;");
-            s = s.Replace(">", "&gt;");
-            //s = s.Replace("'", "&apos;");
-            //s = s.Replace("\"", "&quot;");
-            return s;
-        }
-
-        protected string limitString(string s, int maxlen)
-        {
-            if (s.Length <= maxlen)
-            {
-                return s;
-            }
-            else
-            {
-                return s.Substring(0, maxlen);
-            }
-        }
-
-        // 最初のトランザクションと最後のトランザクションを取り出しておく
-        // (日付範囲取得のため)
-        protected void getFirstLastDate(List<Account> accounts, out Transaction allFirst, out Transaction allLast)
-        {
-            allFirst = null;
-            allLast = null;
-            foreach (Account account in accounts) {
-                foreach (Transaction t in account.transactions)
-                {
-                    // 先頭エントリ: 同じ日付の場合は、前のエントリを優先
-                    if (allFirst == null || t.date < allFirst.date)
-                    {
-                        allFirst = t;
-                    }
-                    // 最終エントリ: 同じ日付の場合は、後のエントリを優先
-                    if (allLast == null || t.date >= allLast.date)
-                    {
-                        allLast = t;
-                    }
-                }
-            }
-        }
-
-        protected void getFirstLastDate(Account account, out Transaction first, out Transaction last)
-        {
-            first = null;
-            last = null;
-            foreach (Transaction t in account.transactions)
-            {
-                // 先頭エントリ: 同じ日付の場合は、前のエントリを優先
-                if (first == null || t.date < first.date)
-                {
-                    first = t;
-                }
-                // 最終エントリ: 同じ日付の場合は、後のエントリを優先
-                if (last == null || t.date >= last.date)
-                {
-                    last = t;
-                }
-            }
-        }
-
+        /// <summary>
+        /// OFXファイル書き出し
+        /// </summary>
+        /// <param name="account">アカウント</param>
         public void WriteFile(Account account)
         {
             List<Account> cards = new List<Account>();
@@ -135,6 +66,10 @@ namespace FeliCa2Money
             WriteFile(cards);
         }
 
+        /// <summary>
+        /// OFXファイル書き出し
+        /// </summary>
+        /// <param name="accounts">アカウントリスト</param>
         public virtual void WriteFile(List<Account> accounts)
         {
             Transaction allFirst;
@@ -323,6 +258,89 @@ namespace FeliCa2Money
             }
         }
 
+        protected string dateStr(DateTime d)
+        {
+            string s = String.Format("{0}{1:00}{2:00}", d.Year, d.Month, d.Day);
+            s += String.Format("{0:00}{1:00}{2:00}", d.Hour, d.Minute, d.Second);
+            s += "[+9:JST]";
+            return s;
+        }
+
+        protected string transId(Transaction t)
+        {
+            /* トランザクションの ID は日付と取引番号で生成 */
+            string longId = String.Format("{0:0000}{1:00}{2:00}", t.date.Year, t.date.Month, t.date.Day);
+            longId += String.Format("{0:0000000}", t.id);
+            return longId;
+        }
+
+        protected string quoteString(string s)
+        {
+            s = s.Replace("&", "&amp;");
+            s = s.Replace("<", "&lt;");
+            s = s.Replace(">", "&gt;");
+            //s = s.Replace("'", "&apos;");
+            //s = s.Replace("\"", "&quot;");
+            return s;
+        }
+
+        protected string limitString(string s, int maxlen)
+        {
+            if (s.Length <= maxlen)
+            {
+                return s;
+            }
+            else
+            {
+                return s.Substring(0, maxlen);
+            }
+        }
+
+        // 最初のトランザクションと最後のトランザクションを取り出しておく
+        // (日付範囲取得のため)
+        protected void getFirstLastDate(List<Account> accounts, out Transaction allFirst, out Transaction allLast)
+        {
+            allFirst = null;
+            allLast = null;
+            foreach (Account account in accounts) {
+                foreach (Transaction t in account.transactions)
+                {
+                    // 先頭エントリ: 同じ日付の場合は、前のエントリを優先
+                    if (allFirst == null || t.date < allFirst.date)
+                    {
+                        allFirst = t;
+                    }
+                    // 最終エントリ: 同じ日付の場合は、後のエントリを優先
+                    if (allLast == null || t.date >= allLast.date)
+                    {
+                        allLast = t;
+                    }
+                }
+            }
+        }
+
+        protected void getFirstLastDate(Account account, out Transaction first, out Transaction last)
+        {
+            first = null;
+            last = null;
+            foreach (Transaction t in account.transactions)
+            {
+                // 先頭エントリ: 同じ日付の場合は、前のエントリを優先
+                if (first == null || t.date < first.date)
+                {
+                    first = t;
+                }
+                // 最終エントリ: 同じ日付の場合は、後のエントリを優先
+                if (last == null || t.date >= last.date)
+                {
+                    last = t;
+                }
+            }
+        }
+
+        /// <summary>
+        /// OFX ファイルをアプリケーションで開く
+        /// </summary>
         public void Execute()
         {
             System.Diagnostics.Process.Start(mOfxFilePath);

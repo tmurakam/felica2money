@@ -36,6 +36,10 @@ namespace FeliCa2Money
     {
         private XmlDocument mDoc;
 
+        /// <summary>
+        /// OFX V2 ファイルを生成する
+        /// </summary>
+        /// <param name="accounts">アカウント</param>
         public override void WriteFile(List<Account> accounts)
         {
             XmlDocument d = Generate(accounts);
@@ -84,6 +88,12 @@ namespace FeliCa2Money
             return mDoc;
         }
 
+        /// <summary>
+        /// 各アカウントのトランザクションを生成する。具体的には BANKMSGSRSV1または CREDITCARDMSGSRSV1 を生成。
+        /// </summary>
+        /// <param name="root">root要素</param>
+        /// <param name="accounts">アカウントリスト</param>
+        /// <param name="isCreditCard">クレジットカードの場合は true、銀行の場合は false にする</param>
         private void genCardsInfo(XmlElement root, List<Account> accounts, bool isCreditCard)
         {
             // 該当するトランザクション数を数える
