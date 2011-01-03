@@ -24,15 +24,14 @@ namespace FeliCa2Money.test
     [TestFixture]
     class OfxTest
     {
-        private OfxFile ofx;
+        private Ofx ofx;
         private Transaction T1, T2;
         private List<Account> accounts;
 
         [SetUp]
         public void setUp()
         {
-            ofx = OfxFile.newOfxFile(2);
-            ofx.doc = new XmlDocument();
+            ofx = new Ofx();
 
             accounts = new List<Account>();
 
@@ -62,7 +61,7 @@ namespace FeliCa2Money.test
             TestAccount account = new TestAccount();
             accounts.Add(account);
 
-            Assert.Throws<InvalidOperationException>(() => ofx.genOfxElement(accounts));
+            Assert.Throws<InvalidOperationException>(() => ofx.genOfx(accounts));
         }
 
         [Test]
@@ -78,7 +77,7 @@ namespace FeliCa2Money.test
             card.isCreditCard = true;
             accounts.Add(card);
 
-            ofx.genOfxElement(accounts);
+            ofx.genOfx(accounts);
             XmlDocument doc = ofx.doc;
 
             Assert.NotNull(doc);
@@ -99,7 +98,7 @@ namespace FeliCa2Money.test
             card.transactions.Add(T2);
             accounts.Add(card);
 
-            ofx.genOfxElement(accounts);
+            ofx.genOfx(accounts);
             XmlDocument doc = ofx.doc;
 
             Assert.NotNull(doc);
@@ -120,7 +119,7 @@ namespace FeliCa2Money.test
             card.transactions.Add(T2);
             accounts.Add(card);
 
-            ofx.genOfxElement(accounts);
+            ofx.genOfx(accounts);
             XmlDocument doc = ofx.doc;
 
             Assert.NotNull(doc);

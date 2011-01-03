@@ -43,10 +43,10 @@ namespace FeliCa2Money
         /// <param name="accounts">アカウントリスト</param>
         public override void WriteFile(List<Account> accounts)
         {
-            this.doc = new XmlDocument();
+            Ofx ofx = new Ofx();
 
             // OFX 要素を生成する
-            genOfxElement(accounts);
+            ofx.genOfx(accounts);
 
             StreamWriter w = new StreamWriter(this.ofxFilePath, false); //, Encoding.UTF8);
             w.NewLine = "\n";
@@ -69,7 +69,7 @@ namespace FeliCa2Money
             XmlTextWriter xw = new XmlTextWriter(sw);
             xw.Formatting = Formatting.Indented;
 
-            doc.WriteTo(xw);
+            ofx.doc.WriteTo(xw);
             w.Write(sb);
 
             xw.Close();
