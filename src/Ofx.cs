@@ -1,7 +1,7 @@
 /*
  * FeliCa2Money
  *
- * Copyright (C) 2001-2010 Takuya Murakami
+ * Copyright (C) 2001-2011 Takuya Murakami
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
  */
 
 /*
-   OFX ファイル生成
+   OFX データ生成
  */
 
 using System;
@@ -285,7 +285,7 @@ namespace FeliCa2Money
             parent.AppendChild(e);
         }
 
-        protected string dateStr(DateTime d)
+        private string dateStr(DateTime d)
         {
             string s = String.Format("{0}{1:00}{2:00}", d.Year, d.Month, d.Day);
             s += String.Format("{0:00}{1:00}{2:00}", d.Hour, d.Minute, d.Second);
@@ -293,7 +293,7 @@ namespace FeliCa2Money
             return s;
         }
 
-        protected string transId(Transaction t)
+        private string transId(Transaction t)
         {
             /* トランザクションの ID は日付と取引番号で生成 */
             string longId = String.Format("{0:0000}{1:00}{2:00}", t.date.Year, t.date.Month, t.date.Day);
@@ -301,7 +301,7 @@ namespace FeliCa2Money
             return longId;
         }
 
-        protected string quoteString(string s)
+        private string quoteString(string s)
         {
             s = s.Replace("&", "&amp;");
             s = s.Replace("<", "&lt;");
@@ -311,7 +311,7 @@ namespace FeliCa2Money
             return s;
         }
 
-        protected string limitString(string s, int maxlen)
+        private string limitString(string s, int maxlen)
         {
             if (s.Length <= maxlen)
             {
@@ -325,7 +325,7 @@ namespace FeliCa2Money
 
         // 最初のトランザクションと最後のトランザクションを取り出しておく
         // (日付範囲取得のため)
-        protected void getFirstLastDate(List<Account> accounts, out Transaction allFirst, out Transaction allLast)
+        private void getFirstLastDate(List<Account> accounts, out Transaction allFirst, out Transaction allLast)
         {
             allFirst = null;
             allLast = null;
@@ -346,7 +346,7 @@ namespace FeliCa2Money
             }
         }
 
-        protected void getFirstLastDate(Account account, out Transaction first, out Transaction last)
+        private void getFirstLastDate(Account account, out Transaction first, out Transaction last)
         {
             first = null;
             last = null;
