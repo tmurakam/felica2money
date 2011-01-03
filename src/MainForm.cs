@@ -232,7 +232,7 @@ namespace FeliCa2Money
             // OFX ファイル生成
             OfxFile ofx = OfxFile.newOfxFile(Properties.Settings.Default.OfxVer2 ? 2 : 1);
 
-            ofx.SetOfxFilePath(ofxFilePath);
+            ofx.ofxFilePath = ofxFilePath;
             ofx.WriteFile(accounts);
 
             // Money 起動

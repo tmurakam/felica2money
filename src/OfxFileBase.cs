@@ -36,8 +36,8 @@ namespace FeliCa2Money
     /// </summary>
     abstract public class OfxFile
     {
-        protected string mOfxFilePath;
-        protected XmlDocument mDoc;
+        private string mOfxFilePath;
+        private XmlDocument mDoc;
 
         /// <summary>
         /// OFXファイルインスタンス生成
@@ -63,23 +63,16 @@ namespace FeliCa2Money
         {
         }
 
-        public void newDoc()
-        {
-            mDoc = new XmlDocument();
-        }
-
         public XmlDocument doc
         {
             get { return mDoc; }
+            set { mDoc = value; }
         }
 
-        /// <summary>
-        /// OFXファイルパスを設定する
-        /// </summary>
-        /// <param name="path">OFXファイルパス</param>
-        public void SetOfxFilePath(String path)
+        public string ofxFilePath
         {
-            mOfxFilePath = path;
+            get { return mOfxFilePath; }
+            set { mOfxFilePath = value; }
         }
 
         /// <summary>

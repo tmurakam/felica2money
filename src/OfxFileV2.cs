@@ -40,19 +40,19 @@ namespace FeliCa2Money
         /// <param name="accounts">アカウント</param>
         public override void WriteFile(List<Account> accounts)
         {
-            newDoc();
+            this.doc = new XmlDocument();
 
-            XmlDeclaration decl = mDoc.CreateXmlDeclaration("1.0", "UTF-8", "yes");
-            mDoc.AppendChild(decl);
+            XmlDeclaration decl = this.doc.CreateXmlDeclaration("1.0", "UTF-8", "yes");
+            this.doc.AppendChild(decl);
 
             // OFX 宣言
-            XmlProcessingInstruction pi = mDoc.CreateProcessingInstruction("OFX",
+            XmlProcessingInstruction pi = this.doc.CreateProcessingInstruction("OFX",
                 "OFXHEADER=\"200\" VERSION=\"200\" SECURITY=\"NONE\" OLDFILEUID=\"NONE\" NEWFILEUID=\"NONE\"");
-            mDoc.AppendChild(pi);
+            this.doc.AppendChild(pi);
 
             genOfxElement(accounts);
 
-            mDoc.Save(mOfxFilePath);
+            this.doc.Save(this.ofxFilePath);
         }
     }
 }

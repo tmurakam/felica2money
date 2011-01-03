@@ -32,7 +32,7 @@ namespace FeliCa2Money.test
         public void setUp()
         {
             ofx = OfxFile.newOfxFile(2);
-            ofx.newDoc();
+            ofx.doc = new XmlDocument();
 
             accounts = new List<Account>();
 
