@@ -130,6 +130,20 @@ namespace FeliCa2Money.test
             Assert.IsEmpty(account.transactions);
         }
 
+        [Test]
+        public void bankOnly()
+        {
+            writeHeader();
+            writeBankAccount();
+            mSw.Close();
+
+            Assert.True(mAgrFile.loadFromFile(mTempFileName));
+            Assert.AreEqual(1, mAgrFile.accounts.Count);
+
+            Account account = mAgrFile.accounts[0];
+            Assert.AreEqual(2, account.transactions.Count);
+        }
+
         // internal functions
         private void writeHeader()
         {
@@ -151,9 +165,16 @@ namespace FeliCa2Money.test
 
         private void writeBankAccount()
         {
-            mSw.WriteLine("<START_CP_XXX_BANK>");
+            mSw.WriteLine("<START_CP_XXX_ORD>");
             mSw.WriteLine("\"ABC銀行\", \"XYZ支店\", \"01234567\", \"1000\", \"JPY\"");
-            mSw.WriteLine("<END_CP_XXX_BANK>");
+            mSw.WriteLine("\"1970/1/1\", \"給料\", \"300000\", \"JPY\", \"--\", \"JPY\", \"300000\", \"JPY\"");
+            mSw.WriteLine("\"1/2\", \"ATM\", \"*\", \"\", \"50000\", \"JPY\", \"250000\", \"JPY\"");
+
+            // 以下は無効な行
+            mSw.WriteLine("\"--\", \"ATM\", \"*\", \"\", \"50000\", \"JPY\", \"250000\", \"JPY\""); // 日付なし
+            mSw.WriteLine("\"2010/1/3\", \"ATM\", \"*\", \"\", \"--\", \"JPY\", \"250000\", \"JPY\""); // 入出金なし
+            mSw.WriteLine("\"2010/1/3\", \"ATM\", \"*\", \"\", \"1000\", \"JPY\""); // 残高なし
+            mSw.WriteLine("<END_CP_XXX_ORD");
         }
     }
 }
