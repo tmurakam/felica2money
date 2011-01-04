@@ -107,7 +107,7 @@ namespace FeliCa2Money
                 iconkey.SetValue("", iconpath + ",0");
                 iconkey.Close();
             }
-            catch (UnauthorizedAccessException ex)
+            catch (UnauthorizedAccessException)
             {
                 runasAdmin();
             }
@@ -129,11 +129,11 @@ namespace FeliCa2Money
                 Microsoft.Win32.Registry.ClassesRoot.DeleteSubKeyTree(".agr");
                 Microsoft.Win32.Registry.ClassesRoot.DeleteSubKeyTree(filetype);
             }
-            catch (UnauthorizedAccessException ex)
+            catch (UnauthorizedAccessException)
             {
                 runasAdmin();
             }
-            catch (ArgumentException ex)
+            catch (ArgumentException)
             {
                 // サブキーなし。無視。
             }
