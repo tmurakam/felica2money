@@ -62,7 +62,11 @@ namespace FeliCa2Money
         {
             // SJIS で開く
             StreamReader sr = new StreamReader(path, System.Text.Encoding.Default);
+            return load(sr);
+        }
 
+        public bool load(StreamReader sr) 
+        {
             try
             {
                 // フォーマットチェック
