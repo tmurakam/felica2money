@@ -58,6 +58,78 @@ namespace FeliCa2Money.test
             Assert.AreEqual(0, mAgrFile.accounts.Count);
         }
 
+        [Test]
+        public void onlyBilling()
+        {
+            writeHeader();
+            writeBillingAccount();
+            mSw.Close();
+
+            Assert.True(mAgrFile.loadFromFile(mTempFileName));
+            Assert.AreEqual(0, mAgrFile.accounts.Count);
+        }
+
+        [Test]
+        public void invalidBank()
+        {
+            writeHeader();
+
+            // １行目の定義行がない
+            mSw.WriteLine("<START_CP_XXX_ORD>");
+            mSw.WriteLine("<END_CP_XXX_ORD>");
+
+            mSw.Close();
+
+            Assert.True(mAgrFile.loadFromFile(mTempFileName));
+            Assert.AreEqual(0, mAgrFile.accounts.Count);
+        }
+
+        [Test]
+        public void emptyBank()
+        {
+            writeHeader();
+
+            mSw.WriteLine("<START_CP_XXX_ORD>");
+            mSw.WriteLine("\"ABC銀行\", \"XYZ支店\", \"01234567\", \"1000\", \"JPY\"");
+            mSw.WriteLine("<END_CP_XXX_ORD>");
+            mSw.Close();
+
+            Assert.True(mAgrFile.loadFromFile(mTempFileName));
+            Assert.AreEqual(1, mAgrFile.accounts.Count);
+
+            Account account = mAgrFile.accounts[0];
+            Assert.False(account.isCreditCard);
+            Assert.AreEqual("ABC銀行", account.bankId);
+            Assert.AreEqual("XYZ支店", account.branchId);
+            Assert.AreEqual("01234567", account.accountId);
+            Assert.True(account.hasBalance);
+            Assert.AreEqual(1000, account.balance);
+            Assert.IsEmpty(account.transactions);
+        }
+
+        [Test]
+        public void emptyCard()
+        {
+            writeHeader();
+
+            mSw.WriteLine("<START_CP_XXX_PAY>");
+            mSw.WriteLine("\"ABCカード\", \"\", \"1000\"");
+            mSw.WriteLine("<END_CP_XXX_ORD>");
+            mSw.Close();
+
+            Assert.True(mAgrFile.loadFromFile(mTempFileName));
+            Assert.AreEqual(1, mAgrFile.accounts.Count);
+
+            Account account = mAgrFile.accounts[0];
+            Assert.True(account.isCreditCard);
+            Assert.IsEmpty(account.bankId);
+            Assert.AreEqual("0", account.branchId);
+            Assert.AreEqual("CARD_ABC1", account.accountId);
+            Assert.True(account.hasBalance);
+            Assert.AreEqual(-1000, account.balance);
+            Assert.IsEmpty(account.transactions);
+        }
+
         // internal functions
         private void writeHeader()
         {
@@ -65,6 +137,23 @@ namespace FeliCa2Money.test
             mSw.WriteLine("<START_HEAD>");
             mSw.WriteLine("\"全アカウント数\",\"100\"");
             mSw.WriteLine("<END_HEAD>");
+            mSw.WriteLine();
+        }
+
+        private void writeBillingAccount()
+        {
+            mSw.WriteLine("<START_CP_XXX_BILL>");
+            mSw.WriteLine("\"X月分\", \"\", \"\", \"\", \"カード会社指定\"");
+            mSw.WriteLine("\"\",\"\",\"\",\"\",\"\"");
+            mSw.WriteLine("<END_CP_XXX_BILL>");
+            mSw.WriteLine();
+        }
+
+        private void writeBankAccount()
+        {
+            mSw.WriteLine("<START_CP_XXX_BANK>");
+            mSw.WriteLine("\"ABC銀行\", \"XYZ支店\", \"01234567\", \"1000\", \"JPY\"");
+            mSw.WriteLine("<END_CP_XXX_BANK>");
         }
     }
 }

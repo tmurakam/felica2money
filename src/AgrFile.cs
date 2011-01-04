@@ -110,6 +110,12 @@ namespace FeliCa2Money
                             break;
 
                         case State.ReadAccountInfo:
+                            if (line.StartsWith("<END_"))
+                            {
+                                // no definition line : ignore
+                                state = State.SearchingStart;
+                                break;
+                            }
                             if (isCreditCard)
                             {
                                 account = builder.newCreditCardAccount(line);
