@@ -1,5 +1,7 @@
 // -*-  Mode:C++; c-basic-offset:4; tab-width:4; indent-tabs-mode:t -*-
 
+// felicalib のダミーライブラリ
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,7 +11,12 @@ namespace FelicaLib
 {
     public class DummyFelica : IFelica
     {
+		// データバッファ
+		// キーは、(システムコード<<16 | サービスコード)。
+		// 値は、サービスコードに対応するバイトの配列。要素数は16の倍数。
         private Hashtable dataBufs = new Hashtable();
+
+		// システムコード(16bit)
         private int systemCode;
 
         public DummyFelica()
@@ -66,16 +73,29 @@ namespace FelicaLib
 
         // set data
 
+		// テスト用システムコードをセットする
         public void SetSystemCode(int s)
         {
             systemCode = s;
         }
 
+		/// <summary>
+		/// テスト用データをセットする
+		/// <param name="sv">サービスコード</param>
+		/// <param name="data">データ配列</param>
+		/// </summary>
         public void SetTestData(int sv, byte[] data)
         {
             dataBufs[systemCode << 16 | sv] = data;
         }
 
+		/// <summary>
+		/// テスト用データをセットする
+		/// データは文字列の配列で渡す。各文字列は、１６バイトのデータを
+		/// 各バイトを16進数表記し、スペースまたはタブ区切りで並べたもの。
+		/// <param name="sv">サービスコード</param>
+		/// <param name="data">データ : string 配列</param>
+		/// </summary>
         public void SetTestDataFromStrings(int sv, string[] ss)
         {
             byte[] buf = new byte[ss.Length * 16];
