@@ -180,7 +180,7 @@ namespace FeliCa2Money.test
             XmlDocument doc = ofx.doc;
 
             // 最も新しい日付の最後の取引(t2)の値になっているかどうか確認
-            XmlNode ledgerBal = doc.SelectSingleNode("/OFX/CREDITCARDMSGSRSV1/CCSTMTTRNRS/CCSTMTRS/LEDGERBAL");
+            XmlNode ledgerBal = doc.SelectSingleNode("/OFX/BANKMSGSRSV1/STMTTRNRS/STMTRS/LEDGERBAL");
             assertNodeText(ledgerBal, "DTASOF", "20100401000000[+9:JST]");
             assertNodeText(ledgerBal, "BALAMT", "20000");
         }
