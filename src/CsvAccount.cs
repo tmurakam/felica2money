@@ -1,3 +1,4 @@
+// -*-  Mode:C++; c-basic-offset:4; tab-width:4; indent-tabs-mode:nil -*-
 /*
  * FeliCa2Money
  *
@@ -177,57 +178,7 @@ namespace FeliCa2Money
         // CSV のフィールド分割
         private string[] SplitCsv(string line)
         {
-            return SplitCsv(line, mRule.isTSV);
-        }
-
-        /// <summary>
-        /// CSVフィールド分割
-        /// </summary>
-        /// <param name="line">CSV行</param>
-        /// <param name="isTsv">区切りがタブの場合は true, カンマの場合は false</param>
-        /// <returns>分割されたカラム</returns>
-        public static string[] SplitCsv(string line, bool isTsv)
-        {
-            ArrayList fields = new ArrayList();
-            Regex regCsv;
-
-            if (isTsv)
-            {
-                regCsv = new Regex("([^\\t]*)\\t");
-                line = line + "\t";
-            }
-            else
-            {
-                regCsv = new Regex("\\s*(\"(?:[^\"]|\"\")*\"|[^,]*)\\s*,", RegexOptions.None);
-                line = line + ",";
-            }
-
-            Match m = regCsv.Match(line);
-            int count = 0;
-            while (m.Success)
-            {
-                string field = m.Groups[1].Value;
-
-                // 前後の空白を削除
-                field = field.Trim();
-
-                // ダブルクォートを抜く
-                if (field.StartsWith("\"") && field.EndsWith("\""))
-                {
-                    field = field.Substring(1, field.Length - 2);
-                }
-                // "" を " に変換
-                field = field.Replace("\"\"", "\"");
-
-                // もう一度前後の空白を削除
-                field = field.Trim();
-
-                fields.Add(field);
-                count++;
-                m = m.NextMatch();
-            }
-
-            return fields.ToArray(typeof(string)) as string[];
+            return CsvUtil.SplitCsv(line, mRule.isTSV);
         }
     }
 }

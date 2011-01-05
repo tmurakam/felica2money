@@ -1,3 +1,4 @@
+// -*-  Mode:C++; c-basic-offset:4; tab-width:4; indent-tabs-mode:nil -*-
 /*
  * FeliCa2Money
  *
@@ -240,7 +241,7 @@ namespace FeliCa2Money
         /// <returns></returns>
         private bool readAccountInfo(string line, Hashtable nameHash)
         {
-            string[] columns = CsvAccount.SplitCsv(line, false);
+            string[] columns = CsvUtil.SplitCsv(line, false);
 
             if (columns.Length < 3)
             {
@@ -335,7 +336,7 @@ namespace FeliCa2Money
         /// 
         public bool readTransaction(string line)
         {
-            string[] columns = CsvAccount.SplitCsv(line, false);
+            string[] columns = CsvUtil.SplitCsv(line, false);
             if (columns.Length < 8)
             {
                 return false;
