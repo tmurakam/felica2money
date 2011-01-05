@@ -1,4 +1,6 @@
-﻿using System;
+// -*-  Mode:C++; c-basic-offset:4; tab-width:4; indent-tabs-mode:t -*-
+
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml;
@@ -150,7 +152,49 @@ namespace FeliCa2Money.test
             Assert.AreEqual("12000", node.InnerText);
         }
 
-        private void testNodeText(XmlDocument doc, string path, string expected) {
+		[Test]
+        public void lastBalanceTest()
+		{
+			TestAccount acc = new TestAccount();
+			acc.isCreditCard = false;
+			accounts.Add(acc);
+
+			Transaction t;
+        
+			t = new Transaction();
+			t.date = new DateTime(2010, 4, 1);
+			t.desc = "t1";
+			t.type = TransType.Payment;
+			t.value = 100;
+			t.balance = 10000;
+			acc.transactions.Add(t);
+
+			t = new Transaction();
+			t.date = new DateTime(2010, 4, 1);
+			t.desc = "t2";
+			t.type = TransType.Payment;
+			t.value = 200;
+			t.balance = 20000;
+			acc.transactions.Add(t);
+
+			t = new Transaction();
+			t.date = new DateTime(2010, 1, 1); // 逆順
+			t.desc = "t3";
+			t.type = TransType.Payment;
+			t.value = 300;
+			t.balance = 30000;
+			acc.transactions.Add(t);
+        
+			ofx.genOfx(accounts);
+			XmlDocument doc = ofx.doc;
+
+			// 最も新しい日付の最後の取引の値になっているかどうか確認
+			node = doc.SelectSingleNode("/OFX/CREDITCARDMSGSRSV1/CCSTMTTRNRS/CCSTMTRS/LEDGERBAL/BALAMT");
+			Assert.AreEqual("20000", node.InnerText);
+		}
+
+        private void testNodeText(XmlDocument doc, string path, string expected)
+        {
             XmlNode node = doc.SelectSingleNode(path);
             Assert.NotNull(node);
             Assert.AreEqual(expected, node.InnerText);
