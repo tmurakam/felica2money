@@ -128,28 +128,19 @@ namespace FeliCa2Money.test
             Assert.NotNull(doc.SelectSingleNode("/OFX/BANKMSGSRSV1"));
             Assert.NotNull(doc.SelectSingleNode("/OFX/CREDITCARDMSGSRSV1"));
 
-            XmlNode node;
-
             // 各エントリチェック
-            testNodeText(doc, "/OFX/SIGNONMSGSRSV1/SONRS/DTSERVER", "20101231000000[+9:JST]");
+            assertNodeText(doc, "/OFX/SIGNONMSGSRSV1/SONRS/DTSERVER", "20101231000000[+9:JST]");
 
-            node = doc.SelectSingleNode("/OFX/BANKMSGSRSV1/STMTTRNRS/STMTRS/BANKTRANLIST/DTSTART");
-            Assert.AreEqual("20000101000000[+9:JST]", node.InnerText);
+			XmlNode stmtrs = doc.SelectSingleNode("/OFX/BANKMSGSRSV1/STMTTRNRS/STMTRS");
 
-            node = doc.SelectSingleNode("/OFX/BANKMSGSRSV1/STMTTRNRS/STMTRS/LEDGERBAL/DTASOF");
-            Assert.AreEqual("20000101000000[+9:JST]", node.InnerText);
+			assertNodeText(stmtrs, "BANKTRANLIST/DTSTART", "20000101000000[+9:JST]");
+            assertNodeText(stmtrs, "LEDGERBAL/DTASOF", "20000101000000[+9:JST]");
+            assertNodeText(stmtrs, "LEDGERBAL/BALAMT", "10000");
 
-            node = doc.SelectSingleNode("/OFX/BANKMSGSRSV1/STMTTRNRS/STMTRS/LEDGERBAL/BALAMT");
-            Assert.AreEqual("10000", node.InnerText);
-
-            node = doc.SelectSingleNode("/OFX/CREDITCARDMSGSRSV1/CCSTMTTRNRS/CCSTMTRS/BANKTRANLIST/DTSTART");
-            Assert.AreEqual("20101231000000[+9:JST]", node.InnerText);
-
-            node = doc.SelectSingleNode("/OFX/CREDITCARDMSGSRSV1/CCSTMTTRNRS/CCSTMTRS/LEDGERBAL/DTASOF");
-            Assert.AreEqual("20101231000000[+9:JST]", node.InnerText);
-
-            node = doc.SelectSingleNode("/OFX/CREDITCARDMSGSRSV1/CCSTMTTRNRS/CCSTMTRS/LEDGERBAL/BALAMT");
-            Assert.AreEqual("12000", node.InnerText);
+			XmlNode ccstmtrs = doc.SelectSingleNode("/OFX/CREDITCARDMSGSRSV1/CCSTMTTRNRS/CCSTMTRS");
+            assertNodeText(ccstmtrs, "BANKTRANLIST/DTSTART", "20101231000000[+9:JST]");
+            assertNodeText(ccstmtrs, "LEDGERBAL/DTASOF", "20101231000000[+9:JST]");
+            assertNodeText(ccstmtrs, "LEDGERBAL/BALAMT", "12000");
         }
 
 		[Test]
@@ -188,16 +179,17 @@ namespace FeliCa2Money.test
 			ofx.genOfx(accounts);
 			XmlDocument doc = ofx.doc;
 
-			// 最も新しい日付の最後の取引の値になっているかどうか確認
-			node = doc.SelectSingleNode("/OFX/CREDITCARDMSGSRSV1/CCSTMTTRNRS/CCSTMTRS/LEDGERBAL/BALAMT");
-			Assert.AreEqual("20000", node.InnerText);
+			// 最も新しい日付の最後の取引(t2)の値になっているかどうか確認
+			XmlNode ledgerBal = doc.SelectSingleNode("/OFX/CREDITCARDMSGSRSV1/CCSTMTTRNRS/CCSTMTRS/LEDGERBAL");
+			assertNodeText(ledgerBal, "DTASOF", "20100401000000[+9:JST]");
+			assertNodeText(ledgerBal, "BALAMT", "20000");
 		}
 
-        private void testNodeText(XmlDocument doc, string path, string expected)
+        private void assertNodeText(XmlNode node, string path, string expected)
         {
-            XmlNode node = doc.SelectSingleNode(path);
-            Assert.NotNull(node);
-            Assert.AreEqual(expected, node.InnerText);
+            XmlNode n = node.SelectSingleNode(path);
+            Assert.NotNull(n);
+            Assert.AreEqual(expected, n.InnerText);
         }
     }
 }
