@@ -1,4 +1,4 @@
-// -*-  Mode:C++; c-basic-offset:4; tab-width:4; indent-tabs-mode:t -*-
+// -*-  Mode:C++; c-basic-offset:4; tab-width:4; indent-tabs-mode:nil -*-
 
 using System;
 using System.Collections.Generic;
@@ -131,59 +131,59 @@ namespace FeliCa2Money.test
             // 各エントリチェック
             assertNodeText(doc, "/OFX/SIGNONMSGSRSV1/SONRS/DTSERVER", "20101231000000[+9:JST]");
 
-			XmlNode stmtrs = doc.SelectSingleNode("/OFX/BANKMSGSRSV1/STMTTRNRS/STMTRS");
+            XmlNode stmtrs = doc.SelectSingleNode("/OFX/BANKMSGSRSV1/STMTTRNRS/STMTRS");
 
-			assertNodeText(stmtrs, "BANKTRANLIST/DTSTART", "20000101000000[+9:JST]");
+            assertNodeText(stmtrs, "BANKTRANLIST/DTSTART", "20000101000000[+9:JST]");
             assertNodeText(stmtrs, "LEDGERBAL/DTASOF", "20000101000000[+9:JST]");
             assertNodeText(stmtrs, "LEDGERBAL/BALAMT", "10000");
 
-			XmlNode ccstmtrs = doc.SelectSingleNode("/OFX/CREDITCARDMSGSRSV1/CCSTMTTRNRS/CCSTMTRS");
+            XmlNode ccstmtrs = doc.SelectSingleNode("/OFX/CREDITCARDMSGSRSV1/CCSTMTTRNRS/CCSTMTRS");
             assertNodeText(ccstmtrs, "BANKTRANLIST/DTSTART", "20101231000000[+9:JST]");
             assertNodeText(ccstmtrs, "LEDGERBAL/DTASOF", "20101231000000[+9:JST]");
             assertNodeText(ccstmtrs, "LEDGERBAL/BALAMT", "12000");
         }
 
-		[Test]
+        [Test]
         public void lastBalanceTest()
-		{
-			TestAccount acc = new TestAccount();
-			acc.isCreditCard = false;
-			accounts.Add(acc);
+        {
+            TestAccount acc = new TestAccount();
+            acc.isCreditCard = false;
+            accounts.Add(acc);
 
-			Transaction t;
+            Transaction t;
         
-			t = new Transaction();
-			t.date = new DateTime(2010, 4, 1);
-			t.desc = "t1";
-			t.type = TransType.Payment;
-			t.value = 100;
-			t.balance = 10000;
-			acc.transactions.Add(t);
+            t = new Transaction();
+            t.date = new DateTime(2010, 4, 1);
+            t.desc = "t1";
+            t.type = TransType.Payment;
+            t.value = 100;
+            t.balance = 10000;
+            acc.transactions.Add(t);
 
-			t = new Transaction();
-			t.date = new DateTime(2010, 4, 1);
-			t.desc = "t2";
-			t.type = TransType.Payment;
-			t.value = 200;
-			t.balance = 20000;
-			acc.transactions.Add(t);
+            t = new Transaction();
+            t.date = new DateTime(2010, 4, 1);
+            t.desc = "t2";
+            t.type = TransType.Payment;
+            t.value = 200;
+            t.balance = 20000;
+            acc.transactions.Add(t);
 
-			t = new Transaction();
-			t.date = new DateTime(2010, 1, 1); // 逆順
-			t.desc = "t3";
-			t.type = TransType.Payment;
-			t.value = 300;
-			t.balance = 30000;
-			acc.transactions.Add(t);
+            t = new Transaction();
+            t.date = new DateTime(2010, 1, 1); // 逆順
+            t.desc = "t3";
+            t.type = TransType.Payment;
+            t.value = 300;
+            t.balance = 30000;
+            acc.transactions.Add(t);
         
-			ofx.genOfx(accounts);
-			XmlDocument doc = ofx.doc;
+            ofx.genOfx(accounts);
+            XmlDocument doc = ofx.doc;
 
-			// 最も新しい日付の最後の取引(t2)の値になっているかどうか確認
-			XmlNode ledgerBal = doc.SelectSingleNode("/OFX/CREDITCARDMSGSRSV1/CCSTMTTRNRS/CCSTMTRS/LEDGERBAL");
-			assertNodeText(ledgerBal, "DTASOF", "20100401000000[+9:JST]");
-			assertNodeText(ledgerBal, "BALAMT", "20000");
-		}
+            // 最も新しい日付の最後の取引(t2)の値になっているかどうか確認
+            XmlNode ledgerBal = doc.SelectSingleNode("/OFX/CREDITCARDMSGSRSV1/CCSTMTTRNRS/CCSTMTRS/LEDGERBAL");
+            assertNodeText(ledgerBal, "DTASOF", "20100401000000[+9:JST]");
+            assertNodeText(ledgerBal, "BALAMT", "20000");
+        }
 
         private void assertNodeText(XmlNode node, string path, string expected)
         {

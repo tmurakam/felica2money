@@ -1,4 +1,4 @@
-// -*-  Mode:C++; c-basic-offset:4; tab-width:4; indent-tabs-mode:t -*-
+// -*-  Mode:C++; c-basic-offset:4; tab-width:4; indent-tabs-mode:nil -*-
 
 using System;
 using System.Collections.Generic;
