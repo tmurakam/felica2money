@@ -158,7 +158,7 @@ namespace FeliCa2Money
             string date = getCol(row, "Date");
             if (date != null)
             {
-                t.date = parseDate(date);
+                t.date = CsvUtil.parseDate(date);
             }
             else {
                 int year = getColInt(row, "Year");
@@ -205,56 +205,5 @@ namespace FeliCa2Money
             
             return t;
         }
-
-        // 日付文字列の解析
-        private DateTime parseDate(string date)
-        {
-            int year, month, day;
-
-            // 年月日で区切られている場合
-            string[] split = date.Split(new char[] { '年', '月', '日' });
-            if (split.Length < 3)
-            {
-                // '/' などで区切られている場合
-                split = date.Split(new Char[] { '/', '.', ' ' });
-            }
-
-            if (split.Length >= 3)
-            {
-                // 和暦の処理
-                //   (三井住友銀行など)
-                if (split[0].StartsWith("H"))
-                {
-                    year = int.Parse(split[0].Substring(1));
-                    year += 1988;
-                } else {
-                    year = int.Parse(split[0]);
-                }
-                month = int.Parse(split[1]);
-                day = int.Parse(split[2]);
-            }
-            else
-            {
-                date = split[0];
-
-                if (date.Length != 6 && date.Length != 8)
-                {
-                    // パース不可能
-                    // TBD
-                    throw new Exception(Properties.Resources.CantParseDateStr + " (" + date + ")");
-                }
-
-                int n = int.Parse(date);
-                year = n / 10000;
-                month = (n / 100) % 100;
-                day = n % 100;
-            }
-
-            if (year < 100) {
-                year += 2000;
-            }
-            return new DateTime(year, month, day, 0, 0, 0);
-        }
     }
-
 }

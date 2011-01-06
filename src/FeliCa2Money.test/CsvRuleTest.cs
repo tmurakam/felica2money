@@ -77,6 +77,9 @@ namespace FeliCa2Money.test
 
             t = rule.parse(splitCSV("20050923"));
             Assert.IsTrue(t.date.Year == 2005 && t.date.Month == 9 && t.date.Day == 23);
+
+            t = rule.parse(splitCSV("9/23/2010"));
+            Assert.IsTrue(t.date.Year == 2010 && t.date.Month == 9 && t.date.Day == 23);
         }
 
 
