@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CsvRules>
-  <Version>100815.1</Version>
+  <Version>110107.1</Version>
+  <Rule>
+    <Ident>UltrasoftMoneyLink</Ident>
+    <Name>Ultrasoft MoneyLink (Excel⇒CSV書き出し)</Name>
+    <FirstLine>番号,日付,資産,摘要,照合,金額,費目,内訳,備考</FirstLine>
+    <Format>Dummy,Date,Dummy,Desc,Dummy,Income,Dummy,Memo</Format>
+    <Order>Ascent</Order>
+  </Rule>
+
   <Rule>
     <Ident>OFXConverter</Ident>
     <Name>OFXConverter互換</Name>
@@ -58,7 +66,7 @@
   <Rule>
     <Ident>CitiBank</Ident>
     <Name>シティバンク</Name>
-    <Format>Date,Desc,Income,Id,Dummy</Format>
+    <Format>Date,Desc,Income,Dummy,Dummy</Format>
     <Order>Descent</Order>
   </Rule>
 
