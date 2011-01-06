@@ -243,10 +243,10 @@ namespace FeliCa2Money
 
             // トランザクションの ID は日付と取引番号で生成
             appendElementWithText(e, "FITID", transId(t));
-            appendElementWithText(e, "NAME", quoteString(limitString(t.desc, 32)));
+            appendElementWithText(e, "NAME", limitString(t.desc, 32));
             if (t.memo != null)
             {
-                appendElementWithText(e, "MEMO", quoteString(t.memo));
+                appendElementWithText(e, "MEMO", t.memo);
             }
         }
 
@@ -299,16 +299,6 @@ namespace FeliCa2Money
             string longId = String.Format("{0:0000}{1:00}{2:00}", t.date.Year, t.date.Month, t.date.Day);
             longId += String.Format("{0:0000000}", t.id);
             return longId;
-        }
-
-        private string quoteString(string s)
-        {
-            s = s.Replace("&", "&amp;");
-            s = s.Replace("<", "&lt;");
-            s = s.Replace(">", "&gt;");
-            //s = s.Replace("'", "&apos;");
-            //s = s.Replace("\"", "&quot;");
-            return s;
         }
 
         private string limitString(string s, int maxlen)
