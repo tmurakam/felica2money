@@ -1,4 +1,32 @@
-2010-12-26 : Takuya Murakami
+2010-01-05 : Takuya Murakami
+	* バグ修正: OFX の無駄なエスケープ処理を除去
+
+2010-12-30 : Takuya Murakami
+	* ver 3.0 beta 5
+	* バグ修正: AGRファイルクローズ
+	* バグ修正: AGR件数０件時の処理
+	* OFX 生成クラスのリファクタリング
+
+2010-12-29 : Takuya Murakami
+	* ver 3.0 beta 4
+	* AGRファイル関連付け機能追加
+	* バグ修正: AGR: Bill アカウント無視
+	* バグ修正: 残高計算誤り
+	
+2010-12-29 : Takuya Murakami
+	* ver 3.0 beta 3
+	* OFX の適用欄を 32 文字に制限 (Money 2006用)
+
+2010-12-29 : Takuya Murakami
+	* ver 3.0 beta 2
+	* バグ修正: 残高計算誤り
+	* バグ修正: AGRカード口座連番処理
+
+2010-12-28 : Takuya Murakami
+	* ver 3.0 beta 1
+	* バグ修正
+	
+2010-12-27 : Takuya Murakami
 	* AGRファイルサポートを追加
 	* リファクタリング
 
