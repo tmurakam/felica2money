@@ -90,6 +90,15 @@
   </Rule>
 
   <Rule>
+    <Ident>HokurikuBank</Ident>
+    <Name>北陸銀行</Name>
+    <BankId>0144</BankId>
+    <FirstLine>"取扱日付","起算日","お支払金額","お預り金額","取引区分","残高","摘要"</FirstLine>
+    <Format>Date,Dummy,Outgo,Income,Dummy,Balance,Desc</Format>
+    <Order>Ascent</Order>
+  </Rule>
+
+  <Rule>
     <Ident>JALCard</Ident>
     <Name>JALカード</Name>
     <Format>Dummy,Dummy,Dummy,Dummy,Date,Outgo,Desc</Format>
