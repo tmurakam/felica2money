@@ -63,6 +63,9 @@ namespace FeliCa2Money.test
         {
             Transaction t;
             rule.SetFormat("Date");
+            t = rule.parse(splitCSV("2005/09/23"));
+            Assert.IsTrue(t.date.Year == 2005 && t.date.Month == 9 && t.date.Day == 23);
+
             t = rule.parse(splitCSV("05/9/23"));
             Assert.IsTrue(t.date.Year == 2005 && t.date.Month == 9 && t.date.Day == 23);
 
@@ -70,6 +73,9 @@ namespace FeliCa2Money.test
             Assert.IsTrue(t.date.Year == 2005 && t.date.Month == 9 && t.date.Day == 23);
 
             t = rule.parse(splitCSV("H17年9月23日"));
+            Assert.IsTrue(t.date.Year == 2005 && t.date.Month == 9 && t.date.Day == 23);
+
+            t = rule.parse(splitCSV("H17/09/23"));
             Assert.IsTrue(t.date.Year == 2005 && t.date.Month == 9 && t.date.Day == 23);
 
             t = rule.parse(splitCSV("050923"));
@@ -80,6 +86,9 @@ namespace FeliCa2Money.test
 
             t = rule.parse(splitCSV("9/23/2010"));
             Assert.IsTrue(t.date.Year == 2010 && t.date.Month == 9 && t.date.Day == 23);
+
+            t = rule.parse(splitCSV("09232005"));
+            Assert.IsTrue(t.date.Year == 2005 && t.date.Month == 9 && t.date.Day == 23);
         }
 
 
