@@ -207,7 +207,7 @@ namespace FeliCa2Money
 
             if (!account.isCreditCard)
             {
-                appendElementWithText(e, "BANKID", account.bankId.ToString());
+                appendElementWithText(e, "BANKID", account.bankId != null ? account.bankId.ToString() : null); // TBD
                 appendElementWithText(e, "BRANCHID", account.branchId);
             }
             appendElementWithText(e, "ACCTID", account.accountId);

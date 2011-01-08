@@ -178,13 +178,17 @@ namespace FeliCa2Money
 
             // ID
             string id = getCol(row, "Id");
+            t.id = Transaction.UNASSIGNED_ID;
             if (id != null)
             {
-                t.id = getColInt(row, "Id");
-            }
-            else
-            {
-                t.id = Transaction.UNASSIGNED_ID;
+                try
+                {
+                    t.id = getColInt(row, "Id");
+                }
+                catch (FormatException)
+                {
+                    // just ignore : do not use ID
+                }
             }
 
             // 金額
