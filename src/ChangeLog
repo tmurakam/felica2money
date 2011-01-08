@@ -1,3 +1,6 @@
+2010-01-08 : Takuya Murakami
+	* 修正: CSV mm/dd/yyyy フォーマットをサポート
+
 2010-01-05 : Takuya Murakami
 	* バグ修正: OFX の無駄なエスケープ処理を除去
 
