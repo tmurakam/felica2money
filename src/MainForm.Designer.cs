@@ -75,7 +75,7 @@ namespace FeliCa2Money
             this.buttonQuit.Location = new System.Drawing.Point(133, 538);
             this.buttonQuit.Name = "buttonQuit";
             this.buttonQuit.Size = new System.Drawing.Size(94, 30);
-            this.buttonQuit.TabIndex = 7;
+            this.buttonQuit.TabIndex = 8;
             this.buttonQuit.Text = "終了";
             this.buttonQuit.UseVisualStyleBackColor = true;
             this.buttonQuit.Click += new System.EventHandler(this.buttonQuit_Click);
@@ -85,7 +85,7 @@ namespace FeliCa2Money
             this.buttonOption.Location = new System.Drawing.Point(12, 396);
             this.buttonOption.Name = "buttonOption";
             this.buttonOption.Size = new System.Drawing.Size(58, 58);
-            this.buttonOption.TabIndex = 5;
+            this.buttonOption.TabIndex = 6;
             this.buttonOption.Text = "設定";
             this.buttonOption.UseVisualStyleBackColor = true;
             this.buttonOption.Click += new System.EventHandler(this.buttonOption_Click);
@@ -95,7 +95,7 @@ namespace FeliCa2Money
             this.label1.Location = new System.Drawing.Point(76, 26);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(266, 29);
-            this.label1.TabIndex = 8;
+            this.label1.TabIndex = 9;
             this.label1.Text = "PaSoRiを使って Edy の利用履歴を Microsoft Money に取り込みます。";
             this.label1.UseWaitCursor = true;
             // 
@@ -104,7 +104,7 @@ namespace FeliCa2Money
             this.label2.Location = new System.Drawing.Point(76, 87);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(266, 29);
-            this.label2.TabIndex = 9;
+            this.label2.TabIndex = 10;
             this.label2.Text = "PaSoRiを使って Suica/ICOCAなど交通系電子マネーの利用履歴を Microsoft Money に取り込みます。";
             // 
             // label5
@@ -113,7 +113,7 @@ namespace FeliCa2Money
             this.label5.Location = new System.Drawing.Point(76, 419);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(111, 12);
-            this.label5.TabIndex = 13;
+            this.label5.TabIndex = 15;
             this.label5.Text = "各種設定を行います。";
             // 
             // buttonManual
@@ -121,7 +121,7 @@ namespace FeliCa2Money
             this.buttonManual.Location = new System.Drawing.Point(12, 460);
             this.buttonManual.Name = "buttonManual";
             this.buttonManual.Size = new System.Drawing.Size(58, 58);
-            this.buttonManual.TabIndex = 6;
+            this.buttonManual.TabIndex = 7;
             this.buttonManual.Text = "マニュアル";
             this.buttonManual.UseVisualStyleBackColor = true;
             this.buttonManual.Click += new System.EventHandler(this.buttonManual_Click);
@@ -132,7 +132,7 @@ namespace FeliCa2Money
             this.label6.Location = new System.Drawing.Point(76, 483);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(193, 12);
-            this.label6.TabIndex = 14;
+            this.label6.TabIndex = 16;
             this.label6.Text = "FeliCa2Money のマニュアルを開きます。";
             // 
             // buttonNanaco
@@ -150,7 +150,7 @@ namespace FeliCa2Money
             this.label7.Location = new System.Drawing.Point(76, 154);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(266, 29);
-            this.label7.TabIndex = 10;
+            this.label7.TabIndex = 11;
             this.label7.Text = "PaSoRiを使って nanaco の利用履歴を Microsoft Money に取り込みます。";
             // 
             // saveFileDialog
@@ -163,7 +163,7 @@ namespace FeliCa2Money
             this.buttonCSV.Location = new System.Drawing.Point(12, 332);
             this.buttonCSV.Name = "buttonCSV";
             this.buttonCSV.Size = new System.Drawing.Size(58, 58);
-            this.buttonCSV.TabIndex = 4;
+            this.buttonCSV.TabIndex = 5;
             this.buttonCSV.UseVisualStyleBackColor = true;
             this.buttonCSV.Click += new System.EventHandler(this.buttonCSV_Click);
             // 
@@ -172,7 +172,7 @@ namespace FeliCa2Money
             this.label9.Location = new System.Drawing.Point(76, 345);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(266, 28);
-            this.label9.TabIndex = 12;
+            this.label9.TabIndex = 14;
             this.label9.Text = "CSVファイルを読み込んで Microsoft Money に取り込みます。";
             // 
             // openFileDialog
@@ -195,7 +195,7 @@ namespace FeliCa2Money
             this.label3.Location = new System.Drawing.Point(76, 217);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(266, 29);
-            this.label3.TabIndex = 11;
+            this.label3.TabIndex = 12;
             this.label3.Text = "PaSoRiを使って WAON の利用履歴を Microsoft Money に取り込みます。";
             // 
             // button1
@@ -204,7 +204,7 @@ namespace FeliCa2Money
             this.button1.Location = new System.Drawing.Point(12, 268);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(58, 58);
-            this.button1.TabIndex = 15;
+            this.button1.TabIndex = 4;
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.buttonAGR_Click);
             // 
@@ -213,7 +213,7 @@ namespace FeliCa2Money
             this.label4.Location = new System.Drawing.Point(76, 281);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(266, 28);
-            this.label4.TabIndex = 16;
+            this.label4.TabIndex = 13;
             this.label4.Text = "Agurippa電子明細ファイルを読み込んで Microsoft Money に取り込みます。";
             // 
             // MainForm
