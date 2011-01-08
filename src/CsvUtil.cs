@@ -91,7 +91,24 @@ namespace FeliCa2Money
             return fields.ToArray(typeof(string)) as string[];
         }
 
-        // 日付文字列の解析
+        /// <summary>
+        /// 日付文字列をヒューリスティックに解析する。
+        /// </summary>
+        /// <remarks>
+        /// 以下のようなフォーマットをサポートする。<br/>
+        ///   yyyy年mm月dd日
+        ///   Hyy年mm月dd日   (和暦、平成のみ対応)
+        ///   yyyy/mm/dd
+        ///   yy/mm/dd (年が下２桁)
+        ///   mm/dd/yyyy
+        ///   yyyymmdd
+        ///   yymmdd
+        ///   mmddyyyy
+        /// なお、以下の形式はサポートしない
+        ///   mm/dd/yy (yy/mm/dd と区別できない)
+        /// </remarks>
+        /// <param name="date">日付文字列</param>
+        /// <returns>DateTime型の日付。時分秒は0。</returns>
         public static DateTime parseDate(string date)
         {
             int year, month, day;
@@ -150,6 +167,14 @@ namespace FeliCa2Money
                 year = n / 10000;
                 month = (n / 100) % 100;
                 day = n % 100;
+
+                if (date.Length == 8 && year < 1900)
+                {
+                    // mmddyyyy
+                    year = n % 10000;
+                    month = n / 1000000;
+                    day = (n / 10000) % 100;
+                }
             }
 
             if (year < 100) {
