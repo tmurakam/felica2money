@@ -61,6 +61,15 @@ namespace FeliCa2Money
         }
 
         /// <summary>
+        /// ルール追加(単体テスト用)
+        /// </summary>
+        /// <param name="rule">ルール</param>
+        public void Add(CsvRule rule)
+        {
+            mRules.Add(rule);
+        }
+
+        /// <summary>
         /// 全 CSV 変換ルールを読み出す
         /// </summary>
         /// <returns></returns>
