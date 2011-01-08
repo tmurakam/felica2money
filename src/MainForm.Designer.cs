@@ -160,7 +160,7 @@ namespace FeliCa2Money
             // buttonCSV
             // 
             this.buttonCSV.Image = global::FeliCa2Money.Properties.Resources.CSV;
-            this.buttonCSV.Location = new System.Drawing.Point(12, 268);
+            this.buttonCSV.Location = new System.Drawing.Point(12, 332);
             this.buttonCSV.Name = "buttonCSV";
             this.buttonCSV.Size = new System.Drawing.Size(58, 58);
             this.buttonCSV.TabIndex = 4;
@@ -169,7 +169,7 @@ namespace FeliCa2Money
             // 
             // label9
             // 
-            this.label9.Location = new System.Drawing.Point(76, 284);
+            this.label9.Location = new System.Drawing.Point(76, 345);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(266, 28);
             this.label9.TabIndex = 12;
@@ -201,7 +201,7 @@ namespace FeliCa2Money
             // button1
             // 
             this.button1.Image = global::FeliCa2Money.Properties.Resources.Agurippa;
-            this.button1.Location = new System.Drawing.Point(12, 332);
+            this.button1.Location = new System.Drawing.Point(12, 268);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(58, 58);
             this.button1.TabIndex = 15;
@@ -210,7 +210,7 @@ namespace FeliCa2Money
             // 
             // label4
             // 
-            this.label4.Location = new System.Drawing.Point(76, 346);
+            this.label4.Location = new System.Drawing.Point(76, 281);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(266, 28);
             this.label4.TabIndex = 16;
@@ -243,7 +243,7 @@ namespace FeliCa2Money
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FeliCa2Money ver 3.0 beta 5";
+            this.Text = "FeliCa2Money ver 3.0";
             this.Load += new System.EventHandler(this.onLoad);
             this.ResumeLayout(false);
             this.PerformLayout();
