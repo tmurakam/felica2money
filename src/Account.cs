@@ -99,9 +99,11 @@ namespace FeliCa2Money
         }
 
         // タブ区切りの分解 (SFCPeep用)
+#if false
         protected string[] ParseLine(string line)
         {
             return line.Split('\t');
         }
+#endif
     }
 }
