@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CsvRules>
-  <Version>110107.1</Version>
+  <Version>110116.1</Version>
   <Rule>
     <Ident>UltrasoftMoneyLink</Ident>
     <Name>Ultrasoft MoneyLink (Excel⇒CSV書き出し)</Name>
     <FirstLine>番号,日付,資産,摘要,照合,金額,費目,内訳,備考</FirstLine>
     <Format>Dummy,Date,Dummy,Desc,Dummy,Income,Dummy,Memo</Format>
+    <Order>Ascent</Order>
+  </Rule>
+
+  <Rule>
+    <Ident>MasterMoney</Ident>
+    <Name>マスターマネー</Name>
+    <FirstLine>日　付,カテゴリー,アカウント,入金額,出金額,メ　モ,グループ</FirstLine>
+    <Format>Date,Desc,Dummy,Income,Outgo,Memo,Dummy</Format>
     <Order>Ascent</Order>
   </Rule>
 
