@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- TemplateBeginEditable name="doctitle" -->
 <title>FeliCa2Money</title>
 <!-- TemplateEndEditable -->
@@ -53,12 +53,15 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 <!-- amazon -->
 <br/>
 <br/>
-<iframe src="http://rcm-jp.amazon.co.jp/e/cm?t=felica2money-22&o=9&p=8&l=as1&asins=B001MVPD8U&fc1=000000&IS2=1&lt1=_blank&m=amazon&lc1=0000FF&bc1=FFFFFF&bg1=FFFFFF&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
+<iframe src="http://rcm-jp.amazon.co.jp/e/cm?lt1=_blank&bc1=FFFFFF&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=felica2money-22&o=9&p=8&l=as1&m=amazon&f=ifr&asins=B0047AHHD2" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
+
 <br/>
 <br/>
+<!--
 <iframe src="http://rcm-jp.amazon.co.jp/e/cm?t=felica2money-22&o=9&p=8&l=as1&asins=B000VVBFAC&fc1=000000&IS2=1&lt1=_blank&lc1=0000FF&bc1=FFFFFF&bg1=FFFFFF&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
 <br/>
 <br/>
+-->
 <iframe src="http://rcm-jp.amazon.co.jp/e/cm?t=felica2money-22&o=9&p=8&l=as1&asins=4891005629&fc1=000000&IS2=1&lt1=_blank&lc1=0000FF&bc1=FFFFFF&bg1=FFFFFF&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
 </div>
 
