@@ -60,7 +60,7 @@ body
 }
 
 .menuentry {
-	font-size: 100%;
+	font-size: 90%;
 	border: 1px solid #CCCCCC;
 	border-left: 12px solid #B2CDEC;
 	padding: 3px;
@@ -70,12 +70,12 @@ body
 }
 
 .adsblock {
-	font-size: 90%;
+	font-size: 80%;
 	padding: 3px;
 	margin: 10px;
-        margin-bottom: 20px;
+	margin-bottom: 20px;
 	background-color: #FFFFFF;
-        text-align: left;
+	text-align: left;
 }
 
 #main {
@@ -118,7 +118,9 @@ h2
 	color: #000;
 	border-left: 9px solid #B8D2F3;
 	border-bottom: 2px solid #B8D2F3;
-	padding-left: 10px; padding-top: 5px; padding-bottom: 0px;
+	padding-left: 10px;
+	padding-top: 3px;
+	padding-bottom: 3px;
 }
 h3
 {
@@ -126,7 +128,9 @@ h3
 	color: #000;
 	border-left: 5px solid #B8D2F3;
 	border-bottom: 1px solid #B8D2F3;
-	padding-left: 10px; padding-top: 5px; padding-bottom: 0px;
+	padding-left: 10px;
+	padding-top: 3px;
+	padding-bottom: 3px;
 }
 h4
 {
