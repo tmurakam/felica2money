@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html><!-- InstanceBegin template="/Templates/Main.dwt" codeOutsideHTMLIsLocked="false" -->
 <head>
-<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- InstanceBeginEditable name="doctitle" -->
 <title>FeliCa2Money</title>
 <!-- InstanceEndEditable -->
@@ -18,30 +18,37 @@
 -->
 </style>
 <!-- InstanceEndEditable -->
-</head>
-<body>
+
 <!-- google analytics -->
 <script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
-var pageTracker = _gat._getTracker("UA-413697-7");
-pageTracker._trackPageview();
-</script>
 
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-413697-7']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+<body>
 <div id="contents">
 
 <div id="header">
 <img src="images/title.jpg" alt="header" />
 </div>
-
 <div id="menubar">
 <div class="menuentry"><a href="index.html">トップ</a></div>
 <div class="menuentry"><a href="requirement.html">必要環境</a></div>
 <div class="menuentry"><a href="screenshot.html">スクリーンショット</a></div>
 <div class="menuentry"><a href="download.html">ダウンロード</a></div>
 <div class="menuentry"><a href="document.html">ドキュメント</a></div>
+<div class="menuentry"><a href="manual.html">└ マニュアル</a></div>
+<div class="menuentry"><a href="faq.html">└ FAQ</a></div>
+<div class="menuentry"><a href="https://github.com/tmurakam/felica2money/wiki">└ Wiki</a></div>
 <div class="menuentry"><a href="license.html">ライセンス</a></div>
 <div class="menuentry"><a href="links.html">リンク/連絡先</a></div>
 <div class="menuentry"><a href="http://d.hatena.ne.jp/tmurakam/">ブログ</a></div>
@@ -63,12 +70,15 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 <!-- amazon -->
 <br/>
 <br/>
-<iframe src="http://rcm-jp.amazon.co.jp/e/cm?t=felica2money-22&o=9&p=8&l=as1&asins=B001MVPD8U&fc1=000000&IS2=1&lt1=_blank&m=amazon&lc1=0000FF&bc1=FFFFFF&bg1=FFFFFF&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
+<iframe src="http://rcm-jp.amazon.co.jp/e/cm?lt1=_blank&bc1=FFFFFF&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=felica2money-22&o=9&p=8&l=as1&m=amazon&f=ifr&asins=B0047AHHD2" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
+
 <br/>
 <br/>
+<!--
 <iframe src="http://rcm-jp.amazon.co.jp/e/cm?t=felica2money-22&o=9&p=8&l=as1&asins=B000VVBFAC&fc1=000000&IS2=1&lt1=_blank&lc1=0000FF&bc1=FFFFFF&bg1=FFFFFF&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
 <br/>
 <br/>
+-->
 <iframe src="http://rcm-jp.amazon.co.jp/e/cm?t=felica2money-22&o=9&p=8&l=as1&asins=4891005629&fc1=000000&IS2=1&lt1=_blank&lc1=0000FF&bc1=FFFFFF&bg1=FFFFFF&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
 </div>
 
@@ -76,7 +86,9 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 <h2>新着情報</h2>
 
 <ul>
-  <li>2010/12/30 : Version 3.0 beta 5 公開。Agurippa電子明細に対応しています。 </li>
+  <li>2011/1/18 : Microsoft より <a href="http://www.microsoft.com/downloads/details.aspx?FamilyID=60302e1e-207e-4710-ac80-d19c22e47488&displayLang=ja">Money Plus Sunset Deluxe 日本語版</a>が公開されています。フリーソフト扱いのため無料で利用できます。⇒ <a href="http://www.forest.impress.co.jp/docs/news/20110118_421021.html">窓の杜の記事</a></li>
+  <li>2011/1/8 : Version 3.0 正式版。Agurippa電子明細に対応しました。 </li>
+  <!--
   <li>2009/11/1 : Version 2.9 公開しました。Edy 取り込み件数が１件少なかった問題などを修正。</li>
   <li>2008/10/20 : Microsoft Money 電子明細に対応した　iPhone/iPod touch 用お小遣い帳アプリCashFlow のベータテストを開始しました。詳細は<a href="http://iphone.tmurakam.org/cashflow/index-j.html">こちら</a>。</li>
   <li>2008/10/20 : CSV 定義を更新しました。</li>
@@ -84,14 +96,16 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
   <li>2008/5/12 : 窓の杜で FeliCa2Money が紹介されました。記事は<a href="http://www.forest.impress.co.jp/article/2008/05/12/felica2money.html">こちら</a>。</li>
   <li>2008/4/20 : Version 2.7.1 公開しました。バグ(felicalib.dll ロードエラー、一部駅名が正しく表示されない）を修正してあります。</li>
   <li>2008/4/19 : Version 2.7 公開しました。Windows x64 環境に対応しました。</li>
+  -->
   </ul>
 <h2>FeliCa2Money とは？</h2>
 
 <p>FeliCa2Moneyは、FeliCaポート/パソリを使って Edy や nanaco などの電子マネーの利用明細を読み取り、
 電子明細(OFX形式ファイル)に変換するものです。これを使えば、電子マネーの利用明細を
 ワンタッチで家計簿に記帳できます。</p>
+<p>また、Microsoft Money Plus の電子明細自動更新機能は 2011年1月末に終了してしまいますが、FeliCa2Money は Agurippa電子明細に対応していますので、自動更新機能が終了してしまったあとも明細の更新を行うことができます。また、無料で公開されている Money Plus Sunset Deluxe でも利用できます。</p>
 
-<p>また、CSV ファイルからの取り込みにも対応しています。</p>
+<p>その他、CSV ファイルからの取り込みにも対応しています。</p>
 <p align="center"><img src="images/import.jpg" alt="電子マネーのインポート" width="400" height="180" /></p>
 <p align="center" class="style1">電子マネー明細をワンタッチで家計簿に取り込める！</p>
 <h3>対応家計簿ソフト</h3>
@@ -101,7 +115,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 <ul>
 <li>製品</li>
 <ul>
-  <li><a href="http://www.microsoft.com/japan/money/default.mspx">Microsoft Money</a></li>
+  <li><a href="http://www.microsoft.com/japan/money/default.mspx">Microsoft Money</a> : 無料の Sunset 版を<a href="http://www.microsoft.com/downloads/details.aspx?FamilyID=60302e1e-207e-4710-ac80-d19c22e47488&displayLang=ja">こちら</a>から入手できます。</li>
   <li><a href="http://www.plato-web.com/software/mm.html">マスターマネー</a></li>
   <li><a href="http://www.softnet.co.jp/">てきぱき家計簿マム</a></li>
   <li><a href="http://www.agenda.co.jp/products/miracle/index.html">ミラクル家計簿</a></li>
@@ -142,6 +156,12 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 </script>
 <!-- #EndLibraryItem -->
 
+<h3>Agurippa電子明細</h3>
+
+<p>Agurippaが提供するAgurippa電子明細を取り込むことができます。
+  Agurippa電子明細の詳細は<a href="http://agurippa.com/download/mastermoney/">こちら</a>。
+  現時点では JNBアグリゲーション、 gooワンビリングが対応しています。</p>
+<p>Microsoft Money Plus の電子明細更新機能は 2011/1月末に終了してしまいますが、Agurippa電子明細は継続していますので、この機能を使えば明細の更新を続けることができます。また、無料で公開されている Sunset 版には明細更新機能がありませんが、本機能を使えば明細の更新ができます。</p>
 <h3>対応CSVフォーマット</h3>
 <p>CSVファイルフォーマットは以下のものに対応しています(徐々に増やしていきます）。CSV変換ルールを作れば、対応CSVフォーマットはご自分で増やすことができます。</p>
 <ul>
@@ -189,7 +209,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 </div>
 
 <div id="footer">
-Copyright (C) 2007-2010 <a href="http://www.tmurakam.org/">Takuya Murakami</a>, All Rights Reserved.
+Copyright (C) 2007-2011 <a href="http://www.tmurakam.org/">Takuya Murakami</a>, All Rights Reserved.
 </div>
 </div>
 

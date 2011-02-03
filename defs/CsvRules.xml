@@ -10,6 +10,14 @@
   </Rule>
 
   <Rule>
+    <Ident>MasterMoney</Ident>
+    <Name>マスターマネー</Name>
+    <FirstLine>日　付,カテゴリー,アカウント,入金額,出金額,メ　モ,グループ</FirstLine>
+    <Format>Date,Desc,Dummy,Income,Outgo,Memo,Dummy</Format>
+    <Order>Ascent</Order>
+  </Rule>
+
+  <Rule>
     <Ident>OFXConverter</Ident>
     <Name>OFXConverter互換</Name>
     <FirstLine>明細日,明細金額,Money摘要欄,Money備考欄</FirstLine>

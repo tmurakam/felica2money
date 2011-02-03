@@ -1,37 +1,44 @@
 <!DOCTYPE html>
 <html><!-- InstanceBegin template="/Templates/Main.dwt" codeOutsideHTMLIsLocked="false" -->
 <head>
-<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- InstanceBeginEditable name="doctitle" -->
 <title>FeliCa2Money</title>
 <!-- InstanceEndEditable -->
 <meta name="keywords" content="Money,Microsoft Money,OFX,FeliCa,フェリカ,PaSoRi,パソリ,電子マネー,Edy,Edyクレジット,Edyカード,Suica,家計簿,マネー" />
 <link rel="stylesheet" type="text/css" href="style.css" />
 <!-- InstanceBeginEditable name="head" --><!-- InstanceEndEditable -->
-</head>
-<body>
+
 <!-- google analytics -->
 <script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
-var pageTracker = _gat._getTracker("UA-413697-7");
-pageTracker._trackPageview();
-</script>
 
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-413697-7']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+<body>
 <div id="contents">
 
 <div id="header">
 <img src="images/title.jpg" alt="header" />
 </div>
-
 <div id="menubar">
 <div class="menuentry"><a href="index.html">トップ</a></div>
 <div class="menuentry"><a href="requirement.html">必要環境</a></div>
 <div class="menuentry"><a href="screenshot.html">スクリーンショット</a></div>
 <div class="menuentry"><a href="download.html">ダウンロード</a></div>
 <div class="menuentry"><a href="document.html">ドキュメント</a></div>
+<div class="menuentry"><a href="manual.html">└ マニュアル</a></div>
+<div class="menuentry"><a href="faq.html">└ FAQ</a></div>
+<div class="menuentry"><a href="https://github.com/tmurakam/felica2money/wiki">└ Wiki</a></div>
 <div class="menuentry"><a href="license.html">ライセンス</a></div>
 <div class="menuentry"><a href="links.html">リンク/連絡先</a></div>
 <div class="menuentry"><a href="http://d.hatena.ne.jp/tmurakam/">ブログ</a></div>
@@ -53,20 +60,25 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 <!-- amazon -->
 <br/>
 <br/>
-<iframe src="http://rcm-jp.amazon.co.jp/e/cm?t=felica2money-22&o=9&p=8&l=as1&asins=B001MVPD8U&fc1=000000&IS2=1&lt1=_blank&m=amazon&lc1=0000FF&bc1=FFFFFF&bg1=FFFFFF&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
+<iframe src="http://rcm-jp.amazon.co.jp/e/cm?lt1=_blank&bc1=FFFFFF&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=felica2money-22&o=9&p=8&l=as1&m=amazon&f=ifr&asins=B0047AHHD2" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
+
 <br/>
 <br/>
+<!--
 <iframe src="http://rcm-jp.amazon.co.jp/e/cm?t=felica2money-22&o=9&p=8&l=as1&asins=B000VVBFAC&fc1=000000&IS2=1&lt1=_blank&lc1=0000FF&bc1=FFFFFF&bg1=FFFFFF&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
 <br/>
 <br/>
+-->
 <iframe src="http://rcm-jp.amazon.co.jp/e/cm?t=felica2money-22&o=9&p=8&l=as1&asins=4891005629&fc1=000000&IS2=1&lt1=_blank&lc1=0000FF&bc1=FFFFFF&bg1=FFFFFF&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
 </div>
 
 <div id="main"><!-- InstanceBeginEditable name="maincontents" -->
 <h2>マニュアル</h2>
 
-<p><a href="manual.html">マニュアル</a></p>
-
+<ul>
+  <li><a href="manual.html">マニュアル</a></li>
+  <li><a href="faq.html">FAQ : よくある質問とその答え</a></li>
+</ul>
 <!-- #BeginLibraryItem "/Library/AdsenseBanner.lbi" -->
 <!-- Adsense バナー -->
 <script type="text/javascript"><!--
@@ -78,8 +90,7 @@ google_ad_height = 60;
 //--></script>
 <script type="text/javascript"
 src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-</script>
-<!-- #EndLibraryItem -->
+</script><!-- #EndLibraryItem -->
 
 
 <h2>その他</h2>
@@ -87,7 +98,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 <ul>
   <li><a href="https://github.com/tmurakam/felica2money/wiki">Wiki</a>
   </li>
-  <li><a href="https://github.com/tmurakam/felica2money/issues">バグトラッカー</a></li>
+  <li><a href="https://github.com/tmurakam/felica2money/issues">バグトラッカー</a> : バグ報告はこちらにお願いします。</li>
   </ul>
 <p>&nbsp;</p>
 <!-- InstanceEndEditable --></div>
@@ -112,7 +123,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 </div>
 
 <div id="footer">
-Copyright (C) 2007-2010 <a href="http://www.tmurakam.org/">Takuya Murakami</a>, All Rights Reserved.
+Copyright (C) 2007-2011 <a href="http://www.tmurakam.org/">Takuya Murakami</a>, All Rights Reserved.
 </div>
 </div>
 

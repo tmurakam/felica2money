@@ -36,6 +36,7 @@ body
 {
         text-align: center;
         background-color: #F0F9FF;
+		color: #333;
 }
 
 #contents {
@@ -59,7 +60,7 @@ body
 }
 
 .menuentry {
-	font-size: 100%;
+	font-size: 90%;
 	border: 1px solid #CCCCCC;
 	border-left: 12px solid #B2CDEC;
 	padding: 3px;
@@ -69,12 +70,12 @@ body
 }
 
 .adsblock {
-	font-size: 90%;
+	font-size: 80%;
 	padding: 3px;
 	margin: 10px;
-        margin-bottom: 20px;
+	margin-bottom: 20px;
 	background-color: #FFFFFF;
-        text-align: left;
+	text-align: left;
 }
 
 #main {
@@ -107,39 +108,39 @@ body
 h1
 {
 	font-size: 230%;
-	color: #A000A0;
-	background-color: #ececec;
+	color: #009;
 	border-left: 16px solid #000080;
-	border-top: 2px solid #000080;
 	padding-left: 10px; padding-top: 3px; padding-bottom: 3px;
 }
 h2
 {
 	font-size: 160%;
-	color: #408080;
-	background-color: #ececec;
-	border-left: 6px solid #000080;
-	border-top: 2px solid #000080;
-	padding-left: 10px; padding-top: 3px; padding-bottom: 3px;
+	color: #000;
+	border-left: 9px solid #B8D2F3;
+	border-bottom: 2px solid #B8D2F3;
+	padding-left: 10px;
+	padding-top: 3px;
+	padding-bottom: 3px;
 }
 h3
 {
 	font-size: 110%;
-	color: #008000;
-	background-color: #ececec;
-	border-left: 5px solid #006000;
-	/*border-top: 1px solid #006000;*/
-	padding-left: 10; padding-top: 2; padding-bottom: 2;
+	color: #000;
+	border-left: 5px solid #B8D2F3;
+	border-bottom: 1px solid #B8D2F3;
+	padding-left: 10px;
+	padding-top: 3px;
+	padding-bottom: 3px;
 }
 h4
 {
-	color: rgb(153,153,0);
+	color #000;
 }
 h5
 {
-	color: rgb(255,153,0);
+	color: #000;
 }
 h6
 {
-	color: rgb(51,102,204);
+	color: #000;
 }
