@@ -26,7 +26,7 @@ using System.Windows.Forms;
 
 namespace FeliCa2Money
 {
-    public partial class CsvRuleDialog : Form
+    public partial class CsvAccountEditDialog : Form
     {
         private CsvAccountManager mAccountManager;
 
@@ -35,20 +35,8 @@ namespace FeliCa2Money
         // CSV 変換ルールセット
         private CsvRules mRules;
 
-        // 支店番号テキストボックス
-        public string BranchId
-        {
-            get { return textBranchId.Text; }
-        }
-
-        // 口座番号テキストボックス
-        public string AccountId
-        {
-            get { return textAccountId.Text; }
-        }
-
         // コンストラクタ
-        public CsvRuleDialog(CsvAccountManager manager, CsvAccount account)
+        public CsvAccountEditDialog(CsvAccountManager manager, CsvAccount account)
         {
             InitializeComponent();
 
@@ -97,6 +85,14 @@ namespace FeliCa2Money
             mAccount.accountName = textAccountName.Text;
 
             return mAccount;
+        }
+
+        private void onUpdateCsvRules(object sender, EventArgs e)
+        {
+            if (CsvRules.DownloadRule())
+            {
+                MessageBox.Show(Properties.Resources.UpdateCompleted);
+            }
         }
     }
 }

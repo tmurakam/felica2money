@@ -53,7 +53,7 @@ namespace FeliCa2Money
         private void onAddAccount(object sender, EventArgs e)
         {
             CsvAccount account = new CsvAccount();
-            CsvRuleDialog dlg = new CsvRuleDialog(mManager, account);
+            CsvAccountEditDialog dlg = new CsvAccountEditDialog(mManager, account);
             if (dlg.ShowDialog() == DialogResult.OK)
             {
                 account = dlg.getAccount();
@@ -71,7 +71,7 @@ namespace FeliCa2Money
             if (idx >= 0)
             {
                 CsvAccount account = mManager.GetAt(idx);
-                CsvRuleDialog dlg = new CsvRuleDialog(mManager, account);
+                CsvAccountEditDialog dlg = new CsvAccountEditDialog(mManager, account);
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
                     account = dlg.getAccount();

@@ -1,6 +1,6 @@
 ﻿namespace FeliCa2Money
 {
-    partial class CsvRuleDialog
+    partial class CsvAccountEditDialog
     {
         /// <summary>
         /// Required designer variable.
@@ -38,6 +38,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.textAccountName = new System.Windows.Forms.TextBox();
+            this.button3 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // listBox
@@ -46,7 +47,7 @@
             this.listBox.ItemHeight = 12;
             this.listBox.Location = new System.Drawing.Point(14, 24);
             this.listBox.Name = "listBox";
-            this.listBox.Size = new System.Drawing.Size(348, 208);
+            this.listBox.Size = new System.Drawing.Size(246, 208);
             this.listBox.TabIndex = 0;
             // 
             // label1
@@ -80,20 +81,20 @@
             // 
             this.textBranchId.Location = new System.Drawing.Point(12, 314);
             this.textBranchId.Name = "textBranchId";
-            this.textBranchId.Size = new System.Drawing.Size(198, 19);
+            this.textBranchId.Size = new System.Drawing.Size(248, 19);
             this.textBranchId.TabIndex = 2;
             // 
             // textAccountId
             // 
             this.textAccountId.Location = new System.Drawing.Point(12, 360);
             this.textAccountId.Name = "textAccountId";
-            this.textAccountId.Size = new System.Drawing.Size(198, 19);
+            this.textAccountId.Size = new System.Drawing.Size(248, 19);
             this.textAccountId.TabIndex = 3;
             // 
             // button1
             // 
             this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.button1.Location = new System.Drawing.Point(101, 398);
+            this.button1.Location = new System.Drawing.Point(90, 398);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 4;
@@ -103,7 +104,7 @@
             // button2
             // 
             this.button2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.button2.Location = new System.Drawing.Point(191, 398);
+            this.button2.Location = new System.Drawing.Point(195, 398);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 5;
@@ -123,15 +124,26 @@
             // 
             this.textAccountName.Location = new System.Drawing.Point(14, 268);
             this.textAccountName.Name = "textAccountName";
-            this.textAccountName.Size = new System.Drawing.Size(196, 19);
+            this.textAccountName.Size = new System.Drawing.Size(246, 19);
             this.textAccountName.TabIndex = 1;
             // 
-            // CsvRuleDialog
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(275, 24);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(91, 43);
+            this.button3.TabIndex = 9;
+            this.button3.Text = "CSV変換定義のオンライン更新";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.onUpdateCsvRules);
+            // 
+            // CsvAccountEditDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(374, 438);
+            this.ClientSize = new System.Drawing.Size(378, 438);
             this.ControlBox = false;
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.textAccountName);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.button2);
@@ -144,7 +156,7 @@
             this.Controls.Add(this.listBox);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "CsvRuleDialog";
+            this.Name = "CsvAccountEditDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CSV資産編集";
             this.ResumeLayout(false);
@@ -164,5 +176,6 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textAccountName;
+        private System.Windows.Forms.Button button3;
     }
 }
