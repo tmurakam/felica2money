@@ -98,16 +98,19 @@ namespace FeliCa2Money
 
         private void buttonCSV_Click(object sender, EventArgs e)
         {
-            CsvAccount csv = new CsvAccount();
-            if (!csv.LoadAllRules()) return;
+            CsvAccountManager manager = new CsvAccountManager();
+            if (!manager.LoadAllRules()) return;
 
             openFileDialog.DefaultExt = "csv";
             openFileDialog.Filter = "CSVファイル|*.csv|すべてのファイル|*.*";
             if (openFileDialog.ShowDialog() != DialogResult.OK) return;
 
+            CsvAccount account;
+
             try
             {
-                if (csv.OpenFile(openFileDialog.FileName) == false) return;
+                account = manager.SelectAccount(openFileDialog.FileName);
+                if (account == null) return;
             }
             catch (Exception ex)
             {
@@ -115,8 +118,8 @@ namespace FeliCa2Money
                 return;
             }
              
-            doReadAndConvert(csv);
-            csv.Close();
+            doReadAndConvert(account);
+            account.Close();
         }
 
         private void buttonAGR_Click(object sender, EventArgs e)

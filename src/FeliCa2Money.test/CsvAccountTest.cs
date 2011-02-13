@@ -10,6 +10,7 @@ using FeliCa2Money;
 
 namespace FeliCa2Money.test
 {
+#if false
     [TestFixture]
     class CsvAccountTest
     {
@@ -208,5 +209,6 @@ namespace FeliCa2Money.test
             Assert.AreEqual(2, mAccount.transactions[5].id);
         }
     }
+#endif
 }
 

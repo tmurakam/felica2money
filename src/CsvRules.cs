@@ -211,11 +211,28 @@ namespace FeliCa2Money
         }
 
         /// <summary>
+        /// ident に一致するルールを探す
+        /// </summary>
+        /// <param name="firstLine">firstLine</param>
+        /// <returns>ルール</returns>
+        public CsvRule FindRuleWithIdent(string ident)
+        {
+            foreach (CsvRule rule in mRules)
+            {
+                if (rule.ident == ident)
+                {
+                    return rule;
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
         /// firstLine に一致するルールを探す
         /// </summary>
         /// <param name="firstLine">firstLine</param>
         /// <returns>ルール</returns>
-        public CsvRule FindRule(string firstLine)
+        public CsvRule FindRuleForFirstLine(string firstLine)
         {
             foreach (CsvRule rule in mRules)
             {

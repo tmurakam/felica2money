@@ -79,6 +79,9 @@ namespace FeliCa2Money
                 // 各行には、Ident, BranchId, AccountId, Nickname が入っているものとする
                 string[] a = line.Split(new char[] { ',' });
 
+                // アカウントIDが入っていない場合は読み飛ばす (旧バージョン対応)
+                if (a[2].Length == 0) continue;
+
                 CsvAccount account = new CsvAccount();
                 account.ident = a[0];
                 account.branchId = a[1];
@@ -90,15 +93,6 @@ namespace FeliCa2Money
 
                 mAccounts.Add(account);
             }
-        }
-
-        /// <summary>
-        /// アカウント追加
-        /// </summary>
-        public void AddAccount(CsvAccount account)
-        {
-            mAccounts.Add(account);
-            SaveAccountInfo();
         }
 
         /// <summary>
@@ -122,35 +116,104 @@ namespace FeliCa2Money
         }
 
         /// <summary>
-        /// CSVファイルをオープン
+        /// アカウント追加
+        /// </summary>
+        public void AddAccount(CsvAccount account)
+        {
+            mAccounts.Add(account);
+            SaveAccountInfo();
+        }
+
+        /// <summary>
+        /// アカウント名一覧を返す
+        /// </summary>
+        /// <returns></returns>
+        public string[] getNames()
+        {
+            string[] names = new string[mAccounts.Count];
+            int i = 0;
+            foreach (CsvAccount account in mAccounts)
+            {
+                string name = getBankName(account);
+                if (account.accountName != "")
+                {
+                    name += " " + account.accountName;
+                }
+                names[i] = name;
+                i++;
+            }
+            return names;
+        }
+
+        private string getBankName(CsvAccount account)
+        {
+            int count = mRules.Count;
+            for (int i = 0; i < count; i++) {
+                CsvRule rule = mRules.GetAt(i);
+                if (rule.ident == account.ident) {
+                    return rule.name;
+                }
+            }
+            return "unknown";
+        }
+
+        public CsvAccount GetAt(int index)
+        {
+            return mAccounts[index];
+        }
+
+        public int IndexOf(CsvAccount account)
+        {
+            return mAccounts.IndexOf(account);
+        }
+
+        /// <summary>
+        /// CSVアカウントを選択
         /// </summary>
         /// <param name="path">CSVファイルパス</param>
-        /// <returns></returns>
-        public CsvAccount OpenFile(string path)
+        /// <returns>CSVアカウント</returns>
+        public CsvAccount SelectAccount(string path)
         {
-            // 合致するルールを探す
-            CsvRule rule = findMatchingRule(path);
+            // CSVファイルに合致するルール⇒アカウントを探す
+            CsvRule rule = findMatchingRuleForCsv(path);
+            CsvAccount account = null;
+            if (rule != null)
+            {
+                foreach (CsvAccount acc in mAccounts)
+                {
+                    if (acc.ident == rule.ident)
+                    {
+                        account = acc;
+                        break;
+                    }
+                }
+            }
 
-            CsvRuleDialog dlg = new CsvRuleDialog(mRules);
-
-            // ルール/口座番号などを選択
-            dlg.SelectRule(rule);
+            // 資産選択ダイアログを出す
+            CsvAccountDialog dlg = new CsvAccountDialog(this);
+            dlg.SelectAccount(account);
             if (dlg.ShowDialog() == DialogResult.Cancel)
             {
                 return null;
             }
 
-            // 選択されたルールを取り出す
-            rule = dlg.SelectedRule();
+            // 選択されたアカウントを取り出す
+            account = dlg.SelectedAccount();
+            if (account == null)
+            {
+                MessageBox.Show(Properties.Resources.NoCsvAccountSelected, Properties.Resources.Error);
+                return null;
+            }
+
+            // アカウントに対応するルールを選択する
+            rule = mRules.FindRuleWithIdent(account.ident);
             if (rule == null)
             {
                 MessageBox.Show(Properties.Resources.NoCsvRuleSelected, Properties.Resources.Error);
                 return null;
             }
 
-            CsvAccount account = new CsvAccount();
             account.startReading(path, rule);
-
             return account;
         }
 
@@ -159,7 +222,7 @@ namespace FeliCa2Money
         /// </summary>
         /// <param name="path">CSVファイルパス</param>
         /// <returns>ルール</returns>
-        public CsvRule findMatchingRule(string path)
+        public CsvRule findMatchingRuleForCsv(string path)
         {
             // TODO: とりあえず SJIS で開く (UTF-8 とかあるかも?)
             StreamReader sr = new StreamReader(path, System.Text.Encoding.Default);
@@ -167,7 +230,7 @@ namespace FeliCa2Money
             sr.Close();
 
             // 合致するルールを探す
-            return mRules.FindRule(firstLine);
+            return mRules.FindRuleForFirstLine(firstLine);
         }
     }
 }

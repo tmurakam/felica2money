@@ -46,11 +46,13 @@ namespace FeliCa2Money
         public string ident
         {
             get { return mIdent; }
+            set { mIdent = value; }
         }
 
         public string bankId
         {
             get { return mBankId; }
+            set { mBankId = value; }
         }
 
         public string branchId
@@ -59,20 +61,22 @@ namespace FeliCa2Money
                 if (mBranchId == "") return "0";
                 return mBranchId;
             }
+            set { mBranchId = value; }
         }
 
         public string accountName
         {
             get { return mAccountName; }
+            set { mAccountName = value; }
         }
         
         public string accountId
         {
-            set { mAccountId = value; }
             get {
                 if (mAccountId == "") return "0";
                 return mAccountId;
             }
+            set { mAccountId = value; }
         }
 
         public bool hasBalance

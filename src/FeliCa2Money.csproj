@@ -78,11 +78,18 @@
     <Compile Include="card\Suica.cs" />
     <Compile Include="card\Waon.cs" />
     <Compile Include="CsvAccount.cs" />
-    <Compile Include="CsvDialog.cs">
+    <Compile Include="CsvAccountDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CsvDialog.Designer.cs">
-      <DependentUpon>CsvDialog.cs</DependentUpon>
+    <Compile Include="CsvAccountDialog.Designer.cs">
+      <DependentUpon>CsvAccountDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CsvAccountManager.cs" />
+    <Compile Include="CsvRuleDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CsvRuleDialog.Designer.cs">
+      <DependentUpon>CsvRuleDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="CsvRule.cs" />
     <Compile Include="CsvRules.cs" />
@@ -107,8 +114,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="CsvDialog.resx">
-      <DependentUpon>CsvDialog.cs</DependentUpon>
+    <EmbeddedResource Include="CsvAccountDialog.resx">
+      <DependentUpon>CsvAccountDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CsvRuleDialog.resx">
+      <DependentUpon>CsvRuleDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">

@@ -150,6 +150,15 @@ namespace FeliCa2Money.Properties {
         }
         
         /// <summary>
+        ///   口座が選択されていません に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string NoCsvAccountSelected {
+            get {
+                return ResourceManager.GetString("NoCsvAccountSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   CSV変換ルールが選択されていません に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string NoCsvRuleSelected {
