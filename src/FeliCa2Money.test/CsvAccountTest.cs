@@ -10,7 +10,6 @@ using FeliCa2Money;
 
 namespace FeliCa2Money.test
 {
-#if false
     [TestFixture]
     class CsvAccountTest
     {
@@ -23,12 +22,12 @@ namespace FeliCa2Money.test
         public void setUp()
         {
             mAccount = new CsvAccount();
+            mAccount.branchId = "0";
+            mAccount.accountId = "0";
 
             mRule = new CsvRule();
             mRule.firstLine = "FIRST_LINE";
             mRule.SetFormat("Date,Income,Balance,Desc,Memo");
-            mAccount.addRule(mRule);
-            
 
             mTempFileName = Path.GetTempFileName();
             mSw = new StreamWriter(mTempFileName, false, System.Text.Encoding.Default);
@@ -38,35 +37,7 @@ namespace FeliCa2Money.test
         public void tearDown()
         {
             mSw.Close();
-            mAccount.Close();
             File.Delete(mTempFileName);
-        }
-
-        [Test]
-        public void emptyFileNoRule()
-        {
-            mSw.Close();
-
-            /// 空ファイルの場合にルールなしになること
-            Assert.IsNull(mAccount.findMatchingRule(mTempFileName));
-        }
-
-        [Test]
-        public void MatchRule()
-        {
-            mSw.WriteLine("FIRST_LINE");
-            mSw.Close();
-
-            Assert.AreEqual(mRule, mAccount.findMatchingRule(mTempFileName));
-        }
-
-        [Test]
-        public void NoMatchRule()
-        {
-            mSw.WriteLine("NO_MATCH");
-            mSw.Close();
-
-            Assert.IsNull(mAccount.findMatchingRule(mTempFileName));
         }
 
         // 空ファイル読み込み
@@ -75,7 +46,7 @@ namespace FeliCa2Money.test
         {
             mSw.Close();
 
-            mAccount.startReading(mTempFileName, mRule, "0", "0");
+            mAccount.startReading(mTempFileName, mRule);
             mAccount.ReadCard();
             Assert.AreEqual(0, mAccount.transactions.Count);
         }
@@ -87,7 +58,7 @@ namespace FeliCa2Money.test
             mSw.WriteLine("FIRST_LINE");
             mSw.Close();
 
-            mAccount.startReading(mTempFileName, mRule, "0", "0");
+            mAccount.startReading(mTempFileName, mRule);
             mAccount.ReadCard();
             Assert.AreEqual(0, mAccount.transactions.Count);
         }
@@ -99,7 +70,7 @@ namespace FeliCa2Money.test
             mSw.WriteLine("2011/1/1, 50000, 50000, Desc, Memo");
             mSw.Close();
 
-            mAccount.startReading(mTempFileName, mRule, "0", "0");
+            mAccount.startReading(mTempFileName, mRule);
             mAccount.ReadCard();
             Assert.AreEqual(0, mAccount.transactions.Count);
         }
@@ -112,7 +83,7 @@ namespace FeliCa2Money.test
             mSw.WriteLine("2011/1/2, 500, 50000, Desc, Memo");
             mSw.Close();
 
-            mAccount.startReading(mTempFileName, mRule, "0", "0");
+            mAccount.startReading(mTempFileName, mRule);
             mAccount.ReadCard();
             Assert.AreEqual(1, mAccount.transactions.Count);
             Transaction t = mAccount.transactions[0];
@@ -135,7 +106,7 @@ namespace FeliCa2Money.test
             mSw.Close();
 
             mRule.order = "Ascent";
-            mAccount.startReading(mTempFileName, mRule, "0", "0");
+            mAccount.startReading(mTempFileName, mRule);
             mAccount.ReadCard();
             Assert.AreEqual(2, mAccount.transactions.Count);
             Transaction t = mAccount.transactions[0];
@@ -154,7 +125,7 @@ namespace FeliCa2Money.test
             mSw.Close();
 
             mRule.order = "Descent";
-            mAccount.startReading(mTempFileName, mRule, "0", "0");
+            mAccount.startReading(mTempFileName, mRule);
             mAccount.ReadCard();
             Assert.AreEqual(2, mAccount.transactions.Count);
             Transaction t = mAccount.transactions[0];
@@ -173,7 +144,7 @@ namespace FeliCa2Money.test
             mSw.Close();
 
             mRule.order = "Sort";
-            mAccount.startReading(mTempFileName, mRule, "0", "0");
+            mAccount.startReading(mTempFileName, mRule);
             mAccount.ReadCard();
             Assert.AreEqual(2, mAccount.transactions.Count);
             Transaction t = mAccount.transactions[0];
@@ -197,7 +168,7 @@ namespace FeliCa2Money.test
 
             mRule.order = "Sort";
 
-            mAccount.startReading(mTempFileName, mRule, "0", "0");
+            mAccount.startReading(mTempFileName, mRule);
             mAccount.ReadCard();
             Assert.AreEqual(6, mAccount.transactions.Count);
 
@@ -209,6 +180,5 @@ namespace FeliCa2Money.test
             Assert.AreEqual(2, mAccount.transactions[5].id);
         }
     }
-#endif
 }
 
