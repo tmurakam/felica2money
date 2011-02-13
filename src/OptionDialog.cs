@@ -91,10 +91,7 @@ namespace FeliCa2Money
 
         private void buttonCsvRulesUpdate_Click(object sender, EventArgs e)
         {
-            if (CsvRules.DownloadRule())
-            {
-                MessageBox.Show(Properties.Resources.UpdateCompleted);
-            }
+            CsvRules.DownloadRule();
         }
 
         // AGR関連付け

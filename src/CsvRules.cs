@@ -259,9 +259,11 @@ namespace FeliCa2Money
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, Properties.Resources.Error);
+                MessageBox.Show(ex.Message, Properties.Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
+
+            MessageBox.Show(Properties.Resources.UpdateCompleted, "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
             return true;
         }
 

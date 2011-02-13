@@ -89,10 +89,7 @@ namespace FeliCa2Money
 
         private void onUpdateCsvRules(object sender, EventArgs e)
         {
-            if (CsvRules.DownloadRule())
-            {
-                MessageBox.Show(Properties.Resources.UpdateCompleted);
-            }
+            CsvRules.DownloadRule();
         }
     }
 }
