@@ -193,7 +193,7 @@
 
   <Rule>
     <Ident>TokyuTopCard</Ident>
-    <Name>東急TOP&カード</Name>
+    <Name>東急TOP&amp;カード</Name>
     <Format>Date,Desc,Dummy,Dummy,Dummy,Dummy,Outgo,Dummy,Dummy,Dummy,Dummy,Dummy,Dummy</Format>
     <Order>Sort</Order>
   </Rule>
