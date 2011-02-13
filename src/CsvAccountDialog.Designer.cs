@@ -35,6 +35,8 @@
             this.buttonDeleteAccount = new System.Windows.Forms.Button();
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
+            this.buttonUp = new System.Windows.Forms.Button();
+            this.buttonDown = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // listBox
@@ -105,11 +107,34 @@
             this.buttonCancel.Text = "キャンセル";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
+            // buttonUp
+            // 
+            this.buttonUp.Location = new System.Drawing.Point(12, 121);
+            this.buttonUp.Name = "buttonUp";
+            this.buttonUp.Size = new System.Drawing.Size(75, 23);
+            this.buttonUp.TabIndex = 7;
+            this.buttonUp.Text = "１つ上へ";
+            this.buttonUp.UseVisualStyleBackColor = true;
+            this.buttonUp.Click += new System.EventHandler(this.onAccountUp);
+            // 
+            // buttonDown
+            // 
+            this.buttonDown.Location = new System.Drawing.Point(12, 150);
+            this.buttonDown.Name = "buttonDown";
+            this.buttonDown.Size = new System.Drawing.Size(75, 23);
+            this.buttonDown.TabIndex = 8;
+            this.buttonDown.Text = "1つ下へ";
+            this.buttonDown.UseVisualStyleBackColor = true;
+            this.buttonDown.Click += new System.EventHandler(this.onAccountDown);
+            // 
             // CsvAccountDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(371, 337);
+            this.ControlBox = false;
+            this.Controls.Add(this.buttonDown);
+            this.Controls.Add(this.buttonUp);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOk);
             this.Controls.Add(this.buttonDeleteAccount);
@@ -117,6 +142,7 @@
             this.Controls.Add(this.buttonAddAccount);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.listBox);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "CsvAccountDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CSV資産選択";
@@ -134,5 +160,7 @@
         private System.Windows.Forms.Button buttonDeleteAccount;
         private System.Windows.Forms.Button buttonOk;
         private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.Button buttonUp;
+        private System.Windows.Forms.Button buttonDown;
     }
 }

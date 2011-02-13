@@ -161,7 +161,7 @@
     <value>..\Resources\waon.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="UpdateCompleted" xml:space="preserve">
-    <value>更新完了</value>
+    <value>更新は正常に完了しました</value>
   </data>
   <data name="Nanaco" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Nanaco.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -174,5 +174,20 @@
   </data>
   <data name="NoCsvAccountSelected" xml:space="preserve">
     <value>口座が選択されていません</value>
+  </data>
+  <data name="ConfirmDeleteAccount" xml:space="preserve">
+    <value>口座を削除してよろしいですか？</value>
+  </data>
+  <data name="NoMatchingCsvRule" xml:space="preserve">
+    <value>該当するCSV変換ルールがありません</value>
+  </data>
+  <data name="OnlineUpdate" xml:space="preserve">
+    <value>オンライン更新</value>
+  </data>
+  <data name="RequireAccountName" xml:space="preserve">
+    <value>口座番号は必須です</value>
+  </data>
+  <data name="RequireBankId" xml:space="preserve">
+    <value>金融機関を選択してください</value>
   </data>
 </root>

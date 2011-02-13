@@ -144,6 +144,26 @@ namespace FeliCa2Money
             SaveAccountInfo();
         }
 
+        public void UpAccount(int index)
+        {
+            if (index <= 0) return; // do nothing
+
+            CsvAccount account = mAccounts[index];
+            mAccounts.RemoveAt(index);
+            mAccounts.Insert(index - 1, account);
+            SaveAccountInfo();
+        }
+
+        public void DownAccount(int index)
+        {
+            if (index >= mAccounts.Count - 1) return; // do nothing
+
+            CsvAccount account = mAccounts[index];
+            mAccounts.RemoveAt(index);
+            mAccounts.Insert(index + 1, account);
+            SaveAccountInfo();
+        }
+
         /// <summary>
         /// アカウント名一覧を返す
         /// </summary>
@@ -174,7 +194,7 @@ namespace FeliCa2Money
                     return rule.name;
                 }
             }
-            return "unknown";
+            return "金融機関不明";
         }
 
         public CsvAccount GetAt(int index)
@@ -234,7 +254,7 @@ namespace FeliCa2Money
             rule = mRules.FindRuleWithIdent(account.ident);
             if (rule == null)
             {
-                MessageBox.Show(Properties.Resources.NoCsvRuleSelected, Properties.Resources.Error);
+                MessageBox.Show(Properties.Resources.NoMatchingCsvRule, Properties.Resources.Error);
                 return null;
             }
 

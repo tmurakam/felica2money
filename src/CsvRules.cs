@@ -75,6 +75,8 @@ namespace FeliCa2Money
         /// <returns></returns>
         public bool LoadAllRules()
         {
+            mRules.Clear();
+
             // ユーザ設定フォルダのほうから読み出す
             String path = getRulesPath();
             //String path = Path.GetDirectoryName(Application.ExecutablePath);
@@ -263,7 +265,7 @@ namespace FeliCa2Money
                 return false;
             }
 
-            MessageBox.Show(Properties.Resources.UpdateCompleted, "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(Properties.Resources.UpdateCompleted, Properties.Resources.OnlineUpdate, MessageBoxButtons.OK, MessageBoxIcon.Information);
             return true;
         }
 

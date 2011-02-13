@@ -89,9 +89,38 @@ namespace FeliCa2Money
             int idx = listBox.SelectedIndex;
             if (idx >= 0)
             {
-                CsvAccount account = mManager.GetAt(idx);
-                mManager.DeleteAccount(account);
+                if (MessageBox.Show(Properties.Resources.ConfirmDeleteAccount, Properties.Resources.Confirm, 
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                    == DialogResult.Yes)
+                {
+                    CsvAccount account = mManager.GetAt(idx);
+                    mManager.DeleteAccount(account);
+                    updateList();
+                }
+            }
+        }
+
+        private void onAccountUp(object sender, EventArgs e)
+        {
+
+            int idx = listBox.SelectedIndex;
+            if (idx > 0)
+            {
+                mManager.UpAccount(idx);
                 updateList();
+                listBox.SelectedIndex = idx - 1;
+            }
+        }
+
+        private void onAccountDown(object sender, EventArgs e)
+        {
+
+            int idx = listBox.SelectedIndex;
+            if (idx < mManager.Count() - 1)
+            {
+                mManager.DownAccount(idx);
+                updateList();
+                listBox.SelectedIndex = idx + 1;
             }
         }
     }

@@ -45,6 +45,19 @@ namespace FeliCa2Money
 
             mRules = manager.getRules();
 
+            textBranchId.Text = account.branchId;
+            if (textBranchId.Text == "0")
+            {
+                textBranchId.Text = "";
+            }
+            textAccountId.Text = account.accountId;
+            textAccountName.Text = account.accountName;
+
+            updateList();
+        }
+
+        private void updateList() 
+        {
             // リストボックスにルール名をリストする
             listBox.Items.Clear();
             string[] names = mRules.names();
@@ -54,15 +67,11 @@ namespace FeliCa2Money
                 listBox.Items.Add(name);
             }
 
-            textBranchId.Text = account.branchId;
-            textAccountId.Text = account.accountId;
-            textAccountName.Text = account.accountName;
-
             // 該当する金融機関を選択状態にする
             int count = mRules.Count;
             for (int i = 0; i < count; i++)
             {
-                if (mRules.GetAt(i).ident == account.ident)
+                if (mRules.GetAt(i).ident == mAccount.ident)
                 {
                     listBox.SelectedIndex = i;
                     break;
@@ -89,7 +98,28 @@ namespace FeliCa2Money
 
         private void onUpdateCsvRules(object sender, EventArgs e)
         {
-            CsvRules.DownloadRule();
+            if (CsvRules.DownloadRule())
+            {
+                mRules.LoadAllRules();
+                updateList();
+            }
+        }
+
+        private void onOkClick(object sender, EventArgs e)
+        {
+            if (listBox.SelectedIndex < 0)
+            {
+                MessageBox.Show(Properties.Resources.RequireBankId, "エラー");
+                return;
+            }
+            if (textAccountId.Text == "")
+            {
+                MessageBox.Show(Properties.Resources.RequireAccountName, "エラー");
+                return;
+            }
+
+            this.DialogResult = DialogResult.OK;
+            Close();
         }
     }
 }

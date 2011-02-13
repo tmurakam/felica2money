@@ -103,6 +103,15 @@ namespace FeliCa2Money.Properties {
             }
         }
         
+        /// <summary>
+        ///   口座を削除してよろしいですか？ に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string ConfirmDeleteAccount {
+            get {
+                return ResourceManager.GetString("ConfirmDeleteAccount", resourceCulture);
+            }
+        }
+        
         internal static System.Drawing.Bitmap CSV {
             get {
                 object obj = ResourceManager.GetObject("CSV", resourceCulture);
@@ -177,11 +186,47 @@ namespace FeliCa2Money.Properties {
         }
         
         /// <summary>
+        ///   該当するCSV変換ルールがありません に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string NoMatchingCsvRule {
+            get {
+                return ResourceManager.GetString("NoMatchingCsvRule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   オンライン更新 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string OnlineUpdate {
+            get {
+                return ResourceManager.GetString("OnlineUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   CSV変換定義がありません。今すぐダウンロードしますか？ に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string QueryCsvRuleDownload {
             get {
                 return ResourceManager.GetString("QueryCsvRuleDownload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   口座番号は必須です に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string RequireAccountName {
+            get {
+                return ResourceManager.GetString("RequireAccountName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   金融機関を選択してください に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string RequireBankId {
+            get {
+                return ResourceManager.GetString("RequireBankId", resourceCulture);
             }
         }
         
@@ -200,7 +245,7 @@ namespace FeliCa2Money.Properties {
         }
         
         /// <summary>
-        ///   更新完了 に類似しているローカライズされた文字列を検索します。
+        ///   更新は正常に完了しました に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string UpdateCompleted {
             get {

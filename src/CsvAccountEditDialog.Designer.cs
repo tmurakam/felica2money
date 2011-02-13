@@ -47,7 +47,7 @@
             this.listBox.ItemHeight = 12;
             this.listBox.Location = new System.Drawing.Point(14, 24);
             this.listBox.Name = "listBox";
-            this.listBox.Size = new System.Drawing.Size(246, 208);
+            this.listBox.Size = new System.Drawing.Size(304, 160);
             this.listBox.TabIndex = 0;
             // 
             // label1
@@ -55,9 +55,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 12);
+            this.label1.Size = new System.Drawing.Size(172, 12);
             this.label1.TabIndex = 1;
-            this.label1.Text = "金融機関";
+            this.label1.Text = "金融機関 / CSV変換定義の一覧";
             // 
             // label2
             // 
@@ -73,33 +73,33 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(12, 345);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(111, 12);
+            this.label3.Size = new System.Drawing.Size(306, 12);
             this.label3.TabIndex = 3;
-            this.label3.Text = "口座番号/カード番号";
+            this.label3.Text = "口座番号/カード番号 (他の口座と重複しないようにしてください)";
             // 
             // textBranchId
             // 
             this.textBranchId.Location = new System.Drawing.Point(12, 314);
             this.textBranchId.Name = "textBranchId";
-            this.textBranchId.Size = new System.Drawing.Size(248, 19);
+            this.textBranchId.Size = new System.Drawing.Size(306, 19);
             this.textBranchId.TabIndex = 2;
             // 
             // textAccountId
             // 
             this.textAccountId.Location = new System.Drawing.Point(12, 360);
             this.textAccountId.Name = "textAccountId";
-            this.textAccountId.Size = new System.Drawing.Size(248, 19);
+            this.textAccountId.Size = new System.Drawing.Size(306, 19);
             this.textAccountId.TabIndex = 3;
             // 
             // button1
             // 
-            this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.button1.Location = new System.Drawing.Point(90, 398);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 4;
             this.button1.Text = "OK";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.onOkClick);
             // 
             // button2
             // 
@@ -116,22 +116,22 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(12, 253);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(41, 12);
+            this.label4.Size = new System.Drawing.Size(89, 12);
             this.label4.TabIndex = 8;
-            this.label4.Text = "口座名";
+            this.label4.Text = "口座名 (省略可)";
             // 
             // textAccountName
             // 
             this.textAccountName.Location = new System.Drawing.Point(14, 268);
             this.textAccountName.Name = "textAccountName";
-            this.textAccountName.Size = new System.Drawing.Size(246, 19);
+            this.textAccountName.Size = new System.Drawing.Size(304, 19);
             this.textAccountName.TabIndex = 1;
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(275, 24);
+            this.button3.Location = new System.Drawing.Point(80, 190);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(91, 43);
+            this.button3.Size = new System.Drawing.Size(171, 29);
             this.button3.TabIndex = 9;
             this.button3.Text = "CSV変換定義のオンライン更新";
             this.button3.UseVisualStyleBackColor = true;
@@ -141,7 +141,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(378, 438);
+            this.ClientSize = new System.Drawing.Size(345, 438);
             this.ControlBox = false;
             this.Controls.Add(this.button3);
             this.Controls.Add(this.textAccountName);
@@ -154,6 +154,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.listBox);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "CsvAccountEditDialog";
