@@ -1,6 +1,6 @@
 ﻿namespace FeliCa2Money
 {
-    partial class CsvDialog
+    partial class CsvRuleDialog
     {
         /// <summary>
         /// Required designer variable.

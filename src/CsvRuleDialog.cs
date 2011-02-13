@@ -26,7 +26,7 @@ using System.Windows.Forms;
 
 namespace FeliCa2Money
 {
-    public partial class CsvDialog : Form
+    public partial class CsvRuleDialog : Form
     {
         // CSV 変換ルールセット
         private CsvRules rules;
@@ -50,7 +50,7 @@ namespace FeliCa2Money
         }
 
         // コンストラクタ
-        public CsvDialog(CsvRules r)
+        public CsvRuleDialog(CsvRules r)
         {
             InitializeComponent();
 
