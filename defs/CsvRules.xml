@@ -168,7 +168,8 @@
     <Order>Ascent</Order>
   </Rule>
 
-  <Ident>FamimaTCard</Ident>
+  <Rule>
+    <Ident>FamimaTCard</Ident>
     <Name>ファミマTカード</Name>
     <FirstLine>ご利用日,ご利用内容/店名,区分,ご利用金額(円),備考（海外ご利用分は、現地通貨額／換算レート）</FirstLine>
     <Format>Date,Desc,Dummy,Outgo,Memo</Format>
