@@ -125,6 +125,26 @@ namespace FeliCa2Money
         }
 
         /// <summary>
+        /// アカウント変更
+        /// 注意: account は、すでに存在するアカウントである必要がある
+        /// </summary>
+        /// <param name="account"></param>
+        public void ModifyAccount(CsvAccount account)
+        {
+            SaveAccountInfo();
+        }
+
+        /// <summary>
+        /// アカウント削除
+        /// 注意: account は、すでに存在するアカウントである必要がある
+        /// </summary>
+        public void DeleteAccount(CsvAccount account)
+        {
+            mAccounts.Remove(account);
+            SaveAccountInfo();
+        }
+
+        /// <summary>
         /// アカウント名一覧を返す
         /// </summary>
         /// <returns></returns>
@@ -165,6 +185,11 @@ namespace FeliCa2Money
         public int IndexOf(CsvAccount account)
         {
             return mAccounts.IndexOf(account);
+        }
+
+        public CsvRules getRules()
+        {
+            return mRules;
         }
 
         /// <summary>

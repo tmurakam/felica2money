@@ -36,6 +36,8 @@
             this.textAccountId = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.textAccountName = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // listBox
@@ -44,79 +46,94 @@
             this.listBox.ItemHeight = 12;
             this.listBox.Location = new System.Drawing.Point(14, 24);
             this.listBox.Name = "listBox";
-            this.listBox.Size = new System.Drawing.Size(348, 244);
+            this.listBox.Size = new System.Drawing.Size(348, 208);
             this.listBox.TabIndex = 0;
-            this.listBox.SelectedIndexChanged += new System.EventHandler(this.listBox_SelectedIndexChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(29, 12);
+            this.label1.Size = new System.Drawing.Size(53, 12);
             this.label1.TabIndex = 1;
-            this.label1.Text = "種別";
+            this.label1.Text = "金融機関";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 285);
+            this.label2.Location = new System.Drawing.Point(12, 299);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(53, 12);
+            this.label2.Size = new System.Drawing.Size(101, 12);
             this.label2.TabIndex = 2;
-            this.label2.Text = "支店番号";
+            this.label2.Text = "支店番号 (省略可)";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 316);
+            this.label3.Location = new System.Drawing.Point(12, 345);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(53, 12);
+            this.label3.Size = new System.Drawing.Size(111, 12);
             this.label3.TabIndex = 3;
-            this.label3.Text = "口座番号";
+            this.label3.Text = "口座番号/カード番号";
             // 
             // textBranchId
             // 
-            this.textBranchId.Location = new System.Drawing.Point(71, 282);
+            this.textBranchId.Location = new System.Drawing.Point(12, 314);
             this.textBranchId.Name = "textBranchId";
-            this.textBranchId.Size = new System.Drawing.Size(139, 19);
-            this.textBranchId.TabIndex = 4;
-            this.textBranchId.Leave += new System.EventHandler(this.textBranchId_Leave);
+            this.textBranchId.Size = new System.Drawing.Size(198, 19);
+            this.textBranchId.TabIndex = 2;
             // 
             // textAccountId
             // 
-            this.textAccountId.Location = new System.Drawing.Point(71, 313);
+            this.textAccountId.Location = new System.Drawing.Point(12, 360);
             this.textAccountId.Name = "textAccountId";
-            this.textAccountId.Size = new System.Drawing.Size(139, 19);
-            this.textAccountId.TabIndex = 5;
-            this.textAccountId.Leave += new System.EventHandler(this.textAccountId_Leave);
+            this.textAccountId.Size = new System.Drawing.Size(198, 19);
+            this.textAccountId.TabIndex = 3;
             // 
             // button1
             // 
             this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.button1.Location = new System.Drawing.Point(98, 356);
+            this.button1.Location = new System.Drawing.Point(101, 398);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 6;
+            this.button1.TabIndex = 4;
             this.button1.Text = "OK";
             this.button1.UseVisualStyleBackColor = true;
             // 
             // button2
             // 
             this.button2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.button2.Location = new System.Drawing.Point(191, 356);
+            this.button2.Location = new System.Drawing.Point(191, 398);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 7;
+            this.button2.TabIndex = 5;
             this.button2.Text = "キャンセル";
             this.button2.UseVisualStyleBackColor = true;
             // 
-            // CsvDialog
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(12, 253);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(41, 12);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "口座名";
+            // 
+            // textAccountName
+            // 
+            this.textAccountName.Location = new System.Drawing.Point(14, 268);
+            this.textAccountName.Name = "textAccountName";
+            this.textAccountName.Size = new System.Drawing.Size(196, 19);
+            this.textAccountName.TabIndex = 1;
+            // 
+            // CsvRuleDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(374, 391);
+            this.ClientSize = new System.Drawing.Size(374, 438);
             this.ControlBox = false;
+            this.Controls.Add(this.textAccountName);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textAccountId);
@@ -127,10 +144,9 @@
             this.Controls.Add(this.listBox);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "CsvDialog";
+            this.Name = "CsvRuleDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "CSV読み込み設定";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CsvDialog_FormClosing);
+            this.Text = "CSV資産編集";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -146,5 +162,7 @@
         private System.Windows.Forms.TextBox textAccountId;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox textAccountName;
     }
 }

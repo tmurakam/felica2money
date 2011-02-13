@@ -63,6 +63,7 @@
             this.buttonAddAccount.TabIndex = 2;
             this.buttonAddAccount.Text = "口座追加";
             this.buttonAddAccount.UseVisualStyleBackColor = true;
+            this.buttonAddAccount.Click += new System.EventHandler(this.onAddAccount);
             // 
             // buttonModifyAccount
             // 
@@ -72,6 +73,7 @@
             this.buttonModifyAccount.TabIndex = 3;
             this.buttonModifyAccount.Text = "口座修正";
             this.buttonModifyAccount.UseVisualStyleBackColor = true;
+            this.buttonModifyAccount.Click += new System.EventHandler(this.onModifyAccount);
             // 
             // buttonDeleteAccount
             // 
@@ -81,6 +83,7 @@
             this.buttonDeleteAccount.TabIndex = 4;
             this.buttonDeleteAccount.Text = "口座削除";
             this.buttonDeleteAccount.UseVisualStyleBackColor = true;
+            this.buttonDeleteAccount.Click += new System.EventHandler(this.onDeleteAccount);
             // 
             // buttonOk
             // 

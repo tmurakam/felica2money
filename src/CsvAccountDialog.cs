@@ -17,7 +17,11 @@ namespace FeliCa2Money
             InitializeComponent();
 
             mManager = manager;
+            updateList();
+        }
 
+        private void updateList()
+        {
             listBox.Items.Clear();
             string[] names = mManager.getNames();
             foreach (string name in names)
@@ -45,6 +49,50 @@ namespace FeliCa2Money
             }
             return mManager.GetAt(idx);
         }
-            
+
+        private void onAddAccount(object sender, EventArgs e)
+        {
+            CsvAccount account = new CsvAccount();
+            CsvRuleDialog dlg = new CsvRuleDialog(mManager, account);
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                account = dlg.getAccount();
+                if (account != null)
+                {
+                    mManager.AddAccount(account);
+                    updateList();
+                }
+            }
+        }
+
+        private void onModifyAccount(object sender, EventArgs e)
+        {
+            int idx = listBox.SelectedIndex;
+            if (idx >= 0)
+            {
+                CsvAccount account = mManager.GetAt(idx);
+                CsvRuleDialog dlg = new CsvRuleDialog(mManager, account);
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    account = dlg.getAccount();
+                    if (account != null)
+                    {
+                        mManager.ModifyAccount(account);
+                        updateList();
+                    }
+                }
+            }
+        }
+
+        private void onDeleteAccount(object sender, EventArgs e)
+        {
+            int idx = listBox.SelectedIndex;
+            if (idx >= 0)
+            {
+                CsvAccount account = mManager.GetAt(idx);
+                mManager.DeleteAccount(account);
+                updateList();
+            }
+        }
     }
 }

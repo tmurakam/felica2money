@@ -18,7 +18,7 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-// CSV 変換ダイアログ
+// CSV 口座編集ダイアログ
 
 using System;
 using System.Collections;
@@ -28,150 +28,75 @@ namespace FeliCa2Money
 {
     public partial class CsvRuleDialog : Form
     {
-        // CSV 変換ルールセット
-        private CsvRules rules;
+        private CsvAccountManager mAccountManager;
 
-        // 支店番号/口座番号のキャッシュ
-        private Hashtable branchIds;
-        private Hashtable accountIds;
+        private CsvAccount mAccount;
+
+        // CSV 変換ルールセット
+        private CsvRules mRules;
 
         // 支店番号テキストボックス
         public string BranchId
         {
             get { return textBranchId.Text; }
-            set { textBranchId.Text = value; }
         }
 
         // 口座番号テキストボックス
         public string AccountId
         {
             get { return textAccountId.Text; }
-            set { textAccountId.Text = value; }
         }
 
         // コンストラクタ
-        public CsvRuleDialog(CsvRules r)
+        public CsvRuleDialog(CsvAccountManager manager, CsvAccount account)
         {
             InitializeComponent();
 
-            rules = r;
+            mAccountManager = manager;
+            mAccount = account;
 
-            listBox.Items.Clear();
-            string[] names = rules.names();
+            mRules = manager.getRules();
 
             // リストボックスにルール名をリストする
+            listBox.Items.Clear();
+            string[] names = mRules.names();
+
             foreach (string name in names)
             {
                 listBox.Items.Add(name);
             }
 
-            // 支店番号/口座番号をユーザ設定から読み出す
-            branchIds = new Hashtable();
-            accountIds = new Hashtable();
-            LoadAccountInfo();
-        }
+            textBranchId.Text = account.branchId;
+            textAccountId.Text = account.accountId;
+            textAccountName.Text = account.accountName;
 
-        // 支店番号/口座番号をユーザ設定から読み出す
-        private void LoadAccountInfo()
-        {
-            foreach (string x in Properties.Settings.Default.AccountInfo)
-            {
-                // 各行には、Ident,BranchId,AccountId が入っているものとする
-                string[] a = x.Split(new char[] { ',' });
-                branchIds[a[0]] = a[1];
-                accountIds[a[0]] = a[2];
-            }
-        }
-
-        // 支店番号/口座番号をユーザ設定に書き戻す
-        private void SaveAccountInfo()
-        {
-            Properties.Settings s = Properties.Settings.Default;
-
-            s.AccountInfo.Clear();
-
-            int count = rules.Count;
+            // 該当する金融機関を選択状態にする
+            int count = mRules.Count;
             for (int i = 0; i < count; i++)
             {
-                CsvRule rule = rules.GetAt(i);
-                string org = rule.ident;
-                string x = rule.ident + ",";
-                if (branchIds[org] != null) {
-                    x += branchIds[org];
-                }
-                x += ",";
-                if (accountIds[org] != null)
+                if (mRules.GetAt(i).ident == account.ident)
                 {
-                    x += accountIds[org];
+                    listBox.SelectedIndex = i;
+                    break;
                 }
-                s.AccountInfo.Add(x);
-            }
-
-            s.Save();
-        }
-
-        // 引数で指定したルールを選択状態にする
-        public void SelectRule(CsvRule selRule)
-        {
-            if (selRule == null) return;
-
-            int idx = rules.IndexOf(selRule);
-            listBox.SelectedIndex = idx;
-        }
-
-        // 選択アイテムが変更されたときの処理
-        private void listBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // 支店番号、口座番号をテキストボックスに設定する
-            CsvRule rule = SelectedRule();
-            string ident = rule.ident;
-            if (branchIds[ident] != null)
-            {
-                BranchId = (string)branchIds[ident];
-            }
-            else
-            {
-                BranchId = "";
-            }
-            if (accountIds[ident] != null)
-            {
-                AccountId = (string)accountIds[ident];
-            }
-            else
-            {
-                AccountId = "";
             }
         }
 
-        // 選択中のルールを返す
-        public CsvRule SelectedRule()
+        public CsvAccount getAccount()
         {
             int idx = listBox.SelectedIndex;
             if (idx < 0)
             {
+                // 金融機関が選択されていない
                 return null;
             }
-            return rules.GetAt(idx);
-        }
 
+            mAccount.ident = mRules.GetAt(idx).ident;
+            mAccount.branchId = textBranchId.Text;
+            mAccount.accountId = textAccountId.Text;
+            mAccount.accountName = textAccountName.Text;
 
-        private void textBranchId_Leave(object sender, EventArgs e)
-        {
-            CsvRule rule = SelectedRule();
-            string org = rule.ident;
-            branchIds[org] = textBranchId.Text;
-        }
-
-        private void textAccountId_Leave(object sender, EventArgs e)
-        {
-            CsvRule rule = SelectedRule();
-            string org = rule.ident;
-            accountIds[org] = textAccountId.Text;
-        }
-
-        private void CsvDialog_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            SaveAccountInfo();
+            return mAccount;
         }
     }
 }
