@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CsvRules>
-  <Version>110203.1</Version>
+  <Version>110213.2</Version>
   <Rule>
     <Ident>UltrasoftMoneyLink</Ident>
     <Name>Ultrasoft MoneyLink (Excel⇒CSV書き出し)</Name>
@@ -150,6 +150,52 @@
     <FirstLine>ご利用区分,ご利用日,ご利用者区分,ご利用店,ポイント対象,今回回数,ご利用金額,今回のお支払い金額,備考１,備考２,備考３,備考４,備考５,備考６</FirstLine>
     <Format>Dummy,Date,Dummy,Desc,Dummy,Dummy,Outgo,Dummy,Dummy,Dummy,Dummy,Dummy,Dummy,Dummy</Format>
     <Order>Ascent</Order>
+  </Rule>
+
+  <Rule>
+    <Ident>IdemitsuCard</Ident>
+    <Name>出光カード</Name>
+    <FirstLine>利用日,ご利用店名及び商品名,本人・家族区分,支払区分名称,締前入金区分,利用金額,備考</FirstLine>
+    <Format>Date,Desc,Dummy,Dummy,Dummy,Outgo,Dummy</Format>
+    <Order>Ascent</Order>
+  </Rule>
+
+  <Rule>
+    <Ident>BICCardInternational</Ident>
+    <Name>ビックカードインターナショナル</Name>
+    <FirstLine>ご利用区分,ご利用日,ご利用者区分,ご利用店,今回回数,ご利用金額,今回のお支払い金額,備考１,備考２,備考３,備考４,備考５,備考６</FirstLine>
+    <Format>Dummy,Date,Dummy,Desc,Dummy,Outgo,Dummy,Dummy,Dummy,Dummy,Dummy,Dummy,Dummy</Format>
+    <Order>Ascent</Order>
+  </Rule>
+
+  <Rule>
+    <Ident>FamimaTCard</Ident>
+    <Name>ファミマTカード</Name>
+    <FirstLine>ご利用日,ご利用内容/店名,区分,ご利用金額(円),備考（海外ご利用分は、現地通貨額／換算レート）</FirstLine>
+    <Format>Date,Desc,Dummy,Outgo,Memo</Format>
+    <Order>Ascent</Order>
+  </Rule>
+
+  <Rule>
+    <Ident>GoldPointCardPlus</Ident>
+    <Name>GOLD POINT CARD +</Name>
+    <Format>Date,Desc,Dummy,Dummy,Dummy,Dummy,Outgo,Dummy,Dummy,Dummy,Dummy,Dummy,Dummy</Format>
+    <Order>Ascent</Order>
+  </Rule>
+
+  <Rule>
+    <Ident>RakutenKC</Ident>
+    <Name>楽天カード</Name>
+    <FirstLine>利用日,新規サイン,利用者,利用店名・商品名,支払い区分,利用金額,手数料,お支払い総額,お支払い回数,当月支払い金額,翌月繰越残高</FirstLine>
+    <Format>Date,Dummy,Dummy,Desc,Dummy,Outgo,Dummy,Dummy,Dummy,Dummy,Dummy</Format>
+    <Order>Ascent</Order>
+  </Rule>
+
+  <Rule>
+    <Ident>TokyuTopCard</Ident>
+    <Name>東急TOP&amp;カード</Name>
+    <Format>Date,Desc,Dummy,Dummy,Dummy,Dummy,Outgo,Dummy,Dummy,Dummy,Dummy,Dummy,Dummy</Format>
+    <Order>Sort</Order>
   </Rule>
 
 </CsvRules>
