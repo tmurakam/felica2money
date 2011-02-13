@@ -41,8 +41,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.buttonCsvRulesUpdate = new System.Windows.Forms.Button();
             this.checkOfxVer2 = new System.Windows.Forms.CheckBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.buttonAssoc = new System.Windows.Forms.Button();
+            this.buttonDeAssoc = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -178,30 +178,32 @@
             this.checkOfxVer2.Text = "Ver 2.0 の OFX ファイル(XML)を生成する";
             this.checkOfxVer2.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // buttonAssoc
             // 
-            this.button1.Location = new System.Drawing.Point(14, 18);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(134, 34);
-            this.button1.TabIndex = 8;
-            this.button1.Text = "関連付けする";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.onAgrAssociateClick);
+            this.buttonAssoc.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.buttonAssoc.Location = new System.Drawing.Point(14, 18);
+            this.buttonAssoc.Name = "buttonAssoc";
+            this.buttonAssoc.Size = new System.Drawing.Size(134, 34);
+            this.buttonAssoc.TabIndex = 8;
+            this.buttonAssoc.Text = "関連付けする";
+            this.buttonAssoc.UseVisualStyleBackColor = true;
+            this.buttonAssoc.Click += new System.EventHandler(this.onAgrAssociateClick);
             // 
-            // button2
+            // buttonDeAssoc
             // 
-            this.button2.Location = new System.Drawing.Point(161, 18);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(134, 34);
-            this.button2.TabIndex = 9;
-            this.button2.Text = "関連付け解除";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.onAgrUnAssociateClick);
+            this.buttonDeAssoc.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.buttonDeAssoc.Location = new System.Drawing.Point(161, 18);
+            this.buttonDeAssoc.Name = "buttonDeAssoc";
+            this.buttonDeAssoc.Size = new System.Drawing.Size(134, 34);
+            this.buttonDeAssoc.TabIndex = 9;
+            this.buttonDeAssoc.Text = "関連付け解除";
+            this.buttonDeAssoc.UseVisualStyleBackColor = true;
+            this.buttonDeAssoc.Click += new System.EventHandler(this.onAgrUnAssociateClick);
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.button1);
-            this.groupBox2.Controls.Add(this.button2);
+            this.groupBox2.Controls.Add(this.buttonAssoc);
+            this.groupBox2.Controls.Add(this.buttonDeAssoc);
             this.groupBox2.Location = new System.Drawing.Point(10, 245);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(322, 67);
@@ -250,8 +252,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button buttonCsvRulesUpdate;
         private System.Windows.Forms.CheckBox checkOfxVer2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button buttonAssoc;
+        private System.Windows.Forms.Button buttonDeAssoc;
         private System.Windows.Forms.GroupBox groupBox2;
     }
 }

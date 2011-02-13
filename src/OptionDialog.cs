@@ -28,11 +28,15 @@ using System.Windows.Forms;
 using System.Security;
 using System.Security.Principal;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace FeliCa2Money
 {
     public partial class OptionDialog : Form
     {
+        [DllImport("user32.dll", CharSet = CharSet.Unicode)]
+        public static extern IntPtr SendMessage(IntPtr hWnd, int Msg, IntPtr wParam, IntPtr lParam);
+
         public OptionDialog()
         {
             InitializeComponent();
@@ -59,6 +63,11 @@ namespace FeliCa2Money
                 case Suica.AreaIcoca: radioIcoca.Checked = true; break;
                 case Suica.AreaIruca: radioIruca.Checked = true; break;
             }
+
+            // Show shield icons
+            const int BCM_SETSHIELD = 0x160c;
+            SendMessage(buttonAssoc.Handle, BCM_SETSHIELD, IntPtr.Zero, new IntPtr(1));
+            SendMessage(buttonDeAssoc.Handle, BCM_SETSHIELD, IntPtr.Zero, new IntPtr(1));
         }
 
         public void SaveProperties()

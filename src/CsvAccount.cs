@@ -68,7 +68,7 @@ namespace FeliCa2Money
             // 合致するルールを探す
             mRule = findMatchingRule(path);
 
-            CsvDialog dlg = new CsvDialog(mRules);
+            CsvRuleDialog dlg = new CsvRuleDialog(mRules);
 
             // ルール/口座番号などを選択
             dlg.SelectRule(mRule);
