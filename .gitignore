@@ -1,0 +1,9 @@
+*~
+*.bak
+*.exe
+*.exe.config
+*.dll
+*.zip
+*.pdf
+src/Release/*/*.mdb
+Output/
