@@ -36,92 +36,23 @@ namespace FeliCa2Money
     /// </summary>
     public class CsvAccount : Account
     {
-        private CsvRules mRules = new CsvRules();
         private StreamReader mSr;
         private CsvRule mRule;
-
-        /// <summary>
-        /// CSVルールを読み込む
-        /// </summary>
-        /// <returns></returns>
-        public bool LoadAllRules()
-        {
-            return mRules.LoadAllRules();
-        }
-
-        /// <summary>
-        /// ルールを追加する (単体テスト用)
-        /// </summary>
-        /// <param name="rule">ルール</param>
-        public void addRule(CsvRule rule)
-        {
-            mRules.Add(rule);
-        }
-
-        /// <summary>
-        /// CSVファイルをオープン
-        /// </summary>
-        /// <param name="path">CSVファイルパス</param>
-        /// <returns></returns>
-        public bool OpenFile(string path)
-        {
-            // 合致するルールを探す
-            mRule = findMatchingRule(path);
-
-            CsvRuleDialog dlg = new CsvRuleDialog(mRules);
-
-            // ルール/口座番号などを選択
-            dlg.SelectRule(mRule);
-            if (dlg.ShowDialog() == DialogResult.Cancel)
-            {
-                return false;
-            }
-
-            // 選択されたルールを取り出す
-            CsvRule rule = dlg.SelectedRule();
-            if (rule == null)
-            {
-                MessageBox.Show(Properties.Resources.NoCsvRuleSelected, Properties.Resources.Error);
-                return false;
-            }
-
-            startReading(path, rule, dlg.BranchId, dlg.AccountId);
-
-            return true;
-        }
-
-        /// <summary>
-        /// マッチする CSV ルールを探す
-        /// </summary>
-        /// <param name="path">CSVファイルパス</param>
-        /// <returns>ルール</returns>
-        public CsvRule findMatchingRule(string path)
-        {
-            // TODO: とりあえず SJIS で開く (UTF-8 とかあるかも?)
-            StreamReader sr = new StreamReader(path, System.Text.Encoding.Default);
-            string firstLine = sr.ReadLine();
-            sr.Close();
-
-            // 合致するルールを探す
-            return mRules.FindRule(firstLine);
-        }
 
         /// <summary>
         /// CSVファイル読み込みを開始する
         /// </summary>
         /// <param name="path">CSVファイルパス</param>
         /// <param name="rule">CSVルール</param>
-        /// <param name="branchId">支店番号</param>
-        /// <param name="accountId">口座番号</param>
-        public void startReading(string path, CsvRule rule, string branchId, string accountId)
+        public void startReading(string path, CsvRule rule)
         {
             mRule = rule;
 
             // 銀行IDなどを設定
-            mIdent = mRule.ident;
+            //mIdent = mRule.ident;
             mBankId = mRule.bankId;
-            mBranchId = branchId;
-            mAccountId = accountId;
+            //mBranchId = branchId;
+            //mAccountId = accountId;
 
             mSr = new StreamReader(path, System.Text.Encoding.Default);
 
@@ -134,23 +65,6 @@ namespace FeliCa2Money
                     if (line == mRule.firstLine) break;
                 }
             }
-        }
-
-        /// <summary>
-        /// CSVファイルクローズ
-        /// </summary>
-        public void Close()
-        {
-            if (mSr != null)
-            {
-                mSr.Close();
-                mSr = null;
-            }
-        }
-
-        private static int compareByDate(Transaction x, Transaction y)
-        {
-            return x.date.CompareTo(y.date);
         }
 
         /// <summary>
@@ -212,10 +126,27 @@ namespace FeliCa2Money
             mTransactions = transactions;
         }
 
+        /// <summary>
+        /// CSVファイルクローズ
+        /// </summary>
+        public void Close()
+        {
+            if (mSr != null)
+            {
+                mSr.Close();
+                mSr = null;
+            }
+        }
+
         // CSV のフィールド分割
         private string[] SplitCsv(string line)
         {
             return CsvUtil.SplitCsv(line, mRule.isTSV);
+        }
+
+        private static int compareByDate(Transaction x, Transaction y)
+        {
+            return x.date.CompareTo(y.date);
         }
     }
 }
