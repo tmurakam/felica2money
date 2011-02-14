@@ -187,9 +187,7 @@ namespace FeliCa2Money
 
         private string getBankName(CsvAccount account)
         {
-            int count = mRules.Count;
-            for (int i = 0; i < count; i++) {
-                CsvRule rule = mRules.GetAt(i);
+            for (CsvRule rule in mRules) {
                 if (rule.ident == account.ident) {
                     return rule.name;
                 }

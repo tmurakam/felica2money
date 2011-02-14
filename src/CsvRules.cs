@@ -53,11 +53,39 @@ namespace FeliCa2Money
         }
 
         /// <summary>
+        /// イテレータ
+        /// </summary>
+        public IEnumerator<CsvRule> GetEnumerator()
+        {
+            mRules.GetEnumerator();
+        }
+
+        /// <summary>
         /// ルール数
         /// </summary>
         public int Count
         {
             get { return mRules.Count; }
+        }
+
+        /// <summary>
+        /// 指定したインデックスのルールを返す
+        /// </summary>
+        /// <param name="idx">インデックス</param>
+        /// <returns>ルール</returns>
+        public CsvRule GetAt(int idx)
+        {
+            return mRules[idx];
+        }
+
+        /// <summary>
+        /// 指定したルールのインデックスを返す
+        /// </summary>
+        /// <param name="rule">ルール</param>
+        /// <returns>インデックス</returns>
+        public int IndexOf(CsvRule rule)
+        {
+            return mRules.IndexOf(rule);
         }
 
         /// <summary>
@@ -67,6 +95,56 @@ namespace FeliCa2Money
         public void Add(CsvRule rule)
         {
             mRules.Add(rule);
+        }
+
+        /// <summary>
+        /// ルール名一覧を返す
+        /// </summary>
+        /// <returns>ルール名</returns>
+        public string[] names()
+        {
+            string[] names = new string[mRules.Count];
+            int i = 0;
+            foreach (CsvRule rule in mRules)
+            {
+                names[i] = rule.name;
+                i++;
+            }
+            return names;
+        }
+
+        /// <summary>
+        /// ident に一致するルールを探す
+        /// </summary>
+        /// <param name="firstLine">firstLine</param>
+        /// <returns>ルール</returns>
+        public CsvRule FindRuleWithIdent(string ident)
+        {
+            foreach (CsvRule rule in mRules)
+            {
+                if (rule.ident == ident)
+                {
+                    return rule;
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// firstLine に一致するルールを探す
+        /// </summary>
+        /// <param name="firstLine">firstLine</param>
+        /// <returns>ルール</returns>
+        public CsvRule FindRuleForFirstLine(string firstLine)
+        {
+            foreach (CsvRule rule in mRules)
+            {
+                if (rule.firstLine == firstLine)
+                {
+                    return rule;
+                }
+            }
+            return null;
         }
 
         /// <summary>
@@ -174,76 +252,6 @@ namespace FeliCa2Money
 
                 mRules.Add(rule);
             }
-        }
-
-        /// <summary>
-        /// ルール名一覧を返す
-        /// </summary>
-        /// <returns>ルール名</returns>
-        public string[] names()
-        {
-            string[] names = new string[mRules.Count];
-            int i = 0;
-            foreach (CsvRule rule in mRules)
-            {
-                names[i] = rule.name;
-                i++;
-            }
-            return names;
-        }
-
-        /// <summary>
-        /// 指定したインデックスのルールを返す
-        /// </summary>
-        /// <param name="idx">インデックス</param>
-        /// <returns>ルール</returns>
-        public CsvRule GetAt(int idx)
-        {
-            return mRules[idx];
-        }
-
-        /// <summary>
-        /// 指定したルールのインデックスを返す
-        /// </summary>
-        /// <param name="rule">ルール</param>
-        /// <returns>インデックス</returns>
-        public int IndexOf(CsvRule rule)
-        {
-            return mRules.IndexOf(rule);
-        }
-
-        /// <summary>
-        /// ident に一致するルールを探す
-        /// </summary>
-        /// <param name="firstLine">firstLine</param>
-        /// <returns>ルール</returns>
-        public CsvRule FindRuleWithIdent(string ident)
-        {
-            foreach (CsvRule rule in mRules)
-            {
-                if (rule.ident == ident)
-                {
-                    return rule;
-                }
-            }
-            return null;
-        }
-
-        /// <summary>
-        /// firstLine に一致するルールを探す
-        /// </summary>
-        /// <param name="firstLine">firstLine</param>
-        /// <returns>ルール</returns>
-        public CsvRule FindRuleForFirstLine(string firstLine)
-        {
-            foreach (CsvRule rule in mRules)
-            {
-                if (rule.firstLine == firstLine)
-                {
-                    return rule;
-                }
-            }
-            return null;
         }
 
         /// <summary>

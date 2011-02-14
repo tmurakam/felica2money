@@ -1,4 +1,4 @@
-﻿/*
+/*
  * FeliCa2Money
  *
  * Copyright (C) 2001-2011 Takuya Murakami
@@ -68,14 +68,15 @@ namespace FeliCa2Money
             }
 
             // 該当する金融機関を選択状態にする
-            int count = mRules.Count;
-            for (int i = 0; i < count; i++)
+            int i = 0;
+            for (CsvRule rule in mRules)
             {
-                if (mRules.GetAt(i).ident == mAccount.ident)
+                if (rule.ident == mAccount.ident)
                 {
                     listBox.SelectedIndex = i;
                     break;
                 }
+                i++;
             }
         }
 
