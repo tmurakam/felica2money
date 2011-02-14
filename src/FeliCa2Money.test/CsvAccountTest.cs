@@ -47,7 +47,7 @@ namespace FeliCa2Money.test
             mSw.Close();
 
             mAccount.startReading(mTempFileName, mRule);
-            mAccount.ReadCard();
+            mAccount.ReadTransactions();
             Assert.AreEqual(0, mAccount.transactions.Count);
         }
 
@@ -59,7 +59,7 @@ namespace FeliCa2Money.test
             mSw.Close();
 
             mAccount.startReading(mTempFileName, mRule);
-            mAccount.ReadCard();
+            mAccount.ReadTransactions();
             Assert.AreEqual(0, mAccount.transactions.Count);
         }
 
@@ -71,7 +71,7 @@ namespace FeliCa2Money.test
             mSw.Close();
 
             mAccount.startReading(mTempFileName, mRule);
-            mAccount.ReadCard();
+            mAccount.ReadTransactions();
             Assert.AreEqual(0, mAccount.transactions.Count);
         }
 
@@ -84,7 +84,7 @@ namespace FeliCa2Money.test
             mSw.Close();
 
             mAccount.startReading(mTempFileName, mRule);
-            mAccount.ReadCard();
+            mAccount.ReadTransactions();
             Assert.AreEqual(1, mAccount.transactions.Count);
             Transaction t = mAccount.transactions[0];
 
@@ -107,7 +107,7 @@ namespace FeliCa2Money.test
 
             mRule.order = "Ascent";
             mAccount.startReading(mTempFileName, mRule);
-            mAccount.ReadCard();
+            mAccount.ReadTransactions();
             Assert.AreEqual(2, mAccount.transactions.Count);
             Transaction t = mAccount.transactions[0];
 
@@ -126,7 +126,7 @@ namespace FeliCa2Money.test
 
             mRule.order = "Descent";
             mAccount.startReading(mTempFileName, mRule);
-            mAccount.ReadCard();
+            mAccount.ReadTransactions();
             Assert.AreEqual(2, mAccount.transactions.Count);
             Transaction t = mAccount.transactions[0];
 
@@ -145,7 +145,7 @@ namespace FeliCa2Money.test
 
             mRule.order = "Sort";
             mAccount.startReading(mTempFileName, mRule);
-            mAccount.ReadCard();
+            mAccount.ReadTransactions();
             Assert.AreEqual(2, mAccount.transactions.Count);
             Transaction t = mAccount.transactions[0];
 
@@ -169,7 +169,7 @@ namespace FeliCa2Money.test
             mRule.order = "Sort";
 
             mAccount.startReading(mTempFileName, mRule);
-            mAccount.ReadCard();
+            mAccount.ReadTransactions();
             Assert.AreEqual(6, mAccount.transactions.Count);
 
             Assert.AreEqual(0, mAccount.transactions[0].id);

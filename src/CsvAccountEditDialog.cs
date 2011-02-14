@@ -69,7 +69,7 @@ namespace FeliCa2Money
 
             // 該当する金融機関を選択状態にする
             int i = 0;
-            for (CsvRule rule in mRules)
+            foreach (CsvRule rule in mRules)
             {
                 if (rule.ident == mAccount.ident)
                 {

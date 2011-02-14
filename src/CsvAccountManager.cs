@@ -187,7 +187,7 @@ namespace FeliCa2Money
 
         private string getBankName(CsvAccount account)
         {
-            for (CsvRule rule in mRules) {
+            foreach (CsvRule rule in mRules) {
                 if (rule.ident == account.ident) {
                     return rule.name;
                 }

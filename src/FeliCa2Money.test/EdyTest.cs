@@ -65,7 +65,7 @@ namespace FeliCa2Money.test
             });
 
             FeliCa2Money.Edy c = new FeliCa2Money.Edy();
-            List<Transaction> tlist = c.ReadCard(f);
+            List<Transaction> tlist = c.ReadTransactions(f);
             Assert.AreEqual(3, tlist.Count);
             Transaction t;
 
@@ -115,7 +115,7 @@ namespace FeliCa2Money.test
             //2008/05/10 22:26:31 支払い   金額:1800  残高:41250 連番:98
 
             FeliCa2Money.Edy c = new FeliCa2Money.Edy();
-            List<Transaction> tlist = c.ReadCard(f);
+            List<Transaction> tlist = c.ReadTransactions(f);
             Assert.AreEqual(6, tlist.Count);
             Transaction t;
 

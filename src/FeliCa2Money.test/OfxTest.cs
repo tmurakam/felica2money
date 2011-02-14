@@ -17,7 +17,7 @@ namespace FeliCa2Money.test
             mTransactions = new List<Transaction>();
         }
 
-        public override void ReadCard()
+        public override void ReadTransactions()
         {
             // do nothing
         }

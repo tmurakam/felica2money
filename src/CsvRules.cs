@@ -57,7 +57,7 @@ namespace FeliCa2Money
         /// </summary>
         public IEnumerator<CsvRule> GetEnumerator()
         {
-            mRules.GetEnumerator();
+            return mRules.GetEnumerator();
         }
 
         /// <summary>
