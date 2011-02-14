@@ -32,7 +32,8 @@ FeliCa2Money を実行するためには、実行ディレクトリに felicalib
 単体テストをビルド・実行するためには、NUnit が必要です。
 FeliCa2Money.test の参照設定で、NUnit に含まれる nunit.framework を指定
 する必要があります。テストを行うには、NUnit から FeliCa2Money.test.dll を
-開いて Run してください。
+開いて Run してください。なお、nunit.exe ではなく nunit-x86.exe のほうで
+ないとテストできないので注意してください。
 
 Setup.exe の作成
 ----------------
