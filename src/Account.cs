@@ -41,7 +41,7 @@ namespace FeliCa2Money
 
         protected bool mIsCreditCard = false; // クレジットカードの場合に真
 
-        public abstract void ReadCard();
+        public abstract void ReadTransactions();
 
         public string ident
         {

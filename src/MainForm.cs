@@ -167,7 +167,7 @@ namespace FeliCa2Money
         {
             try
             {
-                c.ReadCard();
+                c.ReadTransactions();
             }
             catch (Exception ex)
             {

@@ -70,7 +70,7 @@ namespace FeliCa2Money
         /// <summary>
         /// CSVデータ読み込み
         /// </summary>
-        public override void ReadCard()
+        public override void ReadTransactions()
         {
             List<Transaction> transactions = new List<Transaction>();
             string line;

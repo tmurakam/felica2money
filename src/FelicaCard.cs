@@ -83,10 +83,10 @@ namespace FeliCa2Money
         /// <summary>
         /// カード読み込み
         /// </summary>
-        public sealed override void ReadCard()
+        public sealed override void ReadTransactions()
         {
             using (IFelica f = new Felica()) {
-                mTransactions = ReadCard(f);
+                mTransactions = ReadTransactions(f);
             }
         }
 
@@ -96,7 +96,7 @@ namespace FeliCa2Money
         /// </summary>
         /// <param name="f"></param>
         /// <returns></returns>
-        public List<Transaction> ReadCard(IFelica f)
+        public List<Transaction> ReadTransactions(IFelica f)
         {
             List<Transaction> list = new List<Transaction>();
 

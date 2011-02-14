@@ -229,7 +229,7 @@ namespace FeliCa2Money
             mTransactions = new List<Transaction>();
         }
 
-        public override void ReadCard()
+        public override void ReadTransactions()
         {
             // 使用しない
         }
