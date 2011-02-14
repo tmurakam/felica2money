@@ -2,3 +2,9 @@
 *.suo
 bin/
 obj/
+*.exe
+*.exe.config
+*.dll
+*.zip
+*.pdf
+Output/
