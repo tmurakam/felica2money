@@ -37,6 +37,8 @@ namespace FeliCa2Money.test
         public void tearDown()
         {
             mSw.Close();
+            mAccount.Close();
+
             File.Delete(mTempFileName);
         }
 

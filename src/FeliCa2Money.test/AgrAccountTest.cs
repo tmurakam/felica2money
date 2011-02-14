@@ -101,7 +101,7 @@ namespace FeliCa2Money.test
             {
                 AgrAccount account = builder.newBankAccount("\"BANK_NAME\", \"BRANCH_NAME\", \"ACCOUNT_ID\"");
 
-                // 年なしフォーマット
+                // 年なし(月日のみ)のフォーマットを作成
                 Assert.True(account.readTransaction("\"" + i.ToString() + "/15\", \"DESCRIPTION\", \"100\", \"JPY\", \"\", \"\", \"123456\", \"JPY\""));
                 Assert.AreEqual(1, account.transactions.Count);
 
@@ -109,8 +109,10 @@ namespace FeliCa2Money.test
                 Assert.AreEqual(i, t.date.Month);
                 Assert.AreEqual(15, t.date.Day);
 
+                // 半年(366/2日)以上離れていないことを確認する
                 TimeSpan diff = now.Subtract(t.date);
-                Assert.True(-180 < diff.Days && diff.Days < 180);
+                Assert.True(-366/2 <= diff.Days);
+                Assert.True(diff.Days <= 366/2);
             }
         }
     }
