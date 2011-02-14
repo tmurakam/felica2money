@@ -362,10 +362,10 @@ namespace FeliCa2Money
                 // 同一年として、日付が６ヶ月以上先の場合、昨年とみなす。
                 // 逆に６ヶ月以上前の場合、翌年とみなす。
                 TimeSpan ts = d - now;
-                if (ts.TotalDays > 180) {
+                if (ts.TotalDays > 366/2) {
                     d = new DateTime(now.Year - 1, mm, dd, 0, 0, 0);
                 }
-                else if (ts.TotalDays < -180)
+                else if (ts.TotalDays < -366/2)
                 {
                     d = new DateTime(now.Year + 1, mm, dd, 0, 0, 0);
                 }

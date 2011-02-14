@@ -109,7 +109,7 @@ namespace FeliCa2Money.test
                 Assert.AreEqual(i, t.date.Month);
                 Assert.AreEqual(15, t.date.Day);
 
-                // 半年(366/2日)以上離れていないことを確認する
+                // 半年以上離れていないことを確認する
                 TimeSpan diff = now.Subtract(t.date);
                 Assert.True(-366/2 <= diff.Days);
                 Assert.True(diff.Days <= 366/2);
