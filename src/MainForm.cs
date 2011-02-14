@@ -68,7 +68,7 @@ namespace FeliCa2Money
         {
             using (Edy edy = new Edy())
             {
-                doReadAndConvert(edy);
+                readAndGenerateOfx(edy);
             }
         }
 
@@ -76,7 +76,7 @@ namespace FeliCa2Money
         {
             using (Suica suica = new Suica())
             {
-                doReadAndConvert(suica);
+                readAndGenerateOfx(suica);
             }
         }
 
@@ -84,7 +84,7 @@ namespace FeliCa2Money
         {
             using(Nanaco nanaco = new Nanaco())
             {
-                doReadAndConvert(nanaco);
+                readAndGenerateOfx(nanaco);
             }
         }
 
@@ -92,7 +92,7 @@ namespace FeliCa2Money
         {
             using (Waon waon = new Waon())
             {
-                doReadAndConvert(waon);
+                readAndGenerateOfx(waon);
             }
         }
 
@@ -118,7 +118,7 @@ namespace FeliCa2Money
                 return;
             }
              
-            doReadAndConvert(account);
+            readAndGenerateOfx(account);
             account.Close();
         }
 
@@ -150,20 +150,20 @@ namespace FeliCa2Money
                 MessageBox.Show(ex.Message, Properties.Resources.Error);
                 return;
             }
-            doConvert(agr.accounts);
+            generateOfx(agr.accounts);
         }
 
-        private void doReadAndConvert(Account c)
+        private void readAndGenerateOfx(Account c)
         {
-            if (doRead(c))
+            if (readTransactions(c))
             {
-                doConvert(c);
+                generateOfx(c);
             }
         }
 
         // カードを読み込む
         // 正常に読み込んだら true を返す
-        private bool doRead(Account c)
+        private bool readTransactions(Account c)
         {
             try
             {
@@ -192,14 +192,14 @@ namespace FeliCa2Money
             return true;
         }
 
-        private void doConvert(Account c)
+        private void generateOfx(Account c)
         {
             List<Account> accounts = new List<Account>();
             accounts.Add(c);
-            doConvert(accounts);
+            generateOfx(accounts);
         }
 
-        private void doConvert(List<Account> accounts)
+        private void generateOfx(List<Account> accounts)
         {
             // 明細件数をチェック
             int count = 0;
