@@ -160,7 +160,7 @@ namespace FeliCa2Money
                 {
                     // パース不可能
                     // TBD
-                    throw new Exception(Properties.Resources.CantParseDateStr + " (" + date + ")");
+                    throw new FormatException(Properties.Resources.CantParseDateStr + " (" + date + ")");
                 }
 
                 int n = int.Parse(date);

@@ -82,8 +82,17 @@ namespace FeliCa2Money
                 if (row.Length <= 1) continue; // ad hoc...
 
                 // パース
-                Transaction t = mRule.parse(row);
-                transactions.Add(t);
+                try
+                {
+                    Transaction t = mRule.parse(row);
+                    transactions.Add(t);
+                }
+                catch (FormatException ex)
+                {
+                    // ignore transaction
+
+                    // MessageBox.Show(ex.Message, Properties.Resources.Error);
+                }  
             }
 
             // ソート処理
