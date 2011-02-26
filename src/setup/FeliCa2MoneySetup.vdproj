@@ -15,19 +15,19 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_3793D2F431274493962FA9B8367AAD72"
+        "MsmKey" = "8:_7E4BBFE5C1B348659B2C90C55D467AB2"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_CA728F48ED5742DAA1297066A52600B4"
+        "MsmKey" = "8:_8318CC4CF3D648FD9FEA5970997CA086"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_D73B2117BE96424C9256C981700B6AC2"
+        "MsmKey" = "8:_9C1FA10E9CB04ECC86289610A9D363A4"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -51,7 +51,7 @@
         "DisplayName" = "8:Debug"
         "IsDebugOnly" = "11:TRUE"
         "IsReleaseOnly" = "11:FALSE"
-        "OutputFilename" = "8:setup\\Debug\\FeliCa2Money.msi"
+        "OutputFilename" = "8:Debug\\FeliCa2Money.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -88,7 +88,7 @@
         "DisplayName" = "8:Release"
         "IsDebugOnly" = "11:FALSE"
         "IsReleaseOnly" = "11:TRUE"
-        "OutputFilename" = "8:setup\\Release\\FeliCa2Money.msi"
+        "OutputFilename" = "8:Release\\FeliCa2Money.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -148,9 +148,9 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3793D2F431274493962FA9B8367AAD72"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7E4BBFE5C1B348659B2C90C55D467AB2"
             {
-            "SourcePath" = "8:files\\felicalib.dll"
+            "SourcePath" = "8:felicalib.dll"
             "TargetName" = "8:felicalib.dll"
             "Tag" = "8:"
             "Folder" = "8:_2106EFBD60174188A9636926FC3ED8BA"
@@ -168,10 +168,10 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_CA728F48ED5742DAA1297066A52600B4"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8318CC4CF3D648FD9FEA5970997CA086"
             {
-            "SourcePath" = "8:files\\LICENSE.TXT"
-            "TargetName" = "8:LICENSE.TXT"
+            "SourcePath" = "8:StationCode.mdb"
+            "TargetName" = "8:StationCode.mdb"
             "Tag" = "8:"
             "Folder" = "8:_2106EFBD60174188A9636926FC3ED8BA"
             "Condition" = "8:"
@@ -188,10 +188,10 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D73B2117BE96424C9256C981700B6AC2"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9C1FA10E9CB04ECC86289610A9D363A4"
             {
-            "SourcePath" = "8:files\\StationCode.mdb"
-            "TargetName" = "8:StationCode.mdb"
+            "SourcePath" = "8:LICENSE.TXT"
+            "TargetName" = "8:LICENSE.TXT"
             "Tag" = "8:"
             "Folder" = "8:_2106EFBD60174188A9636926FC3ED8BA"
             "Condition" = "8:"
@@ -276,7 +276,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:FeliCa2Money"
         "ProductCode" = "8:{59CE7DE5-088B-427E-9D1F-230CC629D4AF}"
-        "PackageCode" = "8:{36A4CCD2-3C6A-463F-AC0A-5CFBFC1A55EF}"
+        "PackageCode" = "8:{EBDAEE4C-B4A9-454C-B277-9CF3B2A91B0F}"
         "UpgradeCode" = "8:{022D2F3D-2D3B-49CB-9DFE-10D24BA943C2}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -396,20 +396,6 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_1E49B7FD6B2C4C14A54BF5348C59E27E"
-            {
-            "Name" = "8:FeliCa2Money (アクティブ) の プライマリ出力 へのショートカット"
-            "Arguments" = "8:"
-            "Description" = "8:"
-            "ShowCmd" = "3:1"
-            "IconIndex" = "3:0"
-            "Transitive" = "11:FALSE"
-            "Target" = "8:_FADA10F5C4CD46B8A744292D15745667"
-            "Folder" = "8:_31C7EA41C5FD44E68F8FF1FA3E857C73"
-            "WorkingFolder" = "8:_2106EFBD60174188A9636926FC3ED8BA"
-            "Icon" = "8:"
-            "Feature" = "8:"
-            }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_A284E7778E954617AB6342BEE263265A"
             {
             "Name" = "8:FeliCa2Money"
@@ -839,7 +825,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_FADA10F5C4CD46B8A744292D15745667"
             {
-            "SourcePath" = "8:obj\\x86\\Release\\FeliCa2Money.exe"
+            "SourcePath" = "8:..\\obj\\x86\\Release\\FeliCa2Money.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_2106EFBD60174188A9636926FC3ED8BA"

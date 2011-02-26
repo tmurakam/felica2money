@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeliCa2Money", "FeliCa2Mone
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeliCa2Money.test", "FeliCa2Money.test\FeliCa2Money.test.csproj", "{02E97404-9875-4336-BAD1-A2362AE07459}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "setup\FeliCa2MoneySetup.vdproj", "{C281715A-1A8B-4DC1-B7C4-C296BD7AB22B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -19,6 +21,10 @@ Global
 		{02E97404-9875-4336-BAD1-A2362AE07459}.Debug|x86.Build.0 = Debug|x86
 		{02E97404-9875-4336-BAD1-A2362AE07459}.Release|x86.ActiveCfg = Release|x86
 		{02E97404-9875-4336-BAD1-A2362AE07459}.Release|x86.Build.0 = Release|x86
+		{C281715A-1A8B-4DC1-B7C4-C296BD7AB22B}.Debug|x86.ActiveCfg = Debug
+		{C281715A-1A8B-4DC1-B7C4-C296BD7AB22B}.Debug|x86.Build.0 = Debug
+		{C281715A-1A8B-4DC1-B7C4-C296BD7AB22B}.Release|x86.ActiveCfg = Release
+		{C281715A-1A8B-4DC1-B7C4-C296BD7AB22B}.Release|x86.Build.0 = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
