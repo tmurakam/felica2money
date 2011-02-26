@@ -35,8 +35,9 @@ FeliCa2Money.test の参照設定で、NUnit に含まれる nunit.framework を
 開いて Run してください。なお、nunit.exe ではなく nunit-x86.exe のほうで
 ないとテストできないので注意してください。
 
-Setup.exe の作成
-----------------
+セットアップファイルの作成
+--------------------------
 
-Setup.exe を作成するには、Inno Setup (http://www.jrsoftware.org/isinfo.php)
-が必要です。定義ファイルは、src/Release ディレクトリ以下にあります。
+セットアップファイルは、Visual Studio のセットアッププロジェクトにより
+自動的に生成されます。生成されたファイルは setup/ 以下のディレクトリに
+作成されます。

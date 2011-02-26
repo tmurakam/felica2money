@@ -1,4 +1,14 @@
+2010-02-26 : Takuya Murakami
+	* ver 3.1
+	* セットアップを Inno Setup から Visual Studio セットアップ
+	  プロジェクトに移行
+
+2010-02-13 : Takuya Murakami
+	* ver 3.1 beta 1
+	* CSV の複数アカウント対応 / UI を大幅変更
+
 2010-01-08 : Takuya Murakami
+	* ver 3.0
 	* 修正: CSV mm/dd/yyyy フォーマットをサポート
 
 2010-01-05 : Takuya Murakami
@@ -15,7 +25,7 @@
 	* AGRファイル関連付け機能追加
 	* バグ修正: AGR: Bill アカウント無視
 	* バグ修正: 残高計算誤り
-	
+
 2010-12-29 : Takuya Murakami
 	* ver 3.0 beta 3
 	* OFX の適用欄を 32 文字に制限 (Money 2006用)
@@ -28,7 +38,7 @@
 2010-12-28 : Takuya Murakami
 	* ver 3.0 beta 1
 	* バグ修正
-	
+
 2010-12-27 : Takuya Murakami
 	* AGRファイルサポートを追加
 	* リファクタリング
@@ -48,13 +58,13 @@
 	* ver 2.8
 	* バグ修正 : CSV 取り込みが動作しない問題を修正
 	* StationCode.mdb を 2008/5/3版に差し替え
-	
+
 2008-04-20 : Takuya Murakami
 	* ver 2.7.1
 	* 一部の駅名が正しく表示されなかった問題を修正
 	* felicalib ver 0.4.1 に置き換え、MSVCRT.dll がない環境で
 	  動作しない問題を修正
-	
+
 2008-04-19 : Takuya Murakami
 	* ver 2.7
 	* x64 対応
@@ -63,11 +73,11 @@
 2008-04-08 : Takuya Murakami
 	* ver 2.6.1
 	* quote 処理ミス(文字列置換してなかった)を修正
-	
+
 2008-04-07 : Takuya Murakami
 	* ver 2.6
 	* 物販店舗名に特殊文字(&など)が入っているときに quote するようにした
-	
+
 2008-03-21 : Takuya Murakami
 	* TSV (タブ区切りテキスト)に対応
 	* FirstLine より前に余計な行があってもスキップするようにした
@@ -77,18 +87,18 @@
 2008-03-20 : Takuya Murakami
 	* ver 2.5
 	* WAON 対応
-	
+
 2008-03-16 : Takuya Murakami
 	* ver 2.4
 	* CSV変換ルールダウンロード機能を実装
 	* Suica/Nanaco の解析機能を少しだけ強化
-	
+
 2008-03-15 : Takuya Murakami
 	* ver 2.4 beta1
 	* 前バージョンの設定を毎回引き継いでしまっていた問題を修正
 	* 線区/駅順がともに 0 の場合は名称変換しない
 	* CSV 変換機能を実装
-	
+
 2008-03-12 : Takuya Murakami
 	* ver 2.3
 	* Suica などにおいてエントリ数が２０未満のときにエラーが発生する
@@ -100,10 +110,10 @@
 	* Suica 解析処理を felicalib で行うようにした
 	* StationCode.mdb 検索処理を追加
 	* 物販店舗検索優先エリアオプションを追加
-	
+
 2008-03-08 : Takuya Murakami
 	* nanaco ポイント交換に対応(したつもり)
-	
+
 2008-03-06 : Takuya Murakami
 	* Edy 読み取りに SFCPeep ではなく felicalib を使うようにした。
 
@@ -111,7 +121,7 @@
 	* ver 2.1
 	* Suica 未登録店舗において、連番ではなく出線区/出駅順を出力するようにした。
 	  (Money 自動補完を有効にするため)
-	
+
 2008-02-03 : Takuya Murakami
 	* ver 2.0
 	* .NET Framework 対応 (C# 書き直し)
@@ -133,6 +143,6 @@
 	* セットアップを追加
 	* OFX ファイルに MEMO (備考)フィールドを追加するようにした
 
-2007-03-17 : Takuya Murakami 
+2007-03-17 : Takuya Murakami
 	* ver β1
 	* 初版 (PASMO開始前日 :-)
