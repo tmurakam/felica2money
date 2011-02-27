@@ -115,5 +115,20 @@ namespace FeliCa2Money.test
                 Assert.True(diff.Days <= 366/2);
             }
         }
+
+        [Test]
+        public void readTransactionWithoutDay()
+        {
+            AgrAccount account = builder.newBankAccount("\"BANK_NAME\", \"BRANCH_NAME\", \"ACCOUNT_ID\"");
+
+            // 日なし(年月のみ)のフォーマットを作成
+            Assert.True(account.readTransaction("\"2011/3\", \"DESCRIPTION\", \"100\", \"JPY\", \"\", \"\", \"123456\", \"JPY\""));
+            Assert.AreEqual(1, account.transactions.Count);
+
+            Transaction t = account.transactions[0];
+            Assert.AreEqual(2011, t.date.Year);
+            Assert.AreEqual(3, t.date.Month);
+            Assert.AreEqual(1, t.date.Day);
+        }
     }
 }

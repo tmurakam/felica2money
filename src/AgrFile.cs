@@ -346,36 +346,56 @@ namespace FeliCa2Money
 
             // 日付の処理
             string[] ary = columns[0].Split(new char[] { '/' });
-            if (ary.Length == 3)
+            try
             {
-                transaction.date = new DateTime(int.Parse(ary[0]), int.Parse(ary[1]), int.Parse(ary[2]), 0, 0, 0);
-            }
-            else if (ary.Length == 2)
-            {
-                // 月と日のみ。年は推定する。
-                DateTime now = DateTime.Now;
-                int mm = int.Parse(ary[0]);
-                int dd = int.Parse(ary[1]);
-
-                DateTime d = new DateTime(now.Year, mm, dd, 0, 0, 0);
-
-                // 同一年として、日付が６ヶ月以上先の場合、昨年とみなす。
-                // 逆に６ヶ月以上前の場合、翌年とみなす。
-                TimeSpan ts = d - now;
-                if (ts.TotalDays > 366/2) {
-                    d = new DateTime(now.Year - 1, mm, dd, 0, 0, 0);
-                }
-                else if (ts.TotalDays < -366/2)
+                if (ary.Length == 3)
                 {
-                    d = new DateTime(now.Year + 1, mm, dd, 0, 0, 0);
+                    transaction.date = new DateTime(int.Parse(ary[0]), int.Parse(ary[1]), int.Parse(ary[2]), 0, 0, 0);
                 }
-                transaction.date = d;
+                else if (ary.Length == 2)
+                {
+                    DateTime now = DateTime.Now;
+
+                    int n1 = int.Parse(ary[0]);
+                    int n2 = int.Parse(ary[1]);
+
+                    if (n1 >= 2000)
+                    {
+                        // 年と月のみ: 日は1日とする
+                        transaction.date = new DateTime(n1, n2, 1, 0, 0, 0);
+                    }
+                    else
+                    {
+                        // 月と日のみ。年は推定する。
+                        int mm = n1;
+                        int dd = n2;
+
+                        DateTime d = new DateTime(now.Year, mm, dd, 0, 0, 0);
+
+                        // 同一年として、日付が６ヶ月以上先の場合、昨年とみなす。
+                        // 逆に６ヶ月以上前の場合、翌年とみなす。
+                        TimeSpan ts = d - now;
+                        if (ts.TotalDays > 366 / 2)
+                        {
+                            d = new DateTime(now.Year - 1, mm, dd, 0, 0, 0);
+                        }
+                        else if (ts.TotalDays < -366 / 2)
+                        {
+                            d = new DateTime(now.Year + 1, mm, dd, 0, 0, 0);
+                        }
+                        transaction.date = d;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
             }
-            else
+            catch
             {
+                // 日付が範囲外 (ArgumentRangeOutOfException など)
                 return false;
             }
-            
 
             // 摘要
             transaction.desc = columns[1];

@@ -301,15 +301,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:FeliCa2Money"
-        "ProductCode" = "8:{59CE7DE5-088B-427E-9D1F-230CC629D4AF}"
-        "PackageCode" = "8:{E25909BC-61C2-4655-925F-F88D99D71E86}"
+        "ProductCode" = "8:{9C944528-7706-41F1-BAB6-8E8365344684}"
+        "PackageCode" = "8:{82174A8B-192F-4B9D-9B34-6E5CD3C1B10C}"
         "UpgradeCode" = "8:{022D2F3D-2D3B-49CB-9DFE-10D24BA943C2}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:3.1"
+        "ProductVersion" = "8:3.1.1"
         "Manufacturer" = "8:Takuya Murakami"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -945,7 +945,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_FADA10F5C4CD46B8A744292D15745667"
             {
-            "SourcePath" = "8:..\\obj\\x86\\Release\\FeliCa2Money.exe"
+            "SourcePath" = "8:..\\obj\\x86\\Debug\\FeliCa2Money.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_2106EFBD60174188A9636926FC3ED8BA"
