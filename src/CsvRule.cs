@@ -40,8 +40,11 @@ namespace FeliCa2Money
         private SortOrder mSortOrder; // ソートオーダー
         private bool mIsTSV = false; // TSV かどうか
 
+        // 各 CSV カラムの定義
+        private string[] mColumnDefs;
+
         // 各 CSV カラムのマッピング規則
-        private Hashtable colHash = new Hashtable();
+        private Hashtable mColumnIndex = new Hashtable();
 
         // プロパティ
         public string ident
@@ -107,23 +110,43 @@ namespace FeliCa2Money
         // CSV 変換フォーマット文字列解析
         public void SetFormat(string format)
         {
-            string[] cols = format.Split(new Char[] { ',', '\t' });
+            mColumnDefs = format.Split(new Char[] { ',', '\t' });
 
-            for (int i = 0; i < cols.Length; i++)
+            for (int i = 0; i < mColumnDefs.Length; i++)
             {
-                colHash[cols[i].Trim()] = i;
+                string key = mColumnDefs[i].Trim();
+                mColumnDefs[i] = key;
+                mColumnIndex[key] = i;
             }
         }
 
         // 指定したカラムを取得
         private string getCol(string[] row, string key)
         {
-            if (colHash[key] == null)
+            if (mColumnIndex[key] == null)
             {
                 return null;
             }
-            int col = (int)colHash[key];
+            int col = (int)mColumnIndex[key];
             return row[col];
+        }
+
+        // 指定したカラムを取得(すべて連結)
+        private string getMultiCol(string[] row, string key)
+        {
+            string val = "";
+            for (int i = 0; i < mColumnDefs.Length; i++)
+            {
+                if (key == mColumnDefs[i] && row[i].Length > 0)
+                {
+                    if (val.Length > 0)
+                    {
+                        val += " ";
+                    }
+                    val += row[i];
+                }
+            }
+            return val;
         }
 
         // 指定したカラムを取得 (integer)
@@ -199,10 +222,10 @@ namespace FeliCa2Money
             t.balance = getColInt(row, "Balance");
             
             // 適用
-            t.desc = getCol(row, "Desc");
+            t.desc = getMultiCol(row, "Desc");
 
             // 備考
-            t.memo = getCol(row, "Memo");
+            t.memo = getMultiCol(row, "Memo");
 
             // トランザクションタイプを自動設定
             t.GuessTransType(t.value >= 0);

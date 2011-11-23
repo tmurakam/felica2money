@@ -103,5 +103,16 @@ namespace FeliCa2Money.test
             Assert.AreEqual(t.date.Month, 3);
             Assert.AreEqual(t.date.Day, 10);
         }
+
+        [Test]
+        public void testMultiColumn()
+        {
+            Transaction t;
+            rule.SetFormat("Date,Desc,Memo,Desc,Memo");
+
+            t = rule.parse(splitCSV("20110101,A,B,C,D"));
+            Assert.AreEqual(t.desc, "A C");
+            Assert.AreEqual(t.memo, "B D");
+        }
     }
 }
