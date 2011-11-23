@@ -124,13 +124,13 @@
   <Rule>
     <Ident>SMBCcard</Ident>
     <Name>三井住友VISAカード</Name>
-    <Format>Date,Desc,Outgo,Dummy,Dummy,Memo
+    <Format>Date,Desc,Outgo,Dummy,Dummy,Memo</Format>
     <Order>Sort</Order>
   </Rule>
 
   <Rule>
     <Ident>SMBCcard2</Ident>
-    <Name>三井住友VISAカード(未確定)</Name>
+    <Name>三井住友VISAカード(未確定明細)</Name>
     <Format>Date,Desc,Memo,Dummy,Dummy,Dummy,Outgo,Dummy,Dummy,Dummy,Dummy,Dummy,Dummy</Format>
     <Order>Sort</Order>
   </Rule>
