@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CsvRules>
-  <Version>111123.1</Version>
+  <Version>111123.2</Version>
   <Rule>
     <Ident>UltrasoftMoneyLink</Ident>
     <Name>Ultrasoft MoneyLink (Excel⇒CSV書き出し)</Name>
@@ -124,6 +124,13 @@
   <Rule>
     <Ident>SMBCcard</Ident>
     <Name>三井住友VISAカード</Name>
+    <Format>Date,Desc,Outgo,Dummy,Dummy,Memo
+    <Order>Sort</Order>
+  </Rule>
+
+  <Rule>
+    <Ident>SMBCcard2</Ident>
+    <Name>三井住友VISAカード(未確定)</Name>
     <Format>Date,Desc,Memo,Dummy,Dummy,Dummy,Outgo,Dummy,Dummy,Dummy,Dummy,Dummy,Dummy</Format>
     <Order>Sort</Order>
   </Rule>
