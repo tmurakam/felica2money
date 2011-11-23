@@ -1,3 +1,8 @@
+2011-11-23 : Takuya Murakami
+	* CSV定義更新
+	* CSVルール定義で、複数カラムを読めるようにした (Desc/Memo の2つ)
+	  各カラムは連結される。
+
 2010-02-26 : Takuya Murakami
 	* ver 3.1
 	* セットアップを Inno Setup から Visual Studio セットアップ
