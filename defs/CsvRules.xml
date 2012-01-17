@@ -115,6 +115,15 @@
   </Rule>
 
   <Rule>
+    <Ident>GunmaBank</Ident>
+    <Name>群馬銀行</Name>
+    <BankId>0128</BankId>
+    <FirstLine>"取扱日付","お支払金額","お預り金額","取引区分","残高","摘要","メモ"</FirstLine>
+    <Format>Date,Outgo,Income,Dummy,Balance,Desc,Memo</Format>
+    <Order>Sort</Order>
+  </Rule>
+
+  <Rule>
     <Ident>JALCard</Ident>
     <Name>JALカード</Name>
     <Format>Dummy,Dummy,Dummy,Dummy,Date,Outgo,Desc</Format>
