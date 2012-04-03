@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="FeliCa2Money : パソリを使って電子マネーの明細をOFX形式に変換する" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>FeliCa2Money</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/tmurakam/felica2money">Fork Me on GitHub</a>
+
+          <h1 id="project_title">FeliCa2Money</h1>
+          <h2 id="project_tagline">パソリを使って電子マネーの明細をOFX形式に変換する</h2>
+
+          <section id="downloads">
+            <a class="zip_download_link" href="https://github.com/tmurakam/felica2money/zipball/master">Download this project as a .zip file</a>
+            <a class="tar_download_link" href="https://github.com/tmurakam/felica2money/tarball/master">Download this project as a tar.gz file</a>
+          </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>FeliCa2Money</h1>
+
+<h2>はじめに</h2>
+
+<p>このツールは、PaSoRi を使って Edy などの電子マネーの履歴を読み取り、
+Microsoft Money の電子明細(OFX形式ファイル)に変換するものです。</p>
+
+<p>また、CSV ファイルおよび Agurippa電子明細の取り込みにも対応しています。</p>
+
+<p>現バージョンでは、以下の電子マネーに対応しています。</p>
+
+<ul>
+<li>Edy</li>
+<li>nanaco</li>
+<li>WAON</li>
+<li>Suica</li>
+<li>ICOCA</li>
+<li>PiTaPa</li>
+<li>PASMO</li>
+</ul><h2>必要環境</h2>
+
+<ul>
+<li>Windows 2000/XP/Vista/Windows 7 (x86/x64)</li>
+<li>.NET Framework 2.0 以降</li>
+<li>内蔵FeliCaポート、またはSONY 非接触 IC カードリーダー/ライター (PaSoRi)</li>
+<li>PaSoRi 基本ソフトウェア</li>
+</ul><p>Version 2.0 から、.NET Framework 2.0 以降が必要になりました。Windows Update
+を使用してインストールしておいてください。</p>
+
+<h2>インストール</h2>
+
+<p>setup.exe を実行してインストールしてください。</p>
+
+<h2>使用方法</h2>
+
+<p>最初に「設定」を押して設定を行っておいて下さい。
+物販店舗検索優先エリアは自分が使用しているエリアに応じて設定を行って下さい。
+これを設定しないと、誤った店舗名が出力される可能性が高くなります。</p>
+
+<p>電子マネーを PaSoRi に置き、Edy/Suica/Nanaco/WAON のいずれかのボタンをクリック
+してください。カードが読み取られ、電子明細(OFXファイル)が生成されます。</p>
+
+<p>「保存後に OFX ファイルを自動的に起動する」オプションをオンにしておくと、
+自動的に Microsoft Money が立ち上がり、明細が取り込まれます。</p>
+
+<h2>その他</h2>
+
+<p>その他詳細については、インストール時にインストールされるマニュアルを
+お読みください。</p>
+
+<h2>作者連絡先</h2>
+
+<ul>
+<li>村上　卓弥 : tmurakam@tmurakam.org</li>
+<li>プロジェクトWebサイト: <a href="http://felica2money.tmurakam.org">http://felica2money.tmurakam.org</a></li>
+<li>ソースコード : <a href="https://github.com/tmurakam/felica2money">https://github.com/tmurakam/felica2money</a></li>
+</ul><h3>Welcome to GitHub Pages.</h3>
+
+<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+
+<pre><code>$ cd your_repo_root/repo_name
+$ git fetch origin
+$ git checkout gh-pages
+</code></pre>
+
+<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+
+<h3>Designer Templates</h3>
+
+<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+
+<h3>Rather Drive Stick?</h3>
+
+<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+
+<h3>Authors and Contributors</h3>
+
+<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+
+<h3>Support or Contact</h3>
+
+<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact support@github.com and we’ll help you sort it out.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">FeliCa2Money maintained by <a href="https://github.com/tmurakam">tmurakam</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
