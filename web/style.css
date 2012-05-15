@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 a
 {
 	text-decoration:none;
@@ -34,9 +36,17 @@ body, th, td {
 
 body
 {
-        text-align: center;
-        background-color: #F0F9FF;
-		color: #333;
+	text-align: center;
+    background-color: #F0F9FF;
+	color: #333;
+	font-family:
+        "ヒラギノ角ゴ Pro W3",
+		"HIragino Kaku Gothic Pro W3",
+		"HIragino Kaku Gothic Pro",
+		Osaka,
+		"メイリオ", Meiryo,
+		"ＭＳ Ｐゴシック", "MS P Gothic",
+		sans-serif;
 }
 
 #contents {
@@ -49,7 +59,7 @@ body
 
 #header {
 	width: 900px;
-	padding-bottom: 20px;
+	padding-bottom: 0px;
 }
 
 #menubar {
@@ -70,12 +80,12 @@ body
 }
 
 .adsblock {
-	font-size: 80%;
+	font-size: 90%;
 	padding: 3px;
 	margin: 10px;
 	margin-bottom: 20px;
 	background-color: #FFFFFF;
-	text-align: left;
+	text-align: center;
 }
 
 #main {

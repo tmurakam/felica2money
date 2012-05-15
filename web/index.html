@@ -86,6 +86,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 <h2>新着情報</h2>
 
 <ul>
+  <li>2012/5/15 : 三菱東京UFJ銀行 CSV 取り込みに対応</li>
   <li>2011/2/27 : Version 3.1.1 公開。CSV取り込み時の口座管理機能を追加、１つの金融機関に複数の口座を登録できるようになりました。</li>
   <li>2011/1/18 : Microsoft より <a href="http://www.microsoft.com/downloads/details.aspx?FamilyID=60302e1e-207e-4710-ac80-d19c22e47488&displayLang=ja">Money Plus Sunset Deluxe 日本語版</a>が公開されています。フリーソフト扱いのため無料で利用できます。⇒ <a href="http://www.forest.impress.co.jp/docs/news/20110118_421021.html">窓の杜の記事</a></li>
   <li>2011/1/8 : Version 3.0 正式版。Agurippa電子明細に対応しました。 </li>
@@ -103,7 +104,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 
 <p>FeliCa2Moneyは、FeliCaポート/パソリを使って Edy や nanaco などの電子マネーの利用明細を読み取り、
 電子明細(OFX形式ファイル)に変換するものです。これを使えば、電子マネーの利用明細をワンタッチで家計簿に記帳できます。</p>
-<p>また、FeliCa2Money は Agurippa電子明細に対応していますので、gooワンビリング等を利用して口座の自動更新を行うことができます。Microsoft が Money Plus 向けに提供していた 電子明細自動更新機能は 2011年1月末をもって終了してしまいましたが、FeliCa2Money を使えば口座の自動更新を行うことができます。無料で公開されている Money Plus Sunset Deluxe でも利用できます。</p>
+<p>また、FeliCa2Money は Agurippa電子明細に対応していますので、JNBアグリゲーション等を利用して口座の自動更新を行うことができます。Microsoft が Money Plus 向けに提供していた 電子明細自動更新機能は 2011年1月末をもって終了してしまいましたが、FeliCa2Money を使えば口座の自動更新を行うことができます。無料で公開されている Money Plus Sunset Deluxe でも利用できます。</p>
 <p>その他、CSV ファイルからの取り込みにも対応しています。</p>
 <p align="center"><img src="images/import.jpg" alt="電子マネーのインポート" width="400" height="180" /></p>
 <p align="center" class="style1">電子マネー明細をワンタッチで家計簿に取り込める！</p>
@@ -158,19 +159,38 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 
 <p>Agurippaが提供するAgurippa電子明細を取り込むことができます。
   Agurippa電子明細の詳細は<a href="http://agurippa.com/download/mastermoney/">こちら</a>。
-  現時点では JNBアグリゲーション、 gooワンビリングが対応しています。</p>
+  現時点では JNBアグリゲーションが対応しています。</p>
 <p>Microsoft Money Plus の電子明細更新機能は 2011/1月末に終了してしまいましたが、Agurippa電子明細は継続していますので、この機能を使えば明細の更新を続けることができます。また、無料で公開されている Sunset 版には明細更新機能がありませんが、本機能を使えば明細の更新ができます。</p>
+<p>注: gooワンビリングは残念ながら2012/6/30を持ってサービス終了となります。</p>
 <h3>対応CSVフォーマット</h3>
 <p>CSVファイルフォーマットは以下のものに対応しています(徐々に増やしていきます）。CSV変換ルールを作れば、対応CSVフォーマットはご自分で増やすことができます。</p>
 <ul>
   <li>OFX Converter 互換</li>
+  <li>三菱東京UFJ銀行</li>
+  <li>ジャパンネット銀行</li>
+  <li>ソニー銀行</li>
+  <li>楽天銀行</li>
   <li>住信SBIネット銀行</li>
+  <li>じぶん銀行</li>
+  <li>新生銀行</li>
+  <li>シティバンク</li>
+  <li>東京スター銀行</li>
+  <li>百五銀行</li>
+  <li>北陸銀行</li>
+  <li>群馬銀行</li>
   <li>JALカード</li>
-  <li>イーバンク    </li>
-  </ul>
-
+  <li>三井住友VISAカード</li>
+  <li>セゾンカード</li>
+  <li>みずほUCカード</li>
+  <li>出光カード</li>
+  <li>ビックカードインターナショナル</li>
+  <li>ファミマTカード</li>
+  <li>GOLD POINT CARD +</li>
+  <li>楽天カード</li>
+  <li>東急TOP&amp;カード</li>
+</ul>
 <h3>Legal notice</h3>
-<p>本ソフトウェアは、いくつかの種類の電子マネーを読み込むことができますが、この機能はこれら電子マネーの発行者から公式に認められたものではありません。なお、本ソフトウェアは、これら電子マネーの発行事業者およびその事業といかなる関係もありません。 </p>
+<p>本ソフトウェアは、いくつかの種類の電子マネーおよび金融機関発行のCSVデータを読み込むことができますが、この機能はこれら電子マネーの発行者および金融機関から公式に認められたものではありません。なお、本ソフトウェアは、これら電子マネーの発行事業者、金融機関およびその事業といかなる関係もありません。 </p>
 <p> 本ソフトウェアの動作や記載に関しての正確性に関しては一切の保証をいたしません。At your own risk でお使い下さい。 </p>
 <ul>
   <li>「FeliCa」「PaSoRi」はソニー株式会社の登録商標です。 </li>
@@ -188,10 +208,9 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 <!-- InstanceEndEditable --></div>
 
 <div id="ads">
-<div class="adsblock"><center><img src="images/cashflow.jpg" alt="" /></center>
+<div class="adsblock"><img src="images/cashflow.jpg" alt="" width="96" height="96" />
   <br/>
-  Microsoft Money対応。iPhone/Android用お小遣い帳アプリ CashFlow 絶賛公開中! <br/><a href="http://iphone.tmurakam.org/cashflow/index-j.html">⇒iPhone版</a><br/>
-  <a href="http://android.tmurakam.org/cashflow/index-j.html">⇒Android版</a>
+  <a href="http://apps.tmurakam.org/cashflow/index.html">Microsoft Money対応。iPhone/Android用お小遣い帳アプリ CashFlow 絶賛公開中!</a>
   </div>
 <!-- google adsense -->
 <script type="text/javascript"><!--
@@ -207,7 +226,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 </div>
 
 <div id="footer">
-Copyright (C) 2007-2011 <a href="http://www.tmurakam.org/">Takuya Murakami</a>, All Rights Reserved.
+Copyright (C) 2007-2012 <a href="http://www.tmurakam.org/">Takuya Murakami</a>, All Rights Reserved.
 </div>
 </div>
 
