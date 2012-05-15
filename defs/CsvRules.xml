@@ -17,29 +17,20 @@
     <Order>Ascent</Order>
   </Rule>
 
+ <Rule>
+   <Ident>MitsubishiTokyoUFJ</Ident>
+   <Name>三菱東京UFJ銀行</Name>
+   <BankId>0005</BankId>
+   <FirstLine>"日付","摘要","摘要内容","支払い金額","預かり金額","差引残高"</FirstLine>
+   <Format>Date,Desc,Memo,Outgo,Income,Balance</Format>
+   <Order>Ascent</Order>
+ </Rule>
+
   <Rule>
     <Ident>OFXConverter</Ident>
     <Name>OFXConverter互換</Name>
     <FirstLine>明細日,明細金額,Money摘要欄,Money備考欄</FirstLine>
     <Format>Date,Income,Desc,Memo</Format>
-    <Order>Ascent</Order>
-  </Rule>
-
-  <Rule>
-    <Ident>SumishinSBI</Ident>
-    <Name>住信SBIネット銀行</Name>
-    <BankId>0038</BankId>
-    <FirstLine>"日付","内容","出金金額(円)","入金金額(円)","残高(円)","メモ"</FirstLine>
-    <Format>Date,Desc,Outgo,Income,Balance,Memo</Format>
-    <Order>Descent</Order>
-  </Rule>
-
-  <Rule>
-    <Ident>ebank</Ident>
-    <Name>イーバンク</Name>
-    <BankId>0036</BankId>
-    <FirstLine>取引日,入出金(円),残高(円),入出金先内容</FirstLine>
-    <Format>Date,Income,Balance,Desc</Format>
     <Order>Ascent</Order>
   </Rule>
 
@@ -59,6 +50,33 @@
     <FirstLine>"お取り引き日","摘要","参考情報","お預け入れ額","お引き出し額","差し引き残高"</FirstLine>
     <Format>Date,Desc,Memo,Income,Outgo,Balance</Format>
     <Order>Ascent</Order>
+  </Rule>
+
+  <Rule>
+    <Ident>ebank</Ident>
+    <Name>楽天銀行</Name>
+    <BankId>0036</BankId>
+    <FirstLine>取引日,入出金(円),残高(円),入出金先内容</FirstLine>
+    <Format>Date,Income,Balance,Desc</Format>
+    <Order>Ascent</Order>
+  </Rule>
+
+  <Rule>
+    <Ident>SumishinSBI</Ident>
+    <Name>住信SBIネット銀行</Name>
+    <BankId>0038</BankId>
+    <FirstLine>"日付","内容","出金金額(円)","入金金額(円)","残高(円)","メモ"</FirstLine>
+    <Format>Date,Desc,Outgo,Income,Balance,Memo</Format>
+    <Order>Descent</Order>
+  </Rule>
+
+  <Rule>
+    <Ident>JibunBank</Ident>
+    <Name>じぶん銀行</Name>
+    <BankId>0039</BankId>
+    <FirstLine>年月日,入金,出金,お取引内容,残高</FirstLine>
+    <Format>Date,Income,Outgo,Desc,Balance</Format>
+    <Order>Descent</Order>
   </Rule>
 
   <Rule>
@@ -93,15 +111,6 @@
     <BankId>0155</BankId>
     <FirstLine>"日付","振替文言","お支払い金額","お預かり金額","摘要","残高","取扱店番"</FirstLine>
     <Format>Date,memo,Outgo,Income,Desc,Balance,Dummy</Format>
-    <Order>Descent</Order>
-  </Rule>
-
-  <Rule>
-    <Ident>JibunBank</Ident>
-    <Name>じぶん銀行</Name>
-    <BankId>0039</BankId>
-    <FirstLine>年月日,入金,出金,お取引内容,残高</FirstLine>
-    <Format>Date,Income,Outgo,Desc,Balance</Format>
     <Order>Descent</Order>
   </Rule>
 
