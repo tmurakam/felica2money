@@ -186,6 +186,13 @@
   </Rule>
 
   <Rule>
+    <Ident>DCMXCard</Ident>
+    <Name>DCMXカード</Name>
+    <Format>Date,Desc,Dummy,Dummy,Dummy,Outgo</Format>
+    <Order>Ascent</Order>
+  </Rule>
+
+  <Rule>
     <Ident>BICCardInternational</Ident>
     <Name>ビックカードインターナショナル</Name>
     <FirstLine>ご利用区分,ご利用日,ご利用者区分,ご利用店,今回回数,ご利用金額,今回のお支払い金額,備考１,備考２,備考３,備考４,備考５,備考６</FirstLine>
