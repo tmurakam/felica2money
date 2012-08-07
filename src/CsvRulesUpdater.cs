@@ -70,7 +70,7 @@ namespace FeliCa2Money
 
                 DialogResult result = MessageBox.Show("新しいCSV定義ファイルがあります。更新しますか？", "確認",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2);
-                if (result != DialogResult.Yes)
+                if (result == DialogResult.Yes)
                 {
                     return DownloadRule();
                 }
@@ -157,6 +157,7 @@ namespace FeliCa2Money
             {
                 return true;
             }
+            //return true; // DEBUG 時のみ！
             return false;
         }
 
