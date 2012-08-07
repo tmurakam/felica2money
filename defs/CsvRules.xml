@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CsvRules>
-  <Version>120526.1</Version>
+  <Version>120807.1</Version>
   <Rule>
     <Ident>UltrasoftMoneyLink</Ident>
     <Name>Ultrasoft MoneyLink (Excel⇒CSV書き出し)</Name>
@@ -38,8 +38,8 @@
     <Ident>JapanNetBank</Ident>
     <Name>ジャパンネット銀行</Name>
     <BankId>0033</BankId>
-    <FirstLine>"操作日(年)","操作日(月)","操作日(日)","取引順番号","摘要","お支払金額","お預り金額","残高"</FirstLine>
-    <Format>Year,Month,Day,Id,Desc,Outgo,Income,Balance</Format>
+    <FirstLine>"操作日(年)","操作日(月)","操作日(日)","操作時刻(時)","操作時刻(分)","操作時刻(秒)","取引順番号","摘要","お支払金額","お預り金額","残高"</FirstLine>
+    <Format>Year,Month,Day,Dummy,Dummy,Dummy,Id,Desc,Outgo,Income,Balance</Format>
     <Order>Ascent</Order>
   </Rule>
 
