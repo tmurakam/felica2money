@@ -1,7 +1,14 @@
+2012-08-07 : Takuya Murakami
+	* CSV定義バージョン表示を追加
+	
 2011-11-23 : Takuya Murakami
 	* CSV定義更新
 	* CSVルール定義で、複数カラムを読めるようにした (Desc/Memo の2つ)
 	  各カラムは連結される。
+
+2011-02-27 : Takuya Murakami
+	* ver 3.1.1
+	* CSV取り込み時の口座管理機能を追加
 
 2010-02-26 : Takuya Murakami
 	* ver 3.1
