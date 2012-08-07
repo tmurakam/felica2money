@@ -1,5 +1,6 @@
 2012-08-07 : Takuya Murakami
-	* CSV定義バージョン表示を追加
+	* ver 3.2
+	* CSV定義自動更新機能を追加
 	
 2011-11-23 : Takuya Murakami
 	* CSV定義更新
