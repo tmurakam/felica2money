@@ -99,7 +99,9 @@ namespace FeliCa2Money
 
         private void onUpdateCsvRules(object sender, EventArgs e)
         {
-            if (CsvRules.DownloadRule())
+            CsvRulesUpdater updater = new CsvRulesUpdater();
+
+            if (updater.DownloadRule())
             {
                 mRules.LoadAllRules();
                 updateList();

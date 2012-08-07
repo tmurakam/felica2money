@@ -250,6 +250,7 @@ namespace FeliCa2Money
         {
             OptionDialog dlg = new OptionDialog();
 
+            dlg.checkUpdateCsvMasterRules(); // TBD
             if (dlg.ShowDialog() == DialogResult.OK)
             {
                 dlg.SaveProperties();

@@ -37,13 +37,31 @@ namespace FeliCa2Money
         [DllImport("user32.dll", CharSet = CharSet.Unicode)]
         public static extern IntPtr SendMessage(IntPtr hWnd, int Msg, IntPtr wParam, IntPtr lParam);
 
+        private CsvRules mCsvRules;
+
         public OptionDialog()
         {
             InitializeComponent();
 
             LoadProperties();
+
+            mCsvRules = new CsvRules();
+            updateCsvMasterRuleVersion();
         }
 
+        /// <summary>
+        /// マスタCSVルールが更新されているかチェックする
+        /// </summary>
+        public void checkUpdateCsvMasterRules()
+        {
+            CsvRulesUpdater updater = new CsvRulesUpdater();
+            if (updater.CheckUpdate())
+            {
+                updateCsvMasterRuleVersion();
+            }
+        }
+
+        // プロパティを全部ロードする
         public void LoadProperties()
         {
             Properties.Settings s = Properties.Settings.Default;
@@ -89,9 +107,29 @@ namespace FeliCa2Money
             s.Save();
         }
 
+        // CSVマスタルールバージョン表示
+        private void updateCsvMasterRuleVersion()
+        {
+            mCsvRules.LoadAllRules();
+            String text = "CSV定義バージョン : ";
+            if (mCsvRules.MasterVersion == null)
+            {
+                text += "なし";
+            }
+            else
+            {
+                text += mCsvRules.MasterVersion;
+            }
+            labelCsvVersion.Text = text;
+        }
+
+        // CSV ルールダウンロード
         private void buttonCsvRulesUpdate_Click(object sender, EventArgs e)
         {
-            CsvRules.DownloadRule();
+            if (new CsvRulesUpdater().DownloadRule())
+            {
+                updateCsvMasterRuleVersion();
+            }
         }
 
         // AGR関連付け
