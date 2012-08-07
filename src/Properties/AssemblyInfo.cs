@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("tmurakam.org")]
 [assembly: AssemblyProduct("FeliCa2Money")]
-[assembly: AssemblyCopyright("Copyright (C)  2001-2011, Takuya Murakami")]
+[assembly: AssemblyCopyright("Copyright (C)  2001-2012, Takuya Murakami")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -29,5 +29,5 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("3.1.1.0")]
-[assembly: AssemblyFileVersion("3.1.1.0")]
+[assembly: AssemblyVersion("3.2.0.0")]
+[assembly: AssemblyFileVersion("3.2.0.0")]

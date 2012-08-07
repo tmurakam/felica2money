@@ -101,7 +101,7 @@ namespace FeliCa2Money
         {
             CsvRulesUpdater updater = new CsvRulesUpdater();
 
-            if (updater.DownloadRule())
+            if (updater.CheckUpdate(true))
             {
                 mRules.LoadAllRules();
                 updateList();

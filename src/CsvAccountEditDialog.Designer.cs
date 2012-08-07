@@ -133,7 +133,7 @@
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(171, 29);
             this.button3.TabIndex = 9;
-            this.button3.Text = "CSV変換定義のオンライン更新";
+            this.button3.Text = "CSV変換定義のアップデート";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.onUpdateCsvRules);
             // 
