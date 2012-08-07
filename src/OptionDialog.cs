@@ -1,7 +1,7 @@
 /*
  * FeliCa2Money
  *
- * Copyright (C) 2001-2011 Takuya Murakami
+ * Copyright (C) 2001-2012 Takuya Murakami
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -47,18 +47,6 @@ namespace FeliCa2Money
 
             mCsvRules = new CsvRules();
             updateCsvMasterRuleVersion();
-        }
-
-        /// <summary>
-        /// マスタCSVルールが更新されているかチェックする
-        /// </summary>
-        public void checkUpdateCsvMasterRules()
-        {
-            CsvRulesUpdater updater = new CsvRulesUpdater();
-            if (updater.CheckUpdate())
-            {
-                updateCsvMasterRuleVersion();
-            }
         }
 
         // プロパティを全部ロードする
@@ -123,10 +111,10 @@ namespace FeliCa2Money
             labelCsvVersion.Text = text;
         }
 
-        // CSV ルールダウンロード
+        // CSV ルール更新確認
         private void buttonCsvRulesUpdate_Click(object sender, EventArgs e)
         {
-            if (new CsvRulesUpdater().DownloadRule())
+            if (new CsvRulesUpdater().CheckUpdate(true))
             {
                 updateCsvMasterRuleVersion();
             }

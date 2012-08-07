@@ -32,5 +32,11 @@
     <Setting Name="OfxVer2" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="LastCsvRuleUpdateCheck" Type="System.DateTime" Scope="User">
+      <Value Profile="(Default)">1970-01-01</Value>
+    </Setting>
+    <Setting Name="LastCsvRuleUpdated" Type="System.DateTime" Scope="User">
+      <Value Profile="(Default)">1970-01-01</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
