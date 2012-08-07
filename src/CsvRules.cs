@@ -36,13 +36,15 @@ namespace FeliCa2Money
     public class CsvRules
     {
         /// <summary>
-        /// CSVルール定義ファイルの URL
+        /// マスタCSVルール定義ファイル名
         /// </summary>
-        private const String CSV_RULE_URL = "https://github.com/tmurakam/felica2money/raw/master/defs/CsvRules.xml";
-        // "http://moneyimport.sourceforge.jp/CsvRules.xml";
-        // "http://svn.sourceforge.jp/svnroot/moneyimport/trunk/FeliCa2Money.net/CsvRules.xml";
+        public const String CSV_MASTER_RULE_FILENAME = "CsvRules.xml";
 
+        // ルールセット
         private List<CsvRule> mRules;
+
+        // マスタルールバージョン
+        private String mMasterVersion = null;
 
         /// <summary>
         /// コンストラクタ
@@ -58,6 +60,14 @@ namespace FeliCa2Money
         public IEnumerator<CsvRule> GetEnumerator()
         {
             return mRules.GetEnumerator();
+        }
+
+        /// <summary>
+        /// マスタバージョン
+        /// </summary>
+        public String MasterVersion
+        {
+            get { return mMasterVersion; }
         }
 
         /// <summary>
@@ -162,10 +172,13 @@ namespace FeliCa2Money
             string[] xmlFiles = Directory.GetFiles(path, "*.xml");
             if (xmlFiles.Length == 0)
             {
-                if (MessageBox.Show(Properties.Resources.QueryCsvRuleDownload, Properties.Resources.Confirm,
-                    MessageBoxButtons.OKCancel) != DialogResult.OK) return false;
-
-                if (!DownloadRule()) return false;
+                // 定義ファイルがなければダウンロードさせる
+                CsvRulesUpdater updater = new CsvRulesUpdater();
+                if (!updater.ConfirmDownloadRule())
+                {
+                    // ダウンロード失敗 or ユーザキャンセル
+                    return false;
+                }
 
                 xmlFiles = Directory.GetFiles(path, "*.xml");                
             }
@@ -174,7 +187,11 @@ namespace FeliCa2Money
             {
                 try
                 {
-                    LoadFromFile(xmlFile);
+                    String version = LoadFromFile(xmlFile);
+                    if (Path.GetFileName(xmlFile) == CSV_MASTER_RULE_FILENAME)
+                    {
+                        mMasterVersion = version;
+                    }
                 }
                 catch (Exception)
                 {
@@ -188,17 +205,34 @@ namespace FeliCa2Money
         /// 定義ファイルを１つ読み込む
         /// </summary>
         /// <param name="path">定義ファイルパス</param>
-        private void LoadFromFile(string path)
+        /// <returns>バージョン文字列</returns>
+        public String LoadFromFile(string path)
         {
             XmlDocument doc = new XmlDocument();
             doc.Load(path);
 
-            LoadFromXml(doc);
+            return LoadFromXml(doc);
         }
 
-        private void LoadFromXml(XmlDocument doc)
+        public String LoadFromString(string xmlString)
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(xmlString);
+
+            return LoadFromXml(doc);
+        }
+
+        private String LoadFromXml(XmlDocument doc)
         {
             XmlElement root = doc.DocumentElement;
+
+            // Version 取得
+            String version = null;
+            XmlNodeList versionList = root.GetElementsByTagName("Version");
+            if (versionList.Count > 0)
+            {
+                version = versionList[0].FirstChild.Value;
+            }
 
             // Rule 子要素について処理
             XmlNodeList list = root.GetElementsByTagName("Rule");
@@ -252,37 +286,17 @@ namespace FeliCa2Money
 
                 mRules.Add(rule);
             }
+
+            return version;
         }
 
-        /// <summary>
-        /// 定義ファイルをダウンロードする
-        /// </summary>
-        /// <returns></returns>
-        public static bool DownloadRule()
-        {
-            string path = getRulesPath() + "\\CsvRules.xml";
-
-            WebClient w = new WebClient();
-            try
-            {
-                w.DownloadFile(CSV_RULE_URL, path);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, Properties.Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-
-            MessageBox.Show(Properties.Resources.UpdateCompleted, Properties.Resources.OnlineUpdate, MessageBoxButtons.OK, MessageBoxIcon.Information);
-            return true;
-        }
 
         /// <summary>
         /// 定義ファイルのディレクトリを返す
         /// UserAppDataPath からバージョン番号を除いたものが帰る
         /// </summary>
         /// <returns></returns>
-        private static string getRulesPath()
+        public static string getRulesPath()
         {
             string path = Application.LocalUserAppDataPath;
             path = System.IO.Path.GetDirectoryName(path);

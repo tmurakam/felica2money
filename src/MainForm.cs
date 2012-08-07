@@ -57,6 +57,12 @@ namespace FeliCa2Money
                     processAgrFile(filepath);
                 }
             }
+            else
+            {
+                // 通常起動時 : CSVアップデート処理
+                CsvRulesUpdater updater = new CsvRulesUpdater();
+                updater.CheckUpdate();
+            }
         }
 
         private void buttonQuit_Click(object sender, EventArgs e)

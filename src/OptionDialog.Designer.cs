@@ -44,6 +44,7 @@
             this.buttonAssoc = new System.Windows.Forms.Button();
             this.buttonDeAssoc = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.labelCsvVersion = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -164,7 +165,7 @@
             this.buttonCsvRulesUpdate.Name = "buttonCsvRulesUpdate";
             this.buttonCsvRulesUpdate.Size = new System.Drawing.Size(178, 34);
             this.buttonCsvRulesUpdate.TabIndex = 5;
-            this.buttonCsvRulesUpdate.Text = "CSV変換定義のオンライン更新";
+            this.buttonCsvRulesUpdate.Text = "CSV変換定義のアップデート";
             this.buttonCsvRulesUpdate.UseVisualStyleBackColor = true;
             this.buttonCsvRulesUpdate.Click += new System.EventHandler(this.buttonCsvRulesUpdate_Click);
             // 
@@ -211,11 +212,21 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Agurippa電子明細の関連付け";
             // 
+            // labelCsvVersion
+            // 
+            this.labelCsvVersion.AutoSize = true;
+            this.labelCsvVersion.Location = new System.Drawing.Point(211, 204);
+            this.labelCsvVersion.Name = "labelCsvVersion";
+            this.labelCsvVersion.Size = new System.Drawing.Size(163, 12);
+            this.labelCsvVersion.TabIndex = 11;
+            this.labelCsvVersion.Text = "CSV定義バージョン: xxxxxxxxxx";
+            // 
             // OptionDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(444, 353);
+            this.Controls.Add(this.labelCsvVersion);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.checkOfxVer2);
             this.Controls.Add(this.buttonCsvRulesUpdate);
@@ -255,5 +266,6 @@
         private System.Windows.Forms.Button buttonAssoc;
         private System.Windows.Forms.Button buttonDeAssoc;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label labelCsvVersion;
     }
 }

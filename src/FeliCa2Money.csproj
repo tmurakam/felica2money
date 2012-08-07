@@ -93,6 +93,7 @@
     </Compile>
     <Compile Include="CsvRule.cs" />
     <Compile Include="CsvRules.cs" />
+    <Compile Include="CsvRulesUpdater.cs" />
     <Compile Include="CsvUtil.cs" />
     <Compile Include="FelicaCard.cs" />
     <Compile Include="FelicaLib.cs" />

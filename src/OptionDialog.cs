@@ -1,7 +1,7 @@
 /*
  * FeliCa2Money
  *
- * Copyright (C) 2001-2011 Takuya Murakami
+ * Copyright (C) 2001-2012 Takuya Murakami
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -37,13 +37,19 @@ namespace FeliCa2Money
         [DllImport("user32.dll", CharSet = CharSet.Unicode)]
         public static extern IntPtr SendMessage(IntPtr hWnd, int Msg, IntPtr wParam, IntPtr lParam);
 
+        private CsvRules mCsvRules;
+
         public OptionDialog()
         {
             InitializeComponent();
 
             LoadProperties();
+
+            mCsvRules = new CsvRules();
+            updateCsvMasterRuleVersion();
         }
 
+        // プロパティを全部ロードする
         public void LoadProperties()
         {
             Properties.Settings s = Properties.Settings.Default;
@@ -89,9 +95,29 @@ namespace FeliCa2Money
             s.Save();
         }
 
+        // CSVマスタルールバージョン表示
+        private void updateCsvMasterRuleVersion()
+        {
+            mCsvRules.LoadAllRules();
+            String text = "CSV定義バージョン : ";
+            if (mCsvRules.MasterVersion == null)
+            {
+                text += "なし";
+            }
+            else
+            {
+                text += mCsvRules.MasterVersion;
+            }
+            labelCsvVersion.Text = text;
+        }
+
+        // CSV ルール更新確認
         private void buttonCsvRulesUpdate_Click(object sender, EventArgs e)
         {
-            CsvRules.DownloadRule();
+            if (new CsvRulesUpdater().CheckUpdate(true))
+            {
+                updateCsvMasterRuleVersion();
+            }
         }
 
         // AGR関連付け
