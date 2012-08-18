@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CsvRules>
-  <Version>20120807.01</Version>
+  <Version>20120818.01</Version>
   <Rule>
     <Ident>UltrasoftMoneyLink</Ident>
     <Name>Ultrasoft MoneyLink (Excel⇒CSV書き出し)</Name>
@@ -228,6 +228,22 @@
     <Name>東急TOP&amp;カード</Name>
     <Format>Date,Desc,Dummy,Dummy,Dummy,Dummy,Outgo,Dummy,Dummy,Dummy,Dummy,Dummy,Dummy</Format>
     <Order>Sort</Order>
+  </Rule>
+
+  <Rule>
+    <Ident>PocketCard</Ident>
+    <Name>ポケットカード</Name>
+    <FirstLine>ご利用日,ご利用先,ご利用金額,割引額,ご請求金額,,お支払区分,入金,分割払い・海外利用の内容</FirstLine>
+    <Format>Date,Desc,Dummy,Dummy,Outgo,Dummy,Dummy,Income,Memo</Format>
+    <Order>Ascent</Order>
+  </Rule>
+
+  <Rule>
+    <Ident>JaccsCard</Ident>
+    <Name>ジャックスカード</Name>
+    <FirstLine>ご利用年月日,ご利用店名/現地通貨額,ご利用都市名など/円換算レート,ご利用者,支払開始年月,支払回数,今回何回目,ご利用金額（円）,手数料・利息・諸費用（円）,今回のお支払金額（円）,お支払後残高（円）</FirstLine>
+    <Format>Date,Desc,Memo,Dummy,Dummy,Dummy,Dummy,Dummy,Dummy,Outgo,Balance</Format>
+    <Order>Ascent</Order>
   </Rule>
 
 </CsvRules>
