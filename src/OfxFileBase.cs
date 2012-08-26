@@ -92,7 +92,6 @@ namespace FeliCa2Money
         /// </summary>
         public void Execute()
         {
-            const int ERROR_NO_ASSOCIATION = 1155; // Win32 エラー
             String errorMessage = null;
 
             try
