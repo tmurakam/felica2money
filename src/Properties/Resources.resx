@@ -190,4 +190,7 @@
   <data name="RequireBankId" xml:space="preserve">
     <value>金融機関を選択してください</value>
   </data>
+  <data name="NoOfxAssociation" xml:space="preserve">
+    <value>OFXファイルにアプリケーションが関連付けられていません。関連付けを行うか、オプションでOFXファイル名を手動で指定かつ自動起動しないようにしてください。</value>
+  </data>
 </root>

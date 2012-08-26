@@ -36,6 +36,8 @@ namespace FeliCa2Money
     /// </summary>
     abstract public class OfxFile
     {
+        private const int ERROR_NO_ASSOCIATION = 1155; // Win32 エラーコード
+
         private string mOfxFilePath;
 
         /// <summary>
@@ -90,7 +92,34 @@ namespace FeliCa2Money
         /// </summary>
         public void Execute()
         {
-            System.Diagnostics.Process.Start(mOfxFilePath);
+            const int ERROR_NO_ASSOCIATION = 1155; // Win32 エラー
+            String errorMessage = null;
+
+            try
+            {
+                // throw new System.ComponentModel.Win32Exception(1155); // for test
+                System.Diagnostics.Process.Start(mOfxFilePath);
+            }
+            catch (System.ComponentModel.Win32Exception ex)
+            {
+                if (ex.NativeErrorCode == ERROR_NO_ASSOCIATION)
+                {
+                    errorMessage = Properties.Resources.NoOfxAssociation;
+                }
+                else
+                {
+                    errorMessage = ex.Message;
+                }
+            }
+            catch (Exception ex)
+            {
+                errorMessage = ex.Message;
+            }
+
+            if (errorMessage != null)
+            {
+                MessageBox.Show(errorMessage, Properties.Resources.Error);
+            }
         }
     }
 }
