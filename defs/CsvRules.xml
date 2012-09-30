@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CsvRules>
-  <Version>20120818.01</Version>
+  <Version>20120930.01</Version>
   <Rule>
     <Ident>UltrasoftMoneyLink</Ident>
     <Name>Ultrasoft MoneyLink (Excel⇒CSV書き出し)</Name>
@@ -245,5 +245,21 @@
     <Format>Date,Desc,Memo,Dummy,Dummy,Dummy,Dummy,Dummy,Dummy,Outgo,Balance</Format>
     <Order>Ascent</Order>
   </Rule>
+  
+  <Rule>
+    <Ident>YahooCard</Ident>
+    <Name>ヤフーカード</Name>
+    <FirstLine>ご利用内容,ご利用日,ご利用者,ご利用金額,支払方法,今回回数,お支払い総額,今回お支払金額,適用</FirstLine>
+    <Format>Desc,Date,Dummy,Outgo,Dummy,Dummy,Dummy,Dummy,Memo</Format>
+    <Order>Ascent</Order>
+  </Rule>
+
+  <Rule>
+    <Ident>NishiChugoku</Ident>
+    <Name>西中国信用金庫</Name>
+    <Format>Dummy, Date, Desc, Outgo, Income, Balance</Format>
+    <Order>Ascent</Order>
+  </Rule>
+
 
 </CsvRules>
