@@ -118,6 +118,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Transactions.cs" />
     <EmbeddedResource Include="CsvAccountDialog.resx">
       <DependentUpon>CsvAccountDialog.cs</DependentUpon>
     </EmbeddedResource>

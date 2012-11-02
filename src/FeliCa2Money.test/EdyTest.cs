@@ -65,7 +65,7 @@ namespace FeliCa2Money.test
             });
 
             FeliCa2Money.Edy c = new FeliCa2Money.Edy();
-            List<Transaction> tlist = c.ReadTransactions(f);
+            Transactions tlist = c.ReadTransactions(f);
             Assert.AreEqual(3, tlist.Count);
             Transaction t;
 

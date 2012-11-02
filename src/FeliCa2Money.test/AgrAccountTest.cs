@@ -85,7 +85,7 @@ namespace FeliCa2Money.test
             Assert.True(account.readTransaction("\"2010/1/2\", \"DESCRIPTION\", \"100\", \"JPY\", \"--\", \"\", \"123456\", \"JPY\""));
             Assert.AreEqual(1, account.transactions.Count);
 
-            Transaction t = account.transactions[0];
+            Transaction t = account.transactions.getAt(0);
             Assert.AreEqual(DateTime.Parse("2010/1/2").ToString(), t.date.ToString());
             Assert.AreEqual("DESCRIPTION", t.desc);
             Assert.AreEqual(100, t.value);
