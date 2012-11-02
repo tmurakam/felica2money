@@ -174,6 +174,10 @@ namespace FeliCa2Money.test
             mAccount.ReadTransactions();
             Assert.AreEqual(6, mAccount.transactions.Count);
 
+            // ID自動採番。本来は CsvAccount ではなく TransactionList
+            // でテストすべき。
+            mAccount.transactions.assignTransactionId();
+
             Assert.AreEqual(0, mAccount.transactions.getAt(0).id);
             Assert.AreEqual(1, mAccount.transactions.getAt(1).id);
             Assert.AreEqual(2, mAccount.transactions.getAt(2).id);
