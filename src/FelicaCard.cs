@@ -52,7 +52,7 @@ namespace FeliCa2Money
         /// 後処理
         /// </summary>
         /// <param name="list"></param>
-        protected virtual void PostProcess(Transactions transactions) { }
+        protected virtual void PostProcess(TransactionList transactions) { }
 
         /// <summary>
         /// Dispose 処理
@@ -96,9 +96,9 @@ namespace FeliCa2Money
         /// </summary>
         /// <param name="f"></param>
         /// <returns></returns>
-        public Transactions ReadTransactions(IFelica f)
+        public TransactionList ReadTransactions(IFelica f)
         {
-            Transactions transactions = new Transactions();
+            TransactionList transactions = new TransactionList();
 
             f.Polling(mSystemCode);
 
@@ -182,7 +182,7 @@ namespace FeliCa2Money
         }
 
         // 残高から金額を計算する
-        private void CalcValueFromBalance(Transactions transactions)
+        private void CalcValueFromBalance(TransactionList transactions)
         {
             int prevBalance = 0;
 

@@ -34,7 +34,7 @@ namespace FeliCa2Money
         protected string mAccountId = "";   // 口座番号
         protected string mAccountName;         // アカウント名(カード名etc)
 
-        protected Transactions mTransactions = new Transactions(); // 取引リスト
+        protected TransactionList mTransactions = new TransactionList(); // 取引リスト
 
         protected bool mHasBalance = false; // 残高があるか
         protected int mBalance = 0; // 残高
@@ -97,7 +97,7 @@ namespace FeliCa2Money
             get { return mIsCreditCard; }
         }
 
-        public Transactions transactions
+        public TransactionList transactions
         {
             get { return mTransactions; }
         }

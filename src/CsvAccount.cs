@@ -72,7 +72,7 @@ namespace FeliCa2Money
         /// </summary>
         public override void ReadTransactions()
         {
-            Transactions transactions = new Transactions();
+            TransactionList transactions = new TransactionList();
             string line;
 
             while ((line = mSr.ReadLine()) != null)
