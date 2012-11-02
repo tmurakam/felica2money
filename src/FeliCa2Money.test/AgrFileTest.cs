@@ -129,7 +129,7 @@ namespace FeliCa2Money.test
             Assert.AreEqual("CARD_ABC1", account.accountId);
             Assert.True(account.hasBalance);
             Assert.AreEqual(-1000, account.balance);
-            Assert.IsEmpty(account.transactions);
+            Assert.IsEmpty(account.transactions.list);
         }
 
         [Test]
