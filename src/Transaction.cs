@@ -185,29 +185,5 @@ namespace FeliCa2Money
             longId += String.Format("{0:0000000}", id);
             return longId;
         }
-
-        // トランザクションIDの採番
-        public static void assignTransactionId(List<Transaction> transactions)
-        {
-            int idSerial = 0;
-            DateTime prevDate = new DateTime(1900, 1, 1, 0, 0, 0);
-
-            foreach (Transaction t in transactions)
-            {
-                if (t.isIdUnassigned())
-                {
-                    if (t.date == prevDate)
-                    {
-                        idSerial++;
-                    }
-                    else
-                    {
-                        idSerial = 0;
-                        prevDate = t.date;
-                    }
-                    t.id = idSerial;
-                }
-            }
-        }
     }
 }

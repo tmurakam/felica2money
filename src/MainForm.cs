@@ -207,10 +207,11 @@ namespace FeliCa2Money
 
         private void generateOfx(List<Account> accounts)
         {
-            // 明細件数をチェック
+            // 明細件数チェックおよび取引IDの生成
             int count = 0;
             foreach (Account account in accounts)
             {
+                account.transactions.assignTransactionId();
                 count += account.transactions.Count;
             }
             if (count == 0)

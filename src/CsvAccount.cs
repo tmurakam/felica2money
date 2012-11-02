@@ -111,9 +111,6 @@ namespace FeliCa2Money
                     break;
             }
 
-            // ID採番
-            transactions.assignTransactionId();
-
             mTransactions = transactions;
         }
 
