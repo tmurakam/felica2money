@@ -201,7 +201,6 @@ namespace FeliCa2Money
 
             // ID
             string id = getCol(row, "Id");
-            t.id = Transaction.UNASSIGNED_ID;
             if (id != null)
             {
                 try

@@ -117,7 +117,7 @@ namespace FeliCa2Money
 
             foreach (Transaction t in transactions)
             {
-                if (t.id == Transaction.UNASSIGNED_ID)
+                if (t.isIdUnassigned())
                 {
                     if (t.date == prevDate)
                     {

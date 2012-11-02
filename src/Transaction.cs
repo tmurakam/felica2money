@@ -43,13 +43,13 @@ namespace FeliCa2Money
     {
         public const int UNASSIGNED_ID = -1;
 
-        public int id = UNASSIGNED_ID; // ID
-        public DateTime date;
-        public TransType type;        // トランザクションタイプ
-        public string desc = "";
-        public string memo = "";
-        public int value = 0;      // 金額
-        public int balance = 0;    // 残高
+        private int mId = UNASSIGNED_ID; // ID
+        private DateTime mDate;
+        private TransType mType;        // トランザクションタイプ
+        private string mDesc = "";
+        private string mMemo = "";
+        private int mValue = 0;      // 金額
+        private int mBalance = 0;    // 残高
 
         private bool mValid = true;
 
@@ -57,6 +57,50 @@ namespace FeliCa2Money
         private static Hashtable mTransOutgo;
         private static Hashtable mTransStrings;
 
+        // プロパティ
+        public int id
+        {
+            get { return this.mId; }
+            set { mId = value; }
+        }
+        public DateTime date
+        {
+            get { return mDate; }
+            set { mDate = value; }
+        }
+        public TransType type
+        {
+            get { return mType; }
+            set { mType = value; }
+        }
+        public string desc
+        {
+            get { return mDesc; }
+            set { mDesc = value; }
+        }
+        public string memo
+        {
+            get { return mMemo; }
+            set { mMemo = value; }
+        }
+        public int value
+        {
+            get { return mValue; }
+            set { mValue = value; }
+        }
+        public int balance
+        {
+            get { return mBalance; }
+            set { mBalance = value; }
+        }
+
+        public bool isIdUnassigned()
+        {
+            return (mId == UNASSIGNED_ID);
+        }
+    
+
+        // 初期化
         static Transaction()
         {
             // initialize
