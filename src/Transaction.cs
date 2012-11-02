@@ -130,5 +130,16 @@ namespace FeliCa2Money
         {
             return t.value == 0;
         }
+
+        //
+        // トランザクションID の生成
+        //
+        public string transId()
+        {
+            /* トランザクションの ID は日付と取引番号で生成 */
+            string longId = String.Format("{0:0000}{1:00}{2:00}", date.Year, date.Month, date.Day);
+            longId += String.Format("{0:0000000}", id);
+            return longId;
+        }
     }
 }

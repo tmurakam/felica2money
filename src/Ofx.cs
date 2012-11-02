@@ -242,7 +242,7 @@ namespace FeliCa2Money
             appendElementWithText(e, "TRNAMT", t.value.ToString());
 
             // トランザクションの ID は日付と取引番号で生成
-            appendElementWithText(e, "FITID", transId(t));
+            appendElementWithText(e, "FITID", t.transId());
             appendElementWithText(e, "NAME", limitString(t.desc, 32));
             if (t.memo != null)
             {
@@ -291,14 +291,6 @@ namespace FeliCa2Money
             s += String.Format("{0:00}{1:00}{2:00}", d.Hour, d.Minute, d.Second);
             s += "[+9:JST]";
             return s;
-        }
-
-        private string transId(Transaction t)
-        {
-            /* トランザクションの ID は日付と取引番号で生成 */
-            string longId = String.Format("{0:0000}{1:00}{2:00}", t.date.Year, t.date.Month, t.date.Day);
-            longId += String.Format("{0:0000000}", t.id);
-            return longId;
         }
 
         private string limitString(string s, int maxlen)
