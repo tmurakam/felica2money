@@ -429,6 +429,7 @@ namespace FeliCa2Money
             }
 
             // ID採番
+            // TODO:
             transaction.id = 0;
             if (mTransactions.Count > 0)
             {

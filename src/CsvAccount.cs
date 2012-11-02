@@ -112,26 +112,8 @@ namespace FeliCa2Money
             }
 
             // ID採番
-            int idSerial = 0;
-            DateTime prevDate = new DateTime(1900, 1, 1, 0, 0, 0);
+            Transaction.assignTransactionId(transactions);
 
-            foreach (Transaction t in transactions)
-            {
-                if (t.isIdUnassigned())
-                {
-                    if (t.date == prevDate)
-                    {
-                       idSerial++;
-                    }
-                    else
-                    {
-                        idSerial = 0;
-                        prevDate = t.date;
-                    }
-                    t.id = idSerial;
-                }
-            }
-            
             mTransactions = transactions;
         }
 
