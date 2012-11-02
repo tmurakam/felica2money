@@ -72,7 +72,10 @@
     <Compile Include="Account.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="AgrFile.cs" />
+    <Compile Include="AgrAccount.cs" />
+    <Compile Include="AgrFile.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="card\Edy.cs" />
     <Compile Include="card\Nanaco.cs" />
     <Compile Include="card\Suica.cs" />
