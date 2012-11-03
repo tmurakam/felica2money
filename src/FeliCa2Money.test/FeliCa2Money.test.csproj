@@ -57,6 +57,7 @@
     <Compile Include="FelicaLibDummy.cs" />
     <Compile Include="OfxTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TransactionTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FeliCa2Money.csproj">
