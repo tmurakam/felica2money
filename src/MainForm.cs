@@ -211,7 +211,7 @@ namespace FeliCa2Money
             int count = 0;
             foreach (Account account in accounts)
             {
-                account.transactions.assignTransactionId();
+                account.transactions.assignSerials();
                 count += account.transactions.Count;
             }
             if (count == 0)

@@ -57,10 +57,12 @@ namespace FeliCa2Money
             }
         }
 
-        // トランザクションIDの採番
-        public void assignTransactionId()
+        // シリアル番号の採番
+        // ID が付与されていない取引について、同一日付内でシリアル番号を採番する。
+        // Note: mList は日付順にソートされている必要がある
+        public void assignSerials()
         {
-            int idSerial = 0;
+            int serial = 0;
             DateTime prevDate = new DateTime(1900, 1, 1, 0, 0, 0);
 
             foreach (Transaction t in mList)
@@ -69,14 +71,14 @@ namespace FeliCa2Money
                 {
                     if (t.date == prevDate)
                     {
-                        idSerial++;
+                        serial++;
                     }
                     else
                     {
-                        idSerial = 0;
+                        serial = 0;
                         prevDate = t.date;
                     }
-                    t.id = idSerial;
+                    t.serial = serial;
                 }
             }
         }

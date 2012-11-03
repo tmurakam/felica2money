@@ -51,11 +51,16 @@ namespace FeliCa2Money
         private int mValue = 0;      // 金額
         private int mBalance = 0;    // 残高
 
+        // 取引ID生成用のシリアル番号。mId が UNASSIGNED_ID の場合にのみ使用
+        private int mSerial = 0; 
+
         private bool mValid = true;
 
         private static Hashtable mTransIncome;
         private static Hashtable mTransOutgo;
         private static Hashtable mTransStrings;
+
+        private static System.Security.Cryptography.MD5 sMd5 = new System.Security.Cryptography.MD5CryptoServiceProvider();
 
         // プロパティ
         public int id
@@ -92,6 +97,11 @@ namespace FeliCa2Money
         {
             get { return mBalance; }
             set { mBalance = value; }
+        }
+        public int serial
+        {
+            get { return mSerial; }
+            set { mSerial = value; }
         }
 
         public bool isIdUnassigned()
@@ -180,10 +190,38 @@ namespace FeliCa2Money
         //
         public string transId()
         {
-            /* トランザクションの ID は日付と取引番号で生成 */
-            string longId = String.Format("{0:0000}{1:00}{2:00}", date.Year, date.Month, date.Day);
-            longId += String.Format("{0:0000000}", id);
-            return longId;
+            string tid;
+            if (!isIdUnassigned())
+            {
+                /* トランザクションの ID は日付と取引番号で生成 */
+                tid = String.Format("{0:0000}{1:00}{2:00}", mDate.Year, mDate.Month, mDate.Day);
+                tid += String.Format("{0:0000000}", mId);
+            }
+            else
+            {
+                /* 日付とハッシュで生成 */
+                tid = makeHash();
+            }
+            return tid;
+        }
+
+        // トランザクションの hash を生成する
+        private string makeHash()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendFormat("{0};{1};{2};", mDate.Year, mDate.Month, mDate.Day);
+            sb.AppendFormat("{0};{1};{2};{3}", mSerial, mValue, mDesc, mMemo);
+
+            // MD5 ハッシュを計算
+            byte[] hash = sMd5.ComputeHash(Encoding.UTF8.GetBytes(sb.ToString()));
+
+            // 16進文字列に変換
+            StringBuilder result = new StringBuilder();
+            foreach (byte b in hash)
+            {
+                result.Append(b.ToString("x2"));
+            }
+            return result.ToString();
         }
     }
 }
