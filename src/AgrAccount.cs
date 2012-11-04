@@ -84,7 +84,6 @@ namespace FeliCa2Money
 
         private AgrAccount()
         {
-            mTransactions = new List<Transaction>();
         }
 
         public override void ReadTransactions()
@@ -286,18 +285,6 @@ namespace FeliCa2Money
                 transaction.balance = 0;
             }
 
-            // ID採番
-            // TODO:
-            transaction.id = 0;
-            if (mTransactions.Count > 0)
-            {
-                Transaction prev = mTransactions[mTransactions.Count - 1];
-
-                if (transaction.date == prev.date)
-                {
-                    transaction.id = prev.id + 1;
-                }
-            }
             mTransactions.Add(transaction);
 
             return true;

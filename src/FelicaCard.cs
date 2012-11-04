@@ -52,7 +52,7 @@ namespace FeliCa2Money
         /// 後処理
         /// </summary>
         /// <param name="list"></param>
-        protected virtual void PostProcess(List<Transaction> list) { }
+        protected virtual void PostProcess(TransactionList transactions) { }
 
         /// <summary>
         /// Dispose 処理
@@ -96,9 +96,9 @@ namespace FeliCa2Money
         /// </summary>
         /// <param name="f"></param>
         /// <returns></returns>
-        public List<Transaction> ReadTransactions(IFelica f)
+        public TransactionList ReadTransactions(IFelica f)
         {
-            List<Transaction> list = new List<Transaction>();
+            TransactionList transactions = new TransactionList();
 
             f.Polling(mSystemCode);
 
@@ -145,20 +145,20 @@ namespace FeliCa2Money
                 {
                     t.Invalidate();
                 }
-                list.Add(t);
+                transactions.Add(t);
             }
 
             if (mNeedReverse)
             {
-                list.Reverse();
+                transactions.Reverse();
             }
             if (mNeedCalcValue)
             {
-                CalcValueFromBalance(list);
+                CalcValueFromBalance(transactions);
             }
-            PostProcess(list);
+            PostProcess(transactions);
 
-            return list;
+            return transactions;
         }
 
         //-------------------------------------------------------------------
@@ -182,16 +182,16 @@ namespace FeliCa2Money
         }
 
         // 残高から金額を計算する
-        private void CalcValueFromBalance(List<Transaction> list)
+        private void CalcValueFromBalance(TransactionList transactions)
         {
             int prevBalance = 0;
 
-            foreach (Transaction t in list)
+            foreach (Transaction t in transactions.list)
             {
                 t.value = t.balance - prevBalance;
                 prevBalance = t.balance;
             }
-            list.RemoveAt(0);   // 最古のエントリは捨てる
+            transactions.list.RemoveAt(0);   // 最古のエントリは捨てる
         }
 
         // 複数バイト読み込み (big endian)

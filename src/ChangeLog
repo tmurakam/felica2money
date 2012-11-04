@@ -1,3 +1,7 @@
+2012-11-02 : Takuya Murakami
+	* リファクタリング
+	* 取引IDのアサイン処理を変更。TransactionListクラス新設。
+	
 2012-08-27 : Takuya Murakami
 	* OFX ファイルに関連付けがない状態でOFXファイルを起動したときに
 	  例外が発生する問題を修正

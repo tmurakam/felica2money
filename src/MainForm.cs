@@ -187,12 +187,12 @@ namespace FeliCa2Money
             }
 
             // 無効な取引を削除する
-            c.transactions.RemoveAll(Transaction.isInvalid);
+            c.transactions.removeInvalidTransactions();
 
             // 0円の取引を削除する
             if (Properties.Settings.Default.IgnoreZeroTransaction)
             {
-                c.transactions.RemoveAll(Transaction.isZeroTransaction);
+                c.transactions.removeZeroTransactions();
             }
 
             return true;
@@ -207,10 +207,11 @@ namespace FeliCa2Money
 
         private void generateOfx(List<Account> accounts)
         {
-            // 明細件数をチェック
+            // 明細件数チェックおよび取引IDの生成
             int count = 0;
             foreach (Account account in accounts)
             {
+                account.transactions.assignSerials();
                 count += account.transactions.Count;
             }
             if (count == 0)

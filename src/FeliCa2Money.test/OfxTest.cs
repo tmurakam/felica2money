@@ -14,7 +14,6 @@ namespace FeliCa2Money.test
     {
         public TestAccount()
         {
-            mTransactions = new List<Transaction>();
         }
 
         public override void ReadTransactions()

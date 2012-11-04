@@ -72,7 +72,7 @@ namespace FeliCa2Money
         /// </summary>
         public override void ReadTransactions()
         {
-            List<Transaction> transactions = new List<Transaction>();
+            TransactionList transactions = new TransactionList();
             string line;
 
             while ((line = mSr.ReadLine()) != null)
@@ -107,12 +107,9 @@ namespace FeliCa2Money
                     break;
 
                 case CsvRule.SortOrder.Auto:
-                    transactions.Sort(compareByDate);
+                    transactions.list.Sort(compareByDate);
                     break;
             }
-
-            // ID採番
-            Transaction.assignTransactionId(transactions);
 
             mTransactions = transactions;
         }
