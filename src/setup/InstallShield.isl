@@ -55,7 +55,7 @@
 		<subject>FeliCa2Money</subject>
 		<author>##ID_STRING3##</author>
 		<keywords>Installer,MSI,Database</keywords>
-		<comments>Contact:  Your local administrator</comments>
+		<comments>##ID_STRING7##</comments>
 		<template>Intel;1033</template>
 		<lastauthor>Administrator</lastauthor>
 		<revnumber>{407489D0-29CC-47B3-8758-AF09569AC754}</revnumber>
@@ -912,7 +912,7 @@
 		<row><td>CustomSetup</td><td>Next</td><td>NewDialog</td><td>ReadyToInstall</td><td>OutOfNoRbDiskSpace &lt;&gt; 1</td><td>0</td></row>
 		<row><td>CustomSetup</td><td>Next</td><td>[_IsSetupTypeMin]</td><td>Custom</td><td>1</td><td>0</td></row>
 		<row><td>CustomSetupTips</td><td>OK</td><td>EndDialog</td><td>Return</td><td>1</td><td>1</td></row>
-		<row><td>CustomerInformation</td><td>Back</td><td>NewDialog</td><td>InstallWelcome</td><td>NOT Installed</td><td>1</td></row>
+		<row><td>CustomerInformation</td><td>Back</td><td>NewDialog</td><td>LicenseAgreement</td><td>NOT Installed</td><td>1</td></row>
 		<row><td>CustomerInformation</td><td>Cancel</td><td>SpawnDialog</td><td>CancelSetup</td><td>1</td><td>0</td></row>
 		<row><td>CustomerInformation</td><td>Next</td><td>EndDialog</td><td>Exit</td><td>(SERIALNUMVALRETRYLIMIT) And (SERIALNUMVALRETRYLIMIT&lt;0) And (SERIALNUMVALRETURN&lt;&gt;SERIALNUMVALSUCCESSRETVAL)</td><td>2</td></row>
 		<row><td>CustomerInformation</td><td>Next</td><td>NewDialog</td><td>DestinationFolder</td><td>(Not SERIALNUMVALRETURN) OR (SERIALNUMVALRETURN=SERIALNUMVALSUCCESSRETVAL)</td><td>3</td></row>
@@ -923,7 +923,7 @@
 		<row><td>DatabaseFolder</td><td>ChangeFolder</td><td>SpawnDialog</td><td>InstallChangeFolder</td><td>1</td><td>1</td></row>
 		<row><td>DatabaseFolder</td><td>ChangeFolder</td><td>[_BrowseProperty]</td><td>DATABASEDIR</td><td>1</td><td>2</td></row>
 		<row><td>DatabaseFolder</td><td>Next</td><td>NewDialog</td><td>SetupType</td><td>1</td><td>1</td></row>
-		<row><td>DestinationFolder</td><td>Back</td><td>NewDialog</td><td>LicenseAgreement</td><td>NOT Installed</td><td>0</td></row>
+		<row><td>DestinationFolder</td><td>Back</td><td>NewDialog</td><td>CustomerInformation</td><td>NOT Installed</td><td>0</td></row>
 		<row><td>DestinationFolder</td><td>Cancel</td><td>SpawnDialog</td><td>CancelSetup</td><td>1</td><td>1</td></row>
 		<row><td>DestinationFolder</td><td>ChangeFolder</td><td>SpawnDialog</td><td>InstallChangeFolder</td><td>1</td><td>1</td></row>
 		<row><td>DestinationFolder</td><td>ChangeFolder</td><td>[_BrowseProperty]</td><td>INSTALLDIR</td><td>1</td><td>2</td></row>
@@ -944,7 +944,7 @@
 		<row><td>LicenseAgreement</td><td>Back</td><td>NewDialog</td><td>InstallWelcome</td><td>NOT Installed</td><td>0</td></row>
 		<row><td>LicenseAgreement</td><td>Cancel</td><td>SpawnDialog</td><td>CancelSetup</td><td>1</td><td>0</td></row>
 		<row><td>LicenseAgreement</td><td>ISPrintButton</td><td>DoAction</td><td>ISPrint</td><td>1</td><td>0</td></row>
-		<row><td>LicenseAgreement</td><td>Next</td><td>NewDialog</td><td>DestinationFolder</td><td>AgreeToLicense = "Yes"</td><td>0</td></row>
+		<row><td>LicenseAgreement</td><td>Next</td><td>NewDialog</td><td>CustomerInformation</td><td>AgreeToLicense = "Yes"</td><td>0</td></row>
 		<row><td>MaintenanceType</td><td>Back</td><td>NewDialog</td><td>MaintenanceWelcome</td><td>1</td><td>0</td></row>
 		<row><td>MaintenanceType</td><td>Cancel</td><td>SpawnDialog</td><td>CancelSetup</td><td>1</td><td>0</td></row>
 		<row><td>MaintenanceType</td><td>Next</td><td>NewDialog</td><td>CustomSetup</td><td>_IsMaintenance = "Change"</td><td>12</td></row>
@@ -1013,9 +1013,10 @@
 		<row><td>SetupCompleteError</td><td>Finish</td><td>DoAction</td><td>ShowMsiLog</td><td>MsiLogFileLocation And (ISSHOWMSILOG="1")</td><td>3</td></row>
 		<row><td>SetupCompleteError</td><td>Finish</td><td>EndDialog</td><td>Exit</td><td>1</td><td>2</td></row>
 		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>CleanUp</td><td>ISSCRIPTRUNNING="1"</td><td>1</td></row>
+		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>LaunchProgramFileFromSetupCompleteSuccess</td><td>LAUNCHPROGRAM And PROGRAMFILETOLAUNCHATEND &lt;&gt; "" And NOT Installed</td><td>3</td></row>
 		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>LaunchReadmeFileFromSetupCompleteSuccess</td><td>LAUNCHREADME And READMEFILETOLAUNCHATEND &lt;&gt; "" And NOT Installed</td><td>2</td></row>
-		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>ShowMsiLog</td><td>MsiLogFileLocation And (ISSHOWMSILOG="1") And NOT ISENABLEDWUSFINISHDIALOG</td><td>7</td></row>
-		<row><td>SetupCompleteSuccess</td><td>OK</td><td>EndDialog</td><td>Exit</td><td>1</td><td>3</td></row>
+		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>ShowMsiLog</td><td>MsiLogFileLocation And (ISSHOWMSILOG="1") And NOT ISENABLEDWUSFINISHDIALOG</td><td>8</td></row>
+		<row><td>SetupCompleteSuccess</td><td>OK</td><td>EndDialog</td><td>Exit</td><td>1</td><td>4</td></row>
 		<row><td>SetupError</td><td>A</td><td>EndDialog</td><td>ErrorAbort</td><td>1</td><td>0</td></row>
 		<row><td>SetupError</td><td>C</td><td>EndDialog</td><td>ErrorCancel</td><td>1</td><td>0</td></row>
 		<row><td>SetupError</td><td>I</td><td>EndDialog</td><td>ErrorIgnore</td><td>1</td><td>0</td></row>
@@ -1069,6 +1070,7 @@
 		<row><td>ISSelfRegisterFiles</td><td>3073</td><td>ISSELFREG.DLL</td><td>ISSelfRegisterFiles</td><td/><td/></row>
 		<row><td>ISSelfRegisterFinalize</td><td>1</td><td>ISSELFREG.DLL</td><td>ISSelfRegisterFinalize</td><td/><td/></row>
 		<row><td>ISUnSelfRegisterFiles</td><td>3073</td><td>ISSELFREG.DLL</td><td>ISUnSelfRegisterFiles</td><td/><td/></row>
+		<row><td>LaunchProgramFileFromSetupCompleteSuccess</td><td>1</td><td>NewBinary19</td><td>LaunchProgram</td><td/><td/></row>
 		<row><td>LaunchReadmeFileFromSetupCompleteSuccess</td><td>1</td><td>NewBinary19</td><td>LaunchReadMe</td><td/><td/></row>
 		<row><td>SetARPINSTALLLOCATION</td><td>51</td><td>ARPINSTALLLOCATION</td><td>[INSTALLDIR]</td><td/><td/></row>
 		<row><td>SetAllUsersProfileNT</td><td>51</td><td>ALLUSERSPROFILE</td><td>[%SystemRoot]\Profiles\All Users</td><td/><td/></row>
@@ -1882,6 +1884,7 @@
 		<row><td>File</td><td>Component</td><td>FeliCa2Money.プライマリ出力</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;FeliCa2Money&gt;|Built</td><td>3</td><td/></row>
 		<row><td>felicalib.dll</td><td>felicalib.dll</td><td>FELICA~1.DLL|felicalib.dll</td><td>0</td><td/><td/><td/><td>1</td><td>D:\dev\felica2money\src\setup\felicalib.dll</td><td>1</td><td/></row>
 		<row><td>license.rtf</td><td>ISX_DEFAULTCOMPONENT</td><td>LICENSE.rtf</td><td>0</td><td/><td/><td/><td>1</td><td>D:\dev\felica2money\src\setup\LICENSE.rtf</td><td>1</td><td/></row>
+		<row><td>readme.rtf</td><td>ISX_DEFAULTCOMPONENT</td><td>README.rtf</td><td>0</td><td/><td/><td/><td>1</td><td>D:\dev\felica2money\src\setup\README.rtf</td><td>1</td><td/></row>
 		<row><td>stationcode.mdb</td><td>ISX_DEFAULTCOMPONENT</td><td>STATIO~1.MDB|StationCode.mdb</td><td>0</td><td/><td/><td/><td>1</td><td>D:\dev\felica2money\src\setup\StationCode.mdb</td><td>1</td><td/></row>
 	</table>
 
@@ -2739,7 +2742,7 @@
 		<col def="I2">Order</col>
 		<col def="I2">ISSetupLocation</col>
 		<col def="S255">ISReleaseFlags</col>
-		<row><td>_9C6D5DED_43A7_4C01_9C4C_9F81F6278ECE_</td><td>Microsoft .NET Framework 3.5 (Web Download).prq</td><td/><td>2</td><td/></row>
+		<row><td>_D67F7514_1935_46F6_81F8_92CCD1817A24_</td><td>Microsoft .NET Framework 3.5 (Web Download).prq</td><td/><td>1</td><td/></row>
 	</table>
 
 	<table name="ISSetupType">
@@ -2774,7 +2777,7 @@
 		<col def="S0">Comment</col>
 		<col def="I4">TimeStamp</col>
 		<row><td>COMPANY_NAME</td><td>1033</td><td>Nom de votre société</td><td>0</td><td/><td>631282197</td></row>
-		<row><td>COMPANY_NAME</td><td>1041</td><td>Takuya Murakami</td><td>0</td><td/><td>631251509</td></row>
+		<row><td>COMPANY_NAME</td><td>1041</td><td>Murakami Software</td><td>0</td><td/><td>631274134</td></row>
 		<row><td>DN_AlwaysInstall</td><td>1033</td><td>Toujours installer</td><td>0</td><td/><td>631282197</td></row>
 		<row><td>DN_AlwaysInstall</td><td>1041</td><td>常にインストール</td><td>0</td><td/><td>631282197</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_COLOR</td><td>1033</td><td>Les paramètres couleur de votre système ne sont pas adaptés à l'exécution de [ProductName].</td><td>0</td><td/><td>631282197</td></row>
@@ -4980,14 +4983,20 @@
 		<row><td>ID_STRING1</td><td>1033</td><td/><td>0</td><td/><td>631282197</td></row>
 		<row><td>ID_STRING1</td><td>1041</td><td/><td>0</td><td/><td>631282197</td></row>
 		<row><td>ID_STRING2</td><td>1033</td><td>http://felica2money.tmurakam.org</td><td>0</td><td/><td>631282197</td></row>
-		<row><td>ID_STRING2</td><td>1041</td><td>http://felica2money.tmurakam.org</td><td>0</td><td/><td>631282197</td></row>
+		<row><td>ID_STRING2</td><td>1041</td><td>http://felica2money.tmurakam.org</td><td>0</td><td/><td>631298678</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>Takuya Murakami</td><td>0</td><td/><td>631282197</td></row>
-		<row><td>ID_STRING3</td><td>1041</td><td>Takuya Murakami</td><td>0</td><td/><td>631282197</td></row>
+		<row><td>ID_STRING3</td><td>1041</td><td>Takuya Murakami</td><td>0</td><td/><td>631263766</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>FeliCa2Money</td><td>0</td><td/><td>631282197</td></row>
 		<row><td>ID_STRING4</td><td>1041</td><td>FeliCa2Money</td><td>0</td><td/><td>631282197</td></row>
 		<row><td>ID_STRING5</td><td>1033</td><td>http://felica2money.tmurakam.org</td><td>0</td><td/><td>631261749</td></row>
 		<row><td>ID_STRING5</td><td>1036</td><td>http://felica2money.tmurakam.org</td><td>0</td><td/><td>631261749</td></row>
-		<row><td>ID_STRING5</td><td>1041</td><td>http://felica2money.tmurakam.org</td><td>0</td><td/><td>631261749</td></row>
+		<row><td>ID_STRING5</td><td>1041</td><td>http://felica2money.tmurakam.org</td><td>0</td><td/><td>631243414</td></row>
+		<row><td>ID_STRING6</td><td>1033</td><td>http://felica2money.tmurakam.org</td><td>0</td><td/><td>631251606</td></row>
+		<row><td>ID_STRING6</td><td>1036</td><td>http://felica2money.tmurakam.org</td><td>0</td><td/><td>631251606</td></row>
+		<row><td>ID_STRING6</td><td>1041</td><td>http://felica2money.tmurakam.org</td><td>0</td><td/><td>631251606</td></row>
+		<row><td>ID_STRING7</td><td>1033</td><td>This installer database contains the logic and data required to install FeliCa2Money.</td><td>0</td><td/><td>765474487</td></row>
+		<row><td>ID_STRING7</td><td>1036</td><td>This installer database contains the logic and data required to install FeliCa2Money.</td><td>0</td><td/><td>765474487</td></row>
+		<row><td>ID_STRING7</td><td>1041</td><td>This installer database contains the logic and data required to install FeliCa2Money.</td><td>0</td><td/><td>765474487</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>La fonction ne sera pas installée.</td><td>0</td><td/><td>631282197</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1041</td><td>{&amp;Tahoma9}この機能をアンインストールしたままにします。</td><td>0</td><td/><td>631282197</td></row>
 	</table>
@@ -5097,6 +5106,8 @@
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I2">ISIconIndex</col>
 		<row><td>ARPPRODUCTICON.exe</td><td/><td>D:\dev\felica2money\src\Resources\Felica2Money.ico</td><td>0</td></row>
+		<row><td>_3A20B556CAAC437DA33D7F3D28E487CF.exe</td><td/><td>D:\dev\felica2money\src\obj\x86\Release\FeliCa2Money.exe</td><td>0</td></row>
+		<row><td>_95E1E1ED2608488B936F7D02E4CF7CD2.exe</td><td/><td>D:\dev\felica2money\src\obj\x86\Release\FeliCa2Money.exe</td><td>0</td></row>
 	</table>
 
 	<table name="IniFile">
@@ -5215,7 +5226,7 @@
 UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 			</td></row>
 		<row><td>DefaultProductConfiguration</td><td>Express</td></row>
-		<row><td>EnableSwidtag</td><td>1</td></row>
+		<row><td>EnableSwidtag</td><td>0</td></row>
 		<row><td>ISCompilerOption_CompileBeforeBuild</td><td>1</td></row>
 		<row><td>ISCompilerOption_Debug</td><td>0</td></row>
 		<row><td>ISCompilerOption_IncludePath</td><td/></row>
@@ -5540,6 +5551,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ARPPRODUCTICON</td><td>ARPPRODUCTICON.exe</td><td/></row>
 		<row><td>ARPSIZE</td><td/><td/></row>
 		<row><td>ARPURLINFOABOUT</td><td>##ID_STRING2##</td><td/></row>
+		<row><td>ARPURLUPDATEINFO</td><td>##ID_STRING6##</td><td/></row>
 		<row><td>AgreeToLicense</td><td>No</td><td/></row>
 		<row><td>ApplicationUsers</td><td>AllUsers</td><td/></row>
 		<row><td>DWUSINTERVAL</td><td>30</td><td/></row>
@@ -5576,8 +5588,11 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>IS_SQLSERVER_USERNAME</td><td>sa</td><td/></row>
 		<row><td>InstallChoice</td><td>AR</td><td/></row>
 		<row><td>LAUNCHPREADMECOMPCODE</td><td>{1CCFE691-D142-4DF4-851D-9CA40AF62914}</td><td/></row>
-		<row><td>LAUNCHPREADMEFILEKEY</td><td>license.rtf</td><td/></row>
+		<row><td>LAUNCHPREADMEFILEKEY</td><td>readme.rtf</td><td/></row>
 		<row><td>LAUNCHPROGRAM</td><td>1</td><td/></row>
+		<row><td>LAUNCHPROGRAMCOMPCODE</td><td>{DA6C83A5-3F33-4C48-88DC-00157E22F041}</td><td/></row>
+		<row><td>LAUNCHPROGRAMFILEKEY</td><td>File</td><td/></row>
+		<row><td>LAUNCHREADME</td><td>1</td><td/></row>
 		<row><td>Manufacturer</td><td>##COMPANY_NAME##</td><td/></row>
 		<row><td>PIDKEY</td><td/><td/></row>
 		<row><td>PIDTemplate</td><td>12345&lt;###-%%%%%%%&gt;@@@@@</td><td/></row>
@@ -5604,6 +5619,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGMSG_IIS_ROLLBACKAPPPOOLS</td><td>##IDS_PROGMSG_IIS_ROLLBACKAPPPOOLS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKVROOTS</td><td>##IDS_PROGMSG_IIS_ROLLBACKVROOTS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
+		<row><td>PROGRAMFILETOLAUNCHATEND</td><td>[INSTALLDIR]FeliCa2Money.プライマリ出力</td><td/></row>
 		<row><td>ProductCode</td><td>{F7E07DE7-A0EE-45A5-87D9-8BDC1A8EBD55}</td><td/></row>
 		<row><td>ProductName</td><td>FeliCa2Money</td><td/></row>
 		<row><td>ProductVersion</td><td>3.3.0</td><td/></row>
@@ -5611,7 +5627,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>
 		<row><td>ProgressType3</td><td>installs</td><td/></row>
-		<row><td>READMEFILETOLAUNCHATEND</td><td>[INSTALLDIR]LICENSE.rtf</td><td/></row>
+		<row><td>READMEFILETOLAUNCHATEND</td><td>[INSTALLDIR]README.rtf</td><td/></row>
 		<row><td>RebootYesNo</td><td>Yes</td><td/></row>
 		<row><td>ReinstallFileVersion</td><td>o</td><td/></row>
 		<row><td>ReinstallModeText</td><td>omus</td><td/></row>
@@ -5619,7 +5635,8 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>RestartManagerOption</td><td>CloseRestart</td><td/></row>
 		<row><td>SERIALNUMBER</td><td/><td/></row>
 		<row><td>SERIALNUMVALSUCCESSRETVAL</td><td>1</td><td/></row>
-		<row><td>SHOWLAUNCHREADME</td><td>0</td><td/></row>
+		<row><td>SHOWLAUNCHPROGRAM</td><td>-1</td><td/></row>
+		<row><td>SHOWLAUNCHREADME</td><td>-1</td><td/></row>
 		<row><td>SecureCustomProperties</td><td>ISFOUNDNEWERPRODUCTVERSION;USERNAME;COMPANYNAME;ISX_SERIALNUM;SUPPORTDIR;DOTNETVERSION35</td><td/></row>
 		<row><td>SelectedSetupType</td><td>##IDS__DisplayName_Typical##</td><td/></row>
 		<row><td>SetupType</td><td>Typical</td><td/></row>
