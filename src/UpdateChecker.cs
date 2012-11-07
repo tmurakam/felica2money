@@ -67,14 +67,10 @@ namespace FeliCa2Money
             Properties.Settings s = Properties.Settings.Default;
 
             DateTime now = DateTime.Now;
-            DateTime lastUpdated = s.LastCsvRuleUpdated;
-            DateTime lastUpdateCheck = s.LastCsvRuleUpdateCheck;
 
-            s.LastCsvRuleUpdateCheck = now;
-            s.Save();
-
-            TimeSpan diff1 = now.Subtract(lastUpdated);
-            TimeSpan diff2 = now.Subtract(lastUpdateCheck);
+            TimeSpan diff1 = now.Subtract(this.lastUpdated);
+            TimeSpan diff2 = now.Subtract(this.lastUpdateCheck);
+            this.lastUpdateCheck = now;
 
             if (diff1.TotalHours > UPDATE_CHECK_INTERVAL_HOURS && diff2.TotalHours > UPDATE_CHECK_RETRY_HOURS)
             {
@@ -89,9 +85,10 @@ namespace FeliCa2Money
         /// </summary>
         protected void saveLastUpdated()
         {
-            Properties.Settings s = Properties.Settings.Default;
-            s.LastCsvRuleUpdated = DateTime.Now;
-            s.Save();
+            this.lastUpdated = DateTime.Now;
         }
+
+        abstract protected DateTime lastUpdated { get; set; }
+        abstract protected DateTime lastUpdateCheck { get; set; }
     }
 }

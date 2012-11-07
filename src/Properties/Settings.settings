@@ -38,5 +38,11 @@
     <Setting Name="LastCsvRuleUpdated" Type="System.DateTime" Scope="User">
       <Value Profile="(Default)">1970-01-01</Value>
     </Setting>
+    <Setting Name="LastVersionUpdateCheck" Type="System.DateTime" Scope="User">
+      <Value Profile="(Default)">1970-01-01</Value>
+    </Setting>
+    <Setting Name="LastVersionUpdateChecked" Type="System.DateTime" Scope="User">
+      <Value Profile="(Default)">1970-01-01</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -46,7 +46,7 @@ namespace FeliCa2Money
             }
 
             // タイトルにバージョンを表示
-            this.Text = "FeliCa2Money ver " + getVersion();
+            this.Text = "FeliCa2Money ver " + VersionUpdateChecker.getCurrentVersion();
         }
 
         // コマンドライン処理
@@ -63,18 +63,12 @@ namespace FeliCa2Money
             }
             else
             {
-                // 通常起動時 : CSVアップデート処理
+                // 通常起動時 : アップデート処理
+                new VersionUpdateChecker().CheckUpdate();
+
                 CsvRulesUpdater updater = new CsvRulesUpdater();
                 updater.CheckUpdate();
             }
-        }
-
-        // バージョン番号の取得
-        private string getVersion()
-        {
-            System.Reflection.Assembly asm = System.Reflection.Assembly.GetExecutingAssembly();
-            System.Version ver = asm.GetName().Version;
-            return String.Format("{0}.{1}.{2}", ver.Major, ver.Minor, ver.Revision);
         }
 
         private void buttonQuit_Click(object sender, EventArgs e)

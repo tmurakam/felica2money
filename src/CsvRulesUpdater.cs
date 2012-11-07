@@ -19,6 +19,25 @@ namespace FeliCa2Money
             return CSV_MASTER_RULE_URL;
         }
 
+        override protected DateTime lastUpdated
+        {
+            get { return Properties.Settings.Default.LastCsvRuleUpdated; }
+            set
+            {
+                Properties.Settings.Default.LastCsvRuleUpdated = value;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        override protected DateTime lastUpdateCheck
+        {
+            get { return Properties.Settings.Default.LastCsvRuleUpdateCheck; }
+            set { 
+                Properties.Settings.Default.LastCsvRuleUpdateCheck = value;
+                Properties.Settings.Default.Save();
+            }
+        }
+
         /// <summary>
         /// 定義ファイルダウンロードを確認する
         /// </summary>
