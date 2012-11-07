@@ -6,6 +6,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeliCa2Money.test", "FeliCa2Money.test\FeliCa2Money.test.csproj", "{02E97404-9875-4336-BAD1-A2362AE07459}"
 EndProject
 Project("{6141683F-8A12-4E36-9623-2EB02B2C2303}") = "InstallShield", "setup\InstallShield.isproj", "{455F66F3-AF70-4D48-BA7A-F4566540649C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{52D60189-078E-4895-9241-F9786395EE14} = {52D60189-078E-4895-9241-F9786395EE14}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,8 +41,8 @@ Global
 		{02E97404-9875-4336-BAD1-A2362AE07459}.SingleImage|x86.Build.0 = Release|x86
 		{455F66F3-AF70-4D48-BA7A-F4566540649C}.CD_ROM|x86.ActiveCfg = CD_ROM
 		{455F66F3-AF70-4D48-BA7A-F4566540649C}.CD_ROM|x86.Build.0 = CD_ROM
-		{455F66F3-AF70-4D48-BA7A-F4566540649C}.Debug|x86.ActiveCfg = DVD-5
-		{455F66F3-AF70-4D48-BA7A-F4566540649C}.Debug|x86.Build.0 = DVD-5
+		{455F66F3-AF70-4D48-BA7A-F4566540649C}.Debug|x86.ActiveCfg = SingleImage
+		{455F66F3-AF70-4D48-BA7A-F4566540649C}.Debug|x86.Build.0 = SingleImage
 		{455F66F3-AF70-4D48-BA7A-F4566540649C}.DVD-5|x86.ActiveCfg = DVD-5
 		{455F66F3-AF70-4D48-BA7A-F4566540649C}.DVD-5|x86.Build.0 = DVD-5
 		{455F66F3-AF70-4D48-BA7A-F4566540649C}.Release|x86.ActiveCfg = SingleImage
