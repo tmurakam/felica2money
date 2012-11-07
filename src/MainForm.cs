@@ -36,6 +36,7 @@ namespace FeliCa2Money
         {
             InitializeComponent();
 
+            // 設定のアップグレード
             Properties.Settings s = Properties.Settings.Default;
             if (s.IsFirstRun)
             {
@@ -43,6 +44,9 @@ namespace FeliCa2Money
                 s.IsFirstRun = false;
                 s.Save();
             }
+
+            // タイトルにバージョンを表示
+            this.Text = "FeliCa2Money ver " + getVersion();
         }
 
         // コマンドライン処理
@@ -63,6 +67,14 @@ namespace FeliCa2Money
                 CsvRulesUpdater updater = new CsvRulesUpdater();
                 updater.CheckUpdate();
             }
+        }
+
+        // バージョン番号の取得
+        private string getVersion()
+        {
+            System.Reflection.Assembly asm = System.Reflection.Assembly.GetExecutingAssembly();
+            System.Version ver = asm.GetName().Version;
+            return String.Format("{0}.{1}.{2}", ver.Major, ver.Minor, ver.Revision);
         }
 
         private void buttonQuit_Click(object sender, EventArgs e)
