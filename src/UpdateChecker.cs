@@ -47,10 +47,22 @@ namespace FeliCa2Money
         }
 
         /// <summary>
+        /// リモートファイルを指定したファイルにダウンロードする
+        /// エラー時は例外が発生する
+        /// </summary>
+        public void downloadToFile(string path)
+        {
+            WebClient w = new WebClient();
+            w.DownloadFile(getRemoteUrl(), path);
+
+            saveLastUpdated();
+        }
+
+        /// <summary>
         /// 更新時刻が到来したか調べる
         /// </summary>
         /// <returns></returns>
-        private bool isUpdateTime()
+        protected bool isUpdateTime()
         {
             Properties.Settings s = Properties.Settings.Default;
 
