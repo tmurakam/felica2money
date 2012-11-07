@@ -1,7 +1,11 @@
+2012-11-08 : Takuya Murakami
+	* インストーラを InstallShield に変更
+	* アプリバージョンアップチェック機能追加
+
 2012-11-02 : Takuya Murakami
 	* リファクタリング
 	* 取引IDのアサイン処理を変更。TransactionListクラス新設。
-	
+
 2012-08-27 : Takuya Murakami
 	* OFX ファイルに関連付けがない状態でOFXファイルを起動したときに
 	  例外が発生する問題を修正
@@ -9,7 +13,7 @@
 2012-08-07 : Takuya Murakami
 	* ver 3.2
 	* CSV定義自動更新機能を追加
-	
+
 2011-11-23 : Takuya Murakami
 	* CSV定義更新
 	* CSVルール定義で、複数カラムを読めるようにした (Desc/Memo の2つ)

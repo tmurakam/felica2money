@@ -7,22 +7,36 @@ using System.Xml;
 
 namespace FeliCa2Money
 {
-    class CsvRulesUpdater
+    class CsvRulesUpdater : UpdateChecker
     {
         /// <summary>
         /// マスタCSVルール定義ファイルの URL
         /// </summary>
         private const String CSV_MASTER_RULE_URL = "https://github.com/tmurakam/felica2money/raw/master/defs/CsvRules.xml";
 
-        /// <summary>
-        /// CSVルールアップデートチェック間隔 (HOURS)
-        /// </summary>
-        private const int UPDATE_CHECK_INTERVAL_HOURS = 7*24;
+        override protected string getRemoteUrl()
+        {
+            return CSV_MASTER_RULE_URL;
+        }
 
-        /// <summary>
-        /// CSVルールアップデートリトライ間隔 (HOURS)
-        /// </summary>
-        private const int UPDATE_CHECK_RETRY_HOURS = 6;
+        override protected DateTime lastUpdated
+        {
+            get { return Properties.Settings.Default.LastCsvRuleUpdated; }
+            set
+            {
+                Properties.Settings.Default.LastCsvRuleUpdated = value;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        override protected DateTime lastUpdateCheck
+        {
+            get { return Properties.Settings.Default.LastCsvRuleUpdateCheck; }
+            set { 
+                Properties.Settings.Default.LastCsvRuleUpdateCheck = value;
+                Properties.Settings.Default.Save();
+            }
+        }
 
         /// <summary>
         /// 定義ファイルダウンロードを確認する
@@ -88,31 +102,6 @@ namespace FeliCa2Money
         }
 
         /// <summary>
-        /// 定義ファイルをダウンロードする
-        /// </summary>
-        /// <returns></returns>
-        public bool DownloadRule()
-        {
-            string path = CsvRules.getRulesPath() + "\\" + CsvRules.CSV_MASTER_RULE_FILENAME;
-
-            WebClient w = new WebClient();
-            try
-            {
-                w.DownloadFile(CSV_MASTER_RULE_URL, path);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, Properties.Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-
-            MessageBox.Show(Properties.Resources.UpdateCompleted, Properties.Resources.OnlineUpdate, MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            saveLastUpdated();
-            return true;
-        }
-
-        /// <summary>
         /// オンライン定義ファイルのバージョンを取得する
         /// </summary>
         /// <returns>バージョン</returns>
@@ -120,52 +109,33 @@ namespace FeliCa2Money
         {
             CsvRules rules = new CsvRules();
 
-            WebClient w = new WebClient();
-            w.Encoding = System.Text.Encoding.UTF8;
-            try
+            String xml = downloadRemoteUrl();
+            if (xml == null)
             {
-                String xml = w.DownloadString(CSV_MASTER_RULE_URL);
-                return rules.LoadFromString(xml);
-            }
-            catch (Exception ex)
-            {
-                //バージョン取得失敗 : エラーにはしない
-                //MessageBox.Show(ex.Message, Properties.Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return null;
             }
+            return rules.LoadFromString(xml);
         }
 
         /// <summary>
-        /// 更新時刻が到来したか調べる
+        /// 定義ファイルをダウンロードする
         /// </summary>
         /// <returns></returns>
-        private bool isUpdateTime()
+        public bool DownloadRule()
         {
-            Properties.Settings s = Properties.Settings.Default;
+            string path = CsvRules.getRulesPath() + "\\" + CsvRules.CSV_MASTER_RULE_FILENAME;
 
-            DateTime now = DateTime.Now;
-            DateTime lastUpdated = s.LastCsvRuleUpdated;
-            DateTime lastUpdateCheck = s.LastCsvRuleUpdateCheck;
-
-            s.LastCsvRuleUpdateCheck = now;
-            s.Save();
-
-            TimeSpan diff1 = now.Subtract(lastUpdated);
-            TimeSpan diff2 = now.Subtract(lastUpdateCheck);
-
-            if (diff1.TotalHours > UPDATE_CHECK_INTERVAL_HOURS && diff2.TotalHours > UPDATE_CHECK_RETRY_HOURS)
+            try
             {
+                downloadToFile(path);
+                MessageBox.Show(Properties.Resources.UpdateCompleted, Properties.Resources.OnlineUpdate, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return true;
             }
-            //return true; // DEBUG 時のみ！
-            return false;
-        }
-
-        private void saveLastUpdated()
-        {
-            Properties.Settings s = Properties.Settings.Default;
-            s.LastCsvRuleUpdated = DateTime.Now;
-            s.Save();
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, Properties.Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
         }
     }
 }
