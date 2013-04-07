@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CsvRules>
-  <Version>20121217.01</Version>
+  <Version>20130407.01</Version>
   <Rule>
     <Ident>UltrasoftMoneyLink</Ident>
     <Name>Ultrasoft MoneyLink (Excel⇒CSV書き出し)</Name>
@@ -258,6 +258,14 @@
     <Ident>TobuCard</Ident>
     <Name>東武カード</Name>
     <Format>Date,Memo,Desc,Dummy,Outgo,Dummy,Dummy,Dummy</Format>
+    <Order>Ascent</Order>
+  </Rule>
+
+  <Rule>
+    <Ident>BTMUVisa</Ident>
+    <Name>三菱東京UFJ-VISA</Name>
+    <FirstLine>"利用日","利用者","利用区分","利用内容","新規利用額","今回請求額","支払回数","現地通貨額","通貨","為替相場","備考"</FirstLine>
+    <Format>Date,Dummy,Dummy,Desc,Outgo,Dummy,Dummy,Dummy,Dummy,Dummy,Memo</Format>
     <Order>Ascent</Order>
   </Rule>
 
