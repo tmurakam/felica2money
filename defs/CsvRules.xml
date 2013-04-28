@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CsvRules>
-  <Version>20130428.01</Version>
+  <Version>20130429.01</Version>
   <Rule>
     <Ident>UltrasoftMoneyLink</Ident>
     <Name>Ultrasoft MoneyLink (Excel⇒CSV書き出し)</Name>
@@ -17,6 +17,7 @@
     <Order>Ascent</Order>
   </Rule>
 
+ <!-- 銀行系 -->
  <Rule>
    <Ident>MitsubishiTokyoUFJ</Ident>
    <Name>三菱東京UFJ銀行</Name>
@@ -132,6 +133,7 @@
     <Order>Sort</Order>
   </Rule>
 
+  <!-- クレジットカード系 -->
   <Rule>
     <Ident>JALCard</Ident>
     <Name>JALカード</Name>
@@ -270,11 +272,19 @@
   </Rule>
 
   <Rule>
+    <Ident>UFJNicos</Ident>
+    <Name>三菱UFJニコス</Name>
+    <FirstLine>"利用日","利用者","利用区分","利用内容","新規利用額","今回請求額","支払回数","現地通貨額","通貨略称","換算レート","備考"</FirstLine>
+    <Format>Date,Dummy,Dummy,Desc,Dummy,Outgo,Dummy,Dummy,Dummy,Dummy,Memo</Format>
+    <Order>Ascent</Order>
+  </Rule>
+
+  <!-- その他 -->
+  <Rule>
     <Ident>NishiChugoku</Ident>
     <Name>西中国信用金庫</Name>
     <Format>Dummy, Date, Desc, Outgo, Income, Balance</Format>
     <Order>Ascent</Order>
   </Rule>
-
 
 </CsvRules>
