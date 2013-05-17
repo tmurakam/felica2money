@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CsvRules>
-  <Version>20130517.01</Version>
+  <Version>20130517.02</Version>
   <Rule>
     <Ident>UltrasoftMoneyLink</Ident>
     <Name>Ultrasoft MoneyLink (Excel⇒CSV書き出し)</Name>
@@ -20,7 +20,7 @@
  <!-- 銀行系 -->
  <Rule>
    <Ident>MitsubishiTokyoUFJ</Ident>
-   <Name>三菱東京UFJ銀行</Name>
+   <Name>三菱東京UFJ銀行(Eco通帳未使用)</Name>
    <BankId>0005</BankId>
    <FirstLine>"日付","摘要","摘要内容","支払い金額","預かり金額","差引残高"</FirstLine>
    <Format>Date,Memo,Desc,Outgo,Income,Balance</Format>
