@@ -1,4 +1,8 @@
+2013-05-17 : Takuya Murakami
+	* ハイフン区切り日付に対応
+	
 2012-11-08 : Takuya Murakami
+	* ver 3.3
 	* インストーラを InstallShield に変更
 	* アプリバージョンアップチェック機能追加
 
