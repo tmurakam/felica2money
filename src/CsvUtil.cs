@@ -118,7 +118,7 @@ namespace FeliCa2Money
             if (split.Length < 3)
             {
                 // '/' などで区切られている場合
-                split = date.Split(new Char[] { '/', '.', ' ' });
+                split = date.Split(new Char[] { '/', '.', ' ', '-' });
             }
 
             if (split.Length >= 3)
