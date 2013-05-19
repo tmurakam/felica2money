@@ -5107,7 +5107,13 @@
 		<col def="I2">ISIconIndex</col>
 		<row><td>ARPPRODUCTICON.exe</td><td/><td>D:\dev\felica2money\src\Resources\Felica2Money.ico</td><td>0</td></row>
 		<row><td>_3A20B556CAAC437DA33D7F3D28E487CF.exe</td><td/><td>D:\dev\felica2money\src\obj\x86\Release\FeliCa2Money.exe</td><td>0</td></row>
+		<row><td>_558D12A091004F49879C1BDB456B3630.exe</td><td/><td>D:\dev\felica2money\src\obj\x86\Debug\FeliCa2Money.exe</td><td>0</td></row>
+		<row><td>_7E0E09EE65BA4B228A530C670AFC72E6.exe</td><td/><td>D:\dev\felica2money\src\obj\x86\Debug\FeliCa2Money.exe</td><td>0</td></row>
+		<row><td>_7E26A935EDE14229BB1F9E26355F3318.exe</td><td/><td>D:\dev\felica2money\src\obj\x86\Debug\FeliCa2Money.exe</td><td>0</td></row>
+		<row><td>_8430CC9A03164AADB38F563435BBA2B1.exe</td><td/><td>D:\dev\felica2money\src\obj\x86\Debug\FeliCa2Money.exe</td><td>0</td></row>
 		<row><td>_95E1E1ED2608488B936F7D02E4CF7CD2.exe</td><td/><td>D:\dev\felica2money\src\obj\x86\Release\FeliCa2Money.exe</td><td>0</td></row>
+		<row><td>_9E506C346671406BACA7575D7F47DADC.exe</td><td/><td>D:\dev\felica2money\src\obj\x86\Debug\FeliCa2Money.exe</td><td>0</td></row>
+		<row><td>_CA600B272CA14CE38A57BCAF3A125751.exe</td><td/><td>D:\dev\felica2money\src\obj\x86\Debug\FeliCa2Money.exe</td><td>0</td></row>
 	</table>
 
 	<table name="IniFile">
@@ -5622,7 +5628,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGRAMFILETOLAUNCHATEND</td><td>[INSTALLDIR]FeliCa2Money.プライマリ出力</td><td/></row>
 		<row><td>ProductCode</td><td>{F7E07DE7-A0EE-45A5-87D9-8BDC1A8EBD55}</td><td/></row>
 		<row><td>ProductName</td><td>FeliCa2Money</td><td/></row>
-		<row><td>ProductVersion</td><td>3.3.0</td><td/></row>
+		<row><td>ProductVersion</td><td>3.4.0</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>
