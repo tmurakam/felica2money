@@ -22,7 +22,7 @@ Microsoft Money の電子明細(OFX形式ファイル)に変換するもので�
 必要環境
 --------
 
- * Windows 2000/XP/Vista/Windows 7 (x86/x64)
+ * Windows 2000/XP/Vista/Windows 7 (x86/x64)/Windows 8 (x86/x64)
  * .NET Framework 2.0 以降
  * 内蔵FeliCaポート、またはSONY 非接触 IC カードリーダー/ライター (PaSoRi)
  * PaSoRi 基本ソフトウェア
