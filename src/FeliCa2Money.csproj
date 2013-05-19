@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>FeliCa2Money</RootNamespace>
     <AssemblyName>FeliCa2Money</AssemblyName>
-    <ApplicationIcon>Resources\Felica2Money.ico</ApplicationIcon>
+    <ApplicationIcon>Felica2Money.ico</ApplicationIcon>
     <SignManifests>false</SignManifests>
     <ManifestCertificateThumbprint>3CAF450CD9F37AB00311C448D341F12E7846B44C</ManifestCertificateThumbprint>
     <ManifestKeyFile>FeliCa2Money_TemporaryKey.pfx</ManifestKeyFile>
@@ -168,6 +168,7 @@
     <None Include="Resources\Suica.bmp" />
     <None Include="Resources\Edy.bmp" />
     <None Include="Resources\CSV.bmp" />
+    <Content Include="Felica2Money.ico" />
     <Content Include="Resources\Agurippa.gif" />
     <Content Include="Resources\Nanaco.bmp" />
     <None Include="Resources\waon.bmp" />
