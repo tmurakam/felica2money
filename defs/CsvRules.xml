@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CsvRules>
-  <Version>20130517.02</Version>
+  <Version>20130616.01</Version>
   <Rule>
     <Ident>UltrasoftMoneyLink</Ident>
     <Name>Ultrasoft MoneyLink (Excel⇒CSV書き出し)</Name>
@@ -214,7 +214,7 @@
   <Rule>
     <Ident>FamimaTCard</Ident>
     <Name>ファミマTカード</Name>
-    <FirstLine>ご利用日,ご利用内容/店名,区分,ご利用金額(円),備考（海外ご利用分は、現地通貨額／換算レート）</FirstLine>
+    <FirstLine>ご利用日,ご利用内容/店名,利用区分,ご利用金額,備考</FirstLine>
     <Format>Date,Desc,Dummy,Outgo,Memo</Format>
     <Order>Ascent</Order>
   </Rule>
