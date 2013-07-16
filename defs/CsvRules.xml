@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CsvRules>
-  <Version>20130616.01</Version>
+  <Version>20130715.01</Version>
   <Rule>
     <Ident>UltrasoftMoneyLink</Ident>
     <Name>Ultrasoft MoneyLink (Excel⇒CSV書き出し)</Name>
@@ -285,6 +285,13 @@
     <Name>三菱UFJニコス</Name>
     <FirstLine>"利用日","利用者","利用区分","利用内容","新規利用額","今回請求額","支払回数","現地通貨額","通貨略称","換算レート","備考"</FirstLine>
     <Format>Date,Dummy,Dummy,Desc,Dummy,Outgo,Dummy,Dummy,Dummy,Dummy,Memo</Format>
+    <Order>Ascent</Order>
+  </Rule>
+
+  <Rule>
+    <Ident>Starlex</Ident>
+    <Name>シェルスターレックスカード</Name>
+    <Format>Dummy,Dummy,Desc,Date,Dummy,Dummy,Dummy,Dummy,Dummy,Dummy,Outgo</Format>
     <Order>Ascent</Order>
   </Rule>
 
