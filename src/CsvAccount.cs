@@ -56,15 +56,21 @@ namespace FeliCa2Money
 
             mSr = new StreamReader(path, System.Text.Encoding.Default);
 
-            // firstLine まで読み飛ばす
-            if (mRule.firstLine != null)
+        }
+
+        // firstLine まで読み飛ばす
+        private void skipToFirstLine()
+        {
+            if (mRule.firstLine == null) return;
+
+            string line;
+            while ((line = mSr.ReadLine()) != null)
             {
-                string line;
-                while ((line = mSr.ReadLine()) != null)
-                {
-                    if (line == mRule.firstLine) break;
-                }
+                if (line == mRule.firstLine) return;
             }
+
+            // 先頭行なし
+            throw new CsvReadException(Properties.Resources.NoCsvHeaderLine);
         }
 
         /// <summary>
@@ -72,8 +78,11 @@ namespace FeliCa2Money
         /// </summary>
         public override void ReadTransactions()
         {
+            skipToFirstLine();
+
             TransactionList transactions = new TransactionList();
             string line;
+            bool hasFormatError = false;
 
             while ((line = mSr.ReadLine()) != null)
             {
@@ -92,7 +101,14 @@ namespace FeliCa2Money
                     // ignore transaction
 
                     // MessageBox.Show(ex.Message, Properties.Resources.Error);
+                    hasFormatError = true;
                 }  
+            }
+
+            if (transactions.Count == 0 && hasFormatError)
+            {
+                // フォーマットエラー例外をスロー
+                throw new CsvReadException(Properties.Resources.CsvFormatError);
             }
 
             // ソート処理

@@ -80,6 +80,7 @@
     <Compile Include="card\Nanaco.cs" />
     <Compile Include="card\Suica.cs" />
     <Compile Include="card\Waon.cs" />
+    <Compile Include="CsvReadException.cs" />
     <Compile Include="CsvAccount.cs" />
     <Compile Include="CsvAccountDialog.cs">
       <SubType>Form</SubType>

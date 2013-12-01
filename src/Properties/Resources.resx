@@ -193,4 +193,10 @@
   <data name="NoOfxAssociation" xml:space="preserve">
     <value>OFXファイルにアプリケーションが関連付けられていません。関連付けを行うか、オプションでOFXファイル名を手動で指定かつ自動起動しないようにしてください。</value>
   </data>
+  <data name="CsvFormatError" xml:space="preserve">
+    <value>明細が一件もありません (CSVフォーマットエラー)</value>
+  </data>
+  <data name="NoCsvHeaderLine" xml:space="preserve">
+    <value>CSVの先頭行が見つかりません</value>
+  </data>
 </root>
