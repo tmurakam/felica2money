@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CsvRules>
-  <Version>20130715.01</Version>
+  <Version>20140201.01</Version>
   <Rule>
     <Ident>UltrasoftMoneyLink</Ident>
     <Name>Ultrasoft MoneyLink (Excel⇒CSV書き出し)</Name>
@@ -140,6 +140,15 @@
     <FirstLine>"取扱日付","お支払金額","お預り金額","取引区分","残高","摘要","メモ"</FirstLine>
     <Format>Date,Outgo,Income,Dummy,Balance,Desc,Memo</Format>
     <Order>Sort</Order>
+  </Rule>
+
+  <Rule>
+    <Ident>YokohamaBank</Ident>
+    <Name>横浜銀行</Name>
+    <BankId>0138</BankId>
+    <FirstLine>"取扱日付","お支払金額","お預り金額","取引区分","残高","摘要"</FirstLine>
+    <Format>Date,Outgo,Income,Dummy,Balance,Desc</Format>
+    <Order>Ascent</Order>
   </Rule>
 
   <!-- クレジットカード系 -->
