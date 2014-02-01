@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?OFX OFXHEADER="200" VERSION="200" SECURITY="NONE" OLDFILEUID="NONE" NEWFILEUID="NONE"?>
+<OFX>
+    <SIGNONMSGSRSV1>
+        <SONRS>
+            <STATUS>
+                <CODE>0</CODE>
+                <SEVERITY>INFO</SEVERITY>
+            </STATUS>
+            <DTSERVER>20130717012000[+9:JST]</DTSERVER>
+            <LANGUAGE>JPN</LANGUAGE>
+            <FI>
+                <ORG>TSB</ORG>
+            </FI>
+        </SONRS>
+    </SIGNONMSGSRSV1>
+    <INVSTMTMSGSRSV1>
+        <INVSTMTTRNRS>
+            <TRNUID>0</TRNUID>
+            <STATUS>
+                <CODE>0</CODE>
+                <SEVERITY>INFO</SEVERITY>
+            </STATUS>
+            <INVSTMTRS>
+                <DTASOF>20130716150000[+9:JST]</DTASOF>
+                <CURDEF>JPY</CURDEF>
+                <INVACCTFROM>
+                    <BROKERID>FELICA2MONEY DUMMY</BROKERID>
+                    <ACCTID>DUMMY</ACCTID>
+                </INVACCTFROM>
+                <INVPOSLIST>
+                    <POSSTOCK>
+                        <INVPOS>
+                            <SECID>
+                                <UNIQUEID>6701</UNIQUEID>
+                                <UNIQUEIDTYPE>JP:SIC</UNIQUEIDTYPE>
+                            </SECID>
+                            <HELDINACCT>CASH</HELDINACCT>
+                            <POSTYPE>LONG</POSTYPE>
+                            <UNITS>0</UNITS>
+                            <UNITPRICE>231</UNITPRICE>
+                            <MKTVAL>0</MKTVAL>
+                            <DTPRICEASOF>20130716150000[+9:JST]</DTPRICEASOF>
+                        </INVPOS>
+                    </POSSTOCK>
+                </INVPOSLIST>
+            </INVSTMTRS>
+        </INVSTMTTRNRS>
+    </INVSTMTMSGSRSV1>
+    <SECLISTMSGSRSV1>
+        <SECLIST>
+            <STOCKINFO>
+                <SECINFO>
+                    <SECID>
+                        <UNIQUEID>6701</UNIQUEID>
+                        <!--
+                            UNIQUEIDTYPE は以下の値のいずれか。
+                            JP:SIC 証券コード
+                            JP:ITAJ 投資信託
+                        -->
+                        <UNIQUEIDTYPE>JP:SIC</UNIQUEIDTYPE>
+                    </SECID>
+                    <!-- 有価証券名 -->
+                    <SECNAME>ＮＥＣ</SECNAME>
+                    <!-- 以下は必須でない -->
+                    <TICKER>6701</TICKER>
+                    <UNITPRICE>231</UNITPRICE>
+                    <DTASOF>20130716150000[+9:JST]</DTASOF>
+                </SECINFO>
+                <STOCKTYPE>COMMON</STOCKTYPE>
+                <YIELD>0</YIELD>
+            </STOCKINFO>
+        </SECLIST>
+    </SECLISTMSGSRSV1>
+</OFX>
