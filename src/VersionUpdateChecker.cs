@@ -12,7 +12,8 @@ namespace FeliCa2Money
 
         protected override string getRemoteUrl()
         {
-            return "https://github.com/tmurakam/felica2money/raw/master/defs/RecentVersion.txt";
+            //return "https://github.com/tmurakam/felica2money/raw/master/defs/RecentVersion.txt";
+            return "https://raw.githubusercontent.com/tmurakam/felica2money/master/defs/RecentVersion.txt";
         }
 
         override protected DateTime lastUpdated
