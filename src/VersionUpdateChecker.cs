@@ -84,7 +84,7 @@ namespace FeliCa2Money
         {
             System.Reflection.Assembly asm = System.Reflection.Assembly.GetExecutingAssembly();
             System.Version ver = asm.GetName().Version;
-            return String.Format("{0}.{1}.{2}", ver.Major, ver.Minor, ver.Revision);
+            return String.Format("{0}.{1}.{2}", ver.Major, ver.Minor, ver.Build);
         }
     }
 }
