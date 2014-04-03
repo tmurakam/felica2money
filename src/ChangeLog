@@ -1,5 +1,6 @@
 2014-04-03 : Takuya Murakami
 	* CSV 定義ファイルのダウンロードURL修正 (github)
+	* Windows 2000/XPサポート削除
 
 2013-12-02 : Takuya Murakami
 	* CSV 読み取りエラー時のメッセージ処理追加
