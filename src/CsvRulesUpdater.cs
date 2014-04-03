@@ -13,7 +13,8 @@ namespace FeliCa2Money
         /// マスタCSVルール定義ファイルの URL
         /// </summary>
         //private const String CSV_MASTER_RULE_URL = "https://github.com/tmurakam/felica2money/raw/master/defs/CsvRules.xml";
-        private const String CSV_MASTER_RULE_URL = "https://raw.githubusercontent.com/tmurakam/felica2money/master/defs/CsvRules.xml";
+        //private const String CSV_MASTER_RULE_URL = "https://raw.githubusercontent.com/tmurakam/felica2money/master/defs/CsvRules.xml";
+        private const String CSV_MASTER_RULE_URL = "http://felica2money.tmurakam.org/data/CsvRules.php";
 
         override protected string getRemoteUrl()
         {
