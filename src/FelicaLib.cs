@@ -53,7 +53,8 @@ namespace FelicaLib
             {
                 throw new Exception("felicalib.dll を開けません");
             }
-            if (pasori_init(pasorip) != 0)
+            int result = pasori_init(pasorip);
+            if (result != 0)
             {
                 throw new Exception("PaSoRi に接続できません");
             }
@@ -77,7 +78,7 @@ namespace FelicaLib
         {
             felica_free(felicap);
 
-            felicap = felica_polling(pasorip, (ushort)systemcode, 0, 0);
+            felicap = felica_polling(pasorip, (ushort)systemcode, 0, 0/*Time Slot Number*/);
             if (felicap == IntPtr.Zero)
             {
                 throw new Exception("カード読み取り失敗");
