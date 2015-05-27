@@ -1,3 +1,6 @@
+2014-04-04 : Takuya Murakami
+	* ver 3.4.1
+
 2014-04-03 : Takuya Murakami
 	* CSV 定義ファイルのダウンロードURL修正 (github)
 	* Windows 2000/XPサポート削除

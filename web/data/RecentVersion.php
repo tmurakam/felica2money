@@ -18,6 +18,9 @@ curl_setopt($conn, CURLOPT_HEADER, false);
 //curl_setopt($conn, CURLOPT_USERAGENT, "curl");
 curl_setopt($conn, CURLOPT_VERBOSE, false);
 
+// disable SSLv3
+curl_setopt($conn, CURLOPT_SSLVERSION, 4);
+
 $response = curl_exec($conn);
 
 curl_close($conn);
