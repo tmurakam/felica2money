@@ -2,3 +2,7 @@
 *.bak
 *.stackdump
 referenceData/
+.idea/
+LogFiles/
+Reports/
+_notes/
