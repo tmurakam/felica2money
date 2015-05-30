@@ -8,3 +8,6 @@ obj/
 *.pdf
 Output/
 Backup/
+
+# NuGet
+packages/

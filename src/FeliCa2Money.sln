@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2010
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeliCa2Money", "FeliCa2Money.csproj", "{52D60189-078E-4895-9241-F9786395EE14}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeliCa2Money.test", "FeliCa2Money.test\FeliCa2Money.test.csproj", "{02E97404-9875-4336-BAD1-A2362AE07459}"
@@ -8,6 +10,11 @@ EndProject
 Project("{6141683F-8A12-4E36-9623-2EB02B2C2303}") = "InstallShield", "setup\InstallShield.isproj", "{455F66F3-AF70-4D48-BA7A-F4566540649C}"
 	ProjectSection(ProjectDependencies) = postProject
 		{52D60189-078E-4895-9241-F9786395EE14} = {52D60189-078E-4895-9241-F9786395EE14}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{1B767D5C-9100-48A5-9AED-DB9AA4C03F2A}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
 EndProject
 Global
