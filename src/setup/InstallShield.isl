@@ -341,9 +341,9 @@
 		<col def="S0">ISDotNetInstallerArgsCommit</col>
 		<col def="S0">ISDotNetInstallerArgsUninstall</col>
 		<col def="S0">ISDotNetInstallerArgsRollback</col>
-		<row><td>Component</td><td>{DA6C83A5-3F33-4C48-88DC-00157E22F041}</td><td>INSTALLDIR</td><td>2</td><td/><td>File</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Component</td><td>{B0B5C69D-644B-4223-9B79-2329C0BD52FB}</td><td>INSTALLDIR</td><td>2</td><td/><td>File</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT</td><td>{1CCFE691-D142-4DF4-851D-9CA40AF62914}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>felicalib.dll</td><td>{328D41CA-591D-4841-952C-799A6FACDED4}</td><td>INSTALLDIR</td><td>2</td><td/><td>felicalib.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>felicalib.dll</td><td>{53854929-94E5-4244-BF89-12EB909BE774}</td><td>INSTALLDIR</td><td>2</td><td/><td>felicalib.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 	</table>
 
 	<table name="Condition">
@@ -1884,7 +1884,7 @@
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I4">ISAttributes</col>
 		<col def="S72">ISComponentSubFolder_</col>
-		<row><td>File</td><td>Component</td><td>FeliCa2Money.プライマリ出力</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;FeliCa2Money&gt;|Built</td><td>3</td><td/></row>
+		<row><td>File</td><td>Component</td><td>FeliCa2Money.プライマリ出力</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;FeliCa2Money1&gt;|Built</td><td>3</td><td/></row>
 		<row><td>felicalib.dll</td><td>felicalib.dll</td><td>FELICA~1.DLL|felicalib.dll</td><td>0</td><td/><td/><td/><td>1</td><td>D:\dev\felica2money\src\setup\felicalib.dll</td><td>1</td><td/></row>
 		<row><td>license.rtf</td><td>ISX_DEFAULTCOMPONENT</td><td>LICENSE.rtf</td><td>0</td><td/><td/><td/><td>1</td><td>D:\dev\felica2money\src\setup\LICENSE.rtf</td><td>1</td><td/></row>
 		<row><td>readme.rtf</td><td>ISX_DEFAULTCOMPONENT</td><td>README.rtf</td><td>0</td><td/><td/><td/><td>1</td><td>D:\dev\felica2money\src\setup\README.rtf</td><td>1</td><td/></row>
@@ -2032,9 +2032,9 @@
 		<col def="S0">FTPLocation</col>
 		<col def="S0">HTTPLocation</col>
 		<col def="S0">Miscellaneous</col>
-		<row><td>Component</td><td/><td/><td>_4C56E673_4D98_406D_AA91_643EF6C28BFC_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Component</td><td/><td/><td>_81872F97_2D14_43B2_9468_5AC06F8B31AE_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT</td><td/><td/><td>_FA2C9614_2C11_406B_A1FD_1BD501D9F8C7_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>felicalib.dll</td><td/><td/><td>_EE48C14B_5FC8_4CD9_A55C_B36716F9B045_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>felicalib.dll</td><td/><td/><td>_CAF99AA7_A1D7_43C5_8AD3_94AF1FFA0776_FILTER</td><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="ISCustomActionReference">
@@ -2339,6 +2339,7 @@
 		<col def="i4">Type</col>
 		<row><td>CommonFilesFolder</td><td/><td/><td>1</td></row>
 		<row><td>FeliCa2Money</td><td>FeliCa2Money.csproj</td><td/><td>2</td></row>
+		<row><td>FeliCa2Money1</td><td>FeliCa2Money\FeliCa2Money.csproj</td><td/><td>2</td></row>
 		<row><td>ISPROJECTDIR</td><td/><td/><td>1</td></row>
 		<row><td>ISProductFolder</td><td/><td/><td>1</td></row>
 		<row><td>ISProjectDataFolder</td><td/><td/><td>1</td></row>
@@ -4987,7 +4988,7 @@
 		<col def="V0">Data</col>
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I2">ISIconIndex</col>
-		<row><td>ARPPRODUCTICON.exe</td><td/><td>D:\dev\felica2money\src\Resources\Felica2Money.ico</td><td>0</td></row>
+		<row><td>ARPPRODUCTICON.exe</td><td/><td>D:\dev\felica2money\src\FeliCa2Money\Felica2Money.ico</td><td>0</td></row>
 		<row><td>_06C9B9B4FDE8403A8C6D549A2789C3B9.exe</td><td/><td>D:\dev\felica2money\src\bin\Release\FeliCa2Money.exe</td><td>0</td></row>
 		<row><td>_0E74F33C0E774EA196888201B9C06814.exe</td><td/><td>D:\dev\felica2money\src\obj\x86\Debug\FeliCa2Money.exe</td><td>0</td></row>
 		<row><td>_2464E4812487492988A393824AA44235.exe</td><td/><td>D:\dev\felica2money\src\obj\x86\Debug\FeliCa2Money.exe</td><td>0</td></row>
@@ -5599,9 +5600,6 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="L255">FileName</col>
 		<col def="s72">DirProperty</col>
 		<col def="i2">InstallMode</col>
-		<row><td>FileKey1</td><td>Component</td><td/><td>takuya_1_takuya_murakami</td><td>2</td></row>
-		<row><td>FileKey2</td><td>Component</td><td/><td>felica_1_felica2money</td><td>2</td></row>
-		<row><td>_Built</td><td>Component</td><td/><td>felica_1_felica2money</td><td>2</td></row>
 	</table>
 
 	<table name="RemoveIniFile">
@@ -5687,8 +5685,6 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="S255">ISComments</col>
 		<col def="S255">ISShortcutName</col>
 		<col def="I4">ISAttributes</col>
-		<row><td>_Built</td><td>felica_1_felica2money</td><td>##IDS_SHORTCUT_DISPLAY_NAME1##</td><td>Component</td><td>AlwaysInstall</td><td/><td/><td/><td/><td/><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>_Built1</td><td>DesktopFolder</td><td>##IDS_SHORTCUT_DISPLAY_NAME1##</td><td>Component</td><td>AlwaysInstall</td><td/><td/><td/><td/><td/><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="Signature">

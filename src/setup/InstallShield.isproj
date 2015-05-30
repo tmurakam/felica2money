@@ -29,7 +29,7 @@
 	</ItemGroup>
 	<Import Project="$(MSBuildExtensionsPath32)\InstallShield\2013Limited\InstallShield.targets"/>
 	<ItemGroup>
-		<ProjectReference Include="..\FeliCa2Money.csproj">
+		<ProjectReference Include="..\FeliCa2Money\FeliCa2Money.csproj">
 			<Name>FeliCa2Money</Name>
 			<Project>{52D60189-078E-4895-9241-F9786395EE14}</Project>
 		</ProjectReference>

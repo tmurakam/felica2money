@@ -59,7 +59,7 @@
     <Compile Include="TransactionTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FeliCa2Money.csproj">
+    <ProjectReference Include="..\FeliCa2Money\FeliCa2Money.csproj">
       <Project>{52D60189-078E-4895-9241-F9786395EE14}</Project>
       <Name>FeliCa2Money</Name>
     </ProjectReference>
