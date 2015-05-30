@@ -2621,7 +2621,7 @@
 		<col def="I2">Order</col>
 		<col def="I2">ISSetupLocation</col>
 		<col def="S255">ISReleaseFlags</col>
-		<row><td>_D67F7514_1935_46F6_81F8_92CCD1817A24_</td><td>Microsoft .NET Framework 3.5 (Web Download).prq</td><td/><td>1</td><td/></row>
+		<row><td>_C1602AF7_F3BA_46EC_AC54_4E4FBB198CF3_</td><td>Microsoft .NET Framework 3.5 (Web Download).prq</td><td/><td/><td/></row>
 	</table>
 
 	<table name="ISSetupType">
@@ -4988,11 +4988,13 @@
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I2">ISIconIndex</col>
 		<row><td>ARPPRODUCTICON.exe</td><td/><td>D:\dev\felica2money\src\Resources\Felica2Money.ico</td><td>0</td></row>
+		<row><td>_06C9B9B4FDE8403A8C6D549A2789C3B9.exe</td><td/><td>D:\dev\felica2money\src\bin\Release\FeliCa2Money.exe</td><td>0</td></row>
 		<row><td>_0E74F33C0E774EA196888201B9C06814.exe</td><td/><td>D:\dev\felica2money\src\obj\x86\Debug\FeliCa2Money.exe</td><td>0</td></row>
 		<row><td>_2464E4812487492988A393824AA44235.exe</td><td/><td>D:\dev\felica2money\src\obj\x86\Debug\FeliCa2Money.exe</td><td>0</td></row>
 		<row><td>_2E1CF286B34E45EB9B586D922961BAA1.exe</td><td/><td>D:\dev\felica2money\src\obj\x86\Debug\FeliCa2Money.exe</td><td>0</td></row>
 		<row><td>_3A20B556CAAC437DA33D7F3D28E487CF.exe</td><td/><td>D:\dev\felica2money\src\obj\x86\Release\FeliCa2Money.exe</td><td>0</td></row>
 		<row><td>_558D12A091004F49879C1BDB456B3630.exe</td><td/><td>D:\dev\felica2money\src\obj\x86\Debug\FeliCa2Money.exe</td><td>0</td></row>
+		<row><td>_5B44CA33243D4B3588FFDDB6452A996A.exe</td><td/><td>D:\dev\felica2money\src\bin\Release\FeliCa2Money.exe</td><td>0</td></row>
 		<row><td>_7E0E09EE65BA4B228A530C670AFC72E6.exe</td><td/><td>D:\dev\felica2money\src\obj\x86\Debug\FeliCa2Money.exe</td><td>0</td></row>
 		<row><td>_7E26A935EDE14229BB1F9E26355F3318.exe</td><td/><td>D:\dev\felica2money\src\obj\x86\Debug\FeliCa2Money.exe</td><td>0</td></row>
 		<row><td>_8430CC9A03164AADB38F563435BBA2B1.exe</td><td/><td>D:\dev\felica2money\src\obj\x86\Debug\FeliCa2Money.exe</td><td>0</td></row>
