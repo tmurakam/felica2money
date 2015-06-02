@@ -23,19 +23,19 @@ namespace FeliCa2Money
         protected const int UPDATE_CHECK_RETRY_HOURS = 6;
 
         // チェックする URL を返す
-        protected abstract string getRemoteUrl();
+        protected abstract string GetRemoteUrl();
 
         /// <summary>
         /// リモートファイルをダウンロードする
         /// </summary>
         /// <returns>バージョン</returns>
-        protected String downloadRemoteUrl()
+        protected string DownloadRemoteUrl()
         {
-            WebClient w = new WebClient();
-            w.Encoding = System.Text.Encoding.UTF8;
+            var w = new WebClient();
+            w.Encoding = Encoding.UTF8;
             try
             {
-                String data = w.DownloadString(getRemoteUrl());
+                var data = w.DownloadString(GetRemoteUrl());
                 return data;
             }
             catch (Exception ex)
@@ -50,27 +50,27 @@ namespace FeliCa2Money
         /// リモートファイルを指定したファイルにダウンロードする
         /// エラー時は例外が発生する
         /// </summary>
-        public void downloadToFile(string path)
+        public void DownloadToFile(string path)
         {
-            WebClient w = new WebClient();
-            w.DownloadFile(getRemoteUrl(), path);
+            var w = new WebClient();
+            w.DownloadFile(GetRemoteUrl(), path);
 
-            saveLastUpdated();
+            SaveLastUpdated();
         }
 
         /// <summary>
         /// 更新時刻が到来したか調べる
         /// </summary>
         /// <returns></returns>
-        protected bool isUpdateTime()
+        protected bool IsUpdateTime()
         {
-            Properties.Settings s = Properties.Settings.Default;
+            var s = Properties.Settings.Default;
 
-            DateTime now = DateTime.Now;
+            var now = DateTime.Now;
 
-            TimeSpan diff1 = now.Subtract(this.lastUpdated);
-            TimeSpan diff2 = now.Subtract(this.lastUpdateCheck);
-            this.lastUpdateCheck = now;
+            var diff1 = now.Subtract(LastUpdated);
+            var diff2 = now.Subtract(LastUpdateCheck);
+            LastUpdateCheck = now;
 
             if (diff1.TotalHours > UPDATE_CHECK_INTERVAL_HOURS && diff2.TotalHours > UPDATE_CHECK_RETRY_HOURS)
             {
@@ -83,12 +83,12 @@ namespace FeliCa2Money
         /// <summary>
         /// 最終更新時刻を保存する
         /// </summary>
-        protected void saveLastUpdated()
+        protected void SaveLastUpdated()
         {
-            this.lastUpdated = DateTime.Now;
+            LastUpdated = DateTime.Now;
         }
 
-        abstract protected DateTime lastUpdated { get; set; }
-        abstract protected DateTime lastUpdateCheck { get; set; }
+        abstract protected DateTime LastUpdated { get; set; }
+        abstract protected DateTime LastUpdateCheck { get; set; }
     }
 }

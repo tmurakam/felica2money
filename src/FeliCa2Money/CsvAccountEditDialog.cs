@@ -45,13 +45,13 @@ namespace FeliCa2Money
 
             mRules = manager.getRules();
 
-            textBranchId.Text = account.branchId;
+            textBranchId.Text = account.BranchId;
             if (textBranchId.Text == "0")
             {
                 textBranchId.Text = "";
             }
-            textAccountId.Text = account.accountId;
-            textAccountName.Text = account.accountName;
+            textAccountId.Text = account.AccountId;
+            textAccountName.Text = account.AccountName;
 
             updateList();
         }
@@ -71,7 +71,7 @@ namespace FeliCa2Money
             int i = 0;
             foreach (CsvRule rule in mRules)
             {
-                if (rule.Ident == mAccount.ident)
+                if (rule.Ident == mAccount.Ident)
                 {
                     listBox.SelectedIndex = i;
                     break;
@@ -89,10 +89,10 @@ namespace FeliCa2Money
                 return null;
             }
 
-            mAccount.ident = mRules.GetAt(idx).Ident;
-            mAccount.branchId = textBranchId.Text;
-            mAccount.accountId = textAccountId.Text;
-            mAccount.accountName = textAccountName.Text;
+            mAccount.Ident = mRules.GetAt(idx).Ident;
+            mAccount.BranchId = textBranchId.Text;
+            mAccount.AccountId = textAccountId.Text;
+            mAccount.AccountName = textAccountName.Text;
 
             return mAccount;
         }

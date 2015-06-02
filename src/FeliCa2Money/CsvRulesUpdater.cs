@@ -16,12 +16,12 @@ namespace FeliCa2Money
         //private const string CSV_MASTER_RULE_URL = "https://raw.githubusercontent.com/tmurakam/felica2money/master/defs/CsvRules.xml";
         private const string CSV_MASTER_RULE_URL = "http://felica2money.tmurakam.org/data/CsvRules.php";
 
-        override protected string getRemoteUrl()
+        override protected string GetRemoteUrl()
         {
             return CSV_MASTER_RULE_URL;
         }
 
-        override protected DateTime lastUpdated
+        override protected DateTime LastUpdated
         {
             get { return Properties.Settings.Default.LastCsvRuleUpdated; }
             set
@@ -31,7 +31,7 @@ namespace FeliCa2Money
             }
         }
 
-        override protected DateTime lastUpdateCheck
+        override protected DateTime LastUpdateCheck
         {
             get { return Properties.Settings.Default.LastCsvRuleUpdateCheck; }
             set { 
@@ -58,7 +58,7 @@ namespace FeliCa2Money
         /// <returns>アップデートされた場合は true</returns>
         public bool CheckUpdate(bool manualUpdate = false)
         {
-            if (!manualUpdate && !isUpdateTime())
+            if (!manualUpdate && !IsUpdateTime())
             {
                 return false;
             }
@@ -94,7 +94,7 @@ namespace FeliCa2Money
             else
             {
                 // すでに最新版となっている
-                saveLastUpdated();
+                SaveLastUpdated();
                 if (manualUpdate)
                 {
                     MessageBox.Show("CSV定義ファイルは最新版です", Properties.Resources.OnlineUpdate, MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -111,7 +111,7 @@ namespace FeliCa2Money
         {
             var rules = new CsvRules();
 
-            var xml = downloadRemoteUrl();
+            var xml = DownloadRemoteUrl();
             if (xml == null)
             {
                 return null;
@@ -129,7 +129,7 @@ namespace FeliCa2Money
 
             try
             {
-                downloadToFile(path);
+                DownloadToFile(path);
                 MessageBox.Show(Properties.Resources.UpdateCompleted, Properties.Resources.OnlineUpdate, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return true;
             }

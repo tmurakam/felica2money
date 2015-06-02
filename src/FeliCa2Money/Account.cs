@@ -1,7 +1,7 @@
 /*
  * FeliCa2Money
  *
- * Copyright (C) 2001-2011 Takuya Murakami
+ * Copyright (C) 2001-2015 Takuya Murakami
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -28,79 +28,81 @@ namespace FeliCa2Money
     // Account クラス
     public abstract class Account
     {
-        protected string mIdent;              // 組織名
-        protected string mBankId = "Felica2Money";  // 銀行ID
-        protected string mBranchId = "0";   // 支店番号
-        protected string mAccountId = "";   // 口座番号
-        protected string mAccountName;         // アカウント名(カード名etc)
+        private string _branchId = "0";   // 支店番号
+        private string _accountId = "";   // 口座番号
 
-        protected TransactionList mTransactions = new TransactionList(); // 取引リスト
-
-        protected bool mHasBalance = false; // 残高があるか
-        protected int mBalance = 0; // 残高
-
-        protected bool mIsCreditCard = false; // クレジットカードの場合に真
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        protected Account()
+        {
+            IsCreditCard = false;
+            Balance = 0;
+            HasBalance = false;
+            BankId = "Felica2Money";
+            Transactions = new TransactionList();
+        }
 
         public abstract void ReadTransactions();
 
-        public string ident
-        {
-            get { return mIdent; }
-            set { mIdent = value; }
-        }
+        /// <summary>
+        /// 識別子
+        /// </summary>
+        public string Ident { get; set; }
 
-        public string bankId
-        {
-            get { return mBankId; }
-            set { mBankId = value; }
-        }
+        /// <summary>
+        /// 銀行ID
+        /// </summary>
+        public string BankId { get; set; }
 
-        public string branchId
+        /// <summary>
+        /// 支店ID
+        /// </summary>
+        public string BranchId
         {
             get {
-                if (mBranchId == "") return "0";
-                return mBranchId;
+                if (_branchId == "") return "0";
+                return _branchId;
             }
-            set { mBranchId = value; }
+            set { _branchId = value; }
         }
 
-        public string accountName
-        {
-            get { return mAccountName; }
-            set { mAccountName = value; }
-        }
-        
-        public string accountId
+        /// <summary>
+        /// 口座名
+        /// </summary>
+        public string AccountName { get; set; }
+
+        /// <summary>
+        /// 口座ID
+        /// </summary>
+        public string AccountId
         {
             get {
-                if (mAccountId == "") return "0";
-                return mAccountId;
+                if (_accountId == "") return "0";
+                return _accountId;
             }
-            set { mAccountId = value; }
+            set { _accountId = value; }
         }
 
-        public bool hasBalance
-        {
-            set { mHasBalance = value; }
-            get { return mHasBalance; }
-        }
+        /// <summary>
+        /// 残高有無
+        /// </summary>
+        public bool HasBalance { set; get; }
 
-        public int balance
-        {
-            set { mBalance = value; }
-            get { return mBalance; }
-        }
+        /// <summary>
+        /// 残高
+        /// </summary>
+        public int Balance { set; get; }
 
-        public bool isCreditCard
-        {
-            set { mIsCreditCard = value; }
-            get { return mIsCreditCard; }
-        }
+        /// <summary>
+        /// クレジットカードならtrue
+        /// </summary>
+        public bool IsCreditCard { set; get; }
 
-        public TransactionList transactions
-        {
-            get { return mTransactions; }
-        }
+        /// <summary>
+        /// 取引リスト
+        /// </summary>
+        public TransactionList Transactions { get; protected set; }
 
         // タブ区切りの分解 (SFCPeep用)
 #if false

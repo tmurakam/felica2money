@@ -31,12 +31,12 @@ namespace FeliCa2Money.test
         {
             AgrAccount account = builder.newBankAccount("\"BANK_NAME\", \"BRANCH_NAME\", \"ACCOUNT_ID\", \"-123456\", \"JPY\"");
             Assert.NotNull(account);
-            Assert.False(account.isCreditCard);
-            Assert.AreEqual("BANK_NAME", account.bankId);
-            Assert.AreEqual("BRANCH_NAME", account.branchId);
-            Assert.AreEqual("ACCOUNT_ID", account.accountId);
-            Assert.IsTrue(account.hasBalance);
-            Assert.AreEqual(-123456, account.balance);
+            Assert.False(account.IsCreditCard);
+            Assert.AreEqual("BANK_NAME", account.BankId);
+            Assert.AreEqual("BRANCH_NAME", account.BranchId);
+            Assert.AreEqual("ACCOUNT_ID", account.AccountId);
+            Assert.IsTrue(account.HasBalance);
+            Assert.AreEqual(-123456, account.Balance);
         }
 
         [Test]
@@ -44,11 +44,11 @@ namespace FeliCa2Money.test
         {
             AgrAccount account = builder.newBankAccount("\"BANK_NAME\", \"BRANCH_NAME\", \"ACCOUNT_ID\"");
             Assert.NotNull(account);
-            Assert.False(account.isCreditCard);
-            Assert.AreEqual("BANK_NAME", account.bankId);
-            Assert.AreEqual("BRANCH_NAME", account.branchId);
-            Assert.AreEqual("ACCOUNT_ID", account.accountId);
-            Assert.IsFalse(account.hasBalance);
+            Assert.False(account.IsCreditCard);
+            Assert.AreEqual("BANK_NAME", account.BankId);
+            Assert.AreEqual("BRANCH_NAME", account.BranchId);
+            Assert.AreEqual("ACCOUNT_ID", account.AccountId);
+            Assert.IsFalse(account.HasBalance);
         }
 
         [Test]
@@ -56,26 +56,26 @@ namespace FeliCa2Money.test
         {
             AgrAccount account = builder.newCreditCardAccount("\"XYZカード\", \"DUMMY\", \"123456\"");
             Assert.NotNull(account);
-            Assert.True(account.isCreditCard);
-            Assert.AreEqual("CARD_XYZ1", account.accountId);
-            Assert.IsTrue(account.hasBalance);
-            Assert.AreEqual(-123456, account.balance);
+            Assert.True(account.IsCreditCard);
+            Assert.AreEqual("CARD_XYZ1", account.AccountId);
+            Assert.IsTrue(account.HasBalance);
+            Assert.AreEqual(-123456, account.Balance);
 
             // 違うカード名
             account = builder.newCreditCardAccount("\"XYZZカード\", \"DUMMY\", \"654321\"");
             Assert.NotNull(account);
-            Assert.True(account.isCreditCard);
-            Assert.AreEqual("CARD_XYZZ1", account.accountId);
-            Assert.IsTrue(account.hasBalance);
-            Assert.AreEqual(-654321, account.balance);
+            Assert.True(account.IsCreditCard);
+            Assert.AreEqual("CARD_XYZZ1", account.AccountId);
+            Assert.IsTrue(account.HasBalance);
+            Assert.AreEqual(-654321, account.Balance);
 
             // １番目と同じカード名
             account = builder.newCreditCardAccount("\"XYZカード\", \"DUMMY\", \"654321\"");
             Assert.NotNull(account);
-            Assert.True(account.isCreditCard);
-            Assert.AreEqual("CARD_XYZ2", account.accountId);
-            Assert.IsTrue(account.hasBalance);
-            Assert.AreEqual(-654321, account.balance);
+            Assert.True(account.IsCreditCard);
+            Assert.AreEqual("CARD_XYZ2", account.AccountId);
+            Assert.IsTrue(account.HasBalance);
+            Assert.AreEqual(-654321, account.Balance);
         }
 
         [Test]
@@ -83,9 +83,9 @@ namespace FeliCa2Money.test
         {
             AgrAccount account = builder.newBankAccount("\"BANK_NAME\", \"BRANCH_NAME\", \"ACCOUNT_ID\"");
             Assert.True(account.readTransaction("\"2010/1/2\", \"DESCRIPTION\", \"100\", \"JPY\", \"--\", \"\", \"123456\", \"JPY\""));
-            Assert.AreEqual(1, account.transactions.Count);
+            Assert.AreEqual(1, account.Transactions.Count);
 
-            Transaction t = account.transactions[0];
+            Transaction t = account.Transactions[0];
             Assert.AreEqual(DateTime.Parse("2010/1/2").ToString(), t.Date.ToString());
             Assert.AreEqual("DESCRIPTION", t.Desc);
             Assert.AreEqual(100, t.Value);
@@ -103,9 +103,9 @@ namespace FeliCa2Money.test
 
                 // 年なし(月日のみ)のフォーマットを作成
                 Assert.True(account.readTransaction("\"" + i.ToString() + "/15\", \"DESCRIPTION\", \"100\", \"JPY\", \"\", \"\", \"123456\", \"JPY\""));
-                Assert.AreEqual(1, account.transactions.Count);
+                Assert.AreEqual(1, account.Transactions.Count);
 
-                Transaction t = account.transactions[0];
+                Transaction t = account.Transactions[0];
                 Assert.AreEqual(i, t.Date.Month);
                 Assert.AreEqual(15, t.Date.Day);
 
@@ -123,9 +123,9 @@ namespace FeliCa2Money.test
 
             // 日なし(年月のみ)のフォーマットを作成
             Assert.True(account.readTransaction("\"2011/3\", \"DESCRIPTION\", \"100\", \"JPY\", \"\", \"\", \"123456\", \"JPY\""));
-            Assert.AreEqual(1, account.transactions.Count);
+            Assert.AreEqual(1, account.Transactions.Count);
 
-            Transaction t = account.transactions[0];
+            Transaction t = account.Transactions[0];
             Assert.AreEqual(2011, t.Date.Year);
             Assert.AreEqual(3, t.Date.Month);
             Assert.AreEqual(1, t.Date.Day);

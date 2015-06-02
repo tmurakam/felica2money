@@ -73,9 +73,9 @@ namespace FeliCa2Money
 
             foreach (Account account in accounts)
             {
-                if (account.transactions.Count > 0)
+                if (account.Transactions.Count > 0)
                 {
-                    if (account.isCreditCard)
+                    if (account.IsCreditCard)
                     {
                         creditCards.Add(account);
                     }
@@ -142,7 +142,7 @@ namespace FeliCa2Money
         private void statementTransactionResponse(XmlElement parent, Account account)
         {
             XmlElement e;
-            if (!account.isCreditCard)
+            if (!account.IsCreditCard)
             {
                 e = appendElement(parent, "STMTTRNRS");
             }
@@ -170,7 +170,7 @@ namespace FeliCa2Money
             getFirstLastDate(account, out first, out last);
 
             XmlElement e;
-            if (!account.isCreditCard)
+            if (!account.IsCreditCard)
             {
                 e = appendElement(parent, "STMTRS");
             }
@@ -196,7 +196,7 @@ namespace FeliCa2Money
         private void accountFrom(XmlElement parent, Account account)
         {
             XmlElement e;
-            if (!account.isCreditCard)
+            if (!account.IsCreditCard)
             {
                 e = appendElement(parent, "BANKACCTFROM");
             }
@@ -205,13 +205,13 @@ namespace FeliCa2Money
                 e = appendElement(parent, "CCACCTFROM");
             }
 
-            if (!account.isCreditCard)
+            if (!account.IsCreditCard)
             {
-                appendElementWithText(e, "BANKID", account.bankId != null ? account.bankId.ToString() : null); // TBD
-                appendElementWithText(e, "BRANCHID", account.branchId);
+                appendElementWithText(e, "BANKID", account.BankId != null ? account.BankId.ToString() : null); // TBD
+                appendElementWithText(e, "BRANCHID", account.BranchId);
             }
-            appendElementWithText(e, "ACCTID", account.accountId);
-            if (!account.isCreditCard)
+            appendElementWithText(e, "ACCTID", account.AccountId);
+            if (!account.IsCreditCard)
             {
                 appendElementWithText(e, "ACCTTYPE", "SAVINGS");
             }
@@ -225,7 +225,7 @@ namespace FeliCa2Money
             appendElementWithText(e, "DTSTART", dateStr(first.Date));
             appendElementWithText(e, "DTEND", dateStr(last.Date));
 
-            foreach (Transaction t in account.transactions)
+            foreach (Transaction t in account.Transactions)
             {
                 statementTransaction(e, t);
             }
@@ -256,9 +256,9 @@ namespace FeliCa2Money
             XmlElement e = appendElement(parent, "LEDGERBAL");
 
             int balance;
-            if (account.hasBalance)
+            if (account.HasBalance)
             {
-                balance = account.balance;
+                balance = account.Balance;
             }
             else
             {
@@ -312,7 +312,7 @@ namespace FeliCa2Money
             allFirst = null;
             allLast = null;
             foreach (Account account in accounts) {
-                foreach (Transaction t in account.transactions)
+                foreach (Transaction t in account.Transactions)
                 {
                     // 先頭エントリ: 同じ日付の場合は、前のエントリを優先
                     if (allFirst == null || t.Date < allFirst.Date)
@@ -332,7 +332,7 @@ namespace FeliCa2Money
         {
             first = null;
             last = null;
-            foreach (Transaction t in account.transactions)
+            foreach (Transaction t in account.Transactions)
             {
                 // 先頭エントリ: 同じ日付の場合は、前のエントリを優先
                 if (first == null || t.Date < first.Date)

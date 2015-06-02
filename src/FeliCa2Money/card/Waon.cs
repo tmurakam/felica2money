@@ -31,8 +31,8 @@ namespace FeliCa2Money
     {
         public Waon()
         {
-            mIdent       = "WAON";
-            mAccountName    = "WAON";
+            Ident       = "WAON";
+            AccountName    = "WAON";
 
             mSystemCode  = (int)SystemCode.Common;
             mServiceCode = 0x680b;
@@ -44,7 +44,7 @@ namespace FeliCa2Money
             mMaxTransactions = 3; // 履歴数は３
         }
 
-        public override bool analyzeCardId(IFelica f)
+        public override bool AnalyzeCardId(IFelica f)
         {
             byte[] data = f.ReadWithoutEncryption(0x67cf, 0);
             byte[] data2 = f.ReadWithoutEncryption(0x67cf, 1);
@@ -53,7 +53,7 @@ namespace FeliCa2Money
                 return false;
             }
 
-            mAccountId = binString(data, 12, 4) + binString(data2, 0, 4);
+            AccountId = binString(data, 12, 4) + binString(data2, 0, 4);
 
             return true;
         }
@@ -80,7 +80,7 @@ namespace FeliCa2Money
         }
 
         // トランザクション解析
-        public override bool analyzeTransaction(Transaction t, byte[] data)
+        public override bool AnalyzeTransaction(Transaction t, byte[] data)
         {
             // ID
             t.Id = read2b(data, 13);

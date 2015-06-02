@@ -83,12 +83,12 @@ namespace FeliCa2Money
                 if (a[2].Length == 0) continue;
 
                 CsvAccount account = new CsvAccount();
-                account.ident = a[0];
-                account.branchId = a[1];
-                account.accountId = a[2];
+                account.Ident = a[0];
+                account.BranchId = a[1];
+                account.AccountId = a[2];
                 if (a.Length > 3) // backword compat.
                 {
-                    account.accountName = a[3];
+                    account.AccountName = a[3];
                 }
 
                 mAccounts.Add(account);
@@ -105,10 +105,10 @@ namespace FeliCa2Money
             s.AccountInfo.Clear();
 
             foreach (CsvAccount account in mAccounts) {
-                string line = account.ident;
-                line += "," + account.branchId;
-                line += "," + account.accountId;
-                line += "," + account.accountName;
+                string line = account.Ident;
+                line += "," + account.BranchId;
+                line += "," + account.AccountId;
+                line += "," + account.AccountName;
                 s.AccountInfo.Add(line);
             }
 
@@ -175,9 +175,9 @@ namespace FeliCa2Money
             foreach (CsvAccount account in mAccounts)
             {
                 string name = getBankName(account);
-                if (account.accountName != "")
+                if (account.AccountName != "")
                 {
-                    name += " " + account.accountName;
+                    name += " " + account.AccountName;
                 }
                 names[i] = name;
                 i++;
@@ -188,7 +188,7 @@ namespace FeliCa2Money
         private string getBankName(CsvAccount account)
         {
             foreach (CsvRule rule in mRules) {
-                if (rule.Ident == account.ident) {
+                if (rule.Ident == account.Ident) {
                     return rule.Name;
                 }
             }
@@ -224,7 +224,7 @@ namespace FeliCa2Money
             {
                 foreach (CsvAccount acc in mAccounts)
                 {
-                    if (acc.ident == rule.Ident)
+                    if (acc.Ident == rule.Ident)
                     {
                         account = acc;
                         break;
@@ -249,14 +249,14 @@ namespace FeliCa2Money
             }
 
             // アカウントに対応するルールを選択する
-            rule = mRules.FindRuleWithIdent(account.ident);
+            rule = mRules.FindRuleWithIdent(account.Ident);
             if (rule == null)
             {
                 MessageBox.Show(Properties.Resources.NoMatchingCsvRule, Properties.Resources.Error);
                 return null;
             }
 
-            account.startReading(path, rule);
+            account.StartReading(path, rule);
             return account;
         }
 

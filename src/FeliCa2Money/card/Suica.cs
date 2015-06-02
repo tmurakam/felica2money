@@ -38,8 +38,8 @@ namespace FeliCa2Money
 
         public Suica()
         {
-            mIdent       = "Suica";
-            mAccountName    = "Suica";
+            Ident       = "Suica";
+            AccountName    = "Suica";
 
             mSystemCode  = (int)SystemCode.Suica;
             mServiceCode = 0x090f;       // 履歴エリアのサービスコード
@@ -56,7 +56,7 @@ namespace FeliCa2Money
         }
 
         // トランザクション解析
-        public override bool analyzeTransaction(Transaction t, byte[] data)
+        public override bool AnalyzeTransaction(Transaction t, byte[] data)
         {
             int ctype = data[0];    // 端末種
             int proc = data[1];     // 処理

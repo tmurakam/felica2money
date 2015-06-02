@@ -29,8 +29,8 @@ namespace FeliCa2Money
     {
         public Edy()
         {
-            mIdent         = "Edy";
-            mAccountName    = "Edy";
+            Ident         = "Edy";
+            AccountName    = "Edy";
 
             mSystemCode  = (int)SystemCode.Edy;
             mServiceCode = 0x170f;
@@ -38,7 +38,7 @@ namespace FeliCa2Money
             mNeedCalcValue = false;
         }
 
-        public override bool analyzeCardId(IFelica f)
+        public override bool AnalyzeCardId(IFelica f)
         {
             byte[] data = f.ReadWithoutEncryption(0x110b, 0);
             if (data == null)
@@ -46,12 +46,12 @@ namespace FeliCa2Money
                 return false;
             }
 
-            mAccountId = binString(data, 2, 8);
+            AccountId = binString(data, 2, 8);
 
             return true;
         }
 
-        public override bool analyzeTransaction(Transaction t, byte[] data)
+        public override bool AnalyzeTransaction(Transaction t, byte[] data)
         {
             // 日付
             int value = read4b(data, 4);

@@ -10,14 +10,14 @@ namespace FeliCa2Money
     {
         private const string SITE_URL = "http://felica2money.tmurakam.org";
 
-        protected override string getRemoteUrl()
+        protected override string GetRemoteUrl()
         {
             //return "https://github.com/tmurakam/felica2money/raw/master/defs/RecentVersion.txt";
             //return "https://raw.githubusercontent.com/tmurakam/felica2money/master/defs/RecentVersion.txt";
             return "http://felica2money.tmurakam.org/data/RecentVersion.php";
         }
 
-        override protected DateTime lastUpdated
+        override protected DateTime LastUpdated
         {
             get { return Properties.Settings.Default.LastVersionUpdateChecked; }
             set
@@ -27,7 +27,7 @@ namespace FeliCa2Money
             }
         }
 
-        override protected DateTime lastUpdateCheck
+        override protected DateTime LastUpdateCheck
         {
             get { return Properties.Settings.Default.LastVersionUpdateCheck; }
             set { 
@@ -42,20 +42,20 @@ namespace FeliCa2Money
         /// <returns></returns>
         public void CheckUpdate(bool forceCheck = false)
         {
-            if (!forceCheck && !isUpdateTime())
+            if (!forceCheck && !IsUpdateTime())
             {
                 return;
             }
 
-            String data = downloadRemoteUrl();
+            var data = DownloadRemoteUrl();
             if (data == null) return; // do nothing
 
-            StringReader sr = new StringReader(data);
+            var sr = new StringReader(data);
             string recentVersion = sr.ReadLine().Trim();
 
-            saveLastUpdated();
+            SaveLastUpdated();
 
-            if (recentVersion.CompareTo(getCurrentVersion()) <= 0)
+            if (recentVersion.CompareTo(GetCurrentVersion()) <= 0)
             {
                 return; // 最新版を使用している
             }
@@ -80,11 +80,11 @@ namespace FeliCa2Money
         }
 
         // バージョン番号の取得
-        public static string getCurrentVersion()
+        public static string GetCurrentVersion()
         {
             System.Reflection.Assembly asm = System.Reflection.Assembly.GetExecutingAssembly();
             System.Version ver = asm.GetName().Version;
-            return String.Format("{0}.{1}.{2}", ver.Major, ver.Minor, ver.Build);
+            return string.Format("{0}.{1}.{2}", ver.Major, ver.Minor, ver.Build);
         }
     }
 }

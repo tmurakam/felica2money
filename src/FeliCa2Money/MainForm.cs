@@ -46,7 +46,7 @@ namespace FeliCa2Money
             }
 
             // タイトルにバージョンを表示
-            this.Text = "FeliCa2Money ver " + VersionUpdateChecker.getCurrentVersion();
+            this.Text = "FeliCa2Money ver " + VersionUpdateChecker.GetCurrentVersion();
         }
 
         // コマンドライン処理
@@ -151,7 +151,7 @@ namespace FeliCa2Money
 
             try
             {
-                if (agr.loadFromFile(filepath) == false)
+                if (agr.LoadFromFile(filepath) == false)
                 {
                     MessageBox.Show("フォーマットエラー");
                     return;
@@ -162,7 +162,7 @@ namespace FeliCa2Money
                 MessageBox.Show(ex.Message, Properties.Resources.Error);
                 return;
             }
-            generateOfx(agr.accounts);
+            generateOfx(agr.Accounts);
         }
 
         private void readAndGenerateOfx(Account c)
@@ -186,19 +186,19 @@ namespace FeliCa2Money
                 MessageBox.Show(ex.Message, Properties.Resources.Error);
                 return false;
             }
-            if (c.transactions == null)
+            if (c.Transactions == null)
             {
                 MessageBox.Show(Properties.Resources.CardReadError, Properties.Resources.Error);
                 return false;
             }
 
             // 無効な取引を削除する
-            c.transactions.RemoveInvalidTransactions();
+            c.Transactions.RemoveInvalidTransactions();
 
             // 0円の取引を削除する
             if (Properties.Settings.Default.IgnoreZeroTransaction)
             {
-                c.transactions.RemoveZeroTransactions();
+                c.Transactions.RemoveZeroTransactions();
             }
 
             return true;
@@ -217,8 +217,8 @@ namespace FeliCa2Money
             int count = 0;
             foreach (Account account in accounts)
             {
-                account.transactions.AssignSerials();
-                count += account.transactions.Count;
+                account.Transactions.AssignSerials();
+                count += account.Transactions.Count;
             }
             if (count == 0)
             {

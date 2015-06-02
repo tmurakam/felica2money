@@ -22,8 +22,8 @@ namespace FeliCa2Money.test
         public void setUp()
         {
             mAccount = new CsvAccount();
-            mAccount.branchId = "0";
-            mAccount.accountId = "0";
+            mAccount.BranchId = "0";
+            mAccount.AccountId = "0";
 
             mRule = new CsvRule();
             mRule.FirstLine = "FIRST_LINE";
@@ -48,7 +48,7 @@ namespace FeliCa2Money.test
         {
             mSw.Close();
 
-            mAccount.startReading(mTempFileName, mRule);
+            mAccount.StartReading(mTempFileName, mRule);
             try
             {
                 mAccount.ReadTransactions();
@@ -67,9 +67,9 @@ namespace FeliCa2Money.test
             mSw.WriteLine("FIRST_LINE");
             mSw.Close();
 
-            mAccount.startReading(mTempFileName, mRule);
+            mAccount.StartReading(mTempFileName, mRule);
             mAccount.ReadTransactions();
-            Assert.AreEqual(0, mAccount.transactions.Count);
+            Assert.AreEqual(0, mAccount.Transactions.Count);
         }
 
         // FirstLine がないファイルの読み込み
@@ -79,7 +79,7 @@ namespace FeliCa2Money.test
             mSw.WriteLine("2011/1/1, 50000, 50000, Desc, Memo");
             mSw.Close();
 
-            mAccount.startReading(mTempFileName, mRule);
+            mAccount.StartReading(mTempFileName, mRule);
             try
             {
                 mAccount.ReadTransactions();
@@ -99,10 +99,10 @@ namespace FeliCa2Money.test
             mSw.WriteLine("2011/1/2, 500, 50000, Desc, Memo");
             mSw.Close();
 
-            mAccount.startReading(mTempFileName, mRule);
+            mAccount.StartReading(mTempFileName, mRule);
             mAccount.ReadTransactions();
-            Assert.AreEqual(1, mAccount.transactions.Count);
-            Transaction t = mAccount.transactions[0];
+            Assert.AreEqual(1, mAccount.Transactions.Count);
+            Transaction t = mAccount.Transactions[0];
 
             Assert.AreEqual(t.Date.Year, 2011);
             Assert.AreEqual(t.Date.Month, 1);
@@ -122,10 +122,10 @@ namespace FeliCa2Money.test
             mSw.Close();
 
             mRule.OrderString = "Ascent";
-            mAccount.startReading(mTempFileName, mRule);
+            mAccount.StartReading(mTempFileName, mRule);
             mAccount.ReadTransactions();
-            Assert.AreEqual(2, mAccount.transactions.Count);
-            Transaction t = mAccount.transactions[0];
+            Assert.AreEqual(2, mAccount.Transactions.Count);
+            Transaction t = mAccount.Transactions[0];
 
             Assert.AreEqual(t.Date.Day, 1);
             Assert.AreEqual(t.Value, 100);
@@ -141,10 +141,10 @@ namespace FeliCa2Money.test
             mSw.Close();
 
             mRule.OrderString = "Descent";
-            mAccount.startReading(mTempFileName, mRule);
+            mAccount.StartReading(mTempFileName, mRule);
             mAccount.ReadTransactions();
-            Assert.AreEqual(2, mAccount.transactions.Count);
-            Transaction t = mAccount.transactions[0];
+            Assert.AreEqual(2, mAccount.Transactions.Count);
+            Transaction t = mAccount.Transactions[0];
 
             Assert.AreEqual(t.Date.Day, 1);
             Assert.AreEqual(t.Value, 100);
@@ -160,10 +160,10 @@ namespace FeliCa2Money.test
             mSw.Close();
 
             mRule.OrderString = "Sort";
-            mAccount.startReading(mTempFileName, mRule);
+            mAccount.StartReading(mTempFileName, mRule);
             mAccount.ReadTransactions();
-            Assert.AreEqual(2, mAccount.transactions.Count);
-            Transaction t = mAccount.transactions[0];
+            Assert.AreEqual(2, mAccount.Transactions.Count);
+            Transaction t = mAccount.Transactions[0];
 
             Assert.AreEqual(t.Date.Day, 1);
             Assert.AreEqual(t.Value, 100);
@@ -184,20 +184,20 @@ namespace FeliCa2Money.test
 
             mRule.OrderString = "Sort";
 
-            mAccount.startReading(mTempFileName, mRule);
+            mAccount.StartReading(mTempFileName, mRule);
             mAccount.ReadTransactions();
-            Assert.AreEqual(6, mAccount.transactions.Count);
+            Assert.AreEqual(6, mAccount.Transactions.Count);
 
             // ID自動採番。本来は CsvAccount ではなく TransactionList
             // でテストすべき。
-            mAccount.transactions.AssignSerials();
+            mAccount.Transactions.AssignSerials();
 
-            Assert.AreEqual(0, mAccount.transactions[0].Serial);
-            Assert.AreEqual(1, mAccount.transactions[1].Serial);
-            Assert.AreEqual(2, mAccount.transactions[2].Serial);
-            Assert.AreEqual(0, mAccount.transactions[3].Serial);
-            Assert.AreEqual(1, mAccount.transactions[4].Serial);
-            Assert.AreEqual(2, mAccount.transactions[5].Serial);
+            Assert.AreEqual(0, mAccount.Transactions[0].Serial);
+            Assert.AreEqual(1, mAccount.Transactions[1].Serial);
+            Assert.AreEqual(2, mAccount.Transactions[2].Serial);
+            Assert.AreEqual(0, mAccount.Transactions[3].Serial);
+            Assert.AreEqual(1, mAccount.Transactions[4].Serial);
+            Assert.AreEqual(2, mAccount.Transactions[5].Serial);
         }
     }
 }

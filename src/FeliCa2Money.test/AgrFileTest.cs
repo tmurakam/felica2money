@@ -38,7 +38,7 @@ namespace FeliCa2Money.test
         {
             mSw.Close();
 
-            Assert.False(mAgrFile.loadFromFile(mTempFileName));
+            Assert.False(mAgrFile.LoadFromFile(mTempFileName));
         }
 
         [Test]
@@ -47,7 +47,7 @@ namespace FeliCa2Money.test
             mSw.WriteLine("\"あぐりっぱ\",\"1.1\"");
             mSw.Close();
 
-            Assert.False(mAgrFile.loadFromFile(mTempFileName));
+            Assert.False(mAgrFile.LoadFromFile(mTempFileName));
         }
 
         [Test]
@@ -56,8 +56,8 @@ namespace FeliCa2Money.test
             writeHeader();
             mSw.Close();
 
-            Assert.True(mAgrFile.loadFromFile(mTempFileName));
-            Assert.AreEqual(0, mAgrFile.accounts.Count);
+            Assert.True(mAgrFile.LoadFromFile(mTempFileName));
+            Assert.AreEqual(0, mAgrFile.Accounts.Count);
         }
 
         [Test]
@@ -67,8 +67,8 @@ namespace FeliCa2Money.test
             writeBillingAccount();
             mSw.Close();
 
-            Assert.True(mAgrFile.loadFromFile(mTempFileName));
-            Assert.AreEqual(0, mAgrFile.accounts.Count);
+            Assert.True(mAgrFile.LoadFromFile(mTempFileName));
+            Assert.AreEqual(0, mAgrFile.Accounts.Count);
         }
 
         [Test]
@@ -82,8 +82,8 @@ namespace FeliCa2Money.test
 
             mSw.Close();
 
-            Assert.True(mAgrFile.loadFromFile(mTempFileName));
-            Assert.AreEqual(0, mAgrFile.accounts.Count);
+            Assert.True(mAgrFile.LoadFromFile(mTempFileName));
+            Assert.AreEqual(0, mAgrFile.Accounts.Count);
         }
 
         [Test]
@@ -96,17 +96,17 @@ namespace FeliCa2Money.test
             mSw.WriteLine("<END_CP_XXX_ORD>");
             mSw.Close();
 
-            Assert.True(mAgrFile.loadFromFile(mTempFileName));
-            Assert.AreEqual(1, mAgrFile.accounts.Count);
+            Assert.True(mAgrFile.LoadFromFile(mTempFileName));
+            Assert.AreEqual(1, mAgrFile.Accounts.Count);
 
-            Account account = mAgrFile.accounts[0];
-            Assert.False(account.isCreditCard);
-            Assert.AreEqual("ABC銀行", account.bankId);
-            Assert.AreEqual("XYZ支店", account.branchId);
-            Assert.AreEqual("01234567", account.accountId);
-            Assert.True(account.hasBalance);
-            Assert.AreEqual(1000, account.balance);
-            Assert.IsEmpty(account.transactions);
+            Account account = mAgrFile.Accounts[0];
+            Assert.False(account.IsCreditCard);
+            Assert.AreEqual("ABC銀行", account.BankId);
+            Assert.AreEqual("XYZ支店", account.BranchId);
+            Assert.AreEqual("01234567", account.AccountId);
+            Assert.True(account.HasBalance);
+            Assert.AreEqual(1000, account.Balance);
+            Assert.IsEmpty(account.Transactions);
         }
 
         [Test]
@@ -119,17 +119,17 @@ namespace FeliCa2Money.test
             mSw.WriteLine("<END_CP_XXX_ORD>");
             mSw.Close();
 
-            Assert.True(mAgrFile.loadFromFile(mTempFileName));
-            Assert.AreEqual(1, mAgrFile.accounts.Count);
+            Assert.True(mAgrFile.LoadFromFile(mTempFileName));
+            Assert.AreEqual(1, mAgrFile.Accounts.Count);
 
-            Account account = mAgrFile.accounts[0];
-            Assert.True(account.isCreditCard);
-            Assert.IsEmpty(account.bankId);
-            Assert.AreEqual("0", account.branchId);
-            Assert.AreEqual("CARD_ABC1", account.accountId);
-            Assert.True(account.hasBalance);
-            Assert.AreEqual(-1000, account.balance);
-            Assert.IsEmpty(account.transactions);
+            Account account = mAgrFile.Accounts[0];
+            Assert.True(account.IsCreditCard);
+            Assert.IsEmpty(account.BankId);
+            Assert.AreEqual("0", account.BranchId);
+            Assert.AreEqual("CARD_ABC1", account.AccountId);
+            Assert.True(account.HasBalance);
+            Assert.AreEqual(-1000, account.Balance);
+            Assert.IsEmpty(account.Transactions);
         }
 
         [Test]
@@ -139,11 +139,11 @@ namespace FeliCa2Money.test
             writeBankAccount();
             mSw.Close();
 
-            Assert.True(mAgrFile.loadFromFile(mTempFileName));
-            Assert.AreEqual(1, mAgrFile.accounts.Count);
+            Assert.True(mAgrFile.LoadFromFile(mTempFileName));
+            Assert.AreEqual(1, mAgrFile.Accounts.Count);
 
-            Account account = mAgrFile.accounts[0];
-            Assert.AreEqual(2, account.transactions.Count);
+            Account account = mAgrFile.Accounts[0];
+            Assert.AreEqual(2, account.Transactions.Count);
         }
 
         // internal functions

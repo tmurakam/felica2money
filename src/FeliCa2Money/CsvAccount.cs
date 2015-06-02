@@ -36,37 +36,37 @@ namespace FeliCa2Money
     /// </summary>
     public class CsvAccount : Account
     {
-        private StreamReader mSr;
-        private CsvRule mRule;
+        private StreamReader _reader;
+        private CsvRule _rule;
 
         /// <summary>
         /// CSVファイル読み込みを開始する
         /// </summary>
         /// <param name="path">CSVファイルパス</param>
         /// <param name="rule">CSVルール</param>
-        public void startReading(string path, CsvRule rule)
+        public void StartReading(string path, CsvRule rule)
         {
-            mRule = rule;
+            _rule = rule;
 
             // 銀行IDなどを設定
-            //mIdent = mRule.ident;
-            mBankId = mRule.BankId;
-            //mBranchId = branchId;
-            //mAccountId = accountId;
+            //mIdent = _rule.ident;
+            BankId = _rule.BankId;
+            //_branchId = branchId;
+            //_accountId = accountId;
 
-            mSr = new StreamReader(path, System.Text.Encoding.Default);
+            _reader = new StreamReader(path, System.Text.Encoding.Default);
 
         }
 
         // firstLine まで読み飛ばす
-        private void skipToFirstLine()
+        private void SkipToFirstLine()
         {
-            if (mRule.FirstLine == null) return;
+            if (_rule.FirstLine == null) return;
 
             string line;
-            while ((line = mSr.ReadLine()) != null)
+            while ((line = _reader.ReadLine()) != null)
             {
-                if (line == mRule.FirstLine) return;
+                if (line == _rule.FirstLine) return;
             }
 
             // 先頭行なし
@@ -78,22 +78,22 @@ namespace FeliCa2Money
         /// </summary>
         public override void ReadTransactions()
         {
-            skipToFirstLine();
+            SkipToFirstLine();
 
-            TransactionList transactions = new TransactionList();
+            var transactions = new TransactionList();
             string line;
             bool hasFormatError = false;
 
-            while ((line = mSr.ReadLine()) != null)
+            while ((line = _reader.ReadLine()) != null)
             {
                 // CSV カラム分割
-                string[] row = SplitCsv(line);
+                var row = SplitCsv(line);
                 if (row.Length <= 1) continue; // ad hoc...
 
                 // パース
                 try
                 {
-                    Transaction t = mRule.Parse(row);
+                    var t = _rule.Parse(row);
                     transactions.Add(t);
                 }
                 catch (FormatException ex)
@@ -112,7 +112,7 @@ namespace FeliCa2Money
             }
 
             // ソート処理
-            switch (mRule.SortOrder)
+            switch (_rule.SortOrder)
             {
                 default:
                 case CsvRule.SortOrderType.Ascent:
@@ -123,11 +123,11 @@ namespace FeliCa2Money
                     break;
 
                 case CsvRule.SortOrderType.Auto:
-                    transactions.Sort(compareByDate);
+                    transactions.Sort(CompareByDate);
                     break;
             }
 
-            mTransactions = transactions;
+            Transactions = transactions;
         }
 
         /// <summary>
@@ -135,20 +135,20 @@ namespace FeliCa2Money
         /// </summary>
         public void Close()
         {
-            if (mSr != null)
+            if (_reader != null)
             {
-                mSr.Close();
-                mSr = null;
+                _reader.Close();
+                _reader = null;
             }
         }
 
         // CSV のフィールド分割
         private string[] SplitCsv(string line)
         {
-            return CsvUtil.SplitCsv(line, mRule.IsTsv);
+            return CsvUtil.SplitCsv(line, _rule.IsTsv);
         }
 
-        private static int compareByDate(Transaction x, Transaction y)
+        private static int CompareByDate(Transaction x, Transaction y)
         {
             return x.Date.CompareTo(y.Date);
         }

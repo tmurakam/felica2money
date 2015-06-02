@@ -29,8 +29,8 @@ namespace FeliCa2Money
     {
         public    Nanaco()
         {
-            mIdent       = "Nanaco";
-            mAccountName    = "Nanaco";
+            Ident       = "Nanaco";
+            AccountName    = "Nanaco";
 
             mSystemCode  = (int)SystemCode.Common;
             mServiceCode = 0x564f;
@@ -38,7 +38,7 @@ namespace FeliCa2Money
             mNeedCalcValue = false;
         }
 
-        public override bool analyzeCardId(IFelica f)
+        public override bool AnalyzeCardId(IFelica f)
         {
             byte[] data = f.ReadWithoutEncryption(0x558b, 0);
             if (data == null)
@@ -46,12 +46,12 @@ namespace FeliCa2Money
                 return false;
             }
 
-            mAccountId = binString(data, 0, 8);
+            AccountId = binString(data, 0, 8);
 
             return true;
         }
 
-        public override bool analyzeTransaction(Transaction t, byte[] data)
+        public override bool AnalyzeTransaction(Transaction t, byte[] data)
         {
             // 日付
             int value = read4b(data, 9);

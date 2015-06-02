@@ -25,6 +25,7 @@ using System;
 using System.IO;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -37,8 +38,6 @@ namespace FeliCa2Money
     /// </summary>
     public class AgrFile
     {
-        private List<Account> mAccounts;
-
         enum State
         {
             SearchingStart,
@@ -49,24 +48,21 @@ namespace FeliCa2Money
         /// <summary>
         /// アカウントリスト
         /// </summary>
-        public List<Account> accounts
-        {
-            get { return mAccounts; }
-        }
+        public List<Account> Accounts { get; private set; }
 
         /// <summary>
         /// AGRファイルを読み込む
         /// </summary>
         /// <param name="path">AGRファイルパス</param>
         /// <returns>成功時は true、失敗時はfalse</returns>
-        public bool loadFromFile(string path)
+        public bool LoadFromFile(string path)
         {
             // SJIS で開く
             StreamReader sr = new StreamReader(path, System.Text.Encoding.Default);
-            return load(sr);
+            return Load(sr);
         }
 
-        public bool load(StreamReader sr) 
+        public bool Load(StreamReader sr) 
         {
             try
             {
@@ -77,7 +73,7 @@ namespace FeliCa2Money
                     return false;
                 }
 
-                mAccounts = new List<Account>();
+                Accounts = new List<Account>();
                 AgrAccount account = null;
 
                 AgrAccount.Builder builder = new AgrAccount.Builder();
@@ -136,7 +132,7 @@ namespace FeliCa2Money
                         case State.ReadTransactions:
                             if (line.StartsWith("<END_"))
                             {
-                                mAccounts.Add(account);
+                                Accounts.Add(account);
                                 state = State.SearchingStart;
                             }
                             else
@@ -164,13 +160,9 @@ namespace FeliCa2Money
         /// 全トランザクション数を返す
         /// </summary>
         /// <returns></returns>
-        public int numTransactions()
+        public int CountTransactions()
         {
-            int count = 0;
-            foreach (AgrAccount account in mAccounts) {
-                count += account.transactions.Count;
-            }
-            return count;
+            return Accounts.Sum(account => account.Transactions.Count);
         }
     }
 }

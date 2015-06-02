@@ -46,12 +46,12 @@ namespace FeliCa2Money
         /// <param name="t"></param>
         /// <param name="data"></param>
         /// <returns></returns>
-        public abstract bool analyzeTransaction(Transaction t, byte[] data);
+        public abstract bool AnalyzeTransaction(Transaction t, byte[] data);
 
         /// <summary>
         /// 後処理
         /// </summary>
-        /// <param name="list"></param>
+        /// <param name="transactions"></param>
         protected virtual void PostProcess(TransactionList transactions) { }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace FeliCa2Money
         /// </summary>
         /// <param name="f"></param>
         /// <returns></returns>
-        public virtual bool analyzeCardId(IFelica f)
+        public virtual bool AnalyzeCardId(IFelica f)
         {
             // デフォルトでは、IDm を用いる。
             byte[] data = f.IDm();
@@ -73,7 +73,7 @@ namespace FeliCa2Money
                 return false;
             }
 
-            mAccountId = binString(data, 0, 8);
+            AccountId = binString(data, 0, 8);
 
             return true;
         }
@@ -86,7 +86,7 @@ namespace FeliCa2Money
         public sealed override void ReadTransactions()
         {
             using (IFelica f = new Felica()) {
-                mTransactions = ReadTransactions(f);
+                Transactions = ReadTransactions(f);
             }
         }
 
@@ -98,11 +98,11 @@ namespace FeliCa2Money
         /// <returns></returns>
         public TransactionList ReadTransactions(IFelica f)
         {
-            TransactionList transactions = new TransactionList();
+            var transactions = new TransactionList();
 
             f.Polling(mSystemCode);
 
-            if (!analyzeCardId(f)) {
+            if (!AnalyzeCardId(f)) {
                 throw new Exception(Properties.Resources.CantReadCardNo);
             }
 
@@ -141,7 +141,7 @@ namespace FeliCa2Money
                 }
 
                 // トランザクション解析
-                else if (!analyzeTransaction(t, data))
+                else if (!AnalyzeTransaction(t, data))
                 {
                     t.Invalidate();
                 }

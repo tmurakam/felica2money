@@ -2,7 +2,7 @@
 /*
  * FeliCa2Money
  *
- * Copyright (C) 2001-2011 Takuya Murakami
+ * Copyright (C) 2001-2015 Takuya Murakami
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -73,7 +73,7 @@ namespace FeliCa2Money
             private AgrAccount newAccount(string line, bool isCreditCard)
             {
                 AgrAccount account = new AgrAccount();
-                account.isCreditCard = isCreditCard;
+                account.IsCreditCard = isCreditCard;
                 if (!account.readAccountInfo(line, mNameHash))
                 {
                     return null;
@@ -109,7 +109,7 @@ namespace FeliCa2Money
                 return false;
             }
 
-            if (!isCreditCard)
+            if (!IsCreditCard)
             {
                 // 銀行口座
                 string bankName = columns[0];
@@ -119,19 +119,19 @@ namespace FeliCa2Money
                 {
                     try
                     {
-                        balance = int.Parse(columns[3]);
-                        hasBalance = true;
+                        Balance = int.Parse(columns[3]);
+                        HasBalance = true;
                     }
                     catch
                     {
-                        hasBalance = false;
+                        HasBalance = false;
                     }
                 }
 
-                mIdent = bankName;
-                mBankId = bankName;
-                mBranchId = branchName; // getDummyId(branchName).ToString();
-                mAccountId = accountId;
+                Ident = bankName;
+                BankId = bankName;
+                BranchId = branchName; // getDummyId(branchName).ToString();
+                AccountId = accountId;
             }
             else
             {
@@ -140,12 +140,12 @@ namespace FeliCa2Money
                 try
                 {
                     // 借入額
-                    balance = - int.Parse(columns[2]);
-                    hasBalance = true;
+                    Balance = - int.Parse(columns[2]);
+                    HasBalance = true;
                 }
                 catch
                 {
-                    hasBalance = false;
+                    HasBalance = false;
                 }
 
                 // 末尾の 'カード' という文字を抜く
@@ -154,9 +154,9 @@ namespace FeliCa2Money
 
                 // 2カラム目は空の模様
                 //string balance = columns[2];
-                mIdent = "";
-                mBankId = "";
-                mBranchId = "";
+                Ident = "";
+                BankId = "";
+                BranchId = "";
 
                 // 重複しないよう、連番を振る
                 int counter;
@@ -168,7 +168,7 @@ namespace FeliCa2Money
                 {
                     counter = (int)nameHash[cardName];
                 }
-                mAccountId = cardName + counter.ToString();
+                AccountId = cardName + counter.ToString();
                 nameHash[cardName] = counter + 1;
             }
 
@@ -285,7 +285,7 @@ namespace FeliCa2Money
                 transaction.Balance = 0;
             }
 
-            mTransactions.Add(transaction);
+            Transactions.Add(transaction);
 
             return true;
         }

@@ -69,13 +69,13 @@ namespace FeliCa2Money.test
         public void bankOnly()
         {
             TestAccount bank = new TestAccount();
-            bank.isCreditCard = false;
-            bank.transactions.Add(T1);
-            bank.transactions.Add(T2);
+            bank.IsCreditCard = false;
+            bank.Transactions.Add(T1);
+            bank.Transactions.Add(T2);
             accounts.Add(bank);
 
             TestAccount card = new TestAccount();
-            card.isCreditCard = true;
+            card.IsCreditCard = true;
             accounts.Add(card);
 
             ofx.genOfx(accounts);
@@ -90,13 +90,13 @@ namespace FeliCa2Money.test
         public void cardOnly()
         {
             TestAccount bank = new TestAccount();
-            bank.isCreditCard = false;
+            bank.IsCreditCard = false;
             accounts.Add(bank);
 
             TestAccount card = new TestAccount();
-            card.isCreditCard = true;
-            card.transactions.Add(T1);
-            card.transactions.Add(T2);
+            card.IsCreditCard = true;
+            card.Transactions.Add(T1);
+            card.Transactions.Add(T2);
             accounts.Add(card);
 
             ofx.genOfx(accounts);
@@ -111,13 +111,13 @@ namespace FeliCa2Money.test
         public void normalTest()
         {
             TestAccount bank = new TestAccount();
-            bank.isCreditCard = false;
-            bank.transactions.Add(T1);
+            bank.IsCreditCard = false;
+            bank.Transactions.Add(T1);
             accounts.Add(bank);
 
             TestAccount card = new TestAccount();
-            card.isCreditCard = true;
-            card.transactions.Add(T2);
+            card.IsCreditCard = true;
+            card.Transactions.Add(T2);
             accounts.Add(card);
 
             ofx.genOfx(accounts);
@@ -146,7 +146,7 @@ namespace FeliCa2Money.test
         public void lastBalanceTest()
         {
             TestAccount acc = new TestAccount();
-            acc.isCreditCard = false;
+            acc.IsCreditCard = false;
             accounts.Add(acc);
 
             Transaction t;
@@ -157,7 +157,7 @@ namespace FeliCa2Money.test
             t.Type = TransType.Payment;
             t.Value = 100;
             t.Balance = 10000;
-            acc.transactions.Add(t);
+            acc.Transactions.Add(t);
 
             t = new Transaction();
             t.Date = new DateTime(2010, 4, 1);
@@ -165,7 +165,7 @@ namespace FeliCa2Money.test
             t.Type = TransType.Payment;
             t.Value = 200;
             t.Balance = 20000;
-            acc.transactions.Add(t);
+            acc.Transactions.Add(t);
 
             t = new Transaction();
             t.Date = new DateTime(2010, 1, 1); // 逆順
@@ -173,7 +173,7 @@ namespace FeliCa2Money.test
             t.Type = TransType.Payment;
             t.Value = 300;
             t.Balance = 30000;
-            acc.transactions.Add(t);
+            acc.Transactions.Add(t);
         
             ofx.genOfx(accounts);
             XmlDocument doc = ofx.doc;
