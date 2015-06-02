@@ -70,7 +70,7 @@ namespace FeliCa2Money.test
             Transaction t;
 
             // 支払
-            t = tlist.getAt(0);
+            t = tlist[0];
             //string d = t[0].date.ToString();
             Assert.AreEqual(0x12345, t.id);
             Assert.AreEqual("2000/01/01 0:00:00", t.date.ToString());
@@ -79,7 +79,7 @@ namespace FeliCa2Money.test
             Assert.AreEqual("支払 74565", t.desc);
 
             // チャージ
-            t = tlist.getAt(1);
+            t = tlist[1];
             Assert.AreEqual(0x12346, t.id);
             Assert.AreEqual("2000/01/01 0:00:00", t.date.ToString());
             Assert.AreEqual(1000, t.value);
@@ -87,7 +87,7 @@ namespace FeliCa2Money.test
             Assert.AreEqual("Edyチャージ", t.desc);
 
             // ギフト
-            t = tlist.getAt(2);
+            t = tlist[2];
             Assert.AreEqual(0x12347, t.id);
             Assert.AreEqual("2000/01/01 0:00:00", t.date.ToString());
             Assert.AreEqual(1000, t.value);
@@ -119,14 +119,14 @@ namespace FeliCa2Money.test
             Assert.AreEqual(6, tlist.Count);
             Transaction t;
 
-            t = tlist.getAt(0);
+            t = tlist[0];
             Assert.AreEqual(98, t.id);
             Assert.AreEqual("2008/05/10 22:26:31", t.date.ToString());
             Assert.AreEqual(-1800, t.value);
             Assert.AreEqual(41250, t.balance);
             Assert.AreEqual("支払 98", t.desc);
 
-            t = tlist.getAt(1);
+            t = tlist[1];
             Assert.AreEqual(99, t.id);
             Assert.AreEqual("2008/05/11 18:48:55", t.date.ToString());
             Assert.AreEqual(8064, t.value);

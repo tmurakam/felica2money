@@ -85,7 +85,7 @@ namespace FeliCa2Money.test
             Assert.True(account.readTransaction("\"2010/1/2\", \"DESCRIPTION\", \"100\", \"JPY\", \"--\", \"\", \"123456\", \"JPY\""));
             Assert.AreEqual(1, account.transactions.Count);
 
-            Transaction t = account.transactions.getAt(0);
+            Transaction t = account.transactions[0];
             Assert.AreEqual(DateTime.Parse("2010/1/2").ToString(), t.date.ToString());
             Assert.AreEqual("DESCRIPTION", t.desc);
             Assert.AreEqual(100, t.value);
@@ -105,7 +105,7 @@ namespace FeliCa2Money.test
                 Assert.True(account.readTransaction("\"" + i.ToString() + "/15\", \"DESCRIPTION\", \"100\", \"JPY\", \"\", \"\", \"123456\", \"JPY\""));
                 Assert.AreEqual(1, account.transactions.Count);
 
-                Transaction t = account.transactions.getAt(0);
+                Transaction t = account.transactions[0];
                 Assert.AreEqual(i, t.date.Month);
                 Assert.AreEqual(15, t.date.Day);
 
@@ -125,7 +125,7 @@ namespace FeliCa2Money.test
             Assert.True(account.readTransaction("\"2011/3\", \"DESCRIPTION\", \"100\", \"JPY\", \"\", \"\", \"123456\", \"JPY\""));
             Assert.AreEqual(1, account.transactions.Count);
 
-            Transaction t = account.transactions.getAt(0);
+            Transaction t = account.transactions[0];
             Assert.AreEqual(2011, t.date.Year);
             Assert.AreEqual(3, t.date.Month);
             Assert.AreEqual(1, t.date.Day);

@@ -12,9 +12,9 @@ namespace FeliCa2Money
         /// <summary>
         /// マスタCSVルール定義ファイルの URL
         /// </summary>
-        //private const String CSV_MASTER_RULE_URL = "https://github.com/tmurakam/felica2money/raw/master/defs/CsvRules.xml";
-        //private const String CSV_MASTER_RULE_URL = "https://raw.githubusercontent.com/tmurakam/felica2money/master/defs/CsvRules.xml";
-        private const String CSV_MASTER_RULE_URL = "http://felica2money.tmurakam.org/data/CsvRules.php";
+        //private const string CSV_MASTER_RULE_URL = "https://github.com/tmurakam/felica2money/raw/master/defs/CsvRules.xml";
+        //private const string CSV_MASTER_RULE_URL = "https://raw.githubusercontent.com/tmurakam/felica2money/master/defs/CsvRules.xml";
+        private const string CSV_MASTER_RULE_URL = "http://felica2money.tmurakam.org/data/CsvRules.php";
 
         override protected string getRemoteUrl()
         {
@@ -63,7 +63,7 @@ namespace FeliCa2Money
                 return false;
             }
 
-            String remoteVersion = GetRecentMasterVersion();
+            var remoteVersion = GetRecentMasterVersion();
             if (remoteVersion == null)
             {
                 // ネットワーク未接続など
@@ -84,7 +84,7 @@ namespace FeliCa2Money
                     return DownloadRule();
                 }
 
-                DialogResult result = MessageBox.Show("新しいCSV定義ファイルがあります。更新しますか？", "確認",
+                var result = MessageBox.Show("新しいCSV定義ファイルがあります。更新しますか？", "確認",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2);
                 if (result == DialogResult.Yes)
                 {
@@ -107,11 +107,11 @@ namespace FeliCa2Money
         /// オンライン定義ファイルのバージョンを取得する
         /// </summary>
         /// <returns>バージョン</returns>
-        public String GetRecentMasterVersion()
+        public string GetRecentMasterVersion()
         {
-            CsvRules rules = new CsvRules();
+            var rules = new CsvRules();
 
-            String xml = downloadRemoteUrl();
+            var xml = downloadRemoteUrl();
             if (xml == null)
             {
                 return null;
@@ -125,7 +125,7 @@ namespace FeliCa2Money
         /// <returns></returns>
         public bool DownloadRule()
         {
-            string path = CsvRules.getRulesPath() + "\\" + CsvRules.CSV_MASTER_RULE_FILENAME;
+            string path = CsvRules.GetRulesPath() + "\\" + CsvRules.CSV_MASTER_RULE_FILENAME;
 
             try
             {

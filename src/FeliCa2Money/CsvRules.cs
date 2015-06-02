@@ -111,7 +111,7 @@ namespace FeliCa2Money
         /// ルール名一覧を返す
         /// </summary>
         /// <returns>ルール名</returns>
-        public string[] names()
+        public string[] Names()
         {
             string[] names = new string[mRules.Count];
             int i = 0;
@@ -126,11 +126,11 @@ namespace FeliCa2Money
         /// <summary>
         /// ident に一致するルールを探す
         /// </summary>
-        /// <param name="firstLine">firstLine</param>
+        /// <param name="ident">識別子</param>
         /// <returns>ルール</returns>
         public CsvRule FindRuleWithIdent(string ident)
         {
-            foreach (CsvRule rule in mRules)
+            foreach (var rule in mRules)
             {
                 if (rule.Ident == ident)
                 {
@@ -147,7 +147,7 @@ namespace FeliCa2Money
         /// <returns>ルール</returns>
         public CsvRule FindRuleForFirstLine(string firstLine)
         {
-            foreach (CsvRule rule in mRules)
+            foreach (var rule in mRules)
             {
                 if (rule.FirstLine == firstLine)
                 {
@@ -166,7 +166,7 @@ namespace FeliCa2Money
             mRules.Clear();
 
             // ユーザ設定フォルダのほうから読み出す
-            String path = getRulesPath();
+            String path = GetRulesPath();
             //String path = Path.GetDirectoryName(Application.ExecutablePath);
 
             string[] xmlFiles = Directory.GetFiles(path, "*.xml");
@@ -208,7 +208,7 @@ namespace FeliCa2Money
         /// <returns>バージョン文字列</returns>
         public String LoadFromFile(string path)
         {
-            XmlDocument doc = new XmlDocument();
+            var doc = new XmlDocument();
             doc.Load(path);
 
             return LoadFromXml(doc);
@@ -216,7 +216,7 @@ namespace FeliCa2Money
 
         public String LoadFromString(string xmlString)
         {
-            XmlDocument doc = new XmlDocument();
+            var doc = new XmlDocument();
             doc.LoadXml(xmlString);
 
             return LoadFromXml(doc);
@@ -224,10 +224,10 @@ namespace FeliCa2Money
 
         private String LoadFromXml(XmlDocument doc)
         {
-            XmlElement root = doc.DocumentElement;
+            var root = doc.DocumentElement;
 
             // Version 取得
-            String version = null;
+            string version = null;
             XmlNodeList versionList = root.GetElementsByTagName("Version");
             if (versionList.Count > 0)
             {
@@ -296,7 +296,7 @@ namespace FeliCa2Money
         /// UserAppDataPath からバージョン番号を除いたものが帰る
         /// </summary>
         /// <returns></returns>
-        public static string getRulesPath()
+        public static string GetRulesPath()
         {
             string path = Application.LocalUserAppDataPath;
             path = System.IO.Path.GetDirectoryName(path);

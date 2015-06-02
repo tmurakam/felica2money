@@ -1,4 +1,4 @@
-/*
+﻿/*
  * FeliCa2Money
  *
  * Copyright (C) 2001-2011 Takuya Murakami
@@ -60,7 +60,7 @@ namespace FeliCa2Money
         {
             // リストボックスにルール名をリストする
             listBox.Items.Clear();
-            string[] names = mRules.names();
+            string[] names = mRules.Names();
 
             foreach (string name in names)
             {

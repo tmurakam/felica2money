@@ -186,12 +186,12 @@ namespace FeliCa2Money
         {
             int prevBalance = 0;
 
-            foreach (Transaction t in transactions.list)
+            foreach (Transaction t in transactions)
             {
                 t.value = t.balance - prevBalance;
                 prevBalance = t.balance;
             }
-            transactions.list.RemoveAt(0);   // 最古のエントリは捨てる
+            transactions.RemoveAt(0);   // 最古のエントリは捨てる
         }
 
         // 複数バイト読み込み (big endian)

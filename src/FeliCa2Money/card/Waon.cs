@@ -61,7 +61,7 @@ namespace FeliCa2Money
         // 履歴連番でソートする
         protected override void PostProcess(TransactionList transactions)
         {
-            transactions.list.Sort(compareById);
+            transactions.Sort(compareById);
         }
 
         private static int compareById(Transaction x, Transaction y)

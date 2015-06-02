@@ -1,4 +1,4 @@
-// -*-  Mode:C++; c-basic-offset:4; tab-width:4; indent-tabs-mode:nil -*-
+﻿// -*-  Mode:C++; c-basic-offset:4; tab-width:4; indent-tabs-mode:nil -*-
 
 using System;
 using System.IO;
@@ -102,7 +102,7 @@ namespace FeliCa2Money.test
             mAccount.startReading(mTempFileName, mRule);
             mAccount.ReadTransactions();
             Assert.AreEqual(1, mAccount.transactions.Count);
-            Transaction t = mAccount.transactions.getAt(0);
+            Transaction t = mAccount.transactions[0];
 
             Assert.AreEqual(t.date.Year, 2011);
             Assert.AreEqual(t.date.Month, 1);
@@ -125,7 +125,7 @@ namespace FeliCa2Money.test
             mAccount.startReading(mTempFileName, mRule);
             mAccount.ReadTransactions();
             Assert.AreEqual(2, mAccount.transactions.Count);
-            Transaction t = mAccount.transactions.getAt(0);
+            Transaction t = mAccount.transactions[0];
 
             Assert.AreEqual(t.date.Day, 1);
             Assert.AreEqual(t.value, 100);
@@ -144,7 +144,7 @@ namespace FeliCa2Money.test
             mAccount.startReading(mTempFileName, mRule);
             mAccount.ReadTransactions();
             Assert.AreEqual(2, mAccount.transactions.Count);
-            Transaction t = mAccount.transactions.getAt(0);
+            Transaction t = mAccount.transactions[0];
 
             Assert.AreEqual(t.date.Day, 1);
             Assert.AreEqual(t.value, 100);
@@ -163,7 +163,7 @@ namespace FeliCa2Money.test
             mAccount.startReading(mTempFileName, mRule);
             mAccount.ReadTransactions();
             Assert.AreEqual(2, mAccount.transactions.Count);
-            Transaction t = mAccount.transactions.getAt(0);
+            Transaction t = mAccount.transactions[0];
 
             Assert.AreEqual(t.date.Day, 1);
             Assert.AreEqual(t.value, 100);
@@ -190,14 +190,14 @@ namespace FeliCa2Money.test
 
             // ID自動採番。本来は CsvAccount ではなく TransactionList
             // でテストすべき。
-            mAccount.transactions.assignSerials();
+            mAccount.transactions.AssignSerials();
 
-            Assert.AreEqual(0, mAccount.transactions.getAt(0).id);
-            Assert.AreEqual(1, mAccount.transactions.getAt(1).id);
-            Assert.AreEqual(2, mAccount.transactions.getAt(2).id);
-            Assert.AreEqual(0, mAccount.transactions.getAt(3).id);
-            Assert.AreEqual(1, mAccount.transactions.getAt(4).id);
-            Assert.AreEqual(2, mAccount.transactions.getAt(5).id);
+            Assert.AreEqual(0, mAccount.transactions[0].id);
+            Assert.AreEqual(1, mAccount.transactions[1].id);
+            Assert.AreEqual(2, mAccount.transactions[2].id);
+            Assert.AreEqual(0, mAccount.transactions[3].id);
+            Assert.AreEqual(1, mAccount.transactions[4].id);
+            Assert.AreEqual(2, mAccount.transactions[5].id);
         }
     }
 }

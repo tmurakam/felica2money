@@ -1,4 +1,4 @@
-/*
+﻿/*
  * FeliCa2Money
  *
  * Copyright (C) 2001-2011 Takuya Murakami
@@ -193,12 +193,12 @@ namespace FeliCa2Money
             }
 
             // 無効な取引を削除する
-            c.transactions.removeInvalidTransactions();
+            c.transactions.RemoveInvalidTransactions();
 
             // 0円の取引を削除する
             if (Properties.Settings.Default.IgnoreZeroTransaction)
             {
-                c.transactions.removeZeroTransactions();
+                c.transactions.RemoveZeroTransactions();
             }
 
             return true;
@@ -217,7 +217,7 @@ namespace FeliCa2Money
             int count = 0;
             foreach (Account account in accounts)
             {
-                account.transactions.assignSerials();
+                account.transactions.AssignSerials();
                 count += account.transactions.Count;
             }
             if (count == 0)

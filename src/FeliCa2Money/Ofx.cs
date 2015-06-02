@@ -225,7 +225,7 @@ namespace FeliCa2Money
             appendElementWithText(e, "DTSTART", dateStr(first.date));
             appendElementWithText(e, "DTEND", dateStr(last.date));
 
-            foreach (Transaction t in account.transactions.list)
+            foreach (Transaction t in account.transactions)
             {
                 statementTransaction(e, t);
             }

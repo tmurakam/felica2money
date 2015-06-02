@@ -123,7 +123,7 @@ namespace FeliCa2Money
                     break;
 
                 case CsvRule.SortOrderType.Auto:
-                    transactions.list.Sort(compareByDate);
+                    transactions.Sort(compareByDate);
                     break;
             }
 
