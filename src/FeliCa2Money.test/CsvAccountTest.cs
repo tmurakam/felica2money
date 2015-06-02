@@ -171,7 +171,7 @@ namespace FeliCa2Money.test
 
         // ID自動採番テスト
         [Test]
-        public void idSerialTest()
+        public void IdSerialTest()
         {
             mSw.WriteLine("FIRST_LINE");
             mSw.WriteLine("2011/1/1, 100, 10000, Desc, Memo");
@@ -192,12 +192,12 @@ namespace FeliCa2Money.test
             // でテストすべき。
             mAccount.transactions.AssignSerials();
 
-            Assert.AreEqual(0, mAccount.transactions[0].Id);
-            Assert.AreEqual(1, mAccount.transactions[1].Id);
-            Assert.AreEqual(2, mAccount.transactions[2].Id);
-            Assert.AreEqual(0, mAccount.transactions[3].Id);
-            Assert.AreEqual(1, mAccount.transactions[4].Id);
-            Assert.AreEqual(2, mAccount.transactions[5].Id);
+            Assert.AreEqual(0, mAccount.transactions[0].Serial);
+            Assert.AreEqual(1, mAccount.transactions[1].Serial);
+            Assert.AreEqual(2, mAccount.transactions[2].Serial);
+            Assert.AreEqual(0, mAccount.transactions[3].Serial);
+            Assert.AreEqual(1, mAccount.transactions[4].Serial);
+            Assert.AreEqual(2, mAccount.transactions[5].Serial);
         }
     }
 }
