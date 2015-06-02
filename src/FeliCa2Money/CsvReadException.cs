@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FeliCa2Money
 {
-    class CsvReadException : Exception
+    public class CsvReadException : System.Exception
     {
         public CsvReadException(String message)
             : base(message)

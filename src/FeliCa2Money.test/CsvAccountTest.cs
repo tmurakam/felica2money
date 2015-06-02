@@ -44,13 +44,20 @@ namespace FeliCa2Money.test
 
         // 空ファイル読み込み
         [Test]
-        public void loadEmptyFile()
+        public void LoadEmptyFile()
         {
             mSw.Close();
 
             mAccount.startReading(mTempFileName, mRule);
-            mAccount.ReadTransactions();
-            Assert.AreEqual(0, mAccount.transactions.Count);
+            try
+            {
+                mAccount.ReadTransactions();
+                Assert.Fail();
+            }
+            catch (CsvReadException e)
+            {
+                // ok
+            }
         }
 
         // FirstLine のみのファイル読み込み
@@ -73,8 +80,15 @@ namespace FeliCa2Money.test
             mSw.Close();
 
             mAccount.startReading(mTempFileName, mRule);
-            mAccount.ReadTransactions();
-            Assert.AreEqual(0, mAccount.transactions.Count);
+            try
+            {
+                mAccount.ReadTransactions();
+                Assert.Fail();
+            }
+            catch (CsvReadException e)
+            {
+                // ok
+            }
         }
 
         // 通常読み込み
