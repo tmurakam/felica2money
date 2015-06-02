@@ -65,7 +65,7 @@ namespace FeliCa2Money
             mDoc.AppendChild(root);
 
             // Signon MessageSet Response
-            signonMessageSetResponse(root, allLast.date);
+            signonMessageSetResponse(root, allLast.Date);
 
             // Bank / CreditCard MessageSet Response
             List<Account> banks = new List<Account>();
@@ -222,8 +222,8 @@ namespace FeliCa2Money
         {
             XmlElement e = appendElement(parent, "BANKTRANLIST");
             
-            appendElementWithText(e, "DTSTART", dateStr(first.date));
-            appendElementWithText(e, "DTEND", dateStr(last.date));
+            appendElementWithText(e, "DTSTART", dateStr(first.Date));
+            appendElementWithText(e, "DTEND", dateStr(last.Date));
 
             foreach (Transaction t in account.transactions)
             {
@@ -238,15 +238,15 @@ namespace FeliCa2Money
             XmlElement e = appendElement(parent, "STMTTRN");
 
             appendElementWithText(e, "TRNTYPE", t.GetTransString());
-            appendElementWithText(e, "DTPOSTED", dateStr(t.date));
-            appendElementWithText(e, "TRNAMT", t.value.ToString());
+            appendElementWithText(e, "DTPOSTED", dateStr(t.Date));
+            appendElementWithText(e, "TRNAMT", t.Value.ToString());
 
             // トランザクションの ID は日付と取引番号で生成
-            appendElementWithText(e, "FITID", t.transId());
-            appendElementWithText(e, "NAME", limitString(t.desc, 32));
-            if (t.memo != null)
+            appendElementWithText(e, "FITID", t.TransId());
+            appendElementWithText(e, "NAME", limitString(t.Desc, 32));
+            if (t.Memo != null)
             {
-                appendElementWithText(e, "MEMO", t.memo);
+                appendElementWithText(e, "MEMO", t.Memo);
             }
         }
 
@@ -262,11 +262,11 @@ namespace FeliCa2Money
             }
             else
             {
-                balance = last.balance;
+                balance = last.Balance;
             }
 
             appendElementWithText(e, "BALAMT", balance.ToString());
-            appendElementWithText(e, "DTASOF", dateStr(last.date));
+            appendElementWithText(e, "DTASOF", dateStr(last.Date));
         }
 
         // 要素追加
@@ -315,12 +315,12 @@ namespace FeliCa2Money
                 foreach (Transaction t in account.transactions)
                 {
                     // 先頭エントリ: 同じ日付の場合は、前のエントリを優先
-                    if (allFirst == null || t.date < allFirst.date)
+                    if (allFirst == null || t.Date < allFirst.Date)
                     {
                         allFirst = t;
                     }
                     // 最終エントリ: 同じ日付の場合は、後のエントリを優先
-                    if (allLast == null || t.date >= allLast.date)
+                    if (allLast == null || t.Date >= allLast.Date)
                     {
                         allLast = t;
                     }
@@ -335,12 +335,12 @@ namespace FeliCa2Money
             foreach (Transaction t in account.transactions)
             {
                 // 先頭エントリ: 同じ日付の場合は、前のエントリを優先
-                if (first == null || t.date < first.date)
+                if (first == null || t.Date < first.Date)
                 {
                     first = t;
                 }
                 // 最終エントリ: 同じ日付の場合は、後のエントリを優先
-                if (last == null || t.date >= last.date)
+                if (last == null || t.Date >= last.Date)
                 {
                     last = t;
                 }

@@ -207,7 +207,7 @@ namespace FeliCa2Money
             {
                 if (ary.Length == 3)
                 {
-                    transaction.date = new DateTime(int.Parse(ary[0]), int.Parse(ary[1]), int.Parse(ary[2]), 0, 0, 0);
+                    transaction.Date = new DateTime(int.Parse(ary[0]), int.Parse(ary[1]), int.Parse(ary[2]), 0, 0, 0);
                 }
                 else if (ary.Length == 2)
                 {
@@ -219,7 +219,7 @@ namespace FeliCa2Money
                     if (n1 >= 2000)
                     {
                         // 年と月のみ: 日は1日とする
-                        transaction.date = new DateTime(n1, n2, 1, 0, 0, 0);
+                        transaction.Date = new DateTime(n1, n2, 1, 0, 0, 0);
                     }
                     else
                     {
@@ -240,7 +240,7 @@ namespace FeliCa2Money
                         {
                             d = new DateTime(now.Year + 1, mm, dd, 0, 0, 0);
                         }
-                        transaction.date = d;
+                        transaction.Date = d;
                     }
                 }
                 else
@@ -255,18 +255,18 @@ namespace FeliCa2Money
             }
 
             // 摘要
-            transaction.desc = columns[1];
+            transaction.Desc = columns[1];
 
             // 入金額/出金額
             try
             {
-                transaction.value = int.Parse(columns[2]);
+                transaction.Value = int.Parse(columns[2]);
             }
             catch
             {
                 try
                 {
-                    transaction.value = -int.Parse(columns[4]);
+                    transaction.Value = -int.Parse(columns[4]);
                 }
                 catch
                 {
@@ -277,12 +277,12 @@ namespace FeliCa2Money
             // 残高
             try
             {
-                transaction.balance = int.Parse(columns[6]);
+                transaction.Balance = int.Parse(columns[6]);
             }
             catch
             {
                 // Note: 残高は入っていない場合もある
-                transaction.balance = 0;
+                transaction.Balance = 0;
             }
 
             mTransactions.Add(transaction);

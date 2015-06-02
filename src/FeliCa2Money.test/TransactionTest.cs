@@ -15,11 +15,11 @@ namespace FeliCa2Money.test
         public void SetUp()
         {
             t = new Transaction();
-            t.date = new DateTime(2012, 12, 31);
-            t.serial = 567;
-            t.value = -1234;
-            t.desc = "説明";
-            t.memo = "メモ";
+            t.Date = new DateTime(2012, 12, 31);
+            t.Serial = 567;
+            t.Value = -1234;
+            t.Desc = "説明";
+            t.Memo = "メモ";
         }
 
         // MD5計算。文字列の MD5 を計算して 16進数で返す。
@@ -39,15 +39,15 @@ namespace FeliCa2Money.test
         [Test]
         public void testTransIdWithId()
         {
-            t.id = 12345;
-            string tid = t.transId();
+            t.Id = 12345;
+            string tid = t.TransId();
             Assert.AreEqual("201212310012345", tid);
         }
 
         [Test]
         public void testTransIdWithoutId()
         {
-            string tid = t.transId();
+            string tid = t.TransId();
             Assert.IsNotNull(tid);
             string expected = md5("2012;12;31;567;-1234;説明;メモ");
             Assert.AreEqual(expected, tid);

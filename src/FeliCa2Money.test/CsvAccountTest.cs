@@ -104,12 +104,12 @@ namespace FeliCa2Money.test
             Assert.AreEqual(1, mAccount.transactions.Count);
             Transaction t = mAccount.transactions[0];
 
-            Assert.AreEqual(t.date.Year, 2011);
-            Assert.AreEqual(t.date.Month, 1);
-            Assert.AreEqual(t.date.Day, 2);
-            Assert.AreEqual(t.value, 500);
-            Assert.AreEqual(t.balance, 50000);
-            Assert.AreEqual(t.desc, "Desc");
+            Assert.AreEqual(t.Date.Year, 2011);
+            Assert.AreEqual(t.Date.Month, 1);
+            Assert.AreEqual(t.Date.Day, 2);
+            Assert.AreEqual(t.Value, 500);
+            Assert.AreEqual(t.Balance, 50000);
+            Assert.AreEqual(t.Desc, "Desc");
         }
 
         // Ascent テスト
@@ -127,8 +127,8 @@ namespace FeliCa2Money.test
             Assert.AreEqual(2, mAccount.transactions.Count);
             Transaction t = mAccount.transactions[0];
 
-            Assert.AreEqual(t.date.Day, 1);
-            Assert.AreEqual(t.value, 100);
+            Assert.AreEqual(t.Date.Day, 1);
+            Assert.AreEqual(t.Value, 100);
         }
 
         // Descent テスト
@@ -146,8 +146,8 @@ namespace FeliCa2Money.test
             Assert.AreEqual(2, mAccount.transactions.Count);
             Transaction t = mAccount.transactions[0];
 
-            Assert.AreEqual(t.date.Day, 1);
-            Assert.AreEqual(t.value, 100);
+            Assert.AreEqual(t.Date.Day, 1);
+            Assert.AreEqual(t.Value, 100);
         }
 
         // 自動 Order テスト
@@ -165,8 +165,8 @@ namespace FeliCa2Money.test
             Assert.AreEqual(2, mAccount.transactions.Count);
             Transaction t = mAccount.transactions[0];
 
-            Assert.AreEqual(t.date.Day, 1);
-            Assert.AreEqual(t.value, 100);
+            Assert.AreEqual(t.Date.Day, 1);
+            Assert.AreEqual(t.Value, 100);
         }
 
         // ID自動採番テスト
@@ -192,12 +192,12 @@ namespace FeliCa2Money.test
             // でテストすべき。
             mAccount.transactions.AssignSerials();
 
-            Assert.AreEqual(0, mAccount.transactions[0].id);
-            Assert.AreEqual(1, mAccount.transactions[1].id);
-            Assert.AreEqual(2, mAccount.transactions[2].id);
-            Assert.AreEqual(0, mAccount.transactions[3].id);
-            Assert.AreEqual(1, mAccount.transactions[4].id);
-            Assert.AreEqual(2, mAccount.transactions[5].id);
+            Assert.AreEqual(0, mAccount.transactions[0].Id);
+            Assert.AreEqual(1, mAccount.transactions[1].Id);
+            Assert.AreEqual(2, mAccount.transactions[2].Id);
+            Assert.AreEqual(0, mAccount.transactions[3].Id);
+            Assert.AreEqual(1, mAccount.transactions[4].Id);
+            Assert.AreEqual(2, mAccount.transactions[5].Id);
         }
     }
 }

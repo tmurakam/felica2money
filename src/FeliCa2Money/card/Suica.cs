@@ -66,13 +66,13 @@ namespace FeliCa2Money
             int region = data[15];      // リージョン
 
             // 処理
-            t.desc = procType(proc);
+            t.Desc = procType(proc);
 
             // 残高
-            t.balance = balance;
+            t.Balance = balance;
 
             // 金額は CalcValueFromBalance() で計算する
-            t.value = 0;
+            t.Value = 0;
 
             // 日付
             int yy = (date >> 9) + 2000;
@@ -80,7 +80,7 @@ namespace FeliCa2Money
             int dd = date & 0x1f;
             try
             {
-                t.date = new DateTime(yy, mm, dd, 0, 0, 0);
+                t.Date = new DateTime(yy, mm, dd, 0, 0, 0);
             }
             catch
             {
@@ -89,7 +89,7 @@ namespace FeliCa2Money
             }
 
             // ID
-            t.id = seq;
+            t.Id = seq;
 
             // 駅名/店舗名などを調べる
             int in_line = -1;
@@ -144,7 +144,7 @@ namespace FeliCa2Money
             }
 
             // 備考の先頭には端末種を入れる
-            t.memo = consoleType(ctype);
+            t.Memo = consoleType(ctype);
 
             switch (ctype) 
             {
@@ -153,23 +153,23 @@ namespace FeliCa2Money
                     if (out_name != null)
                     {
                         // "物販" の場合は、"物販" は消して店舗名だけにする
-                        if (t.desc == "物販")
+                        if (t.Desc == "物販")
                         {
-                            t.desc = "";
+                            t.Desc = "";
                         }
                         else
                         {
-                            t.desc += " ";
+                            t.Desc += " ";
                         }
                         // 店舗名追加
-                        t.desc += out_name.r1 + " " + out_name.r2;
+                        t.Desc += out_name.r1 + " " + out_name.r2;
                     }
                     else
                     {
                         // 店舗名が不明の場合、適用には出線区/出駅順コードをそのまま付与する。
                         // こうしないと Money が過去の履歴から誤って店舗名を補完してしまい
                         // 都合がわるいため
-                        t.desc += " 店舗コード:" + out_line.ToString("X02") + out_sta.ToString("X02");
+                        t.Desc += " 店舗コード:" + out_line.ToString("X02") + out_sta.ToString("X02");
                     }
                     break;
 
@@ -177,8 +177,8 @@ namespace FeliCa2Money
                     if (out_name != null)
                     {
                         // 適用にバス会社名、備考に停留所名を入れる
-                        t.desc += " " + out_name.r1;
-                        t.memo += " " + out_name.r2;
+                        t.Desc += " " + out_name.r1;
+                        t.Memo += " " + out_name.r2;
                     }
                     break;
 
@@ -192,26 +192,26 @@ namespace FeliCa2Money
                     // 適用に入会社または出会社を追加
                     if (in_name != null)
                     {
-                        t.desc += " " + in_name.r1;
+                        t.Desc += " " + in_name.r1;
                     }
                     else if (out_name != null)
                     {
-                        t.desc += " " + out_name.r1;
+                        t.Desc += " " + out_name.r1;
                     }
 
                     // 備考に入出会社/駅名を記載
-                    t.memo += " ";
+                    t.Memo += " ";
                     if (in_name != null) {
-                        t.memo += in_name.r1 + "(" + in_name.r2 + ")";
+                        t.Memo += in_name.r1 + "(" + in_name.r2 + ")";
                     } else {
-                        t.memo += string.Format("未登録({0}:{1}:{2})", in_area, in_line, in_sta);
+                        t.Memo += string.Format("未登録({0}:{1}:{2})", in_area, in_line, in_sta);
                     }
-                    t.memo += " - ";
+                    t.Memo += " - ";
 
                     if (out_name != null) {
-                        t.memo += out_name.r1 + "(" + out_name.r2 + ")";
+                        t.Memo += out_name.r1 + "(" + out_name.r2 + ")";
                     } else {
-                        t.memo += string.Format("未登録({0}:{1}:{2})", out_area, out_sta, region);
+                        t.Memo += string.Format("未登録({0}:{1}:{2})", out_area, out_sta, region);
                     }
                     break;
             }

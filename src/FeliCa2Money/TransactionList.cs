@@ -10,7 +10,7 @@ namespace FeliCa2Money
         // 無効な取引を削除する
         public void RemoveInvalidTransactions()
         {
-            RemoveAll(Transaction.isInvalid);
+            RemoveAll(Transaction.IsInvalid);
         }
         
         // 0円の取引を削除する
@@ -18,7 +18,7 @@ namespace FeliCa2Money
         {
             if (Properties.Settings.Default.IgnoreZeroTransaction)
             {
-                RemoveAll(Transaction.isZeroTransaction);
+                RemoveAll(Transaction.IsZeroTransaction);
             }
         }
 
@@ -32,18 +32,18 @@ namespace FeliCa2Money
 
             foreach (Transaction t in this)
             {
-                if (t.isIdUnassigned())
+                if (t.IsIdUnassigned())
                 {
-                    if (t.date == prevDate)
+                    if (t.Date == prevDate)
                     {
                         serial++;
                     }
                     else
                     {
                         serial = 0;
-                        prevDate = t.date;
+                        prevDate = t.Date;
                     }
-                    t.serial = serial;
+                    t.Serial = serial;
                 }
             }
         }

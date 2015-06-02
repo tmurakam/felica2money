@@ -150,7 +150,7 @@ namespace FeliCa2Money
 
         private static int compareByDate(Transaction x, Transaction y)
         {
-            return x.date.CompareTo(y.date);
+            return x.Date.CompareTo(y.Date);
         }
     }
 }

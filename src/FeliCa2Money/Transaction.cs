@@ -41,72 +41,39 @@ namespace FeliCa2Money
 
     public class Transaction
     {
-        public const int UNASSIGNED_ID = -1;
-
-        private int mId = UNASSIGNED_ID; // ID
-        private DateTime mDate;
-        private TransType mType;        // トランザクションタイプ
-        private string mDesc = "";
-        private string mMemo = "";
-        private int mValue = 0;      // 金額
-        private int mBalance = 0;    // 残高
+        public const int UnassignedId = -1;
 
         // 取引ID生成用のシリアル番号。mId が UNASSIGNED_ID の場合にのみ使用
-        private int mSerial = 0; 
 
         private bool mValid = true;
 
-        private static Hashtable mTransIncome;
-        private static Hashtable mTransOutgo;
-        private static Hashtable mTransStrings;
+        private static readonly Dictionary<string,TransType> mTransIncome;
+        private static readonly Dictionary<string,TransType> mTransOutgo;
+
+        private static readonly Dictionary<TransType,string> mTransStrings;
 
         private static System.Security.Cryptography.MD5 sMd5 = new System.Security.Cryptography.MD5CryptoServiceProvider();
 
         // プロパティ
-        public int id
-        {
-            get { return this.mId; }
-            set { mId = value; }
-        }
-        public DateTime date
-        {
-            get { return mDate; }
-            set { mDate = value; }
-        }
-        public TransType type
-        {
-            get { return mType; }
-            set { mType = value; }
-        }
-        public string desc
-        {
-            get { return mDesc; }
-            set { mDesc = value; }
-        }
-        public string memo
-        {
-            get { return mMemo; }
-            set { mMemo = value; }
-        }
-        public int value
-        {
-            get { return mValue; }
-            set { mValue = value; }
-        }
-        public int balance
-        {
-            get { return mBalance; }
-            set { mBalance = value; }
-        }
-        public int serial
-        {
-            get { return mSerial; }
-            set { mSerial = value; }
-        }
+        public int Id { get; set; }
 
-        public bool isIdUnassigned()
+        public DateTime Date { get; set; }
+
+        public TransType Type { get; set; }
+
+        public string Desc { get; set; }
+
+        public string Memo { get; set; }
+
+        public int Value { get; set; }
+
+        public int Balance { get; set; }
+
+        public int Serial { get; set; }
+
+        public bool IsIdUnassigned()
         {
-            return (mId == UNASSIGNED_ID);
+            return (Id == UnassignedId);
         }
     
 
@@ -114,7 +81,7 @@ namespace FeliCa2Money
         static Transaction()
         {
             // initialize
-            mTransStrings = new Hashtable();
+            mTransStrings = new Dictionary<TransType, string>();
             mTransStrings[TransType.Int] = "INT";
             mTransStrings[TransType.Div] = "DIV";
             mTransStrings[TransType.DirectDep] = "DIRECTDEP";
@@ -125,25 +92,35 @@ namespace FeliCa2Money
             mTransStrings[TransType.Check] = "CHECK";
             mTransStrings[TransType.Debit] = "DEBIT";
 
-            mTransIncome = new Hashtable();
+            mTransIncome = new Dictionary<string, TransType>();
             mTransIncome["利息"] = TransType.Int;
             mTransIncome["振込"] = TransType.DirectDep;
             mTransIncome["ﾁｬｰｼﾞ"]= TransType.DirectDep;  // Edy チャージ
             mTransIncome["入金"] = TransType.DirectDep;    // Suica チャージ
 
-            mTransOutgo = new Hashtable();
+            mTransOutgo = new Dictionary<string, TransType>();
             mTransOutgo["ＡＴＭ"] = TransType.ATM;
             mTransOutgo["ATM"]    = TransType.ATM;
         }
 
+        public Transaction()
+        {
+            Serial = 0;
+            Balance = 0;
+            Value = 0;
+            Memo = "";
+            Desc = "";
+            Id = UnassignedId;
+        }
+
         public string GetTransString()
         {
-            return (string)mTransStrings[type];
+            return (string)mTransStrings[Type];
         }
 
         public void GuessTransType(bool isIncome)
         {
-            Hashtable h = mTransOutgo;
+            var h = mTransOutgo;
 
             if (isIncome)
             {
@@ -152,22 +129,15 @@ namespace FeliCa2Money
 
             foreach (string key in h.Keys)
             {
-                if (desc != null && desc.Contains(key))
+                if (Desc != null && Desc.Contains(key))
                 {
-                    type = (TransType)h[key];
+                    Type = h[key];
                     return;
                 }
             }
 
             // no match
-            if (isIncome)
-            {
-                type = TransType.Dep;
-            }
-            else
-            {
-                type = TransType.Debit;
-            }
+            Type = isIncome ? TransType.Dep : TransType.Debit;
         }
 
         public void Invalidate()
@@ -175,42 +145,42 @@ namespace FeliCa2Money
             mValid = false;
         }
 
-        public static bool isInvalid(Transaction t)
+        public static bool IsInvalid(Transaction t)
         {
             return !t.mValid;
         }
 
-        public static bool isZeroTransaction(Transaction t)
+        public static bool IsZeroTransaction(Transaction t)
         {
-            return t.value == 0;
+            return t.Value == 0;
         }
 
         //
         // トランザクションID文字列の生成
         //
-        public string transId()
+        public string TransId()
         {
             string tid;
-            if (!isIdUnassigned())
+            if (!IsIdUnassigned())
             {
                 /* トランザクションの ID は日付と取引番号で生成 */
-                tid = String.Format("{0:0000}{1:00}{2:00}", mDate.Year, mDate.Month, mDate.Day);
-                tid += String.Format("{0:0000000}", mId);
+                tid = String.Format("{0:0000}{1:00}{2:00}", Date.Year, Date.Month, Date.Day);
+                tid += String.Format("{0:0000000}", Id);
             }
             else
             {
                 /* 日付とハッシュで生成 */
-                tid = makeHash();
+                tid = MakeHash();
             }
             return tid;
         }
 
         // トランザクションの hash を生成する
-        private string makeHash()
+        private string MakeHash()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendFormat("{0};{1};{2};", mDate.Year, mDate.Month, mDate.Day);
-            sb.AppendFormat("{0};{1};{2};{3}", mSerial, mValue, mDesc, mMemo);
+            sb.AppendFormat("{0};{1};{2};", Date.Year, Date.Month, Date.Day);
+            sb.AppendFormat("{0};{1};{2};{3}", Serial, Value, Desc, Memo);
 
             // MD5 ハッシュを計算
             byte[] hash = sMd5.ComputeHash(Encoding.UTF8.GetBytes(sb.ToString()));

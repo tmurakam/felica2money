@@ -60,46 +60,46 @@ namespace FeliCa2Money
             int date = (value >> 12) & 0x1f;
             int hour = (value >> 6) & 0x3f;
             int min = value & 0x3f;
-            t.date = new DateTime(year, month, date, hour, min, 0);
+            t.Date = new DateTime(year, month, date, hour, min, 0);
 
             // 金額
             value = read4b(data, 1);
 
             // 種別
-            t.type = TransType.DirectDep;
-            t.value = value;
+            t.Type = TransType.DirectDep;
+            t.Value = value;
 
             switch (data[0])
             {
                 default:
                 case 0x47:
-                    t.type = TransType.Debit;   // 支払い
-                    t.desc = "nanaco支払";
-                    t.value = - value;
+                    t.Type = TransType.Debit;   // 支払い
+                    t.Desc = "nanaco支払";
+                    t.Value = - value;
                     break;
 
                 case 0x35:  
-                    t.desc = "引継";
+                    t.Desc = "引継";
                     break;
 
                 case 0x6f:
                 case 0x70:
-                    t.desc = "nanacoチャージ";
+                    t.Desc = "nanacoチャージ";
                     break;
 
                 case 0x83:
-                    t.desc = "nanacoポイント交換";
+                    t.Desc = "nanacoポイント交換";
                     break;
             }
-            t.memo = "";
+            t.Memo = "";
 
             // 残高
             value = read4b(data, 5);
-            t.balance = value;
+            t.Balance = value;
 
             // 連番
             value = read2b(data, 13);
-            t.id = value;
+            t.Id = value;
 
             return true;
         }

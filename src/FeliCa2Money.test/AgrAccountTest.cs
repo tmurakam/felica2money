@@ -86,10 +86,10 @@ namespace FeliCa2Money.test
             Assert.AreEqual(1, account.transactions.Count);
 
             Transaction t = account.transactions[0];
-            Assert.AreEqual(DateTime.Parse("2010/1/2").ToString(), t.date.ToString());
-            Assert.AreEqual("DESCRIPTION", t.desc);
-            Assert.AreEqual(100, t.value);
-            Assert.AreEqual(123456, t.balance);
+            Assert.AreEqual(DateTime.Parse("2010/1/2").ToString(), t.Date.ToString());
+            Assert.AreEqual("DESCRIPTION", t.Desc);
+            Assert.AreEqual(100, t.Value);
+            Assert.AreEqual(123456, t.Balance);
         }
 
         [Test]
@@ -106,11 +106,11 @@ namespace FeliCa2Money.test
                 Assert.AreEqual(1, account.transactions.Count);
 
                 Transaction t = account.transactions[0];
-                Assert.AreEqual(i, t.date.Month);
-                Assert.AreEqual(15, t.date.Day);
+                Assert.AreEqual(i, t.Date.Month);
+                Assert.AreEqual(15, t.Date.Day);
 
                 // 半年以上離れていないことを確認する
-                TimeSpan diff = now.Subtract(t.date);
+                TimeSpan diff = now.Subtract(t.Date);
                 Assert.True(-366/2 <= diff.Days);
                 Assert.True(diff.Days <= 366/2);
             }
@@ -126,9 +126,9 @@ namespace FeliCa2Money.test
             Assert.AreEqual(1, account.transactions.Count);
 
             Transaction t = account.transactions[0];
-            Assert.AreEqual(2011, t.date.Year);
-            Assert.AreEqual(3, t.date.Month);
-            Assert.AreEqual(1, t.date.Day);
+            Assert.AreEqual(2011, t.Date.Year);
+            Assert.AreEqual(3, t.Date.Month);
+            Assert.AreEqual(1, t.Date.Day);
         }
     }
 }

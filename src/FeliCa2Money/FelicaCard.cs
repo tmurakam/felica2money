@@ -188,8 +188,8 @@ namespace FeliCa2Money
 
             foreach (Transaction t in transactions)
             {
-                t.value = t.balance - prevBalance;
-                prevBalance = t.balance;
+                t.Value = t.Balance - prevBalance;
+                prevBalance = t.Balance;
             }
             transactions.RemoveAt(0);   // 最古のエントリは捨てる
         }

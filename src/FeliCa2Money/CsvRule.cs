@@ -194,7 +194,7 @@ namespace FeliCa2Money
             string date = GetCol(row, "Date");
             if (date != null)
             {
-                t.date = CsvUtil.parseDate(date);
+                t.Date = CsvUtil.parseDate(date);
             }
             else {
                 int year = GetColInt(row, "Year");
@@ -209,7 +209,7 @@ namespace FeliCa2Money
                 {
                     year += 2000;
                 }
-                t.date = new DateTime(year, month, day, 0, 0, 0);
+                t.Date = new DateTime(year, month, day, 0, 0, 0);
             }
 
             // ID
@@ -218,7 +218,7 @@ namespace FeliCa2Money
             {
                 try
                 {
-                    t.id = GetColInt(row, "Id");
+                    t.Id = GetColInt(row, "Id");
                 }
                 catch (FormatException)
                 {
@@ -227,20 +227,20 @@ namespace FeliCa2Money
             }
 
             // 金額
-            t.value = GetColInt(row, "Income");
-            t.value -= GetColInt(row, "Outgo");
+            t.Value = GetColInt(row, "Income");
+            t.Value -= GetColInt(row, "Outgo");
 
             // 残高
-            t.balance = GetColInt(row, "Balance");
+            t.Balance = GetColInt(row, "Balance");
             
             // 適用
-            t.desc = GetMultiCol(row, "Desc");
+            t.Desc = GetMultiCol(row, "Desc");
 
             // 備考
-            t.memo = GetMultiCol(row, "Memo");
+            t.Memo = GetMultiCol(row, "Memo");
 
             // トランザクションタイプを自動設定
-            t.GuessTransType(t.value >= 0);
+            t.GuessTransType(t.Value >= 0);
             
             return t;
         }

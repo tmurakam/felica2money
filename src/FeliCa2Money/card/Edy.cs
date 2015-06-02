@@ -61,46 +61,46 @@ namespace FeliCa2Money
                 return false; // おそらく空エントリ
             }
 
-            t.date = new DateTime(2000, 1, 1);
+            t.Date = new DateTime(2000, 1, 1);
 
-            t.date += TimeSpan.FromDays(value >> 17);
-            t.date += TimeSpan.FromSeconds(value & 0x1ffff);
+            t.Date += TimeSpan.FromDays(value >> 17);
+            t.Date += TimeSpan.FromSeconds(value & 0x1ffff);
 
             // 金額
-            t.value = read4b(data, 8);
+            t.Value = read4b(data, 8);
 
             // 残高
-            t.balance = read4b(data, 12);
+            t.Balance = read4b(data, 12);
 
             // 連番
-            t.id = read3b(data, 1);
+            t.Id = read3b(data, 1);
 
             // 種別
             switch (data[0])
             {
                 case 0x20:
                 default:
-                    t.type = TransType.Debit;   // 支払い
-                    t.desc = "支払";
-                    t.value = - t.value;
+                    t.Type = TransType.Debit;   // 支払い
+                    t.Desc = "支払";
+                    t.Value = - t.Value;
 
                     // 適用が"支払" だけだと、Money が過去の履歴から店舗名を勝手に
                     // 補完してしまうので、連番を追加しておく。
-                    t.desc += " ";
-                    t.desc += t.id.ToString();
+                    t.Desc += " ";
+                    t.Desc += t.Id.ToString();
                     break;
 
                 case 0x02:
-                    t.type = TransType.DirectDep;
-                    t.desc = "Edyチャージ";
+                    t.Type = TransType.DirectDep;
+                    t.Desc = "Edyチャージ";
                     break;
 
                 case 0x04:
-                    t.type = TransType.DirectDep;       
-                    t.desc = "Edyギフト";
+                    t.Type = TransType.DirectDep;       
+                    t.Desc = "Edyギフト";
                     break;
             }
-            t.memo = "";
+            t.Memo = "";
 
             return true;
         }

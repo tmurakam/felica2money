@@ -37,18 +37,18 @@ namespace FeliCa2Money.test
             accounts = new List<Account>();
 
             T1 = new Transaction();
-            T1.date = new DateTime(2000, 1, 1);
-            T1.desc = "T1";
-            T1.type = TransType.Payment;
-            T1.value = 1000;
-            T1.balance = 10000;
+            T1.Date = new DateTime(2000, 1, 1);
+            T1.Desc = "T1";
+            T1.Type = TransType.Payment;
+            T1.Value = 1000;
+            T1.Balance = 10000;
 
             T2 = new Transaction();
-            T2.date = new DateTime(2010, 12, 31);
-            T2.desc = "T2";
-            T2.type = TransType.Payment;
-            T2.value = 2000;
-            T2.balance = 12000;
+            T2.Date = new DateTime(2010, 12, 31);
+            T2.Desc = "T2";
+            T2.Type = TransType.Payment;
+            T2.Value = 2000;
+            T2.Balance = 12000;
         }
 
         [TearDown]
@@ -152,27 +152,27 @@ namespace FeliCa2Money.test
             Transaction t;
         
             t = new Transaction();
-            t.date = new DateTime(2010, 4, 1);
-            t.desc = "t1";
-            t.type = TransType.Payment;
-            t.value = 100;
-            t.balance = 10000;
+            t.Date = new DateTime(2010, 4, 1);
+            t.Desc = "t1";
+            t.Type = TransType.Payment;
+            t.Value = 100;
+            t.Balance = 10000;
             acc.transactions.Add(t);
 
             t = new Transaction();
-            t.date = new DateTime(2010, 4, 1);
-            t.desc = "t2";
-            t.type = TransType.Payment;
-            t.value = 200;
-            t.balance = 20000;
+            t.Date = new DateTime(2010, 4, 1);
+            t.Desc = "t2";
+            t.Type = TransType.Payment;
+            t.Value = 200;
+            t.Balance = 20000;
             acc.transactions.Add(t);
 
             t = new Transaction();
-            t.date = new DateTime(2010, 1, 1); // 逆順
-            t.desc = "t3";
-            t.type = TransType.Payment;
-            t.value = 300;
-            t.balance = 30000;
+            t.Date = new DateTime(2010, 1, 1); // 逆順
+            t.Desc = "t3";
+            t.Type = TransType.Payment;
+            t.Value = 300;
+            t.Balance = 30000;
             acc.transactions.Add(t);
         
             ofx.genOfx(accounts);

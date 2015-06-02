@@ -72,27 +72,27 @@ namespace FeliCa2Money.test
             // 支払
             t = tlist[0];
             //string d = t[0].date.ToString();
-            Assert.AreEqual(0x12345, t.id);
-            Assert.AreEqual("2000/01/01 0:00:00", t.date.ToString());
-            Assert.AreEqual(-5678, t.value);
-            Assert.AreEqual(45678, t.balance);
-            Assert.AreEqual("支払 74565", t.desc);
+            Assert.AreEqual(0x12345, t.Id);
+            Assert.AreEqual("2000/01/01 0:00:00", t.Date.ToString());
+            Assert.AreEqual(-5678, t.Value);
+            Assert.AreEqual(45678, t.Balance);
+            Assert.AreEqual("支払 74565", t.Desc);
 
             // チャージ
             t = tlist[1];
-            Assert.AreEqual(0x12346, t.id);
-            Assert.AreEqual("2000/01/01 0:00:00", t.date.ToString());
-            Assert.AreEqual(1000, t.value);
-            Assert.AreEqual(46678, t.balance);
-            Assert.AreEqual("Edyチャージ", t.desc);
+            Assert.AreEqual(0x12346, t.Id);
+            Assert.AreEqual("2000/01/01 0:00:00", t.Date.ToString());
+            Assert.AreEqual(1000, t.Value);
+            Assert.AreEqual(46678, t.Balance);
+            Assert.AreEqual("Edyチャージ", t.Desc);
 
             // ギフト
             t = tlist[2];
-            Assert.AreEqual(0x12347, t.id);
-            Assert.AreEqual("2000/01/01 0:00:00", t.date.ToString());
-            Assert.AreEqual(1000, t.value);
-            Assert.AreEqual(47678, t.balance);
-            Assert.AreEqual("Edyギフト", t.desc);
+            Assert.AreEqual(0x12347, t.Id);
+            Assert.AreEqual("2000/01/01 0:00:00", t.Date.ToString());
+            Assert.AreEqual(1000, t.Value);
+            Assert.AreEqual(47678, t.Balance);
+            Assert.AreEqual("Edyギフト", t.Desc);
         }
 
         [Test]
@@ -120,18 +120,18 @@ namespace FeliCa2Money.test
             Transaction t;
 
             t = tlist[0];
-            Assert.AreEqual(98, t.id);
-            Assert.AreEqual("2008/05/10 22:26:31", t.date.ToString());
-            Assert.AreEqual(-1800, t.value);
-            Assert.AreEqual(41250, t.balance);
-            Assert.AreEqual("支払 98", t.desc);
+            Assert.AreEqual(98, t.Id);
+            Assert.AreEqual("2008/05/10 22:26:31", t.Date.ToString());
+            Assert.AreEqual(-1800, t.Value);
+            Assert.AreEqual(41250, t.Balance);
+            Assert.AreEqual("支払 98", t.Desc);
 
             t = tlist[1];
-            Assert.AreEqual(99, t.id);
-            Assert.AreEqual("2008/05/11 18:48:55", t.date.ToString());
-            Assert.AreEqual(8064, t.value);
-            Assert.AreEqual(49314, t.balance);
-            Assert.AreEqual("Edyギフト", t.desc);
+            Assert.AreEqual(99, t.Id);
+            Assert.AreEqual("2008/05/11 18:48:55", t.Date.ToString());
+            Assert.AreEqual(8064, t.Value);
+            Assert.AreEqual(49314, t.Balance);
+            Assert.AreEqual("Edyギフト", t.Desc);
         }
     }
 }
