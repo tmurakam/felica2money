@@ -26,7 +26,7 @@ namespace FeliCa2Money.test
             mAccount.accountId = "0";
 
             mRule = new CsvRule();
-            mRule.firstLine = "FIRST_LINE";
+            mRule.FirstLine = "FIRST_LINE";
             mRule.SetFormat("Date,Income,Balance,Desc,Memo");
 
             mTempFileName = Path.GetTempFileName();
@@ -107,7 +107,7 @@ namespace FeliCa2Money.test
             mSw.WriteLine("2011/1/2, 200, 10200, Desc, Memo");
             mSw.Close();
 
-            mRule.order = "Ascent";
+            mRule.OrderString = "Ascent";
             mAccount.startReading(mTempFileName, mRule);
             mAccount.ReadTransactions();
             Assert.AreEqual(2, mAccount.transactions.Count);
@@ -126,7 +126,7 @@ namespace FeliCa2Money.test
             mSw.WriteLine("2011/1/1, 100, 10000, Desc, Memo");
             mSw.Close();
 
-            mRule.order = "Descent";
+            mRule.OrderString = "Descent";
             mAccount.startReading(mTempFileName, mRule);
             mAccount.ReadTransactions();
             Assert.AreEqual(2, mAccount.transactions.Count);
@@ -145,7 +145,7 @@ namespace FeliCa2Money.test
             mSw.WriteLine("2011/1/1, 100, 10000, Desc, Memo");
             mSw.Close();
 
-            mRule.order = "Sort";
+            mRule.OrderString = "Sort";
             mAccount.startReading(mTempFileName, mRule);
             mAccount.ReadTransactions();
             Assert.AreEqual(2, mAccount.transactions.Count);
@@ -168,7 +168,7 @@ namespace FeliCa2Money.test
             mSw.WriteLine("2011/1/2, 300, 11100, Desc, Memo");
             mSw.Close();
 
-            mRule.order = "Sort";
+            mRule.OrderString = "Sort";
 
             mAccount.startReading(mTempFileName, mRule);
             mAccount.ReadTransactions();

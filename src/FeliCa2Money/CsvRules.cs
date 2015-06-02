@@ -117,7 +117,7 @@ namespace FeliCa2Money
             int i = 0;
             foreach (CsvRule rule in mRules)
             {
-                names[i] = rule.name;
+                names[i] = rule.Name;
                 i++;
             }
             return names;
@@ -132,7 +132,7 @@ namespace FeliCa2Money
         {
             foreach (CsvRule rule in mRules)
             {
-                if (rule.ident == ident)
+                if (rule.Ident == ident)
                 {
                     return rule;
                 }
@@ -149,7 +149,7 @@ namespace FeliCa2Money
         {
             foreach (CsvRule rule in mRules)
             {
-                if (rule.firstLine == firstLine)
+                if (rule.FirstLine == firstLine)
                 {
                     return rule;
                 }
@@ -258,25 +258,25 @@ namespace FeliCa2Money
                     switch (e.Name)
                     {
                         case "Ident":
-                            rule.ident = value;
+                            rule.Ident = value;
                             break;
                         case "Name":
-                            rule.name = value;
+                            rule.Name = value;
                             break;
                         case "BankId":
-                            rule.bankId = value;
+                            rule.BankId = value;
                             break;
                         case "FirstLine":
-                            rule.firstLine = value;
+                            rule.FirstLine = value;
                             break;
                         case "Format":
-                            rule.format = value;
+                            rule.SetFormat(value);
                             break;
                         case "Order":
-                            rule.order = value;
+                            rule.OrderString = value;
                             break;
                         case "Separator":
-                            rule.separator = value;
+                            rule.Separator = value;
                             break;
                         default:
                             // ignore

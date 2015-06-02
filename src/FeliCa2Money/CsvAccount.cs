@@ -50,7 +50,7 @@ namespace FeliCa2Money
 
             // 銀行IDなどを設定
             //mIdent = mRule.ident;
-            mBankId = mRule.bankId;
+            mBankId = mRule.BankId;
             //mBranchId = branchId;
             //mAccountId = accountId;
 
@@ -61,12 +61,12 @@ namespace FeliCa2Money
         // firstLine まで読み飛ばす
         private void skipToFirstLine()
         {
-            if (mRule.firstLine == null) return;
+            if (mRule.FirstLine == null) return;
 
             string line;
             while ((line = mSr.ReadLine()) != null)
             {
-                if (line == mRule.firstLine) return;
+                if (line == mRule.FirstLine) return;
             }
 
             // 先頭行なし
@@ -93,7 +93,7 @@ namespace FeliCa2Money
                 // パース
                 try
                 {
-                    Transaction t = mRule.parse(row);
+                    Transaction t = mRule.Parse(row);
                     transactions.Add(t);
                 }
                 catch (FormatException ex)
@@ -112,17 +112,17 @@ namespace FeliCa2Money
             }
 
             // ソート処理
-            switch (mRule.sortOrder)
+            switch (mRule.SortOrder)
             {
                 default:
-                case CsvRule.SortOrder.Ascent:
+                case CsvRule.SortOrderType.Ascent:
                     break;
 
-                case CsvRule.SortOrder.Descent:
+                case CsvRule.SortOrderType.Descent:
                     transactions.Reverse();
                     break;
 
-                case CsvRule.SortOrder.Auto:
+                case CsvRule.SortOrderType.Auto:
                     transactions.list.Sort(compareByDate);
                     break;
             }
@@ -145,7 +145,7 @@ namespace FeliCa2Money
         // CSV のフィールド分割
         private string[] SplitCsv(string line)
         {
-            return CsvUtil.SplitCsv(line, mRule.isTSV);
+            return CsvUtil.SplitCsv(line, mRule.IsTsv);
         }
 
         private static int compareByDate(Transaction x, Transaction y)

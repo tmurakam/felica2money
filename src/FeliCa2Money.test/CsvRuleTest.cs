@@ -29,28 +29,28 @@ namespace FeliCa2Money.test
         [Test]
         public void Ident()
         {
-            rule.ident = "hoge";
-            Assert.AreEqual(rule.ident, "hoge");
+            rule.Ident = "hoge";
+            Assert.AreEqual(rule.Ident, "hoge");
         }
 
         [Test]
         public void Order()
         {
-            rule.order = "Ascent";
-            Assert.AreEqual(rule.sortOrder, CsvRule.SortOrder.Ascent);
-            rule.order = "Descent";
-            Assert.AreEqual(rule.sortOrder, CsvRule.SortOrder.Descent);
-            rule.order = "Sort";
-            Assert.AreEqual(rule.sortOrder, CsvRule.SortOrder.Auto);
+            rule.OrderString = "Ascent";
+            Assert.AreEqual(rule.SortOrder, CsvRule.SortOrderType.Ascent);
+            rule.OrderString = "Descent";
+            Assert.AreEqual(rule.SortOrder, CsvRule.SortOrderType.Descent);
+            rule.OrderString = "Sort";
+            Assert.AreEqual(rule.SortOrder, CsvRule.SortOrderType.Auto);
         }
 
         [Test]
         public void Separator()
         {
-            rule.separator = "Tab";
-            Assert.IsTrue(rule.isTSV);
-            rule.separator = "Comma";
-            Assert.IsFalse(rule.isTSV);
+            rule.Separator = "Tab";
+            Assert.IsTrue(rule.IsTsv);
+            rule.Separator = "Comma";
+            Assert.IsFalse(rule.IsTsv);
         }
 
         private string[] splitCSV(string x)
@@ -63,31 +63,31 @@ namespace FeliCa2Money.test
         {
             Transaction t;
             rule.SetFormat("Date");
-            t = rule.parse(splitCSV("2005/09/23"));
+            t = rule.Parse(splitCSV("2005/09/23"));
             Assert.IsTrue(t.date.Year == 2005 && t.date.Month == 9 && t.date.Day == 23);
 
-            t = rule.parse(splitCSV("05/9/23"));
+            t = rule.Parse(splitCSV("05/9/23"));
             Assert.IsTrue(t.date.Year == 2005 && t.date.Month == 9 && t.date.Day == 23);
 
-            t = rule.parse(splitCSV("05年9月23日"));
+            t = rule.Parse(splitCSV("05年9月23日"));
             Assert.IsTrue(t.date.Year == 2005 && t.date.Month == 9 && t.date.Day == 23);
 
-            t = rule.parse(splitCSV("H17年9月23日"));
+            t = rule.Parse(splitCSV("H17年9月23日"));
             Assert.IsTrue(t.date.Year == 2005 && t.date.Month == 9 && t.date.Day == 23);
 
-            t = rule.parse(splitCSV("H17/09/23"));
+            t = rule.Parse(splitCSV("H17/09/23"));
             Assert.IsTrue(t.date.Year == 2005 && t.date.Month == 9 && t.date.Day == 23);
 
-            t = rule.parse(splitCSV("050923"));
+            t = rule.Parse(splitCSV("050923"));
             Assert.IsTrue(t.date.Year == 2005 && t.date.Month == 9 && t.date.Day == 23);
 
-            t = rule.parse(splitCSV("20050923"));
+            t = rule.Parse(splitCSV("20050923"));
             Assert.IsTrue(t.date.Year == 2005 && t.date.Month == 9 && t.date.Day == 23);
 
-            t = rule.parse(splitCSV("9/23/2010"));
+            t = rule.Parse(splitCSV("9/23/2010"));
             Assert.IsTrue(t.date.Year == 2010 && t.date.Month == 9 && t.date.Day == 23);
 
-            t = rule.parse(splitCSV("09232005"));
+            t = rule.Parse(splitCSV("09232005"));
             Assert.IsTrue(t.date.Year == 2005 && t.date.Month == 9 && t.date.Day == 23);
         }
 
@@ -98,7 +98,7 @@ namespace FeliCa2Money.test
             Transaction t;
             rule.SetFormat("Year,Month,Day");
 
-            t = rule.parse(splitCSV("03, 03, 10"));
+            t = rule.Parse(splitCSV("03, 03, 10"));
             Assert.AreEqual(t.date.Year, 2003);
             Assert.AreEqual(t.date.Month, 3);
             Assert.AreEqual(t.date.Day, 10);
@@ -110,7 +110,7 @@ namespace FeliCa2Money.test
             Transaction t;
             rule.SetFormat("Date,Desc,Memo,Desc,Memo");
 
-            t = rule.parse(splitCSV("20110101,A,B,C,D"));
+            t = rule.Parse(splitCSV("20110101,A,B,C,D"));
             Assert.AreEqual(t.desc, "A C");
             Assert.AreEqual(t.memo, "B D");
         }

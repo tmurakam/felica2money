@@ -1,7 +1,7 @@
 /*
  * FeliCa2Money
  *
- * Copyright (C) 2001-2011 Takuya Murakami
+ * Copyright (C) 2001-2015 Takuya Murakami
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -29,130 +29,139 @@ using System.Xml;
 
 namespace FeliCa2Money
 {
+    /// <summary>
+    /// CSV変換ルール
+    /// </summary>
     public class CsvRule
     {
-        public enum SortOrder { Ascent, Descent, Auto };
-
-        private string mIdent;    // 識別子(組織名)
-        private string mBankId;      // 銀行ID
-        private string mName;     // 銀行名
-        private string mFirstLine = null; // １行目
-        private SortOrder mSortOrder; // ソートオーダー
-        private bool mIsTSV = false; // TSV かどうか
+        /// <summary>
+        /// ソート順種別
+        /// </summary>
+        public enum SortOrderType { Ascent, Descent, Auto };
 
         // 各 CSV カラムの定義
-        private string[] mColumnDefs;
+        private string[] _columnDefs;
 
         // 各 CSV カラムのマッピング規則
-        private Hashtable mColumnIndex = new Hashtable();
+        private readonly Dictionary<string,int> _columnIndex = new Dictionary<string, int>();
+
+        public CsvRule()
+        {
+            IsTsv = false;
+            FirstLine = null;
+        }
 
         // プロパティ
-        public string ident
-        {
-            get { return mIdent; }
-            set { mIdent = value; }
-        }
-        public string bankId {
-            get { return mBankId; }
-            set { mBankId = value; }
-        }
-        public string name {
-            get { return mName; }
-            set { mName = value; }
-        }
-        public string firstLine
-        {
-            get { return mFirstLine; }
-            set { mFirstLine = value; }
-        }
-        public string order
+        public string Ident { get; set; }
+
+        public string BankId { get; set; }
+
+        public string Name { get; set; }
+
+        public string FirstLine { get; set; }
+
+        /// <summary>
+        /// ソート順序
+        /// </summary>
+        public SortOrderType SortOrder { get; private set; }
+
+        /// <summary>
+        /// ソート順序を文字列識別子で設定する
+        /// </summary>
+        public string OrderString
         {
             set
             {
                 if (value == "Sort") {
-                    mSortOrder = SortOrder.Auto;
+                    SortOrder = SortOrderType.Auto;
                 } else if (value == "Descent") {
-                    mSortOrder = SortOrder.Descent;
+                    SortOrder = SortOrderType.Descent;
                 } else {
-                    mSortOrder = SortOrder.Ascent;
+                    SortOrder = SortOrderType.Ascent;
                 }
             }
         }
-        public SortOrder sortOrder
-        {
-            get { return mSortOrder; }
-        }
-        public string separator 
+
+        /// <summary>
+        /// セパレータ種別設定。"Tab" を指定すると TSV。
+        /// </summary>
+        public string Separator 
         {
             set
             {
                 if (value == "Tab")
                 {
-                    mIsTSV = true;
+                    IsTsv = true;
                 }
                 else
                 {
-                    mIsTSV = false;
+                    IsTsv = false;
                 }
             }
         }
-        public bool isTSV
-        {
-            get { return mIsTSV; }
-        }
-            
-        
-        public string format
-        {
-            set { SetFormat(value); }
-        }
-        
-        // CSV 変換フォーマット文字列解析
+
+        public bool IsTsv { get; private set; }
+
+
+        /// <summary>
+        /// CSV変換フォーマット文字列を設定する
+        /// </summary>
+        /// <param name="format">フォーマット</param>
         public void SetFormat(string format)
         {
-            mColumnDefs = format.Split(new Char[] { ',', '\t' });
+            _columnDefs = format.Split(new Char[] { ',', '\t' });
 
-            for (int i = 0; i < mColumnDefs.Length; i++)
+            for (int i = 0; i < _columnDefs.Length; i++)
             {
-                string key = mColumnDefs[i].Trim();
-                mColumnDefs[i] = key;
-                mColumnIndex[key] = i;
+                string key = _columnDefs[i].Trim();
+                _columnDefs[i] = key;
+                _columnIndex[key] = i;
             }
         }
 
-        // 指定したカラムを取得
-        private string getCol(string[] row, string key)
+        /// <summary>
+        /// 指定したキー列に対応するカラム値を取得
+        /// </summary>
+        /// <param name="row">行データ</param>
+        /// <param name="key">キー名</param>
+        /// <returns>値</returns>
+        private string GetCol(string[] row, string key)
         {
-            if (mColumnIndex[key] == null)
+            if (!_columnIndex.ContainsKey(key))
             {
                 return null;
             }
-            int col = (int)mColumnIndex[key];
+            int col = _columnIndex[key];
             return row[col];
         }
 
-        // 指定したカラムを取得(すべて連結)
-        private string getMultiCol(string[] row, string key)
+        /// <summary>
+        /// 指定したカラムを取得(すべて連結) 
+        /// </summary>
+        /// <param name="row"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        private string GetMultiCol(string[] row, string key)
         {
-            string val = "";
-            for (int i = 0; i < mColumnDefs.Length; i++)
+            StringBuilder val = new StringBuilder();
+            for (int i = 0; i < _columnDefs.Length; i++)
             {
-                if (key == mColumnDefs[i] && row[i].Length > 0)
+                if (key == _columnDefs[i] && row[i].Length > 0)
                 {
                     if (val.Length > 0)
                     {
-                        val += " ";
+                        val.Append(" ");
                     }
-                    val += row[i];
+                    val.Append(row[i]);
                 }
             }
-            return val;
+            return val.ToString();
         }
 
         // 指定したカラムを取得 (integer)
-        private int getColInt(string[] row, string key)
+        private int GetColInt(string[] row, string key)
         {
-            string v = getCol(row, key);
+            string v = GetCol(row, key);
             if (v == null) return 0;
 
             // 空フィールドの場合は 0 を返す
@@ -171,22 +180,26 @@ namespace FeliCa2Money
             return (int)double.Parse(v);
         }
 
-        // １行解析
-        // CSV の各カラムはすでに分解されているものとする
-        public Transaction parse(string[] row)
+        /// <summary>
+        /// １行解析。
+        /// CSV の各カラムはすでに分解されているものとする
+        /// </summary>
+        /// <param name="row">行データ</param>
+        /// <returns>トランザクション</returns>
+        public Transaction Parse(string[] row)
         {
             Transaction t = new Transaction();
 
             // 日付
-            string date = getCol(row, "Date");
+            string date = GetCol(row, "Date");
             if (date != null)
             {
                 t.date = CsvUtil.parseDate(date);
             }
             else {
-                int year = getColInt(row, "Year");
-                int month = getColInt(row, "Month");
-                int day = getColInt(row, "Day");
+                int year = GetColInt(row, "Year");
+                int month = GetColInt(row, "Month");
+                int day = GetColInt(row, "Day");
 
                 if (year == 0 || month == 0 || day == 0) {
                     return null;
@@ -200,12 +213,12 @@ namespace FeliCa2Money
             }
 
             // ID
-            string id = getCol(row, "Id");
+            string id = GetCol(row, "Id");
             if (id != null)
             {
                 try
                 {
-                    t.id = getColInt(row, "Id");
+                    t.id = GetColInt(row, "Id");
                 }
                 catch (FormatException)
                 {
@@ -214,17 +227,17 @@ namespace FeliCa2Money
             }
 
             // 金額
-            t.value = getColInt(row, "Income");
-            t.value -= getColInt(row, "Outgo");
+            t.value = GetColInt(row, "Income");
+            t.value -= GetColInt(row, "Outgo");
 
             // 残高
-            t.balance = getColInt(row, "Balance");
+            t.balance = GetColInt(row, "Balance");
             
             // 適用
-            t.desc = getMultiCol(row, "Desc");
+            t.desc = GetMultiCol(row, "Desc");
 
             // 備考
-            t.memo = getMultiCol(row, "Memo");
+            t.memo = GetMultiCol(row, "Memo");
 
             // トランザクションタイプを自動設定
             t.GuessTransType(t.value >= 0);

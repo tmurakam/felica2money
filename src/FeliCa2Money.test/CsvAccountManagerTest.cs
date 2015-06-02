@@ -24,7 +24,7 @@ namespace FeliCa2Money.test
             mManager = new CsvAccountManager();
 
             mRule = new CsvRule();
-            mRule.firstLine = "FIRST_LINE";
+            mRule.FirstLine = "FIRST_LINE";
             mRule.SetFormat("Date,Income,Balance,Desc,Memo");
             mManager.addRule(mRule);
 

@@ -71,7 +71,7 @@ namespace FeliCa2Money
             int i = 0;
             foreach (CsvRule rule in mRules)
             {
-                if (rule.ident == mAccount.ident)
+                if (rule.Ident == mAccount.ident)
                 {
                     listBox.SelectedIndex = i;
                     break;
@@ -89,7 +89,7 @@ namespace FeliCa2Money
                 return null;
             }
 
-            mAccount.ident = mRules.GetAt(idx).ident;
+            mAccount.ident = mRules.GetAt(idx).Ident;
             mAccount.branchId = textBranchId.Text;
             mAccount.accountId = textAccountId.Text;
             mAccount.accountName = textAccountName.Text;

@@ -188,8 +188,8 @@ namespace FeliCa2Money
         private string getBankName(CsvAccount account)
         {
             foreach (CsvRule rule in mRules) {
-                if (rule.ident == account.ident) {
-                    return rule.name;
+                if (rule.Ident == account.ident) {
+                    return rule.Name;
                 }
             }
             return "金融機関不明";
@@ -224,7 +224,7 @@ namespace FeliCa2Money
             {
                 foreach (CsvAccount acc in mAccounts)
                 {
-                    if (acc.ident == rule.ident)
+                    if (acc.ident == rule.Ident)
                     {
                         account = acc;
                         break;
