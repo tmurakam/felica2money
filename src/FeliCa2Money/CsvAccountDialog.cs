@@ -17,14 +17,14 @@ namespace FeliCa2Money
             InitializeComponent();
 
             mManager = manager;
-            updateList();
+            UpdateList();
         }
 
-        private void updateList()
+        private void UpdateList()
         {
             listBox.Items.Clear();
-            string[] names = mManager.getNames();
-            foreach (string name in names)
+            var names = mManager.GetNames();
+            foreach (var name in names)
             {
                 listBox.Items.Add(name);
             }
@@ -50,41 +50,41 @@ namespace FeliCa2Money
             return mManager.GetAt(idx);
         }
 
-        private void onAddAccount(object sender, EventArgs e)
+        private void OnAddAccount(object sender, EventArgs e)
         {
-            CsvAccount account = new CsvAccount();
-            CsvAccountEditDialog dlg = new CsvAccountEditDialog(mManager, account);
+            var account = new CsvAccount();
+            var dlg = new CsvAccountEditDialog(mManager, account);
             if (dlg.ShowDialog() == DialogResult.OK)
             {
                 account = dlg.getAccount();
                 if (account != null)
                 {
                     mManager.AddAccount(account);
-                    updateList();
+                    UpdateList();
                 }
             }
         }
 
-        private void onModifyAccount(object sender, EventArgs e)
+        private void OnModifyAccount(object sender, EventArgs e)
         {
             int idx = listBox.SelectedIndex;
             if (idx >= 0)
             {
-                CsvAccount account = mManager.GetAt(idx);
-                CsvAccountEditDialog dlg = new CsvAccountEditDialog(mManager, account);
+                var account = mManager.GetAt(idx);
+                var dlg = new CsvAccountEditDialog(mManager, account);
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
                     account = dlg.getAccount();
                     if (account != null)
                     {
                         mManager.ModifyAccount(account);
-                        updateList();
+                        UpdateList();
                     }
                 }
             }
         }
 
-        private void onDeleteAccount(object sender, EventArgs e)
+        private void OnDeleteAccount(object sender, EventArgs e)
         {
             int idx = listBox.SelectedIndex;
             if (idx >= 0)
@@ -95,31 +95,31 @@ namespace FeliCa2Money
                 {
                     CsvAccount account = mManager.GetAt(idx);
                     mManager.DeleteAccount(account);
-                    updateList();
+                    UpdateList();
                 }
             }
         }
 
-        private void onAccountUp(object sender, EventArgs e)
+        private void OnAccountUp(object sender, EventArgs e)
         {
 
             int idx = listBox.SelectedIndex;
             if (idx > 0)
             {
                 mManager.UpAccount(idx);
-                updateList();
+                UpdateList();
                 listBox.SelectedIndex = idx - 1;
             }
         }
 
-        private void onAccountDown(object sender, EventArgs e)
+        private void OnAccountDown(object sender, EventArgs e)
         {
 
             int idx = listBox.SelectedIndex;
             if (idx < mManager.Count() - 1)
             {
                 mManager.DownAccount(idx);
-                updateList();
+                UpdateList();
                 listBox.SelectedIndex = idx + 1;
             }
         }

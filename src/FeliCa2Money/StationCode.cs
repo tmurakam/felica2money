@@ -47,7 +47,7 @@ namespace FeliCa2Money
             mConn.Close();
         }
 
-        private Names doQuery(string sql)
+        private Names DoQuery(string sql)
         {
             OleDbCommand cmd;
             OleDbDataReader dr;
@@ -74,7 +74,7 @@ namespace FeliCa2Money
         }
 
         // 駅名を検索する
-        public Names getStationName(int area, int line, int station)
+        public Names GetStationName(int area, int line, int station)
         {
             if (line == 0 && station == 0)
             {
@@ -82,12 +82,12 @@ namespace FeliCa2Money
             }
             string sql = string.Format("SELECT CompanyName,StationName FROM StationCode WHERE"
                 + " AreaCode={0} AND LineCode={1} AND StationCode={2}", area, line, station);
-            return doQuery(sql);
+            return DoQuery(sql);
         }
 
         // 店舗名を検索する
         // area = -1 として検索すると、area 指定なしとみなす
-        public Names getShopName(int area, int terminal, int line, int station)
+        public Names GetShopName(int area, int terminal, int line, int station)
         {
             string sql = string.Format("SELECT CompanyName,ShopName FROM ShopCode WHERE"
                 + " TerminalCode={0} AND LineCode={1} AND StationCode={2}", terminal, line, station);
@@ -95,15 +95,15 @@ namespace FeliCa2Money
             {
                 sql += " AND AreaCode=" + area.ToString();
             }
-            return doQuery(sql);
+            return DoQuery(sql);
         }
 
         // バス停留所名を検索する
-        public Names getBusName(int line, int station)
+        public Names GetBusName(int line, int station)
         {
             string sql = string.Format("SELECT BusCompanyName,BusStationName FROM BusCode WHERE"
                 + " BusLineCode={0} AND BusStationCode={1}", line, station);
-            return doQuery(sql);
+            return DoQuery(sql);
         }
     }
 }

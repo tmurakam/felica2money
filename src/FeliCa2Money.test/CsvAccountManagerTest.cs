@@ -26,7 +26,7 @@ namespace FeliCa2Money.test
             mRule = new CsvRule();
             mRule.FirstLine = "FIRST_LINE";
             mRule.SetFormat("Date,Income,Balance,Desc,Memo");
-            mManager.addRule(mRule);
+            mManager.AddRule(mRule);
 
             mTempFileName = Path.GetTempFileName();
             mSw = new StreamWriter(mTempFileName, false, System.Text.Encoding.Default);
@@ -45,7 +45,7 @@ namespace FeliCa2Money.test
             mSw.Close();
 
             /// 空ファイルの場合にルールなしになること
-            Assert.IsNull(mManager.findMatchingRuleForCsv(mTempFileName));
+            Assert.IsNull(mManager.FindMatchingRuleForCsv(mTempFileName));
         }
 
         [Test]
@@ -54,7 +54,7 @@ namespace FeliCa2Money.test
             mSw.WriteLine("FIRST_LINE");
             mSw.Close();
 
-            Assert.AreEqual(mRule, mManager.findMatchingRuleForCsv(mTempFileName));
+            Assert.AreEqual(mRule, mManager.FindMatchingRuleForCsv(mTempFileName));
         }
 
         [Test]
@@ -63,7 +63,7 @@ namespace FeliCa2Money.test
             mSw.WriteLine("NO_MATCH");
             mSw.Close();
 
-            Assert.IsNull(mManager.findMatchingRuleForCsv(mTempFileName));
+            Assert.IsNull(mManager.FindMatchingRuleForCsv(mTempFileName));
         }
     }
 }

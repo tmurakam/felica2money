@@ -43,7 +43,7 @@ namespace FeliCa2Money
             mAccountManager = manager;
             mAccount = account;
 
-            mRules = manager.getRules();
+            mRules = manager.GetRules();
 
             textBranchId.Text = account.BranchId;
             if (textBranchId.Text == "0")

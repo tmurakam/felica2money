@@ -194,7 +194,7 @@ namespace FeliCa2Money
             string date = GetCol(row, "Date");
             if (date != null)
             {
-                t.Date = CsvUtil.parseDate(date);
+                t.Date = CsvUtil.ParseDate(date);
             }
             else {
                 int year = GetColInt(row, "Year");

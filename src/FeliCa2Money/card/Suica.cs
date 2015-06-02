@@ -34,7 +34,7 @@ namespace FeliCa2Money
         public const int AreaIcoca = 2;
         public const int AreaIruca = 4;
 
-        private StationCode stCode;
+        private StationCode _stCode;
 
         public Suica()
         {
@@ -46,13 +46,13 @@ namespace FeliCa2Money
             mNeedReverse = true;
             mNeedCalcValue = true;
 
-            stCode = new StationCode();
+            _stCode = new StationCode();
         }
 
         public override void Dispose()
         {
             base.Dispose();
-            stCode.Dispose();
+            _stCode.Dispose();
         }
 
         // トランザクション解析
@@ -110,11 +110,11 @@ namespace FeliCa2Money
                     out_sta = data[9];
 
                     // 優先エリアで検索
-                    out_name = stCode.getShopName(out_area, ctype, out_line, out_sta);
+                    out_name = _stCode.GetShopName(out_area, ctype, out_line, out_sta);
                     if (out_name == null)
                     {
                         // 全エリアで検索
-                        out_name = stCode.getShopName(-1, ctype, out_line, out_sta);
+                        out_name = _stCode.GetShopName(-1, ctype, out_line, out_sta);
                     }
                     break;
 
@@ -122,7 +122,7 @@ namespace FeliCa2Money
                     // 車載端末(バス)
                     out_line = read2b(data, 6);
                     out_sta = read2b(data, 8);
-                    out_name = stCode.getBusName(out_line, out_sta);
+                    out_name = _stCode.GetBusName(out_line, out_sta);
                     break;
 
                 default:
@@ -135,16 +135,16 @@ namespace FeliCa2Money
                     {
                         break;
                     }
-                    in_area  = getAreaCode(in_line, region);
-                    out_area = getAreaCode(out_line, region);
+                    in_area  = GetAreaCode(in_line, region);
+                    out_area = GetAreaCode(out_line, region);
 
-                    in_name  = stCode.getStationName(in_area, in_line, in_sta);
-                    out_name = stCode.getStationName(out_area, out_line, out_sta);
+                    in_name  = _stCode.GetStationName(in_area, in_line, in_sta);
+                    out_name = _stCode.GetStationName(out_area, out_line, out_sta);
                     break;
             }
 
             // 備考の先頭には端末種を入れる
-            t.Memo = consoleType(ctype);
+            t.Memo = ConsoleType(ctype);
 
             switch (ctype) 
             {
@@ -220,7 +220,7 @@ namespace FeliCa2Money
         }
 
         // エリアコードを求める
-        private int getAreaCode(int line, int region)
+        private int GetAreaCode(int line, int region)
         {
             if (line < 0x80)
             {
@@ -241,7 +241,7 @@ namespace FeliCa2Money
         private const int CT_CAR = 5;   // 車載端末(バス)
 
         // 端末種文字列を返す
-        private string consoleType(int ctype)
+        private string ConsoleType(int ctype)
         {
             switch (ctype) {
             case CT_SHOP: return "物販端末";

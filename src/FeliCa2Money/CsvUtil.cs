@@ -109,7 +109,7 @@ namespace FeliCa2Money
         /// </remarks>
         /// <param name="date">日付文字列</param>
         /// <returns>DateTime型の日付。時分秒は0。</returns>
-        public static DateTime parseDate(string date)
+        public static DateTime ParseDate(string date)
         {
             int year, month, day;
 

@@ -65,7 +65,7 @@
             this.buttonAddAccount.TabIndex = 2;
             this.buttonAddAccount.Text = "口座追加";
             this.buttonAddAccount.UseVisualStyleBackColor = true;
-            this.buttonAddAccount.Click += new System.EventHandler(this.onAddAccount);
+            this.buttonAddAccount.Click += new System.EventHandler(this.OnAddAccount);
             // 
             // buttonModifyAccount
             // 
@@ -75,7 +75,7 @@
             this.buttonModifyAccount.TabIndex = 3;
             this.buttonModifyAccount.Text = "口座修正";
             this.buttonModifyAccount.UseVisualStyleBackColor = true;
-            this.buttonModifyAccount.Click += new System.EventHandler(this.onModifyAccount);
+            this.buttonModifyAccount.Click += new System.EventHandler(this.OnModifyAccount);
             // 
             // buttonDeleteAccount
             // 
@@ -85,7 +85,7 @@
             this.buttonDeleteAccount.TabIndex = 4;
             this.buttonDeleteAccount.Text = "口座削除";
             this.buttonDeleteAccount.UseVisualStyleBackColor = true;
-            this.buttonDeleteAccount.Click += new System.EventHandler(this.onDeleteAccount);
+            this.buttonDeleteAccount.Click += new System.EventHandler(this.OnDeleteAccount);
             // 
             // buttonOk
             // 
@@ -115,7 +115,7 @@
             this.buttonUp.TabIndex = 7;
             this.buttonUp.Text = "１つ上へ";
             this.buttonUp.UseVisualStyleBackColor = true;
-            this.buttonUp.Click += new System.EventHandler(this.onAccountUp);
+            this.buttonUp.Click += new System.EventHandler(this.OnAccountUp);
             // 
             // buttonDown
             // 
@@ -125,7 +125,7 @@
             this.buttonDown.TabIndex = 8;
             this.buttonDown.Text = "1つ下へ";
             this.buttonDown.UseVisualStyleBackColor = true;
-            this.buttonDown.Click += new System.EventHandler(this.onAccountDown);
+            this.buttonDown.Click += new System.EventHandler(this.OnAccountDown);
             // 
             // CsvAccountDialog
             // 

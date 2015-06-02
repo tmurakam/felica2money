@@ -62,7 +62,7 @@ namespace FeliCa2Money
         /// ルールを追加する (単体テスト用)
         /// </summary>
         /// <param name="rule">ルール</param>
-        public void addRule(CsvRule rule)
+        public void AddRule(CsvRule rule)
         {
             mRules.Add(rule);
         }
@@ -168,13 +168,13 @@ namespace FeliCa2Money
         /// アカウント名一覧を返す
         /// </summary>
         /// <returns></returns>
-        public string[] getNames()
+        public string[] GetNames()
         {
             string[] names = new string[mAccounts.Count];
             int i = 0;
             foreach (CsvAccount account in mAccounts)
             {
-                string name = getBankName(account);
+                string name = GetBankName(account);
                 if (account.AccountName != "")
                 {
                     name += " " + account.AccountName;
@@ -185,7 +185,7 @@ namespace FeliCa2Money
             return names;
         }
 
-        private string getBankName(CsvAccount account)
+        private string GetBankName(CsvAccount account)
         {
             foreach (CsvRule rule in mRules) {
                 if (rule.Ident == account.Ident) {
@@ -205,7 +205,7 @@ namespace FeliCa2Money
             return mAccounts.IndexOf(account);
         }
 
-        public CsvRules getRules()
+        public CsvRules GetRules()
         {
             return mRules;
         }
@@ -218,7 +218,7 @@ namespace FeliCa2Money
         public CsvAccount SelectAccount(string path)
         {
             // CSVファイルに合致するルール⇒アカウントを探す
-            CsvRule rule = findMatchingRuleForCsv(path);
+            CsvRule rule = FindMatchingRuleForCsv(path);
             CsvAccount account = null;
             if (rule != null)
             {
@@ -265,7 +265,7 @@ namespace FeliCa2Money
         /// </summary>
         /// <param name="path">CSVファイルパス</param>
         /// <returns>ルール</returns>
-        public CsvRule findMatchingRuleForCsv(string path)
+        public CsvRule FindMatchingRuleForCsv(string path)
         {
             // TODO: とりあえず SJIS で開く (UTF-8 とかあるかも?)
             StreamReader sr = new StreamReader(path, System.Text.Encoding.Default);
