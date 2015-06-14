@@ -4880,6 +4880,9 @@
 		<row><td>ID_STRING7</td><td>1033</td><td>This installer database contains the logic and data required to install FeliCa2Money.</td><td>0</td><td/><td>765474487</td></row>
 		<row><td>ID_STRING7</td><td>1036</td><td>This installer database contains the logic and data required to install FeliCa2Money.</td><td>0</td><td/><td>765474487</td></row>
 		<row><td>ID_STRING7</td><td>1041</td><td>This installer database contains the logic and data required to install FeliCa2Money.</td><td>0</td><td/><td>765474487</td></row>
+		<row><td>ID_STRING8</td><td>1033</td><td>NEWSHO~1|NewShortcut1</td><td>0</td><td/><td>1931712758</td></row>
+		<row><td>ID_STRING8</td><td>1036</td><td>NEWSHO~1|NewShortcut1</td><td>0</td><td/><td>1931712758</td></row>
+		<row><td>ID_STRING8</td><td>1041</td><td>FELICA~1|FeliCa2Money</td><td>0</td><td/><td>1931718902</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>La fonction ne sera pas installée.</td><td>0</td><td/><td>631282197</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1041</td><td>{&amp;Tahoma9}この機能をアンインストールしたままにします。</td><td>0</td><td/><td>631282197</td></row>
 	</table>
@@ -5600,6 +5603,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="L255">FileName</col>
 		<col def="s72">DirProperty</col>
 		<col def="i2">InstallMode</col>
+		<row><td>NewShortcut1</td><td>Component</td><td/><td>felica_1_felica2money</td><td>2</td></row>
 	</table>
 
 	<table name="RemoveIniFile">
@@ -5685,6 +5689,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="S255">ISComments</col>
 		<col def="S255">ISShortcutName</col>
 		<col def="I4">ISAttributes</col>
+		<row><td>NewShortcut1</td><td>felica_1_felica2money</td><td>##ID_STRING8##</td><td>Component</td><td>AlwaysInstall</td><td/><td/><td/><td/><td/><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="Signature">

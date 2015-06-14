@@ -79,7 +79,7 @@ namespace FeliCa2Money
                 AgrAccount.Builder builder = new AgrAccount.Builder();
 
                 // 行をパースする
-                State state = State.SearchingStart;
+                var state = State.SearchingStart;
                 bool isCreditCard = false;
 
                 while ((line = sr.ReadLine()) != null)
@@ -124,6 +124,7 @@ namespace FeliCa2Money
                             if (account == null)
                             {
                                 sr.Close();
+                                sr = null;
                                 return false;
                             }
                             state = State.ReadTransactions;
