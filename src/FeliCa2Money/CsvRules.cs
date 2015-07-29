@@ -27,6 +27,7 @@ using System.Xml;
 using System.Windows.Forms;
 using System.Net;
 using System.IO;
+using System.Linq;
 
 namespace FeliCa2Money
 {
@@ -113,9 +114,9 @@ namespace FeliCa2Money
         /// <returns>ルール名</returns>
         public string[] Names()
         {
-            string[] names = new string[mRules.Count];
-            int i = 0;
-            foreach (CsvRule rule in mRules)
+            var names = new string[mRules.Count];
+            var i = 0;
+            foreach (var rule in mRules)
             {
                 names[i] = rule.Name;
                 i++;
@@ -130,14 +131,7 @@ namespace FeliCa2Money
         /// <returns>ルール</returns>
         public CsvRule FindRuleWithIdent(string ident)
         {
-            foreach (var rule in mRules)
-            {
-                if (rule.Ident == ident)
-                {
-                    return rule;
-                }
-            }
-            return null;
+            return mRules.FirstOrDefault(rule => rule.Ident == ident);
         }
 
         /// <summary>
@@ -147,14 +141,7 @@ namespace FeliCa2Money
         /// <returns>ルール</returns>
         public CsvRule FindRuleForFirstLine(string firstLine)
         {
-            foreach (var rule in mRules)
-            {
-                if (rule.FirstLine == firstLine)
-                {
-                    return rule;
-                }
-            }
-            return null;
+            return mRules.FirstOrDefault(rule => rule.FirstLine == firstLine);
         }
 
         /// <summary>
@@ -166,14 +153,14 @@ namespace FeliCa2Money
             mRules.Clear();
 
             // ユーザ設定フォルダのほうから読み出す
-            String path = GetRulesPath();
+            var path = GetRulesPath();
             //String path = Path.GetDirectoryName(Application.ExecutablePath);
 
-            string[] xmlFiles = Directory.GetFiles(path, "*.xml");
+            var xmlFiles = Directory.GetFiles(path, "*.xml");
             if (xmlFiles.Length == 0)
             {
                 // 定義ファイルがなければダウンロードさせる
-                CsvRulesUpdater updater = new CsvRulesUpdater();
+                var updater = new CsvRulesUpdater();
                 if (!updater.ConfirmDownloadRule())
                 {
                     // ダウンロード失敗 or ユーザキャンセル
@@ -187,7 +174,7 @@ namespace FeliCa2Money
             {
                 try
                 {
-                    String version = LoadFromFile(xmlFile);
+                    var version = LoadFromFile(xmlFile);
                     if (Path.GetFileName(xmlFile) == CSV_MASTER_RULE_FILENAME)
                     {
                         mMasterVersion = version;
@@ -206,7 +193,7 @@ namespace FeliCa2Money
         /// </summary>
         /// <param name="path">定義ファイルパス</param>
         /// <returns>バージョン文字列</returns>
-        public String LoadFromFile(string path)
+        public string LoadFromFile(string path)
         {
             var doc = new XmlDocument();
             doc.Load(path);
@@ -214,7 +201,7 @@ namespace FeliCa2Money
             return LoadFromXml(doc);
         }
 
-        public String LoadFromString(string xmlString)
+        public string LoadFromString(string xmlString)
         {
             var doc = new XmlDocument();
             doc.LoadXml(xmlString);
@@ -222,30 +209,30 @@ namespace FeliCa2Money
             return LoadFromXml(doc);
         }
 
-        private String LoadFromXml(XmlDocument doc)
+        private string LoadFromXml(XmlDocument doc)
         {
             var root = doc.DocumentElement;
 
             // Version 取得
             string version = null;
-            XmlNodeList versionList = root.GetElementsByTagName("Version");
+            var versionList = root.GetElementsByTagName("Version");
             if (versionList.Count > 0)
             {
                 version = versionList[0].FirstChild.Value;
             }
 
             // Rule 子要素について処理
-            XmlNodeList list = root.GetElementsByTagName("Rule");
+            var list = root.GetElementsByTagName("Rule");
 
-            for (int i = 0; i < list.Count; i++)
+            for (var i = 0; i < list.Count; i++)
             {
                 // rule 生成
-                CsvRule rule = new CsvRule();
+                var rule = new CsvRule();
 
                 // rule の各メンバを設定
                 foreach (XmlElement e in list[i].ChildNodes)
                 {
-                    string value = "";
+                    var value = "";
                     if (e.FirstChild == null)
                     {
                         // 空要素
@@ -298,7 +285,7 @@ namespace FeliCa2Money
         /// <returns></returns>
         public static string GetRulesPath()
         {
-            string path = Application.LocalUserAppDataPath;
+            var path = Application.LocalUserAppDataPath;
             path = System.IO.Path.GetDirectoryName(path);
             return path;
         }

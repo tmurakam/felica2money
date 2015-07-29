@@ -74,15 +74,15 @@ namespace FeliCa2Money
         {
             mAccounts.Clear();
 
-            foreach (string line in Properties.Settings.Default.AccountInfo)
+            foreach (var line in Properties.Settings.Default.AccountInfo)
             {
                 // 各行には、Ident, BranchId, AccountId, Nickname が入っているものとする
-                string[] a = line.Split(new char[] { ',' });
+                var a = line.Split(new char[] { ',' });
 
                 // アカウントIDが入っていない場合は読み飛ばす (旧バージョン対応)
                 if (a[2].Length == 0) continue;
 
-                CsvAccount account = new CsvAccount();
+                var account = new CsvAccount();
                 account.Ident = a[0];
                 account.BranchId = a[1];
                 account.AccountId = a[2];
@@ -100,12 +100,12 @@ namespace FeliCa2Money
         /// </summary>
         private void SaveAccountInfo()
         {
-            Properties.Settings s = Properties.Settings.Default;
+            var s = Properties.Settings.Default;
 
             s.AccountInfo.Clear();
 
-            foreach (CsvAccount account in mAccounts) {
-                string line = account.Ident;
+            foreach (var account in mAccounts) {
+                var line = account.Ident;
                 line += "," + account.BranchId;
                 line += "," + account.AccountId;
                 line += "," + account.AccountName;
@@ -148,7 +148,7 @@ namespace FeliCa2Money
         {
             if (index <= 0) return; // do nothing
 
-            CsvAccount account = mAccounts[index];
+            var account = mAccounts[index];
             mAccounts.RemoveAt(index);
             mAccounts.Insert(index - 1, account);
             SaveAccountInfo();
@@ -158,7 +158,7 @@ namespace FeliCa2Money
         {
             if (index >= mAccounts.Count - 1) return; // do nothing
 
-            CsvAccount account = mAccounts[index];
+            var account = mAccounts[index];
             mAccounts.RemoveAt(index);
             mAccounts.Insert(index + 1, account);
             SaveAccountInfo();
@@ -170,11 +170,11 @@ namespace FeliCa2Money
         /// <returns></returns>
         public string[] GetNames()
         {
-            string[] names = new string[mAccounts.Count];
-            int i = 0;
-            foreach (CsvAccount account in mAccounts)
+            var names = new string[mAccounts.Count];
+            var i = 0;
+            foreach (var account in mAccounts)
             {
-                string name = GetBankName(account);
+                var name = GetBankName(account);
                 if (account.AccountName != "")
                 {
                     name += " " + account.AccountName;
@@ -187,7 +187,7 @@ namespace FeliCa2Money
 
         private string GetBankName(CsvAccount account)
         {
-            foreach (CsvRule rule in mRules) {
+            foreach (var rule in mRules) {
                 if (rule.Ident == account.Ident) {
                     return rule.Name;
                 }
@@ -218,11 +218,11 @@ namespace FeliCa2Money
         public CsvAccount SelectAccount(string path)
         {
             // CSVファイルに合致するルール⇒アカウントを探す
-            CsvRule rule = FindMatchingRuleForCsv(path);
+            var rule = FindMatchingRuleForCsv(path);
             CsvAccount account = null;
             if (rule != null)
             {
-                foreach (CsvAccount acc in mAccounts)
+                foreach (var acc in mAccounts)
                 {
                     if (acc.Ident == rule.Ident)
                     {
@@ -233,7 +233,7 @@ namespace FeliCa2Money
             }
 
             // 資産選択ダイアログを出す
-            CsvAccountDialog dlg = new CsvAccountDialog(this);
+            var dlg = new CsvAccountDialog(this);
             dlg.SelectAccount(account);
             if (dlg.ShowDialog() == DialogResult.Cancel)
             {
@@ -268,8 +268,8 @@ namespace FeliCa2Money
         public CsvRule FindMatchingRuleForCsv(string path)
         {
             // TODO: とりあえず SJIS で開く (UTF-8 とかあるかも?)
-            StreamReader sr = new StreamReader(path, System.Text.Encoding.Default);
-            string firstLine = sr.ReadLine();
+            var sr = new StreamReader(path, System.Text.Encoding.Default);
+            var firstLine = sr.ReadLine();
             sr.Close();
 
             // 合致するルールを探す

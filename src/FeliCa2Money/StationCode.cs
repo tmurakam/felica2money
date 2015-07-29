@@ -37,8 +37,10 @@ namespace FeliCa2Money
 
         public StationCode()
         {
-            mConn = new System.Data.OleDb.OleDbConnection();
-            mConn.ConnectionString = Properties.Settings.Default.StationCodeConnectionString;
+            mConn = new System.Data.OleDb.OleDbConnection
+            {
+                ConnectionString = Properties.Settings.Default.StationCodeConnectionString
+            };
             mConn.Open();
         }
 
@@ -49,11 +51,8 @@ namespace FeliCa2Money
 
         private Names DoQuery(string sql)
         {
-            OleDbCommand cmd;
-            OleDbDataReader dr;
-
-            cmd = new OleDbCommand(sql, mConn);
-            dr = cmd.ExecuteReader();
+            var cmd = new OleDbCommand(sql, mConn);
+            var dr = cmd.ExecuteReader();
 
             Names s = null;
             if (dr.Read())
@@ -80,7 +79,7 @@ namespace FeliCa2Money
             {
                 return null;
             }
-            string sql = string.Format("SELECT CompanyName,StationName FROM StationCode WHERE"
+            var sql = string.Format("SELECT CompanyName,StationName FROM StationCode WHERE"
                 + " AreaCode={0} AND LineCode={1} AND StationCode={2}", area, line, station);
             return DoQuery(sql);
         }
@@ -89,7 +88,7 @@ namespace FeliCa2Money
         // area = -1 として検索すると、area 指定なしとみなす
         public Names GetShopName(int area, int terminal, int line, int station)
         {
-            string sql = string.Format("SELECT CompanyName,ShopName FROM ShopCode WHERE"
+            var sql = string.Format("SELECT CompanyName,ShopName FROM ShopCode WHERE"
                 + " TerminalCode={0} AND LineCode={1} AND StationCode={2}", terminal, line, station);
             if (area >= 0)
             {
@@ -101,7 +100,7 @@ namespace FeliCa2Money
         // バス停留所名を検索する
         public Names GetBusName(int line, int station)
         {
-            string sql = string.Format("SELECT BusCompanyName,BusStationName FROM BusCode WHERE"
+            var sql = string.Format("SELECT BusCompanyName,BusStationName FROM BusCode WHERE"
                 + " BusLineCode={0} AND BusStationCode={1}", line, station);
             return DoQuery(sql);
         }

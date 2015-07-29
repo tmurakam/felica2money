@@ -53,7 +53,7 @@ namespace FelicaLib
             {
                 throw new Exception("felicalib.dll を開けません");
             }
-            int result = pasori_init(pasorip);
+            var result = pasori_init(pasorip);
             if (result != 0)
             {
                 throw new Exception("PaSoRi に接続できません");
@@ -92,7 +92,7 @@ namespace FelicaLib
                 throw new Exception("no polling executed.");
             }
 
-            byte[] buf = new byte[8];
+            var buf = new byte[8];
             felica_getidm(felicap, buf);
             return buf;
         }    
@@ -104,7 +104,7 @@ namespace FelicaLib
                 throw new Exception("no polling executed.");
             }
 
-            byte[] buf = new byte[8];
+            var buf = new byte[8];
             felica_getpmm(felicap, buf);
             return buf;
         }    
@@ -116,8 +116,8 @@ namespace FelicaLib
                 throw new Exception("no polling executed.");
             }
 
-            byte[] data = new byte[16];
-            int ret = felica_read_without_encryption02(felicap, servicecode, 0, (byte)addr, data);
+            var data = new byte[16];
+            var ret = felica_read_without_encryption02(felicap, servicecode, 0, (byte)addr, data);
             if (ret != 0)
             {
                 return null;

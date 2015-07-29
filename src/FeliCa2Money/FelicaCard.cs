@@ -67,7 +67,7 @@ namespace FeliCa2Money
         public virtual bool AnalyzeCardId(IFelica f)
         {
             // デフォルトでは、IDm を用いる。
-            byte[] data = f.IDm();
+            var data = f.IDm();
             if (data == null)
             {
                 return false;
@@ -106,12 +106,12 @@ namespace FeliCa2Money
                 throw new Exception(Properties.Resources.CantReadCardNo);
             }
 
-            for (int i = 0; i < mMaxTransactions; i++)
+            for (var i = 0; i < mMaxTransactions; i++)
             {
-                byte[] data = new byte[16 * mBlocksPerTransaction];
+                var data = new byte[16 * mBlocksPerTransaction];
                 byte[] block = null;
 
-                for (int j = 0; j < mBlocksPerTransaction; j++)
+                for (var j = 0; j < mBlocksPerTransaction; j++)
                 {
                     block = f.ReadWithoutEncryption(mServiceCode, i * mBlocksPerTransaction + j);
                     if (block == null)
@@ -129,8 +129,8 @@ namespace FeliCa2Money
                 Transaction t = new Transaction();
                     
                 // データが全0かどうかチェック
-                int x = 0;
-                foreach (int xx in data)
+                var x = 0;
+                foreach (var xx in data)
                 {
                     x |= xx;
                 }
@@ -173,8 +173,8 @@ namespace FeliCa2Money
         /// <returns></returns>
         protected string binString(byte[] data, int offset, int len)
         {
-            string s = "";
-            for (int i = offset; i < offset + len; i++)
+            var s = "";
+            for (var i = offset; i < offset + len; i++)
             {
                 s += data[i].ToString("X2");
             }
@@ -184,9 +184,9 @@ namespace FeliCa2Money
         // 残高から金額を計算する
         private void CalcValueFromBalance(TransactionList transactions)
         {
-            int prevBalance = 0;
+            var prevBalance = 0;
 
-            foreach (Transaction t in transactions)
+            foreach (var t in transactions)
             {
                 t.Value = t.Balance - prevBalance;
                 prevBalance = t.Balance;
@@ -197,26 +197,26 @@ namespace FeliCa2Money
         // 複数バイト読み込み (big endian)
         protected int read2b(byte[] b, int pos)
         {
-            int ret = b[pos] << 8 | b[pos + 1];
+            var ret = b[pos] << 8 | b[pos + 1];
             return ret;
         }
 
         protected int read3b(byte[] b, int pos)
         {
-            int ret = b[pos] << 16 | b[pos + 1] << 8 | b[pos + 2];
+            var ret = b[pos] << 16 | b[pos + 1] << 8 | b[pos + 2];
             return ret;
         }
 
         protected int read4b(byte[] b, int pos)
         {
-            int ret = b[pos] << 24 | b[pos + 1] << 16 | b[pos + 2] << 8 | b[pos + 3];
+            var ret = b[pos] << 24 | b[pos + 1] << 16 | b[pos + 2] << 8 | b[pos + 3];
             return ret;
         }
 
         // little endian
         protected int read2l(byte[] b, int pos)
         {
-            int ret = b[pos + 1] << 8 | b[pos];
+            var ret = b[pos + 1] << 8 | b[pos];
             return ret;
         }
     }

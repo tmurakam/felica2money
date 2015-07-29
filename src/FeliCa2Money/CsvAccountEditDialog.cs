@@ -60,16 +60,16 @@ namespace FeliCa2Money
         {
             // リストボックスにルール名をリストする
             listBox.Items.Clear();
-            string[] names = mRules.Names();
+            var names = mRules.Names();
 
-            foreach (string name in names)
+            foreach (var name in names)
             {
                 listBox.Items.Add(name);
             }
 
             // 該当する金融機関を選択状態にする
-            int i = 0;
-            foreach (CsvRule rule in mRules)
+            var i = 0;
+            foreach (var rule in mRules)
             {
                 if (rule.Ident == mAccount.Ident)
                 {
@@ -82,7 +82,7 @@ namespace FeliCa2Money
 
         public CsvAccount getAccount()
         {
-            int idx = listBox.SelectedIndex;
+            var idx = listBox.SelectedIndex;
             if (idx < 0)
             {
                 // 金融機関が選択されていない
@@ -99,7 +99,7 @@ namespace FeliCa2Money
 
         private void onUpdateCsvRules(object sender, EventArgs e)
         {
-            CsvRulesUpdater updater = new CsvRulesUpdater();
+            var updater = new CsvRulesUpdater();
 
             if (updater.CheckUpdate(true))
             {

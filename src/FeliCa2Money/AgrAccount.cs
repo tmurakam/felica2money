@@ -72,7 +72,7 @@ namespace FeliCa2Money
 
             private AgrAccount newAccount(string line, bool isCreditCard)
             {
-                AgrAccount account = new AgrAccount();
+                var account = new AgrAccount();
                 account.IsCreditCard = isCreditCard;
                 if (!account.readAccountInfo(line, mNameHash))
                 {
@@ -98,7 +98,7 @@ namespace FeliCa2Money
         /// <returns></returns>
         private bool readAccountInfo(string line, Hashtable nameHash)
         {
-            string[] columns = CsvUtil.SplitCsv(line, false);
+            var columns = CsvUtil.SplitCsv(line, false);
 
             if (columns.Length < 3)
             {
@@ -177,11 +177,11 @@ namespace FeliCa2Money
 
         private int getDummyId(string name)
         {
-            MD5 md5 = MD5.Create();
-            byte[] hash = MD5.Create().ComputeHash(System.Text.Encoding.UTF8.GetBytes(name));
+            var md5 = MD5.Create();
+            var hash = MD5.Create().ComputeHash(System.Text.Encoding.UTF8.GetBytes(name));
 
             // 先頭３バイトだけを使う
-            int result = (int)hash[0] << 16 | (int)hash[1] << 8 | (int)hash[2];
+            var result = (int)hash[0] << 16 | (int)hash[1] << 8 | (int)hash[2];
             return result;
         }
 
@@ -193,16 +193,16 @@ namespace FeliCa2Money
         /// 
         public bool readTransaction(string line)
         {
-            string[] columns = CsvUtil.SplitCsv(line, false);
+            var columns = CsvUtil.SplitCsv(line, false);
             if (columns.Length < 8)
             {
                 return false;
             }
 
-            Transaction transaction = new Transaction();
+            var transaction = new Transaction();
 
             // 日付の処理
-            string[] ary = columns[0].Split(new char[] { '/' });
+            var ary = columns[0].Split(new char[] { '/' });
             try
             {
                 if (ary.Length == 3)
@@ -213,8 +213,8 @@ namespace FeliCa2Money
                 {
                     DateTime now = DateTime.Now;
 
-                    int n1 = int.Parse(ary[0]);
-                    int n2 = int.Parse(ary[1]);
+                    var n1 = int.Parse(ary[0]);
+                    var n2 = int.Parse(ary[1]);
 
                     if (n1 >= 2000)
                     {
@@ -224,14 +224,14 @@ namespace FeliCa2Money
                     else
                     {
                         // 月と日のみ。年は推定する。
-                        int mm = n1;
-                        int dd = n2;
+                        var mm = n1;
+                        var dd = n2;
 
-                        DateTime d = new DateTime(now.Year, mm, dd, 0, 0, 0);
+                        var d = new DateTime(now.Year, mm, dd, 0, 0, 0);
 
                         // 同一年として、日付が６ヶ月以上先の場合、昨年とみなす。
                         // 逆に６ヶ月以上前の場合、翌年とみなす。
-                        TimeSpan ts = d - now;
+                        var ts = d - now;
                         if (ts.TotalDays > 366 / 2)
                         {
                             d = new DateTime(now.Year - 1, mm, dd, 0, 0, 0);

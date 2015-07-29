@@ -161,7 +161,7 @@ namespace FeliCa2Money
         // 指定したカラムを取得 (integer)
         private int GetColInt(string[] row, string key)
         {
-            string v = GetCol(row, key);
+            var v = GetCol(row, key);
             if (v == null) return 0;
 
             // 空フィールドの場合は 0 を返す
@@ -188,18 +188,18 @@ namespace FeliCa2Money
         /// <returns>トランザクション</returns>
         public Transaction Parse(string[] row)
         {
-            Transaction t = new Transaction();
+            var t = new Transaction();
 
             // 日付
-            string date = GetCol(row, "Date");
+            var date = GetCol(row, "Date");
             if (date != null)
             {
                 t.Date = CsvUtil.ParseDate(date);
             }
             else {
-                int year = GetColInt(row, "Year");
-                int month = GetColInt(row, "Month");
-                int day = GetColInt(row, "Day");
+                var year = GetColInt(row, "Year");
+                var month = GetColInt(row, "Month");
+                var day = GetColInt(row, "Day");
 
                 if (year == 0 || month == 0 || day == 0) {
                     return null;
@@ -213,7 +213,7 @@ namespace FeliCa2Money
             }
 
             // ID
-            string id = GetCol(row, "Id");
+            var id = GetCol(row, "Id");
             if (id != null)
             {
                 try

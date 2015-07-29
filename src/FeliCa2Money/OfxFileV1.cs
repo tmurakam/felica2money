@@ -43,12 +43,12 @@ namespace FeliCa2Money
         /// <param name="accounts">アカウントリスト</param>
         public override void WriteFile(List<Account> accounts)
         {
-            Ofx ofx = new Ofx();
+            var ofx = new Ofx();
 
             // OFX 要素を生成する
             ofx.genOfx(accounts);
 
-            StreamWriter w = new StreamWriter(this.ofxFilePath, false); //, Encoding.UTF8);
+            var w = new StreamWriter(this.ofxFilePath, false); //, Encoding.UTF8);
             w.NewLine = "\n";
 
             // SGMLヘッダ出力
@@ -64,10 +64,9 @@ namespace FeliCa2Money
             w.WriteLine("");
 
             // OFX 要素出力
-            StringBuilder sb = new StringBuilder();
-            StringWriter sw = new StringWriter(sb);
-            XmlTextWriter xw = new XmlTextWriter(sw);
-            xw.Formatting = Formatting.Indented;
+            var sb = new StringBuilder();
+            var sw = new StringWriter(sb);
+            var xw = new XmlTextWriter(sw) {Formatting = Formatting.Indented};
 
             ofx.doc.WriteTo(xw);
             w.Write(sb);

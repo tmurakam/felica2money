@@ -49,7 +49,7 @@ namespace FeliCa2Money
         /// <returns>分割されたカラム</returns>
         public static string[] SplitCsv(string line, bool isTsv)
         {
-            ArrayList fields = new ArrayList();
+            var fields = new List<string>();
             Regex regCsv;
 
             if (isTsv)
@@ -63,11 +63,11 @@ namespace FeliCa2Money
                 line = line + ",";
             }
 
-            Match m = regCsv.Match(line);
-            int count = 0;
+            var m = regCsv.Match(line);
+            var count = 0;
             while (m.Success)
             {
-                string field = m.Groups[1].Value;
+                var field = m.Groups[1].Value;
 
                 // 前後の空白を削除
                 field = field.Trim();
@@ -88,7 +88,7 @@ namespace FeliCa2Money
                 m = m.NextMatch();
             }
 
-            return fields.ToArray(typeof(string)) as string[];
+            return fields.ToArray() as string[];
         }
 
         /// <summary>
@@ -114,7 +114,7 @@ namespace FeliCa2Money
             int year, month, day;
 
             // 年月日で区切られている場合
-            string[] split = date.Split(new char[] { '年', '月', '日' });
+            var split = date.Split(new char[] { '年', '月', '日' });
             if (split.Length < 3)
             {
                 // '/' などで区切られている場合
@@ -132,9 +132,9 @@ namespace FeliCa2Money
                     month = int.Parse(split[1]);
                     day = int.Parse(split[2]);
                 } else {
-                    int n0 = int.Parse(split[0]);
-                    int n1 = int.Parse(split[1]);
-                    int n2 = int.Parse(split[2]);
+                    var n0 = int.Parse(split[0]);
+                    var n1 = int.Parse(split[1]);
+                    var n2 = int.Parse(split[2]);
 
                     if (n2 > 1970)
                     {
@@ -163,7 +163,7 @@ namespace FeliCa2Money
                     throw new FormatException(Properties.Resources.CantParseDateStr + " (" + date + ")");
                 }
 
-                int n = int.Parse(date);
+                var n = int.Parse(date);
                 year = n / 10000;
                 month = (n / 100) % 100;
                 day = n % 100;

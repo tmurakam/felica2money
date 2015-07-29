@@ -127,7 +127,7 @@ namespace FeliCa2Money
                 h = mTransIncome;
             }
 
-            foreach (string key in h.Keys)
+            foreach (var key in h.Keys)
             {
                 if (Desc != null && Desc.Contains(key))
                 {
@@ -164,8 +164,8 @@ namespace FeliCa2Money
             if (!IsIdUnassigned())
             {
                 /* トランザクションの ID は日付と取引番号で生成 */
-                tid = String.Format("{0:0000}{1:00}{2:00}", Date.Year, Date.Month, Date.Day);
-                tid += String.Format("{0:0000000}", Id);
+                tid = string.Format("{0:0000}{1:00}{2:00}", Date.Year, Date.Month, Date.Day);
+                tid += string.Format("{0:0000000}", Id);
             }
             else
             {
@@ -178,16 +178,16 @@ namespace FeliCa2Money
         // トランザクションの hash を生成する
         private string MakeHash()
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             sb.AppendFormat("{0};{1};{2};", Date.Year, Date.Month, Date.Day);
             sb.AppendFormat("{0};{1};{2};{3}", Serial, Value, Desc, Memo);
 
             // MD5 ハッシュを計算
-            byte[] hash = sMd5.ComputeHash(Encoding.UTF8.GetBytes(sb.ToString()));
+            var hash = sMd5.ComputeHash(Encoding.UTF8.GetBytes(sb.ToString()));
 
             // 16進文字列に変換
-            StringBuilder result = new StringBuilder();
-            foreach (byte b in hash)
+            var result = new StringBuilder();
+            foreach (var b in hash)
             {
                 result.Append(b.ToString("x2"));
             }

@@ -61,17 +61,17 @@ namespace FeliCa2Money
                 throw new System.InvalidOperationException("No entry");
             }
             
-            XmlElement root = mDoc.CreateElement("OFX");
+            var root = mDoc.CreateElement("OFX");
             mDoc.AppendChild(root);
 
             // Signon MessageSet Response
             signonMessageSetResponse(root, allLast.Date);
 
             // Bank / CreditCard MessageSet Response
-            List<Account> banks = new List<Account>();
-            List<Account> creditCards = new List<Account>();
+            var banks = new List<Account>();
+            var creditCards = new List<Account>();
 
-            foreach (Account account in accounts)
+            foreach (var account in accounts)
             {
                 if (account.Transactions.Count > 0)
                 {
@@ -101,18 +101,18 @@ namespace FeliCa2Money
         // Signon MessageSet Response (SIGNONMSGSRSV1)
         private void signonMessageSetResponse(XmlElement parent, DateTime dtserver)
         {
-            XmlElement e = appendElement(parent, "SIGNONMSGSRSV1");
+            var e = appendElement(parent, "SIGNONMSGSRSV1");
 
             // Signon (Response)
-            XmlElement sonrs = appendElement(e, "SONRS");
+            var sonrs = appendElement(e, "SONRS");
 
-            XmlElement status = appendElement(sonrs, "STATUS");
+            var status = appendElement(sonrs, "STATUS");
             appendElementWithText(status, "CODE", "0");
             appendElementWithText(status, "SEVERITY", "INFO");
             appendElementWithText(sonrs, "DTSERVER", dateStr(dtserver));
             appendElementWithText(sonrs, "LANGUAGE", "JPN");
 
-            XmlElement fi = appendElement(sonrs, "FI");
+            var fi = appendElement(sonrs, "FI");
             appendElementWithText(fi, "ORG", "FeliCa2Money");
             // FITIDは？
         }
@@ -121,8 +121,8 @@ namespace FeliCa2Money
         private void bankMessageSetResponse(XmlElement parent, List<Account> accounts)
         {
             // XXXMSGSRSV1 生成
-            XmlElement e = appendElement(parent, "BANKMSGSRSV1");
-            foreach (Account account in accounts)
+            var e = appendElement(parent, "BANKMSGSRSV1");
+            foreach (var account in accounts)
             {
                 statementTransactionResponse(e, account);
             }
@@ -131,8 +131,8 @@ namespace FeliCa2Money
         // Credit Card MessageSet Response (CREDITCARDMSGSRSV1)
         private void creditCardMessageSetResponse(XmlElement parent, List<Account> accounts)
         {
-            XmlElement e = appendElement(parent, "CREDITCARDMSGSRSV1");
-            foreach (Account account in accounts)
+            var e = appendElement(parent, "CREDITCARDMSGSRSV1");
+            foreach (var account in accounts)
             {
                 statementTransactionResponse(e, account);
             }
@@ -155,7 +155,7 @@ namespace FeliCa2Money
             appendElementWithText(e, "TRNUID", "0");
 
             // STATUS
-            XmlElement status = appendElement(e, "STATUS");
+            var status = appendElement(e, "STATUS");
             appendElementWithText(status, "CODE", "0");
             appendElementWithText(status, "SEVERITY", "INFO");
 
@@ -220,7 +220,7 @@ namespace FeliCa2Money
         // Bank Transaction List
         private void bankTransactionList(XmlElement parent, Account account, Transaction first, Transaction last)
         {
-            XmlElement e = appendElement(parent, "BANKTRANLIST");
+            var e = appendElement(parent, "BANKTRANLIST");
             
             appendElementWithText(e, "DTSTART", dateStr(first.Date));
             appendElementWithText(e, "DTEND", dateStr(last.Date));
@@ -235,7 +235,7 @@ namespace FeliCa2Money
         private void statementTransaction(XmlElement parent, Transaction t)
         {
             // Statement Transaction
-            XmlElement e = appendElement(parent, "STMTTRN");
+            var e = appendElement(parent, "STMTTRN");
 
             appendElementWithText(e, "TRNTYPE", t.GetTransString());
             appendElementWithText(e, "DTPOSTED", dateStr(t.Date));
@@ -253,7 +253,7 @@ namespace FeliCa2Money
         // 残高
         private void ledgerBal(XmlElement parent, Account account, Transaction last)
         {
-            XmlElement e = appendElement(parent, "LEDGERBAL");
+            var e = appendElement(parent, "LEDGERBAL");
 
             int balance;
             if (account.HasBalance)
@@ -272,7 +272,7 @@ namespace FeliCa2Money
         // 要素追加
         private XmlElement appendElement(XmlElement parent, string elem)
         {
-            XmlElement e = mDoc.CreateElement(elem);
+            var e = mDoc.CreateElement(elem);
             parent.AppendChild(e);
             return e;
         }
@@ -280,14 +280,14 @@ namespace FeliCa2Money
         // 要素追加 (テキストノード付き)
         private void appendElementWithText(XmlElement parent, string elem, string text)
         {
-            XmlElement e = mDoc.CreateElement(elem);
+            var e = mDoc.CreateElement(elem);
             e.AppendChild(mDoc.CreateTextNode(text));
             parent.AppendChild(e);
         }
 
         private string dateStr(DateTime d)
         {
-            string s = String.Format("{0}{1:00}{2:00}", d.Year, d.Month, d.Day);
+            var s = String.Format("{0}{1:00}{2:00}", d.Year, d.Month, d.Day);
             s += String.Format("{0:00}{1:00}{2:00}", d.Hour, d.Minute, d.Second);
             s += "[+9:JST]";
             return s;
@@ -311,8 +311,8 @@ namespace FeliCa2Money
         {
             allFirst = null;
             allLast = null;
-            foreach (Account account in accounts) {
-                foreach (Transaction t in account.Transactions)
+            foreach (var account in accounts) {
+                foreach (var t in account.Transactions)
                 {
                     // 先頭エントリ: 同じ日付の場合は、前のエントリを優先
                     if (allFirst == null || t.Date < allFirst.Date)
@@ -332,7 +332,7 @@ namespace FeliCa2Money
         {
             first = null;
             last = null;
-            foreach (Transaction t in account.Transactions)
+            foreach (var t in account.Transactions)
             {
                 // 先頭エントリ: 同じ日付の場合は、前のエントリを優先
                 if (first == null || t.Date < first.Date)

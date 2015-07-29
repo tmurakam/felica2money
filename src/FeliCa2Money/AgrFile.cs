@@ -58,7 +58,7 @@ namespace FeliCa2Money
         public bool LoadFromFile(string path)
         {
             // SJIS で開く
-            StreamReader sr = new StreamReader(path, System.Text.Encoding.Default);
+            var sr = new StreamReader(path, Encoding.Default);
             return Load(sr);
         }
 
@@ -67,7 +67,7 @@ namespace FeliCa2Money
             try
             {
                 // フォーマットチェック
-                string line = sr.ReadLine();
+                var line = sr.ReadLine();
                 if (line != "\"あぐりっぱ\",\"1.0\"")
                 {
                     return false;
@@ -76,11 +76,11 @@ namespace FeliCa2Money
                 Accounts = new List<Account>();
                 AgrAccount account = null;
 
-                AgrAccount.Builder builder = new AgrAccount.Builder();
+                var builder = new AgrAccount.Builder();
 
                 // 行をパースする
                 var state = State.SearchingStart;
-                bool isCreditCard = false;
+                var isCreditCard = false;
 
                 while ((line = sr.ReadLine()) != null)
                 {

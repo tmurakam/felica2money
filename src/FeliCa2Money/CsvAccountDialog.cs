@@ -35,7 +35,7 @@ namespace FeliCa2Money
         {
             if (account == null) return;
 
-            int idx = mManager.IndexOf(account);
+            var idx = mManager.IndexOf(account);
             listBox.SelectedIndex = idx;
         }
         
@@ -67,7 +67,7 @@ namespace FeliCa2Money
 
         private void OnModifyAccount(object sender, EventArgs e)
         {
-            int idx = listBox.SelectedIndex;
+            var idx = listBox.SelectedIndex;
             if (idx >= 0)
             {
                 var account = mManager.GetAt(idx);
@@ -86,7 +86,7 @@ namespace FeliCa2Money
 
         private void OnDeleteAccount(object sender, EventArgs e)
         {
-            int idx = listBox.SelectedIndex;
+            var idx = listBox.SelectedIndex;
             if (idx >= 0)
             {
                 if (MessageBox.Show(Properties.Resources.ConfirmDeleteAccount, Properties.Resources.Confirm, 
@@ -103,7 +103,7 @@ namespace FeliCa2Money
         private void OnAccountUp(object sender, EventArgs e)
         {
 
-            int idx = listBox.SelectedIndex;
+            var idx = listBox.SelectedIndex;
             if (idx > 0)
             {
                 mManager.UpAccount(idx);
@@ -115,7 +115,7 @@ namespace FeliCa2Money
         private void OnAccountDown(object sender, EventArgs e)
         {
 
-            int idx = listBox.SelectedIndex;
+            var idx = listBox.SelectedIndex;
             if (idx < mManager.Count() - 1)
             {
                 mManager.DownAccount(idx);

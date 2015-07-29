@@ -92,7 +92,7 @@ namespace FeliCa2Money
         /// </summary>
         public void Execute()
         {
-            String errorMessage = null;
+            string errorMessage = null;
 
             try
             {

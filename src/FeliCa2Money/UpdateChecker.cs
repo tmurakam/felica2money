@@ -31,8 +31,7 @@ namespace FeliCa2Money
         /// <returns>バージョン</returns>
         protected string DownloadRemoteUrl()
         {
-            var w = new WebClient();
-            w.Encoding = Encoding.UTF8;
+            var w = new WebClient {Encoding = Encoding.UTF8};
             try
             {
                 var data = w.DownloadString(GetRemoteUrl());

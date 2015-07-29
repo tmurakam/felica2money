@@ -125,7 +125,7 @@ namespace FeliCa2Money
         /// <returns></returns>
         public bool DownloadRule()
         {
-            string path = CsvRules.GetRulesPath() + "\\" + CsvRules.CSV_MASTER_RULE_FILENAME;
+            var path = CsvRules.GetRulesPath() + "\\" + CsvRules.CSV_MASTER_RULE_FILENAME;
 
             try
             {

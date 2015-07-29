@@ -30,14 +30,14 @@ namespace FeliCa2Money
 {
     public partial class MainForm : Form
     {
-	    private const String HELP_URL = "http://felica2money.tmurakam.org/manual.html";
+	    private const string HELP_URL = "http://felica2money.tmurakam.org/manual.html";
 
         public MainForm()
         {
             InitializeComponent();
 
             // 設定のアップグレード
-            Properties.Settings s = Properties.Settings.Default;
+            var s = Properties.Settings.Default;
             if (s.IsFirstRun)
             {
                 s.Upgrade();
@@ -52,10 +52,10 @@ namespace FeliCa2Money
         // コマンドライン処理
         private void onLoad(object sender, EventArgs e)
         {
-            string[] argv = System.Environment.GetCommandLineArgs();
+            var argv = System.Environment.GetCommandLineArgs();
             if (argv.Length == 2)
             {
-                string filepath = argv[1];
+                var filepath = argv[1];
                 if (filepath.EndsWith(".agr") || filepath.EndsWith(".AGR"))
                 {
                     processAgrFile(filepath);
@@ -66,7 +66,7 @@ namespace FeliCa2Money
                 // 通常起動時 : アップデート処理
                 new VersionUpdateChecker().CheckUpdate();
 
-                CsvRulesUpdater updater = new CsvRulesUpdater();
+                var updater = new CsvRulesUpdater();
                 updater.CheckUpdate();
             }
         }
@@ -78,7 +78,7 @@ namespace FeliCa2Money
 
         private void buttonEdy_Click(object sender, EventArgs e)
         {
-            using (Edy edy = new Edy())
+            using (var edy = new Edy())
             {
                 readAndGenerateOfx(edy);
             }
@@ -86,7 +86,7 @@ namespace FeliCa2Money
 
         private void buttonSuica_Click(object sender, EventArgs e)
         {
-            using (Suica suica = new Suica())
+            using (var suica = new Suica())
             {
                 readAndGenerateOfx(suica);
             }
@@ -94,7 +94,7 @@ namespace FeliCa2Money
 
         private void buttonNanaco_Click(object sender, EventArgs e)
         {
-            using(Nanaco nanaco = new Nanaco())
+            using(var nanaco = new Nanaco())
             {
                 readAndGenerateOfx(nanaco);
             }
@@ -102,7 +102,7 @@ namespace FeliCa2Money
 
         private void buttonWaon_Click(object sender, EventArgs e)
         {
-            using (Waon waon = new Waon())
+            using (var waon = new Waon())
             {
                 readAndGenerateOfx(waon);
             }
@@ -110,7 +110,7 @@ namespace FeliCa2Money
 
         private void buttonCSV_Click(object sender, EventArgs e)
         {
-            CsvAccountManager manager = new CsvAccountManager();
+            var manager = new CsvAccountManager();
             if (!manager.LoadAllRules()) return;
 
             openFileDialog.DefaultExt = "csv";
@@ -147,7 +147,7 @@ namespace FeliCa2Money
         // AGRファイル処理
         private void processAgrFile(string filepath)
         {
-            AgrFile agr = new AgrFile();
+            var agr = new AgrFile();
 
             try
             {
@@ -206,7 +206,7 @@ namespace FeliCa2Money
 
         private void generateOfx(Account c)
         {
-            List<Account> accounts = new List<Account>();
+            var accounts = new List<Account>();
             accounts.Add(c);
             generateOfx(accounts);
         }
@@ -214,8 +214,8 @@ namespace FeliCa2Money
         private void generateOfx(List<Account> accounts)
         {
             // 明細件数チェックおよび取引IDの生成
-            int count = 0;
-            foreach (Account account in accounts)
+            var count = 0;
+            foreach (var account in accounts)
             {
                 account.Transactions.AssignSerials();
                 count += account.Transactions.Count;
@@ -227,7 +227,7 @@ namespace FeliCa2Money
             }
 
             // OFX ファイルパス指定
-            String ofxFilePath;
+            string ofxFilePath;
             if (Properties.Settings.Default.ManualOfxPath)
             {
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -246,7 +246,7 @@ namespace FeliCa2Money
             }
 
             // OFX ファイル生成
-            OfxFile ofx = OfxFile.newOfxFile(Properties.Settings.Default.OfxVer2 ? 2 : 1);
+            var ofx = OfxFile.newOfxFile(Properties.Settings.Default.OfxVer2 ? 2 : 1);
 
             ofx.ofxFilePath = ofxFilePath;
             ofx.WriteFile(accounts);
@@ -261,7 +261,7 @@ namespace FeliCa2Money
         // 設定ダイアログ
         private void buttonOption_Click(object sender, EventArgs e)
         {
-            OptionDialog dlg = new OptionDialog();
+            var dlg = new OptionDialog();
 
             if (dlg.ShowDialog() == DialogResult.OK)
             {
