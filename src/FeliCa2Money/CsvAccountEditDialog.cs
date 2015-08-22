@@ -121,7 +121,7 @@ namespace FeliCa2Money
                 return;
             }
 
-            this.DialogResult = DialogResult.OK;
+            DialogResult = DialogResult.OK;
             Close();
         }
     }

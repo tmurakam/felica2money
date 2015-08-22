@@ -34,7 +34,7 @@ namespace FeliCa2Money
         public const int AreaIcoca = 2;
         public const int AreaIruca = 4;
 
-        private StationCode _stCode;
+        private readonly StationCode _stCode;
 
         public Suica()
         {

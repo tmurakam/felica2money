@@ -46,7 +46,7 @@ namespace FeliCa2Money
             }
 
             // タイトルにバージョンを表示
-            this.Text = "FeliCa2Money ver " + VersionUpdateChecker.GetCurrentVersion();
+            Text = "FeliCa2Money ver " + VersionUpdateChecker.GetCurrentVersion();
         }
 
         // コマンドライン処理

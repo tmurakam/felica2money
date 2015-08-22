@@ -52,7 +52,7 @@ namespace FeliCa2Money
 
         private static readonly Dictionary<TransType,string> _transStrings;
 
-        private static System.Security.Cryptography.MD5 sMd5 = new System.Security.Cryptography.MD5CryptoServiceProvider();
+        private static readonly System.Security.Cryptography.MD5 sMd5 = new System.Security.Cryptography.MD5CryptoServiceProvider();
 
         // プロパティ
         public int Id { get; set; }

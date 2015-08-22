@@ -52,7 +52,7 @@ namespace FeliCa2Money
 
             ofx.GenOfx(accounts);
 
-            ofx.Doc.Save(this.OfxFilePath);
+            ofx.Doc.Save(OfxFilePath);
         }
     }
 }
