@@ -62,7 +62,7 @@ namespace FeliCa2Money.test
             TestAccount account = new TestAccount();
             accounts.Add(account);
 
-            Assert.Throws<InvalidOperationException>(() => ofx.genOfx(accounts));
+            Assert.Throws<InvalidOperationException>(() => ofx.GenOfx(accounts));
         }
 
         [Test]
@@ -78,8 +78,8 @@ namespace FeliCa2Money.test
             card.IsCreditCard = true;
             accounts.Add(card);
 
-            ofx.genOfx(accounts);
-            XmlDocument doc = ofx.doc;
+            ofx.GenOfx(accounts);
+            XmlDocument doc = ofx.Doc;
 
             Assert.NotNull(doc);
             Assert.NotNull(doc.SelectSingleNode("/OFX/BANKMSGSRSV1"));
@@ -99,8 +99,8 @@ namespace FeliCa2Money.test
             card.Transactions.Add(T2);
             accounts.Add(card);
 
-            ofx.genOfx(accounts);
-            XmlDocument doc = ofx.doc;
+            ofx.GenOfx(accounts);
+            XmlDocument doc = ofx.Doc;
 
             Assert.NotNull(doc);
             Assert.Null(doc.SelectSingleNode("/OFX/BANKMSGSRSV1"));
@@ -120,8 +120,8 @@ namespace FeliCa2Money.test
             card.Transactions.Add(T2);
             accounts.Add(card);
 
-            ofx.genOfx(accounts);
-            XmlDocument doc = ofx.doc;
+            ofx.GenOfx(accounts);
+            XmlDocument doc = ofx.Doc;
 
             Assert.NotNull(doc);
             Assert.NotNull(doc.SelectSingleNode("/OFX/BANKMSGSRSV1"));
@@ -175,8 +175,8 @@ namespace FeliCa2Money.test
             t.Balance = 30000;
             acc.Transactions.Add(t);
         
-            ofx.genOfx(accounts);
-            XmlDocument doc = ofx.doc;
+            ofx.GenOfx(accounts);
+            XmlDocument doc = ofx.Doc;
 
             // 最も新しい日付の最後の取引(t2)の値になっているかどうか確認
             XmlNode ledgerBal = doc.SelectSingleNode("/OFX/BANKMSGSRSV1/STMTTRNRS/STMTRS/LEDGERBAL");

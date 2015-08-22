@@ -42,17 +42,17 @@ namespace FeliCa2Money
         {
             var ofx = new Ofx();
 
-            var decl = ofx.doc.CreateXmlDeclaration("1.0", "UTF-8", "yes");
-            ofx.doc.AppendChild(decl);
+            var decl = ofx.Doc.CreateXmlDeclaration("1.0", "UTF-8", "yes");
+            ofx.Doc.AppendChild(decl);
 
             // OFX 宣言
-            var pi = ofx.doc.CreateProcessingInstruction("OFX",
+            var pi = ofx.Doc.CreateProcessingInstruction("OFX",
                 "OFXHEADER=\"200\" VERSION=\"200\" SECURITY=\"NONE\" OLDFILEUID=\"NONE\" NEWFILEUID=\"NONE\"");
-            ofx.doc.AppendChild(pi);
+            ofx.Doc.AppendChild(pi);
 
-            ofx.genOfx(accounts);
+            ofx.GenOfx(accounts);
 
-            ofx.doc.Save(this.ofxFilePath);
+            ofx.Doc.Save(this.ofxFilePath);
         }
     }
 }

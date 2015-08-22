@@ -1,4 +1,4 @@
-/*
+﻿/*
  * FeliCa2Money
  *
  * Copyright (C) 2001-2008 Takuya Murakami
@@ -32,10 +32,10 @@ namespace FeliCa2Money
             Ident         = "Edy";
             AccountName    = "Edy";
 
-            mSystemCode  = (int)SystemCode.Edy;
-            mServiceCode = 0x170f;
-            mNeedReverse = true;
-            mNeedCalcValue = false;
+            _systemCode  = (int)SystemCode.Edy;
+            _serviceCode = 0x170f;
+            _needReverse = true;
+            _needCalcValue = false;
         }
 
         public override bool AnalyzeCardId(IFelica f)
@@ -46,7 +46,7 @@ namespace FeliCa2Money
                 return false;
             }
 
-            AccountId = binString(data, 2, 8);
+            AccountId = BinString(data, 2, 8);
 
             return true;
         }
@@ -54,7 +54,7 @@ namespace FeliCa2Money
         public override bool AnalyzeTransaction(Transaction t, byte[] data)
         {
             // 日付
-            int value = read4b(data, 4);
+            int value = Read4B(data, 4);
 
             if (value == 0 && data[0] == 0)
             {
@@ -67,13 +67,13 @@ namespace FeliCa2Money
             t.Date += TimeSpan.FromSeconds(value & 0x1ffff);
 
             // 金額
-            t.Value = read4b(data, 8);
+            t.Value = Read4B(data, 8);
 
             // 残高
-            t.Balance = read4b(data, 12);
+            t.Balance = Read4B(data, 12);
 
             // 連番
-            t.Id = read3b(data, 1);
+            t.Id = Read3B(data, 1);
 
             // 種別
             switch (data[0])

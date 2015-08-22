@@ -1,4 +1,4 @@
-/*
+﻿/*
  * FeliCa2Money
  *
  * Copyright (C) 2001-2008 Takuya Murakami
@@ -41,10 +41,10 @@ namespace FeliCa2Money
             Ident       = "Suica";
             AccountName    = "Suica";
 
-            mSystemCode  = (int)SystemCode.Suica;
-            mServiceCode = 0x090f;       // 履歴エリアのサービスコード
-            mNeedReverse = true;
-            mNeedCalcValue = true;
+            _systemCode  = (int)SystemCode.Suica;
+            _serviceCode = 0x090f;       // 履歴エリアのサービスコード
+            _needReverse = true;
+            _needCalcValue = true;
 
             _stCode = new StationCode();
         }
@@ -60,9 +60,9 @@ namespace FeliCa2Money
         {
             int ctype = data[0];    // 端末種
             int proc = data[1];     // 処理
-            int date = read2b(data, 4); // 日付
-            int balance = read2l(data, 10);   // 残高(little endian)
-            int seq = read3b(data, 12); // 連番
+            int date = Read2B(data, 4); // 日付
+            int balance = Read2L(data, 10);   // 残高(little endian)
+            int seq = Read3B(data, 12); // 連番
             int region = data[15];      // リージョン
 
             // 処理
@@ -120,8 +120,8 @@ namespace FeliCa2Money
 
                 case CT_CAR:
                     // 車載端末(バス)
-                    out_line = read2b(data, 6);
-                    out_sta = read2b(data, 8);
+                    out_line = Read2B(data, 6);
+                    out_sta = Read2B(data, 8);
                     out_name = _stCode.GetBusName(out_line, out_sta);
                     break;
 

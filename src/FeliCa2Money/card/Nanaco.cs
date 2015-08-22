@@ -1,4 +1,4 @@
-/*
+﻿/*
  * FeliCa2Money
  *
  * Copyright (C) 2001-2008 Takuya Murakami
@@ -32,10 +32,10 @@ namespace FeliCa2Money
             Ident       = "Nanaco";
             AccountName    = "Nanaco";
 
-            mSystemCode  = (int)SystemCode.Common;
-            mServiceCode = 0x564f;
-            mNeedReverse = true;
-            mNeedCalcValue = false;
+            _systemCode  = (int)SystemCode.Common;
+            _serviceCode = 0x564f;
+            _needReverse = true;
+            _needCalcValue = false;
         }
 
         public override bool AnalyzeCardId(IFelica f)
@@ -46,7 +46,7 @@ namespace FeliCa2Money
                 return false;
             }
 
-            AccountId = binString(data, 0, 8);
+            AccountId = BinString(data, 0, 8);
 
             return true;
         }
@@ -54,7 +54,7 @@ namespace FeliCa2Money
         public override bool AnalyzeTransaction(Transaction t, byte[] data)
         {
             // 日付
-            int value = read4b(data, 9);
+            int value = Read4B(data, 9);
             int year = (value >> 21) + 2000;
             int month = (value >> 17) & 0xf;
             int date = (value >> 12) & 0x1f;
@@ -63,7 +63,7 @@ namespace FeliCa2Money
             t.Date = new DateTime(year, month, date, hour, min, 0);
 
             // 金額
-            value = read4b(data, 1);
+            value = Read4B(data, 1);
 
             // 種別
             t.Type = TransType.DirectDep;
@@ -94,11 +94,11 @@ namespace FeliCa2Money
             t.Memo = "";
 
             // 残高
-            value = read4b(data, 5);
+            value = Read4B(data, 5);
             t.Balance = value;
 
             // 連番
-            value = read2b(data, 13);
+            value = Read2B(data, 13);
             t.Id = value;
 
             return true;

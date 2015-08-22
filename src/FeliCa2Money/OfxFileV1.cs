@@ -46,7 +46,7 @@ namespace FeliCa2Money
             var ofx = new Ofx();
 
             // OFX 要素を生成する
-            ofx.genOfx(accounts);
+            ofx.GenOfx(accounts);
 
             var w = new StreamWriter(this.ofxFilePath, false); //, Encoding.UTF8);
             w.NewLine = "\n";
@@ -68,7 +68,7 @@ namespace FeliCa2Money
             var sw = new StringWriter(sb);
             var xw = new XmlTextWriter(sw) {Formatting = Formatting.Indented};
 
-            ofx.doc.WriteTo(xw);
+            ofx.Doc.WriteTo(xw);
             w.Write(sb);
 
             xw.Close();

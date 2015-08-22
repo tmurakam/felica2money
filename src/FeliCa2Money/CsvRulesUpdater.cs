@@ -12,13 +12,13 @@ namespace FeliCa2Money
         /// <summary>
         /// マスタCSVルール定義ファイルの URL
         /// </summary>
-        //private const string CSV_MASTER_RULE_URL = "https://github.com/tmurakam/felica2money/raw/master/defs/CsvRules.xml";
-        //private const string CSV_MASTER_RULE_URL = "https://raw.githubusercontent.com/tmurakam/felica2money/master/defs/CsvRules.xml";
-        private const string CSV_MASTER_RULE_URL = "http://felica2money.tmurakam.org/data/CsvRules.php";
+        //private const string CsvMasterRuleUrl = "https://github.com/tmurakam/felica2money/raw/master/defs/CsvRules.xml";
+        //private const string CsvMasterRuleUrl = "https://raw.githubusercontent.com/tmurakam/felica2money/master/defs/CsvRules.xml";
+        private const string CsvMasterRuleUrl = "http://felica2money.tmurakam.org/data/CsvRules.php";
 
         override protected string GetRemoteUrl()
         {
-            return CSV_MASTER_RULE_URL;
+            return CsvMasterRuleUrl;
         }
 
         override protected DateTime LastUpdated
@@ -125,7 +125,7 @@ namespace FeliCa2Money
         /// <returns></returns>
         public bool DownloadRule()
         {
-            var path = CsvRules.GetRulesPath() + "\\" + CsvRules.CSV_MASTER_RULE_FILENAME;
+            var path = CsvRules.GetRulesPath() + "\\" + CsvRules.CsvMasterRulsFilename;
 
             try
             {

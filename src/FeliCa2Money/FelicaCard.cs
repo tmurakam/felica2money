@@ -30,12 +30,12 @@ namespace FeliCa2Money
     /// </summary>
     public abstract class FelicaCard : Account, IDisposable
     {
-        protected int mSystemCode;   // システムコード
-        protected int mServiceCode;  // サービスコード
-        protected int mBlocksPerTransaction = 1;  // 1トランザクションあたりのブロック数
-        protected int mMaxTransactions = 100;     // 最大トランザクション数
-        protected bool mNeedReverse = false;      // レコード順序を逆転するかどうか
-        protected bool mNeedCalcValue = false;     // 入出金額を残高から計算するかどうか
+        protected int _systemCode;   // システムコード
+        protected int _serviceCode;  // サービスコード
+        protected int _blocksPerTransaction = 1;  // 1トランザクションあたりのブロック数
+        protected int _maxTransactions = 100;     // 最大トランザクション数
+        protected bool _needReverse = false;      // レコード順序を逆転するかどうか
+        protected bool _needCalcValue = false;     // 入出金額を残高から計算するかどうか
 
         //--------------------------------------------------------------------
         // 以下のメソッドはサブクラスで必要に応じてオーバライドする
@@ -73,7 +73,7 @@ namespace FeliCa2Money
                 return false;
             }
 
-            AccountId = binString(data, 0, 8);
+            AccountId = BinString(data, 0, 8);
 
             return true;
         }
@@ -100,20 +100,20 @@ namespace FeliCa2Money
         {
             var transactions = new TransactionList();
 
-            f.Polling(mSystemCode);
+            f.Polling(_systemCode);
 
             if (!AnalyzeCardId(f)) {
                 throw new Exception(Properties.Resources.CantReadCardNo);
             }
 
-            for (var i = 0; i < mMaxTransactions; i++)
+            for (var i = 0; i < _maxTransactions; i++)
             {
-                var data = new byte[16 * mBlocksPerTransaction];
+                var data = new byte[16 * _blocksPerTransaction];
                 byte[] block = null;
 
-                for (var j = 0; j < mBlocksPerTransaction; j++)
+                for (var j = 0; j < _blocksPerTransaction; j++)
                 {
-                    block = f.ReadWithoutEncryption(mServiceCode, i * mBlocksPerTransaction + j);
+                    block = f.ReadWithoutEncryption(_serviceCode, i * _blocksPerTransaction + j);
                     if (block == null)
                     {
                         break;
@@ -148,11 +148,11 @@ namespace FeliCa2Money
                 transactions.Add(t);
             }
 
-            if (mNeedReverse)
+            if (_needReverse)
             {
                 transactions.Reverse();
             }
-            if (mNeedCalcValue)
+            if (_needCalcValue)
             {
                 CalcValueFromBalance(transactions);
             }
@@ -171,7 +171,7 @@ namespace FeliCa2Money
         /// <param name="offset"></param>
         /// <param name="len"></param>
         /// <returns></returns>
-        protected string binString(byte[] data, int offset, int len)
+        protected string BinString(byte[] data, int offset, int len)
         {
             var s = "";
             for (var i = offset; i < offset + len; i++)
@@ -195,26 +195,26 @@ namespace FeliCa2Money
         }
 
         // 複数バイト読み込み (big endian)
-        protected int read2b(byte[] b, int pos)
+        protected int Read2B(byte[] b, int pos)
         {
             var ret = b[pos] << 8 | b[pos + 1];
             return ret;
         }
 
-        protected int read3b(byte[] b, int pos)
+        protected int Read3B(byte[] b, int pos)
         {
             var ret = b[pos] << 16 | b[pos + 1] << 8 | b[pos + 2];
             return ret;
         }
 
-        protected int read4b(byte[] b, int pos)
+        protected int Read4B(byte[] b, int pos)
         {
             var ret = b[pos] << 24 | b[pos + 1] << 16 | b[pos + 2] << 8 | b[pos + 3];
             return ret;
         }
 
         // little endian
-        protected int read2l(byte[] b, int pos)
+        protected int Read2L(byte[] b, int pos)
         {
             var ret = b[pos + 1] << 8 | b[pos];
             return ret;

@@ -39,20 +39,20 @@ namespace FeliCa2Money
         /// <summary>
         /// マスタCSVルール定義ファイル名
         /// </summary>
-        public const String CSV_MASTER_RULE_FILENAME = "CsvRules.xml";
+        public const string CsvMasterRulsFilename = "CsvRules.xml";
 
         // ルールセット
-        private List<CsvRule> mRules;
+        private readonly IList<CsvRule> _rules;
 
         // マスタルールバージョン
-        private String mMasterVersion = null;
+        private string _masterVersion = null;
 
         /// <summary>
         /// コンストラクタ
         /// </summary>
         public CsvRules()
         {
-            mRules = new List<CsvRule>();
+            _rules = new List<CsvRule>();
         }
 
         /// <summary>
@@ -60,15 +60,15 @@ namespace FeliCa2Money
         /// </summary>
         public IEnumerator<CsvRule> GetEnumerator()
         {
-            return mRules.GetEnumerator();
+            return _rules.GetEnumerator();
         }
 
         /// <summary>
         /// マスタバージョン
         /// </summary>
-        public String MasterVersion
+        public string MasterVersion
         {
-            get { return mMasterVersion; }
+            get { return _masterVersion; }
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace FeliCa2Money
         /// </summary>
         public int Count
         {
-            get { return mRules.Count; }
+            get { return _rules.Count; }
         }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace FeliCa2Money
         /// <returns>ルール</returns>
         public CsvRule GetAt(int idx)
         {
-            return mRules[idx];
+            return _rules[idx];
         }
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace FeliCa2Money
         /// <returns>インデックス</returns>
         public int IndexOf(CsvRule rule)
         {
-            return mRules.IndexOf(rule);
+            return _rules.IndexOf(rule);
         }
 
         /// <summary>
@@ -105,23 +105,16 @@ namespace FeliCa2Money
         /// <param name="rule">ルール</param>
         public void Add(CsvRule rule)
         {
-            mRules.Add(rule);
+            _rules.Add(rule);
         }
 
         /// <summary>
         /// ルール名一覧を返す
         /// </summary>
         /// <returns>ルール名</returns>
-        public string[] Names()
+        public IEnumerable<string> Names()
         {
-            var names = new string[mRules.Count];
-            var i = 0;
-            foreach (var rule in mRules)
-            {
-                names[i] = rule.Name;
-                i++;
-            }
-            return names;
+            return from x in _rules select x.Name;
         }
 
         /// <summary>
@@ -131,7 +124,7 @@ namespace FeliCa2Money
         /// <returns>ルール</returns>
         public CsvRule FindRuleWithIdent(string ident)
         {
-            return mRules.FirstOrDefault(rule => rule.Ident == ident);
+            return _rules.FirstOrDefault(rule => rule.Ident == ident);
         }
 
         /// <summary>
@@ -141,7 +134,7 @@ namespace FeliCa2Money
         /// <returns>ルール</returns>
         public CsvRule FindRuleForFirstLine(string firstLine)
         {
-            return mRules.FirstOrDefault(rule => rule.FirstLine == firstLine);
+            return _rules.FirstOrDefault(rule => rule.FirstLine == firstLine);
         }
 
         /// <summary>
@@ -150,7 +143,7 @@ namespace FeliCa2Money
         /// <returns></returns>
         public bool LoadAllRules()
         {
-            mRules.Clear();
+            _rules.Clear();
 
             // ユーザ設定フォルダのほうから読み出す
             var path = GetRulesPath();
@@ -175,9 +168,9 @@ namespace FeliCa2Money
                 try
                 {
                     var version = LoadFromFile(xmlFile);
-                    if (Path.GetFileName(xmlFile) == CSV_MASTER_RULE_FILENAME)
+                    if (Path.GetFileName(xmlFile) == CsvMasterRulsFilename)
                     {
-                        mMasterVersion = version;
+                        _masterVersion = version;
                     }
                 }
                 catch (Exception)
@@ -271,7 +264,7 @@ namespace FeliCa2Money
                     }
                 }
 
-                mRules.Add(rule);
+                _rules.Add(rule);
             }
 
             return version;

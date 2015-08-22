@@ -1,4 +1,4 @@
-/*
+﻿/*
  * FeliCa2Money
  *
  * Copyright (C) 2001-2008 Takuya Murakami
@@ -34,14 +34,14 @@ namespace FeliCa2Money
             Ident       = "WAON";
             AccountName    = "WAON";
 
-            mSystemCode  = (int)SystemCode.Common;
-            mServiceCode = 0x680b;
+            _systemCode  = (int)SystemCode.Common;
+            _serviceCode = 0x680b;
 
-            mNeedReverse = false;
-            mNeedCalcValue = false;
+            _needReverse = false;
+            _needCalcValue = false;
 
-            mBlocksPerTransaction = 2;  // 2ブロックで１履歴
-            mMaxTransactions = 3; // 履歴数は３
+            _blocksPerTransaction = 2;  // 2ブロックで１履歴
+            _maxTransactions = 3; // 履歴数は３
         }
 
         public override bool AnalyzeCardId(IFelica f)
@@ -53,7 +53,7 @@ namespace FeliCa2Money
                 return false;
             }
 
-            AccountId = binString(data, 12, 4) + binString(data2, 0, 4);
+            AccountId = BinString(data, 12, 4) + BinString(data2, 0, 4);
 
             return true;
         }
@@ -83,10 +83,10 @@ namespace FeliCa2Money
         public override bool AnalyzeTransaction(Transaction t, byte[] data)
         {
             // ID
-            t.Id = read2b(data, 13);
+            t.Id = Read2B(data, 13);
 
             // 日付
-            int x = read4b(data, 18);
+            int x = Read4B(data, 18);
             int yy = x >> 27;
             int mm = (x >> 23) & 0xf;
             int dd = (x >> 18) & 0x1f;
@@ -95,15 +95,15 @@ namespace FeliCa2Money
             t.Date = new DateTime(yy + 2005, mm, dd, hh, min, 0);
 
             // 残高
-            x = read3b(data, 21);
+            x = Read3B(data, 21);
             t.Balance = (x >> 5) & 0x3ffff;
 
             // 出金額
-            x = read3b(data, 23);
+            x = Read3B(data, 23);
             t.Value = -((x >> 3) & 0x3ffff);
 
             // 入金額
-            x = read3b(data, 25);
+            x = Read3B(data, 25);
             t.Value += (x >> 2) & 0x1ffff;
 
             // 適用
