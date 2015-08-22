@@ -14,10 +14,10 @@ namespace FelicaLib
         // データバッファ
         // キーは、(システムコード<<16 | サービスコード)。
         // 値は、サービスコードに対応するバイトの配列。要素数は16の倍数。
-        private Hashtable dataBufs = new Hashtable();
+        private Dictionary<int, byte[]> _dataBufs = new Dictionary<int, byte[]>();
 
         // システムコード(16bit)
-        private int systemCode;
+        private int _systemCode;
 
         public DummyFelica()
         {
@@ -26,12 +26,12 @@ namespace FelicaLib
 
         public void Dispose()
         {
-            dataBufs = null;
+            _dataBufs = null;
         }
 
         public void Polling(int s)
         {
-            systemCode = s;
+            _systemCode = s;
         }
 
         public byte[] IDm()
@@ -57,7 +57,7 @@ namespace FelicaLib
         public byte[] ReadWithoutEncryption(int sv, int addr)
         {
             byte[] ret = new byte[16];
-            byte[] data = (byte[])dataBufs[systemCode << 16 | sv];
+            byte[] data = _dataBufs[_systemCode << 16 | sv];
 
             if (data == null || data.Length < (addr + 1) * 16)
             {
@@ -76,7 +76,7 @@ namespace FelicaLib
         // テスト用システムコードをセットする
         public void SetSystemCode(int s)
         {
-            systemCode = s;
+            _systemCode = s;
         }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace FelicaLib
         /// </summary>
         public void SetTestData(int sv, byte[] data)
         {
-            dataBufs[systemCode << 16 | sv] = data;
+            _dataBufs[_systemCode << 16 | sv] = data;
         }
 
         /// <summary>

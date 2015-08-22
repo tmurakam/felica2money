@@ -42,14 +42,14 @@ namespace FeliCa2Money
         /// </summary>
         public class Builder
         {
-            private Hashtable mNameHash;
+            private Dictionary<string,int> mNameHash;
 
             /// <summary>
             /// コンストラクタ
             /// </summary>
             public Builder()
             {
-                mNameHash = new Hashtable();
+                mNameHash = new Dictionary<string, int>();
             }
 
             /// <summary>
@@ -96,7 +96,7 @@ namespace FeliCa2Money
         /// </summary>
         /// <param name="line">アカウント情報行</param>
         /// <returns></returns>
-        private bool readAccountInfo(string line, Hashtable nameHash)
+        private bool readAccountInfo(string line, Dictionary<string,int> nameHash)
         {
             var columns = CsvUtil.SplitCsv(line, false);
 
@@ -166,7 +166,7 @@ namespace FeliCa2Money
                 }
                 else
                 {
-                    counter = (int)nameHash[cardName];
+                    counter = nameHash[cardName];
                 }
                 AccountId = cardName + counter.ToString();
                 nameHash[cardName] = counter + 1;
