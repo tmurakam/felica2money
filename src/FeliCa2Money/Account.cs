@@ -25,7 +25,9 @@ using FelicaLib;
 
 namespace FeliCa2Money
 {
-    // Account クラス
+    /// <summary>
+    /// アカウントクラス
+    /// </summary>
     public abstract class Account
     {
         private string _branchId = "0";   // 支店番号

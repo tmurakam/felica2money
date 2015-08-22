@@ -42,39 +42,41 @@ namespace FeliCa2Money
         /// </summary>
         public class Builder
         {
-            private Dictionary<string,int> mNameHash;
+            private readonly Dictionary<string,int> _counterHash;
 
             /// <summary>
             /// コンストラクタ
             /// </summary>
             public Builder()
             {
-                mNameHash = new Dictionary<string, int>();
+                _counterHash = new Dictionary<string, int>();
             }
 
             /// <summary>
             /// 銀行型アカウントの生成
             /// </summary>
             /// <returns>アカウント</returns>
-            public AgrAccount newBankAccount(string line)
+            public AgrAccount NewBankAccount(string line)
             {
-                return newAccount(line, false);
+                return NewAccount(line, false);
             }
 
             /// <summary>
             /// クレジットカード型アカウントの作成
             /// </summary>
             /// <returns>アカウント</returns>
-            public AgrAccount newCreditCardAccount(string line)
+            public AgrAccount NewCreditCardAccount(string line)
             {
-                return newAccount(line, true);
+                return NewAccount(line, true);
             }
 
-            private AgrAccount newAccount(string line, bool isCreditCard)
+            private AgrAccount NewAccount(string line, bool isCreditCard)
             {
-                var account = new AgrAccount();
-                account.IsCreditCard = isCreditCard;
-                if (!account.readAccountInfo(line, mNameHash))
+                var account = new AgrAccount
+                {
+                    IsCreditCard = isCreditCard
+                };
+                if (!account.ReadAccountInfo(line, _counterHash))
                 {
                     return null;
                 }
@@ -95,8 +97,9 @@ namespace FeliCa2Money
         /// アカウント情報を読み込む
         /// </summary>
         /// <param name="line">アカウント情報行</param>
+        /// <param name="nameHash">アカウントID - カウンタハッシュ</param>
         /// <returns></returns>
-        private bool readAccountInfo(string line, Dictionary<string,int> nameHash)
+        private bool ReadAccountInfo(string line, Dictionary<string,int> nameHash)
         {
             var columns = CsvUtil.SplitCsv(line, false);
 
@@ -159,23 +162,15 @@ namespace FeliCa2Money
                 BranchId = "";
 
                 // 重複しないよう、連番を振る
-                int counter;
-                if (!nameHash.ContainsKey(cardName))
-                {
-                    counter = 1;
-                }
-                else
-                {
-                    counter = nameHash[cardName];
-                }
-                AccountId = cardName + counter.ToString();
+                int counter = !nameHash.ContainsKey(cardName) ? 1 : nameHash[cardName];
+                AccountId = cardName + counter;
                 nameHash[cardName] = counter + 1;
             }
 
             return true;
         }
 
-        private int getDummyId(string name)
+        private int GetDummyId(string name)
         {
             var md5 = MD5.Create();
             var hash = MD5.Create().ComputeHash(System.Text.Encoding.UTF8.GetBytes(name));
@@ -191,7 +186,7 @@ namespace FeliCa2Money
         /// <param name="line">取引行</param>
         /// <returns>成功フラグ</returns>
         /// 
-        public bool readTransaction(string line)
+        public bool ReadTransaction(string line)
         {
             var columns = CsvUtil.SplitCsv(line, false);
             if (columns.Length < 8)
@@ -202,7 +197,7 @@ namespace FeliCa2Money
             var transaction = new Transaction();
 
             // 日付の処理
-            var ary = columns[0].Split(new char[] { '/' });
+            var ary = columns[0].Split('/');
             try
             {
                 if (ary.Length == 3)
@@ -211,7 +206,7 @@ namespace FeliCa2Money
                 }
                 else if (ary.Length == 2)
                 {
-                    DateTime now = DateTime.Now;
+                    var now = DateTime.Now;
 
                     var n1 = int.Parse(ary[0]);
                     var n2 = int.Parse(ary[1]);

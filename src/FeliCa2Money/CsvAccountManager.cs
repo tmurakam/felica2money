@@ -36,8 +36,8 @@ namespace FeliCa2Money
     /// </summary>
     public class CsvAccountManager
     {
-        private List<CsvAccount> mAccounts = new List<CsvAccount>();
-        private CsvRules mRules = new CsvRules();
+        private readonly List<CsvAccount> _accounts = new List<CsvAccount>();
+        private readonly CsvRules _rules = new CsvRules();
 
         public CsvAccountManager()
         {
@@ -46,7 +46,7 @@ namespace FeliCa2Money
 
         public int Count()
         {
-            return mAccounts.Count;
+            return _accounts.Count;
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace FeliCa2Money
         /// <returns></returns>
         public bool LoadAllRules()
         {
-            return mRules.LoadAllRules();
+            return _rules.LoadAllRules();
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace FeliCa2Money
         /// <param name="rule">ルール</param>
         public void AddRule(CsvRule rule)
         {
-            mRules.Add(rule);
+            _rules.Add(rule);
         }
 
         /// <summary>
@@ -72,26 +72,28 @@ namespace FeliCa2Money
         /// </summary>
         private void LoadAccounts()
         {
-            mAccounts.Clear();
+            _accounts.Clear();
 
             foreach (var line in Properties.Settings.Default.AccountInfo)
             {
                 // 各行には、Ident, BranchId, AccountId, Nickname が入っているものとする
-                var a = line.Split(new char[] { ',' });
+                var a = line.Split(',');
 
                 // アカウントIDが入っていない場合は読み飛ばす (旧バージョン対応)
                 if (a[2].Length == 0) continue;
 
-                var account = new CsvAccount();
-                account.Ident = a[0];
-                account.BranchId = a[1];
-                account.AccountId = a[2];
+                var account = new CsvAccount
+                {
+                    Ident = a[0],
+                    BranchId = a[1],
+                    AccountId = a[2]
+                };
                 if (a.Length > 3) // backword compat.
                 {
                     account.AccountName = a[3];
                 }
 
-                mAccounts.Add(account);
+                _accounts.Add(account);
             }
         }
 
@@ -104,7 +106,7 @@ namespace FeliCa2Money
 
             s.AccountInfo.Clear();
 
-            foreach (var account in mAccounts) {
+            foreach (var account in _accounts) {
                 var line = account.Ident;
                 line += "," + account.BranchId;
                 line += "," + account.AccountId;
@@ -120,7 +122,7 @@ namespace FeliCa2Money
         /// </summary>
         public void AddAccount(CsvAccount account)
         {
-            mAccounts.Add(account);
+            _accounts.Add(account);
             SaveAccountInfo();
         }
 
@@ -140,7 +142,7 @@ namespace FeliCa2Money
         /// </summary>
         public void DeleteAccount(CsvAccount account)
         {
-            mAccounts.Remove(account);
+            _accounts.Remove(account);
             SaveAccountInfo();
         }
 
@@ -148,19 +150,19 @@ namespace FeliCa2Money
         {
             if (index <= 0) return; // do nothing
 
-            var account = mAccounts[index];
-            mAccounts.RemoveAt(index);
-            mAccounts.Insert(index - 1, account);
+            var account = _accounts[index];
+            _accounts.RemoveAt(index);
+            _accounts.Insert(index - 1, account);
             SaveAccountInfo();
         }
 
         public void DownAccount(int index)
         {
-            if (index >= mAccounts.Count - 1) return; // do nothing
+            if (index >= _accounts.Count - 1) return; // do nothing
 
-            var account = mAccounts[index];
-            mAccounts.RemoveAt(index);
-            mAccounts.Insert(index + 1, account);
+            var account = _accounts[index];
+            _accounts.RemoveAt(index);
+            _accounts.Insert(index + 1, account);
             SaveAccountInfo();
         }
 
@@ -170,9 +172,9 @@ namespace FeliCa2Money
         /// <returns></returns>
         public string[] GetNames()
         {
-            var names = new string[mAccounts.Count];
+            var names = new string[_accounts.Count];
             var i = 0;
-            foreach (var account in mAccounts)
+            foreach (var account in _accounts)
             {
                 var name = GetBankName(account);
                 if (account.AccountName != "")
@@ -187,7 +189,7 @@ namespace FeliCa2Money
 
         private string GetBankName(CsvAccount account)
         {
-            foreach (var rule in mRules) {
+            foreach (var rule in _rules) {
                 if (rule.Ident == account.Ident) {
                     return rule.Name;
                 }
@@ -197,17 +199,17 @@ namespace FeliCa2Money
 
         public CsvAccount GetAt(int index)
         {
-            return mAccounts[index];
+            return _accounts[index];
         }
 
         public int IndexOf(CsvAccount account)
         {
-            return mAccounts.IndexOf(account);
+            return _accounts.IndexOf(account);
         }
 
         public CsvRules GetRules()
         {
-            return mRules;
+            return _rules;
         }
 
         /// <summary>
@@ -222,7 +224,7 @@ namespace FeliCa2Money
             CsvAccount account = null;
             if (rule != null)
             {
-                foreach (var acc in mAccounts)
+                foreach (var acc in _accounts)
                 {
                     if (acc.Ident == rule.Ident)
                     {
@@ -249,7 +251,7 @@ namespace FeliCa2Money
             }
 
             // アカウントに対応するルールを選択する
-            rule = mRules.FindRuleWithIdent(account.Ident);
+            rule = _rules.FindRuleWithIdent(account.Ident);
             if (rule == null)
             {
                 MessageBox.Show(Properties.Resources.NoMatchingCsvRule, Properties.Resources.Error);
@@ -268,12 +270,12 @@ namespace FeliCa2Money
         public CsvRule FindMatchingRuleForCsv(string path)
         {
             // TODO: とりあえず SJIS で開く (UTF-8 とかあるかも?)
-            var sr = new StreamReader(path, System.Text.Encoding.Default);
+            var sr = new StreamReader(path, Encoding.Default);
             var firstLine = sr.ReadLine();
             sr.Close();
 
             // 合致するルールを探す
-            return mRules.FindRuleForFirstLine(firstLine);
+            return _rules.FindRuleForFirstLine(firstLine);
         }
     }
 }

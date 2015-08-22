@@ -115,11 +115,11 @@ namespace FeliCa2Money
                             }
                             if (isCreditCard)
                             {
-                                account = builder.newCreditCardAccount(line);
+                                account = builder.NewCreditCardAccount(line);
                             }
                             else
                             {
-                                account = builder.newBankAccount(line);
+                                account = builder.NewBankAccount(line);
                             }
                             if (account == null)
                             {
@@ -138,7 +138,7 @@ namespace FeliCa2Money
                             }
                             else
                             {
-                                if (!account.readTransaction(line))
+                                if (!account.ReadTransaction(line))
                                 {
                                     // 解析エラー: この取引は無視する
                                 }

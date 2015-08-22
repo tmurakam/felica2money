@@ -29,7 +29,7 @@ namespace FeliCa2Money.test
         [Test]
         public void createBankAccount()
         {
-            AgrAccount account = builder.newBankAccount("\"BANK_NAME\", \"BRANCH_NAME\", \"ACCOUNT_ID\", \"-123456\", \"JPY\"");
+            AgrAccount account = builder.NewBankAccount("\"BANK_NAME\", \"BRANCH_NAME\", \"ACCOUNT_ID\", \"-123456\", \"JPY\"");
             Assert.NotNull(account);
             Assert.False(account.IsCreditCard);
             Assert.AreEqual("BANK_NAME", account.BankId);
@@ -42,7 +42,7 @@ namespace FeliCa2Money.test
         [Test]
         public void createBankAccountWithoutBalance()
         {
-            AgrAccount account = builder.newBankAccount("\"BANK_NAME\", \"BRANCH_NAME\", \"ACCOUNT_ID\"");
+            AgrAccount account = builder.NewBankAccount("\"BANK_NAME\", \"BRANCH_NAME\", \"ACCOUNT_ID\"");
             Assert.NotNull(account);
             Assert.False(account.IsCreditCard);
             Assert.AreEqual("BANK_NAME", account.BankId);
@@ -54,7 +54,7 @@ namespace FeliCa2Money.test
         [Test]
         public void createCreditCardAccounts()
         {
-            AgrAccount account = builder.newCreditCardAccount("\"XYZカード\", \"DUMMY\", \"123456\"");
+            AgrAccount account = builder.NewCreditCardAccount("\"XYZカード\", \"DUMMY\", \"123456\"");
             Assert.NotNull(account);
             Assert.True(account.IsCreditCard);
             Assert.AreEqual("CARD_XYZ1", account.AccountId);
@@ -62,7 +62,7 @@ namespace FeliCa2Money.test
             Assert.AreEqual(-123456, account.Balance);
 
             // 違うカード名
-            account = builder.newCreditCardAccount("\"XYZZカード\", \"DUMMY\", \"654321\"");
+            account = builder.NewCreditCardAccount("\"XYZZカード\", \"DUMMY\", \"654321\"");
             Assert.NotNull(account);
             Assert.True(account.IsCreditCard);
             Assert.AreEqual("CARD_XYZZ1", account.AccountId);
@@ -70,7 +70,7 @@ namespace FeliCa2Money.test
             Assert.AreEqual(-654321, account.Balance);
 
             // １番目と同じカード名
-            account = builder.newCreditCardAccount("\"XYZカード\", \"DUMMY\", \"654321\"");
+            account = builder.NewCreditCardAccount("\"XYZカード\", \"DUMMY\", \"654321\"");
             Assert.NotNull(account);
             Assert.True(account.IsCreditCard);
             Assert.AreEqual("CARD_XYZ2", account.AccountId);
@@ -81,8 +81,8 @@ namespace FeliCa2Money.test
         [Test]
         public void readTransaction()
         {
-            AgrAccount account = builder.newBankAccount("\"BANK_NAME\", \"BRANCH_NAME\", \"ACCOUNT_ID\"");
-            Assert.True(account.readTransaction("\"2010/1/2\", \"DESCRIPTION\", \"100\", \"JPY\", \"--\", \"\", \"123456\", \"JPY\""));
+            AgrAccount account = builder.NewBankAccount("\"BANK_NAME\", \"BRANCH_NAME\", \"ACCOUNT_ID\"");
+            Assert.True(account.ReadTransaction("\"2010/1/2\", \"DESCRIPTION\", \"100\", \"JPY\", \"--\", \"\", \"123456\", \"JPY\""));
             Assert.AreEqual(1, account.Transactions.Count);
 
             Transaction t = account.Transactions[0];
@@ -99,10 +99,10 @@ namespace FeliCa2Money.test
 
             for (int i = 1; i <= 12; i++)
             {
-                AgrAccount account = builder.newBankAccount("\"BANK_NAME\", \"BRANCH_NAME\", \"ACCOUNT_ID\"");
+                AgrAccount account = builder.NewBankAccount("\"BANK_NAME\", \"BRANCH_NAME\", \"ACCOUNT_ID\"");
 
                 // 年なし(月日のみ)のフォーマットを作成
-                Assert.True(account.readTransaction("\"" + i.ToString() + "/15\", \"DESCRIPTION\", \"100\", \"JPY\", \"\", \"\", \"123456\", \"JPY\""));
+                Assert.True(account.ReadTransaction("\"" + i.ToString() + "/15\", \"DESCRIPTION\", \"100\", \"JPY\", \"\", \"\", \"123456\", \"JPY\""));
                 Assert.AreEqual(1, account.Transactions.Count);
 
                 Transaction t = account.Transactions[0];
@@ -119,10 +119,10 @@ namespace FeliCa2Money.test
         [Test]
         public void readTransactionWithoutDay()
         {
-            AgrAccount account = builder.newBankAccount("\"BANK_NAME\", \"BRANCH_NAME\", \"ACCOUNT_ID\"");
+            AgrAccount account = builder.NewBankAccount("\"BANK_NAME\", \"BRANCH_NAME\", \"ACCOUNT_ID\"");
 
             // 日なし(年月のみ)のフォーマットを作成
-            Assert.True(account.readTransaction("\"2011/3\", \"DESCRIPTION\", \"100\", \"JPY\", \"\", \"\", \"123456\", \"JPY\""));
+            Assert.True(account.ReadTransaction("\"2011/3\", \"DESCRIPTION\", \"100\", \"JPY\", \"\", \"\", \"123456\", \"JPY\""));
             Assert.AreEqual(1, account.Transactions.Count);
 
             Transaction t = account.Transactions[0];

@@ -72,12 +72,17 @@ namespace FeliCa2Money
         {
             set
             {
-                if (value == "Sort") {
-                    SortOrder = SortOrderType.Auto;
-                } else if (value == "Descent") {
-                    SortOrder = SortOrderType.Descent;
-                } else {
-                    SortOrder = SortOrderType.Ascent;
+                switch (value)
+                {
+                    case "Sort":
+                        SortOrder = SortOrderType.Auto;
+                        break;
+                    case "Descent":
+                        SortOrder = SortOrderType.Descent;
+                        break;
+                    default:
+                        SortOrder = SortOrderType.Ascent;
+                        break;
                 }
             }
         }
@@ -87,16 +92,8 @@ namespace FeliCa2Money
         /// </summary>
         public string Separator 
         {
-            set
-            {
-                if (value == "Tab")
-                {
-                    IsTsv = true;
-                }
-                else
-                {
-                    IsTsv = false;
-                }
+            set {
+                IsTsv = value == "Tab";
             }
         }
 
@@ -109,7 +106,7 @@ namespace FeliCa2Money
         /// <param name="format">フォーマット</param>
         public void SetFormat(string format)
         {
-            _columnDefs = format.Split(new Char[] { ',', '\t' });
+            _columnDefs = format.Split(',', '\t');
 
             for (int i = 0; i < _columnDefs.Length; i++)
             {
@@ -125,7 +122,7 @@ namespace FeliCa2Money
         /// <param name="row">行データ</param>
         /// <param name="key">キー名</param>
         /// <returns>値</returns>
-        private string GetCol(string[] row, string key)
+        private string GetCol(IList<string> row, string key)
         {
             if (!_columnIndex.ContainsKey(key))
             {
@@ -141,9 +138,9 @@ namespace FeliCa2Money
         /// <param name="row"></param>
         /// <param name="key"></param>
         /// <returns></returns>
-        private string GetMultiCol(string[] row, string key)
+        private string GetMultiCol(IList<string> row, string key)
         {
-            StringBuilder val = new StringBuilder();
+            var val = new StringBuilder();
             for (int i = 0; i < _columnDefs.Length; i++)
             {
                 if (key == _columnDefs[i] && row[i].Length > 0)
@@ -159,7 +156,7 @@ namespace FeliCa2Money
         }
 
         // 指定したカラムを取得 (integer)
-        private int GetColInt(string[] row, string key)
+        private int GetColInt(IList<string> row, string key)
         {
             var v = GetCol(row, key);
             if (v == null) return 0;
