@@ -45,12 +45,12 @@ namespace FeliCa2Money
 
         // 取引ID生成用のシリアル番号。mId が UNASSIGNED_ID の場合にのみ使用
 
-        private bool mValid = true;
+        private bool _valid = true;
 
-        private static readonly Dictionary<string,TransType> mTransIncome;
-        private static readonly Dictionary<string,TransType> mTransOutgo;
+        private static readonly Dictionary<string,TransType> _transIncome;
+        private static readonly Dictionary<string,TransType> _transOutgo;
 
-        private static readonly Dictionary<TransType,string> mTransStrings;
+        private static readonly Dictionary<TransType,string> _transStrings;
 
         private static System.Security.Cryptography.MD5 sMd5 = new System.Security.Cryptography.MD5CryptoServiceProvider();
 
@@ -81,26 +81,26 @@ namespace FeliCa2Money
         static Transaction()
         {
             // initialize
-            mTransStrings = new Dictionary<TransType, string>();
-            mTransStrings[TransType.Int] = "INT";
-            mTransStrings[TransType.Div] = "DIV";
-            mTransStrings[TransType.DirectDep] = "DIRECTDEP";
-            mTransStrings[TransType.Dep] = "DEP";
-            mTransStrings[TransType.Payment] = "PAYMENT";
-            mTransStrings[TransType.Cash] = "CASH";
-            mTransStrings[TransType.ATM] = "ATM";
-            mTransStrings[TransType.Check] = "CHECK";
-            mTransStrings[TransType.Debit] = "DEBIT";
+            _transStrings = new Dictionary<TransType, string>();
+            _transStrings[TransType.Int] = "INT";
+            _transStrings[TransType.Div] = "DIV";
+            _transStrings[TransType.DirectDep] = "DIRECTDEP";
+            _transStrings[TransType.Dep] = "DEP";
+            _transStrings[TransType.Payment] = "PAYMENT";
+            _transStrings[TransType.Cash] = "CASH";
+            _transStrings[TransType.ATM] = "ATM";
+            _transStrings[TransType.Check] = "CHECK";
+            _transStrings[TransType.Debit] = "DEBIT";
 
-            mTransIncome = new Dictionary<string, TransType>();
-            mTransIncome["利息"] = TransType.Int;
-            mTransIncome["振込"] = TransType.DirectDep;
-            mTransIncome["ﾁｬｰｼﾞ"]= TransType.DirectDep;  // Edy チャージ
-            mTransIncome["入金"] = TransType.DirectDep;    // Suica チャージ
+            _transIncome = new Dictionary<string, TransType>();
+            _transIncome["利息"] = TransType.Int;
+            _transIncome["振込"] = TransType.DirectDep;
+            _transIncome["ﾁｬｰｼﾞ"]= TransType.DirectDep;  // Edy チャージ
+            _transIncome["入金"] = TransType.DirectDep;    // Suica チャージ
 
-            mTransOutgo = new Dictionary<string, TransType>();
-            mTransOutgo["ＡＴＭ"] = TransType.ATM;
-            mTransOutgo["ATM"]    = TransType.ATM;
+            _transOutgo = new Dictionary<string, TransType>();
+            _transOutgo["ＡＴＭ"] = TransType.ATM;
+            _transOutgo["ATM"]    = TransType.ATM;
         }
 
         public Transaction()
@@ -115,16 +115,16 @@ namespace FeliCa2Money
 
         public string GetTransString()
         {
-            return (string)mTransStrings[Type];
+            return (string)_transStrings[Type];
         }
 
         public void GuessTransType(bool isIncome)
         {
-            var h = mTransOutgo;
+            var h = _transOutgo;
 
             if (isIncome)
             {
-                h = mTransIncome;
+                h = _transIncome;
             }
 
             foreach (var key in h.Keys)
@@ -142,12 +142,12 @@ namespace FeliCa2Money
 
         public void Invalidate()
         {
-            mValid = false;
+            _valid = false;
         }
 
         public static bool IsInvalid(Transaction t)
         {
-            return !t.mValid;
+            return !t._valid;
         }
 
         public static bool IsZeroTransaction(Transaction t)

@@ -188,7 +188,7 @@
             this.buttonAssoc.TabIndex = 8;
             this.buttonAssoc.Text = "関連付けする";
             this.buttonAssoc.UseVisualStyleBackColor = true;
-            this.buttonAssoc.Click += new System.EventHandler(this.onAgrAssociateClick);
+            this.buttonAssoc.Click += new System.EventHandler(this.OnAgrAssociateClick);
             // 
             // buttonDeAssoc
             // 
@@ -199,7 +199,7 @@
             this.buttonDeAssoc.TabIndex = 9;
             this.buttonDeAssoc.Text = "関連付け解除";
             this.buttonDeAssoc.UseVisualStyleBackColor = true;
-            this.buttonDeAssoc.Click += new System.EventHandler(this.onAgrUnAssociateClick);
+            this.buttonDeAssoc.Click += new System.EventHandler(this.OnAgrUnAssociateClick);
             // 
             // groupBox2
             // 

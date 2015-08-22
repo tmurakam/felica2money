@@ -99,7 +99,7 @@
             this.button1.TabIndex = 4;
             this.button1.Text = "OK";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.onOkClick);
+            this.button1.Click += new System.EventHandler(this.OnOkClick);
             // 
             // button2
             // 
@@ -135,7 +135,7 @@
             this.button3.TabIndex = 9;
             this.button3.Text = "CSV変換定義のアップデート";
             this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.onUpdateCsvRules);
+            this.button3.Click += new System.EventHandler(this.OnUpdateCsvRules);
             // 
             // CsvAccountEditDialog
             // 

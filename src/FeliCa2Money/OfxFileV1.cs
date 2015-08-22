@@ -48,8 +48,10 @@ namespace FeliCa2Money
             // OFX 要素を生成する
             ofx.GenOfx(accounts);
 
-            var w = new StreamWriter(this.ofxFilePath, false); //, Encoding.UTF8);
-            w.NewLine = "\n";
+            var w = new StreamWriter(this.OfxFilePath, false)
+            {
+                NewLine = "\n"
+            }; //, Encoding.UTF8);
 
             // SGMLヘッダ出力
             w.WriteLine("OFXHEADER:100");

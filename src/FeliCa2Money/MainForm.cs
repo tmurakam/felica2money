@@ -30,7 +30,7 @@ namespace FeliCa2Money
 {
     public partial class MainForm : Form
     {
-	    private const string HELP_URL = "http://felica2money.tmurakam.org/manual.html";
+	    private const string HelpUrl = "http://felica2money.tmurakam.org/manual.html";
 
         public MainForm()
         {
@@ -58,7 +58,7 @@ namespace FeliCa2Money
                 var filepath = argv[1];
                 if (filepath.EndsWith(".agr") || filepath.EndsWith(".AGR"))
                 {
-                    processAgrFile(filepath);
+                    ProcessAgrFile(filepath);
                 }
             }
             else
@@ -80,7 +80,7 @@ namespace FeliCa2Money
         {
             using (var edy = new Edy())
             {
-                readAndGenerateOfx(edy);
+                ReadAndGenerateOfx(edy);
             }
         }
 
@@ -88,7 +88,7 @@ namespace FeliCa2Money
         {
             using (var suica = new Suica())
             {
-                readAndGenerateOfx(suica);
+                ReadAndGenerateOfx(suica);
             }
         }
 
@@ -96,7 +96,7 @@ namespace FeliCa2Money
         {
             using(var nanaco = new Nanaco())
             {
-                readAndGenerateOfx(nanaco);
+                ReadAndGenerateOfx(nanaco);
             }
         }
 
@@ -104,7 +104,7 @@ namespace FeliCa2Money
         {
             using (var waon = new Waon())
             {
-                readAndGenerateOfx(waon);
+                ReadAndGenerateOfx(waon);
             }
         }
 
@@ -130,7 +130,7 @@ namespace FeliCa2Money
                 return;
             }
              
-            readAndGenerateOfx(account);
+            ReadAndGenerateOfx(account);
             account.Close();
         }
 
@@ -140,12 +140,12 @@ namespace FeliCa2Money
             openFileDialog.Filter = "AGRファイル|*.agr|すべてのファイル|*.*";
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                processAgrFile(openFileDialog.FileName);
+                ProcessAgrFile(openFileDialog.FileName);
             }
         }
 
         // AGRファイル処理
-        private void processAgrFile(string filepath)
+        private void ProcessAgrFile(string filepath)
         {
             var agr = new AgrFile();
 
@@ -162,20 +162,20 @@ namespace FeliCa2Money
                 MessageBox.Show(ex.Message, Properties.Resources.Error);
                 return;
             }
-            generateOfx(agr.Accounts);
+            GenerateOfx(agr.Accounts);
         }
 
-        private void readAndGenerateOfx(Account c)
+        private void ReadAndGenerateOfx(Account c)
         {
-            if (readTransactions(c))
+            if (ReadTransactions(c))
             {
-                generateOfx(c);
+                GenerateOfx(c);
             }
         }
 
         // カードを読み込む
         // 正常に読み込んだら true を返す
-        private bool readTransactions(Account c)
+        private bool ReadTransactions(Account c)
         {
             try
             {
@@ -204,14 +204,14 @@ namespace FeliCa2Money
             return true;
         }
 
-        private void generateOfx(Account c)
+        private void GenerateOfx(Account c)
         {
             var accounts = new List<Account>();
             accounts.Add(c);
-            generateOfx(accounts);
+            GenerateOfx(accounts);
         }
 
-        private void generateOfx(List<Account> accounts)
+        private void GenerateOfx(List<Account> accounts)
         {
             // 明細件数チェックおよび取引IDの生成
             var count = 0;
@@ -246,9 +246,9 @@ namespace FeliCa2Money
             }
 
             // OFX ファイル生成
-            var ofx = OfxFile.newOfxFile(Properties.Settings.Default.OfxVer2 ? 2 : 1);
+            var ofx = OfxFile.NewOfxFile(Properties.Settings.Default.OfxVer2 ? 2 : 1);
 
-            ofx.ofxFilePath = ofxFilePath;
+            ofx.OfxFilePath = ofxFilePath;
             ofx.WriteFile(accounts);
 
             // Money 起動
@@ -273,7 +273,7 @@ namespace FeliCa2Money
         {
             try
             {
-                System.Diagnostics.Process.Start(HELP_URL);
+                System.Diagnostics.Process.Start(HelpUrl);
 
 	            //String helpFile = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Felica2Money.html";
                 //System.Diagnostics.Process.Start(helpFile);

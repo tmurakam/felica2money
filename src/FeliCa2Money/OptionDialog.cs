@@ -37,7 +37,7 @@ namespace FeliCa2Money
         [DllImport("user32.dll", CharSet = CharSet.Unicode)]
         public static extern IntPtr SendMessage(IntPtr hWnd, int Msg, IntPtr wParam, IntPtr lParam);
 
-        private CsvRules mCsvRules;
+        private readonly CsvRules _csvRules;
 
         public OptionDialog()
         {
@@ -45,8 +45,8 @@ namespace FeliCa2Money
 
             LoadProperties();
 
-            mCsvRules = new CsvRules();
-            updateCsvMasterRuleVersion();
+            _csvRules = new CsvRules();
+            UpdateCsvMasterRuleVersion();
         }
 
         // プロパティを全部ロードする
@@ -71,14 +71,15 @@ namespace FeliCa2Money
             }
 
             // Show shield icons
-            const int BCM_SETSHIELD = 0x160c;
-            SendMessage(buttonAssoc.Handle, BCM_SETSHIELD, IntPtr.Zero, new IntPtr(1));
-            SendMessage(buttonDeAssoc.Handle, BCM_SETSHIELD, IntPtr.Zero, new IntPtr(1));
+            const int bcmSetshield = 0x160c;
+
+            SendMessage(buttonAssoc.Handle, bcmSetshield, IntPtr.Zero, new IntPtr(1));
+            SendMessage(buttonDeAssoc.Handle, bcmSetshield, IntPtr.Zero, new IntPtr(1));
         }
 
         public void SaveProperties()
         {
-            Properties.Settings s = Properties.Settings.Default;
+            var s = Properties.Settings.Default;
 
             s.IgnoreZeroTransaction = checkIgnoreZeroTransaction.Checked;
             s.ManualOfxPath = checkManualOfxPath.Checked;
@@ -96,17 +97,17 @@ namespace FeliCa2Money
         }
 
         // CSVマスタルールバージョン表示
-        private void updateCsvMasterRuleVersion()
+        private void UpdateCsvMasterRuleVersion()
         {
-            mCsvRules.LoadAllRules();
-            String text = "CSV定義バージョン : ";
-            if (mCsvRules.MasterVersion == null)
+            _csvRules.LoadAllRules();
+            var text = "CSV定義バージョン : ";
+            if (_csvRules.MasterVersion == null)
             {
                 text += "なし";
             }
             else
             {
-                text += mCsvRules.MasterVersion;
+                text += _csvRules.MasterVersion;
             }
             labelCsvVersion.Text = text;
         }
@@ -116,14 +117,14 @@ namespace FeliCa2Money
         {
             if (new CsvRulesUpdater().CheckUpdate(true))
             {
-                updateCsvMasterRuleVersion();
+                UpdateCsvMasterRuleVersion();
             }
         }
 
         // AGR関連付け
-        private void onAgrAssociateClick(object sender, EventArgs e)
+        private void OnAgrAssociateClick(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("AGRファイルをFeliCa2Moneyに関連付けますか？", "確認",
+            var result = MessageBox.Show("AGRファイルをFeliCa2Moneyに関連付けますか？", "確認",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2);
             if (result != DialogResult.Yes)
             {
@@ -138,11 +139,11 @@ namespace FeliCa2Money
                 string iconpath = Application.ExecutablePath;
 
                 // ファイルタイプ登録
-                Microsoft.Win32.RegistryKey regkey = Microsoft.Win32.Registry.ClassesRoot.CreateSubKey(".agr");
+                var regkey = Microsoft.Win32.Registry.ClassesRoot.CreateSubKey(".agr");
                 regkey.SetValue("", filetype);
                 regkey.Close();
 
-                Microsoft.Win32.RegistryKey shellkey = Microsoft.Win32.Registry.ClassesRoot.CreateSubKey(filetype);
+                var shellkey = Microsoft.Win32.Registry.ClassesRoot.CreateSubKey(filetype);
                 shellkey.SetValue("", description);
 
                 // 動詞登録
@@ -155,17 +156,17 @@ namespace FeliCa2Money
                 shellkey.Close();
 
                 // アイコン登録
-                Microsoft.Win32.RegistryKey iconkey = Microsoft.Win32.Registry.ClassesRoot.CreateSubKey(filetype + "\\DefaultIcon");
+                var iconkey = Microsoft.Win32.Registry.ClassesRoot.CreateSubKey(filetype + "\\DefaultIcon");
                 iconkey.SetValue("", iconpath + ",0");
                 iconkey.Close();
             }
             catch (UnauthorizedAccessException)
             {
-                runasAdmin();
+                RunasAdmin();
             }
         }
 
-        private void onAgrUnAssociateClick(object sender, EventArgs e)
+        private void OnAgrUnAssociateClick(object sender, EventArgs e)
         {
             DialogResult result = MessageBox.Show("AGRファイルの関連付けを解除しますか？", "確認",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2);
@@ -183,7 +184,7 @@ namespace FeliCa2Money
             }
             catch (UnauthorizedAccessException)
             {
-                runasAdmin();
+                RunasAdmin();
             }
             catch (ArgumentException)
             {
@@ -191,7 +192,7 @@ namespace FeliCa2Money
             }
         }
 
-        private void runasAdmin()
+        private void RunasAdmin()
         {
             DialogResult result = MessageBox.Show("管理者権限がありません。管理者権限で起動しなおしますので、再度実行してください。", "確認", MessageBoxButtons.OKCancel,
                 MessageBoxIcon.Exclamation);

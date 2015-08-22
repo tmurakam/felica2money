@@ -10,20 +10,20 @@ namespace FeliCa2Money
 {
     public partial class CsvAccountDialog : Form
     {
-        private CsvAccountManager mManager;
+        private readonly CsvAccountManager _accountManager;
 
-        public CsvAccountDialog(CsvAccountManager manager)
+        public CsvAccountDialog(CsvAccountManager accountManager)
         {
             InitializeComponent();
 
-            mManager = manager;
+            _accountManager = accountManager;
             UpdateList();
         }
 
         private void UpdateList()
         {
             listBox.Items.Clear();
-            var names = mManager.GetNames();
+            var names = _accountManager.GetNames();
             foreach (var name in names)
             {
                 listBox.Items.Add(name);
@@ -35,7 +35,7 @@ namespace FeliCa2Money
         {
             if (account == null) return;
 
-            var idx = mManager.IndexOf(account);
+            var idx = _accountManager.IndexOf(account);
             listBox.SelectedIndex = idx;
         }
         
@@ -47,19 +47,19 @@ namespace FeliCa2Money
             {
                 return null;
             }
-            return mManager.GetAt(idx);
+            return _accountManager.GetAt(idx);
         }
 
         private void OnAddAccount(object sender, EventArgs e)
         {
             var account = new CsvAccount();
-            var dlg = new CsvAccountEditDialog(mManager, account);
+            var dlg = new CsvAccountEditDialog(_accountManager, account);
             if (dlg.ShowDialog() == DialogResult.OK)
             {
-                account = dlg.getAccount();
+                account = dlg.GetAccount();
                 if (account != null)
                 {
-                    mManager.AddAccount(account);
+                    _accountManager.AddAccount(account);
                     UpdateList();
                 }
             }
@@ -70,14 +70,14 @@ namespace FeliCa2Money
             var idx = listBox.SelectedIndex;
             if (idx >= 0)
             {
-                var account = mManager.GetAt(idx);
-                var dlg = new CsvAccountEditDialog(mManager, account);
+                var account = _accountManager.GetAt(idx);
+                var dlg = new CsvAccountEditDialog(_accountManager, account);
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
-                    account = dlg.getAccount();
+                    account = dlg.GetAccount();
                     if (account != null)
                     {
-                        mManager.ModifyAccount(account);
+                        _accountManager.ModifyAccount(account);
                         UpdateList();
                     }
                 }
@@ -93,8 +93,8 @@ namespace FeliCa2Money
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question)
                     == DialogResult.Yes)
                 {
-                    CsvAccount account = mManager.GetAt(idx);
-                    mManager.DeleteAccount(account);
+                    CsvAccount account = _accountManager.GetAt(idx);
+                    _accountManager.DeleteAccount(account);
                     UpdateList();
                 }
             }
@@ -106,7 +106,7 @@ namespace FeliCa2Money
             var idx = listBox.SelectedIndex;
             if (idx > 0)
             {
-                mManager.UpAccount(idx);
+                _accountManager.UpAccount(idx);
                 UpdateList();
                 listBox.SelectedIndex = idx - 1;
             }
@@ -116,9 +116,9 @@ namespace FeliCa2Money
         {
 
             var idx = listBox.SelectedIndex;
-            if (idx < mManager.Count() - 1)
+            if (idx < _accountManager.Count() - 1)
             {
-                mManager.DownAccount(idx);
+                _accountManager.DownAccount(idx);
                 UpdateList();
                 listBox.SelectedIndex = idx + 1;
             }

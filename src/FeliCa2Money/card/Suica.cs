@@ -66,7 +66,7 @@ namespace FeliCa2Money
             int region = data[15];      // リージョン
 
             // 処理
-            t.Desc = procType(proc);
+            t.Desc = ProcType(proc);
 
             // 残高
             t.Balance = balance;
@@ -100,8 +100,8 @@ namespace FeliCa2Money
 
             switch (ctype)
             {
-                case CT_SHOP:
-                case CT_VEND:
+                case CtShop:
+                case CtVend:
                     // 物販/自販機
                     out_area = Properties.Settings.Default.ShopAreaPriority;
 
@@ -118,7 +118,7 @@ namespace FeliCa2Money
                     }
                     break;
 
-                case CT_CAR:
+                case CtCar:
                     // 車載端末(バス)
                     out_line = Read2B(data, 6);
                     out_sta = Read2B(data, 8);
@@ -148,8 +148,8 @@ namespace FeliCa2Money
 
             switch (ctype) 
             {
-                case CT_SHOP:
-                case CT_VEND:
+                case CtShop:
+                case CtVend:
                     if (out_name != null)
                     {
                         // "物販" の場合は、"物販" は消して店舗名だけにする
@@ -173,7 +173,7 @@ namespace FeliCa2Money
                     }
                     break;
 
-                case CT_CAR:
+                case CtCar:
                     if (out_name != null)
                     {
                         // 適用にバス会社名、備考に停留所名を入れる
@@ -236,17 +236,17 @@ namespace FeliCa2Money
             }
         }
 
-        private const int CT_SHOP = 199;  // 物販端末
-        private const int CT_VEND = 200;  // 自販機
-        private const int CT_CAR = 5;   // 車載端末(バス)
+        private const int CtShop = 199;  // 物販端末
+        private const int CtVend = 200;  // 自販機
+        private const int CtCar = 5;   // 車載端末(バス)
 
         // 端末種文字列を返す
         private string ConsoleType(int ctype)
         {
             switch (ctype) {
-            case CT_SHOP: return "物販端末";
-            case CT_VEND: return "自販機";
-            case CT_CAR: return "車載端末";
+            case CtShop: return "物販端末";
+            case CtVend: return "自販機";
+            case CtCar: return "車載端末";
             case 3: return "清算機";
             case 4: return "携帯型端末";
             case 8: return "券売機";
@@ -270,7 +270,7 @@ namespace FeliCa2Money
         }
 
         // 処理種別文字列を返す
-        private string procType(int proc)
+        private string ProcType(int proc)
         {
             switch (proc) {
             case 1: return "運賃";

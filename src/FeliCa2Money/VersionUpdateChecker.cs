@@ -8,7 +8,7 @@ namespace FeliCa2Money
 {
     class VersionUpdateChecker : UpdateChecker
     {
-        private const string SITE_URL = "http://felica2money.tmurakam.org";
+        private const string SiteUrl = "http://felica2money.tmurakam.org";
 
         protected override string GetRemoteUrl()
         {
@@ -67,7 +67,7 @@ namespace FeliCa2Money
             {
                 try
                 {
-                    System.Diagnostics.Process.Start(SITE_URL);
+                    System.Diagnostics.Process.Start(SiteUrl);
 
                     //String helpFile = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Felica2Money.html";
                     //System.Diagnostics.Process.Start(helpFile);

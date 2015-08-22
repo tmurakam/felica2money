@@ -15,12 +15,12 @@ namespace FeliCa2Money
         /// <summary>
         /// チェック間隔 (HOURS)
         /// </summary>
-        protected const int UPDATE_CHECK_INTERVAL_HOURS = 7*24;
+        protected const int UpdateCheckIntervalHours = 7*24;
 
         /// <summary>
         /// チェックリトライ間隔 (HOURS)
         /// </summary>
-        protected const int UPDATE_CHECK_RETRY_HOURS = 6;
+        protected const int UpdateCheckRetryHours = 6;
 
         // チェックする URL を返す
         protected abstract string GetRemoteUrl();
@@ -71,7 +71,7 @@ namespace FeliCa2Money
             var diff2 = now.Subtract(LastUpdateCheck);
             LastUpdateCheck = now;
 
-            if (diff1.TotalHours > UPDATE_CHECK_INTERVAL_HOURS && diff2.TotalHours > UPDATE_CHECK_RETRY_HOURS)
+            if (diff1.TotalHours > UpdateCheckIntervalHours && diff2.TotalHours > UpdateCheckRetryHours)
             {
                 return true;
             }

@@ -28,22 +28,22 @@ namespace FeliCa2Money
 {
     public partial class CsvAccountEditDialog : Form
     {
-        private CsvAccountManager mAccountManager;
+        private CsvAccountManager _accountManager;
 
-        private CsvAccount mAccount;
+        private readonly CsvAccount _account;
 
         // CSV 変換ルールセット
-        private CsvRules mRules;
+        private readonly CsvRules _csvRules;
 
         // コンストラクタ
         public CsvAccountEditDialog(CsvAccountManager manager, CsvAccount account)
         {
             InitializeComponent();
 
-            mAccountManager = manager;
-            mAccount = account;
+            _accountManager = manager;
+            _account = account;
 
-            mRules = manager.GetRules();
+            _csvRules = manager.GetRules();
 
             textBranchId.Text = account.BranchId;
             if (textBranchId.Text == "0")
@@ -53,14 +53,14 @@ namespace FeliCa2Money
             textAccountId.Text = account.AccountId;
             textAccountName.Text = account.AccountName;
 
-            updateList();
+            UpdateList();
         }
 
-        private void updateList() 
+        private void UpdateList() 
         {
             // リストボックスにルール名をリストする
             listBox.Items.Clear();
-            var names = mRules.Names();
+            var names = _csvRules.Names();
 
             foreach (var name in names)
             {
@@ -69,9 +69,9 @@ namespace FeliCa2Money
 
             // 該当する金融機関を選択状態にする
             var i = 0;
-            foreach (var rule in mRules)
+            foreach (var rule in _csvRules)
             {
-                if (rule.Ident == mAccount.Ident)
+                if (rule.Ident == _account.Ident)
                 {
                     listBox.SelectedIndex = i;
                     break;
@@ -80,7 +80,7 @@ namespace FeliCa2Money
             }
         }
 
-        public CsvAccount getAccount()
+        public CsvAccount GetAccount()
         {
             var idx = listBox.SelectedIndex;
             if (idx < 0)
@@ -89,26 +89,26 @@ namespace FeliCa2Money
                 return null;
             }
 
-            mAccount.Ident = mRules.GetAt(idx).Ident;
-            mAccount.BranchId = textBranchId.Text;
-            mAccount.AccountId = textAccountId.Text;
-            mAccount.AccountName = textAccountName.Text;
+            _account.Ident = _csvRules.GetAt(idx).Ident;
+            _account.BranchId = textBranchId.Text;
+            _account.AccountId = textAccountId.Text;
+            _account.AccountName = textAccountName.Text;
 
-            return mAccount;
+            return _account;
         }
 
-        private void onUpdateCsvRules(object sender, EventArgs e)
+        private void OnUpdateCsvRules(object sender, EventArgs e)
         {
             var updater = new CsvRulesUpdater();
 
             if (updater.CheckUpdate(true))
             {
-                mRules.LoadAllRules();
-                updateList();
+                _csvRules.LoadAllRules();
+                UpdateList();
             }
         }
 
-        private void onOkClick(object sender, EventArgs e)
+        private void OnOkClick(object sender, EventArgs e)
         {
             if (listBox.SelectedIndex < 0)
             {

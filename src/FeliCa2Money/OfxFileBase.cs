@@ -36,16 +36,14 @@ namespace FeliCa2Money
     /// </summary>
     abstract public class OfxFile
     {
-        private const int ERROR_NO_ASSOCIATION = 1155; // Win32 エラーコード
-
-        private string mOfxFilePath;
+        private const int ErrorNoAssociation = 1155; // Win32 エラーコード
 
         /// <summary>
         /// OFXファイルインスタンス生成
         /// </summary>
         /// <param name="version">バージョン</param>
         /// <returns>OfxFile</returns>
-        public static OfxFile newOfxFile(int version)
+        public static OfxFile NewOfxFile(int version)
         {
             switch (version)
             {
@@ -60,15 +58,11 @@ namespace FeliCa2Money
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        public OfxFile()
+        protected OfxFile()
         {
         }
 
-        public string ofxFilePath
-        {
-            get { return mOfxFilePath; }
-            set { mOfxFilePath = value; }
-        }
+        public string OfxFilePath { get; set; }
 
         /// <summary>
         /// OFXファイル書き出し
@@ -82,8 +76,10 @@ namespace FeliCa2Money
         /// <param name="account">アカウント</param>
         public void WriteFile(Account account)
         {
-            List<Account> accounts = new List<Account>();
-            accounts.Add(account);
+            var accounts = new List<Account>
+            {
+                account
+            };
             WriteFile(accounts);
         }
 
@@ -97,11 +93,11 @@ namespace FeliCa2Money
             try
             {
                 // throw new System.ComponentModel.Win32Exception(1155); // for test
-                System.Diagnostics.Process.Start(mOfxFilePath);
+                System.Diagnostics.Process.Start(OfxFilePath);
             }
             catch (System.ComponentModel.Win32Exception ex)
             {
-                if (ex.NativeErrorCode == ERROR_NO_ASSOCIATION)
+                if (ex.NativeErrorCode == ErrorNoAssociation)
                 {
                     errorMessage = Properties.Resources.NoOfxAssociation;
                 }
