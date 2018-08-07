@@ -66,7 +66,7 @@ namespace FeliCa2Money
             string line;
             while ((line = mSr.ReadLine()) != null)
             {
-                if (line == mRule.firstLine) return;
+                if (mRule.firstLineCheck(line)) return;
             }
 
             // 先頭行なし

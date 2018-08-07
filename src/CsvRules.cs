@@ -149,7 +149,7 @@ namespace FeliCa2Money
         {
             foreach (CsvRule rule in mRules)
             {
-                if (rule.firstLine == firstLine)
+                if (rule.firstLineCheck(firstLine))
                 {
                     return rule;
                 }
