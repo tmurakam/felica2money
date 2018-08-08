@@ -239,7 +239,7 @@
     <Ident>RakutenCard</Ident>
     <Name>楽天カード</Name>
 	<FirstLine>"利用日","利用店名・商品名","利用者","支払方法","利用金額","支払手数料","支払総額",...</FirstLine>
-     <Format>Date,Desc,Dummy,Dummy,Dummy,Dummy,Outgo,Dummy,Dummy,Dummy</Format>
+     <Format>Date,Desc,Dummy,Dummy,Outgo,Dummy,Dummy,Dummy,Dummy,Dummy</Format>
     <Order>Ascent</Order>
   </Rule>
 
