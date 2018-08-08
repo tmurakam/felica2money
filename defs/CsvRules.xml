@@ -304,6 +304,14 @@
     <Order>Ascent</Order>
   </Rule>
 
+  <Rule>
+    <Ident>AEONCard</Ident>
+    <Name>イオンカード</Name>
+    <FirstLine>ご利用日,ご利用者,ご利用先,支払い方法,ご利用金額,備考,,</FirstLine>
+    <Format>Date,Dummy,Desc,Dummy,Outgo,Dummy,Dummy,Dummy</Format>
+    <Order>Ascent</Order>
+  </Rule>
+
   <!-- その他 -->
   <Rule>
     <Ident>NishiChugoku</Ident>
