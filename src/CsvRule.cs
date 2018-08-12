@@ -37,6 +37,7 @@ namespace FeliCa2Money
         private string mBankId;      // 銀行ID
         private string mName;     // 銀行名
         private string mFirstLine = null; // １行目
+        private bool mIsmFirstLinePartialComp = false; // Length
         private SortOrder mSortOrder; // ソートオーダー
         private bool mIsTSV = false; // TSV かどうか
 
@@ -63,7 +64,32 @@ namespace FeliCa2Money
         public string firstLine
         {
             get { return mFirstLine; }
-            set { mFirstLine = value; }
+            set
+            {
+                string abbreb_key = "...";
+                if (value.EndsWith(abbreb_key) == true){
+                    if (value.Length > abbreb_key.Length){
+                        mIsmFirstLinePartialComp = true;
+                        mFirstLine = value.Substring(0, value.Length - abbreb_key.Length);
+                    }
+                    else{
+                        // throw "error";
+                    }
+                }
+                else {
+                    mFirstLine = value;
+                }
+            }
+        }
+        public bool firstLineCheck(string line)
+        {
+            if (mIsmFirstLinePartialComp){
+                return line.StartsWith(mFirstLine);
+            }
+            if(line == firstLine){
+                return true;
+            }
+            return false;
         }
         public string order
         {

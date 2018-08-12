@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CsvRules>
-  <Version>20140201.01</Version>
+  <Version>20180803.01</Version>
   <Rule>
     <Ident>UltrasoftMoneyLink</Ident>
     <Name>Ultrasoft MoneyLink (Excel⇒CSV書き出し)</Name>
@@ -246,8 +246,8 @@
   <Rule>
     <Ident>RakutenCard</Ident>
     <Name>楽天カード</Name>
-    <FirstLine>"利用日","新規サイン","利用者","利用店名・商品名","支払方法","利用金額","支払手数料","支払総額","支払回数/何回目","当月請求額","翌月繰越残高"</FirstLine>
-    <Format>Date,Dummy,Dummy,Desc,Dummy,Outgo,Dummy,Dummy,Dummy,Dummy,Dummy</Format>
+	<FirstLine>"利用日","利用店名・商品名","利用者","支払方法","利用金額","支払手数料","支払総額",...</FirstLine>
+     <Format>Date,Desc,Dummy,Dummy,Outgo,Dummy,Dummy,Dummy,Dummy,Dummy</Format>
     <Order>Ascent</Order>
   </Rule>
 
@@ -309,6 +309,14 @@
     <Ident>Starlex</Ident>
     <Name>シェルスターレックスカード</Name>
     <Format>Dummy,Dummy,Desc,Date,Dummy,Dummy,Dummy,Dummy,Dummy,Dummy,Outgo</Format>
+    <Order>Ascent</Order>
+  </Rule>
+
+  <Rule>
+    <Ident>AEONCard</Ident>
+    <Name>イオンカード</Name>
+    <FirstLine>ご利用日,ご利用者,ご利用先,支払い方法,ご利用金額,備考,,</FirstLine>
+    <Format>Date,Dummy,Desc,Dummy,Outgo,Dummy,Dummy,Dummy</Format>
     <Order>Ascent</Order>
   </Rule>
 
