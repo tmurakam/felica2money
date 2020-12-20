@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CsvRules>
-  <Version>20180803.01</Version>
+  <Version>20201217.03</Version>
   <Rule>
     <Ident>UltrasoftMoneyLink</Ident>
     <Name>Ultrasoft MoneyLink (Excel⇒CSV書き出し)</Name>
@@ -148,14 +148,6 @@
     <BankId>0138</BankId>
     <FirstLine>"取扱日付","お支払金額","お預り金額","取引区分","残高","摘要"</FirstLine>
     <Format>Date,Outgo,Income,Dummy,Balance,Desc</Format>
-    <Order>Ascent</Order>
-  </Rule>
-
-  <Rule>
-    <Ident></Ident>
-    <Name>三井住友銀行</Name>
-    <FirstLine>"年月日（和暦）","お引出し","お預入れ","お取り扱い内容","残高"</FirstLine>
-    <Format>Date,Outgo,Income,Desc,Balance</Format>
     <Order>Ascent</Order>
   </Rule>
 
@@ -313,10 +305,26 @@
   </Rule>
 
   <Rule>
+    <Ident>YJCard</Ident>
+    <Name>YJ Card</Name>
+    <FirstLine>"利用日","利用店名・商品名","利用者","支払区分","利用金額","手数料","支払総額","当月支払金額","翌月以降繰越金額"</FirstLine>
+    <Format>Date,Desc,Dummy,Dummy,Outgo,Dummy,Dummy,Dummy,Dummy</Format>
+    <Order>Ascent</Order>
+  </Rule>
+
+  <Rule>
     <Ident>AEONCard</Ident>
     <Name>イオンカード</Name>
-    <FirstLine>ご利用日,ご利用者,ご利用先,支払い方法,ご利用金額,備考,,</FirstLine>
-    <Format>Date,Dummy,Desc,Dummy,Outgo,Dummy,Dummy,Dummy</Format>
+    <FirstLine>ご利用日,利用者区分,ご利用先,支払方法,,,ご利用金額,備考,</FirstLine>
+    <Format>Date,Dummy,Desc,Dummy,Dummy,Dummy,Outgo,Dummy,</Format>
+    <Order>Ascent</Order>
+  </Rule>
+
+  <Rule>
+    <Ident>AEONBank</Ident>
+    <Name>イオン銀行</Name>
+    <FirstLine>"日付","お取引内容","お引出し","お預入れ","残高（お借入れはマイナス表示）"</FirstLine>
+    <Format>Date,Desc,Outgo,Income,Balance</Format>
     <Order>Ascent</Order>
   </Rule>
 
