@@ -66,7 +66,7 @@
     <Ident>ebank</Ident>
     <Name>楽天銀行</Name>
     <BankId>0036</BankId>
-    <FirstLine>取引日,入出金(円),残高(円),入出金先内容</FirstLine>
+    <FirstLine>取引日,入出金(円),取引後残高(円),入出金内容</FirstLine>
     <Format>Date,Income,Balance,Desc</Format>
     <Order>Ascent</Order>
   </Rule>
